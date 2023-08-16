@@ -1,25 +1,25 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.model;
 
-
 import lombok.Data;
+import java.io.Serializable;
 
 @Data
+public class Recursos implements Serializable {
 
-public class Recursos {
-
-    int	IdRecurso;
-    String	Nombre;
-    String	Descripción;
-    int	CapacidadMáxima;
-    Float PrecioUnitario;
-    int	IdSede;
-    String	ImagenURL;
-    String ImagenUrl01;
-    String	ImagenUrl02;
-    String	ImagenUrl03;
-    String	ImagenUrl04;
-    String TipoDeRecurso;
-    String EstadoRecurso;
+    private int	IdRecurso;
+    private String	Nombre;
+    private String	Descripción;
+    private int	CapacidadMáxima;
+    private Float PrecioUnitario;
+    private int	IdSede;
+    private String	ImagenURL;
+    private String ImagenUrl01;
+    private String	ImagenUrl02;
+    private String	ImagenUrl03;
+    private String	ImagenUrl04;
+    private String TipoDeRecurso;
+    private String EstadoRecurso;
+    private int categoria_id;
 
 
 }

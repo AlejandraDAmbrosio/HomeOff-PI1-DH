@@ -20,19 +20,19 @@ public class RecursosRepository implements IRecursosRepository {
 
     @Override
     public int save(Recursos recursos) {
-        String SQL ="INSERT INTO offi_recursos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        return jdbcTemplate.update(SQL, new Object[]{ recursos.getIdRecurso(), recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getTipoDeRecurso(), recursos.getEstadoRecurso()});
+        String SQL ="INSERT INTO offi_recursos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(SQL, recursos.getIdRecurso(), recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getTipoDeRecurso(), recursos.getEstadoRecurso(), recursos.getCategoria_id());
     }
 
     @Override
     public int update(Recursos recursos) {
-        String SQL = "UPDATE offi_recursos SET Nombre=?, Descripción=?, CapacidadMáxima=?, PrecioUnitario=?, IdSede=?, ImagenURL=?, ImagenUrl01=?, ImagenUrl02=?, ImagenUrl03=?, ImagenUrl04=?, TipoDeRecurso=?, EstadoRecurso=? WHERE IdRecurso =?";
-        return jdbcTemplate.update(SQL, new Object[]{recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getTipoDeRecurso(), recursos.getEstadoRecurso(), recursos.getIdRecurso()});
+        String SQL = "UPDATE offi_recursos SET Nombre=?, Descripción=?, CapacidadMáxima=?, PrecioUnitario=?, IdSede=?, ImagenURL=?, ImagenUrl01=?, ImagenUrl02=?, ImagenUrl03=?, ImagenUrl04=?, TipoDeRecurso=?, EstadoRecurso=?, categoria_id=? WHERE IdRecurso =?";
+        return jdbcTemplate.update(SQL, recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getTipoDeRecurso(), recursos.getEstadoRecurso(), recursos.getCategoria_id(), recursos.getIdRecurso());
     }
 
     @Override
     public int deleteById(int id) {
         String SQL = "DELETE FROM offi_recursos WHERE IdRecurso =?";
-        return jdbcTemplate.update(SQL, new Object[]{id});
+        return jdbcTemplate.update(SQL, id);
     }
 }
