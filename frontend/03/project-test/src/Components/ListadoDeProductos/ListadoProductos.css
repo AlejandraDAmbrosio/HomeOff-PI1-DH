@@ -3,7 +3,7 @@
 /* Estilos para pantallas grandes */
 .grid-container-listado-home {
   /* margin: auto; */
-  margin-top: 1rem;
+  margin-top: 0rem;
   display: grid;
   grid-template-columns: repeat(
     2,
@@ -21,13 +21,9 @@
   /* max-width: 1900px; */
 }
 
-
 @media (max-width: 900px) {
   .grid-container-listado-home {
-    grid-template-columns: repeat(
-      1,
-      90%
-    ); 
+    grid-template-columns: repeat(1, 90%);
     margin-left: 15%;
   }
 }
@@ -39,8 +35,6 @@
     margin-left: 10%;
   }
 }
-
-
 
 /* Estilos para pantallas pequeñas */
 @media (max-width: 380px) {
@@ -71,14 +65,14 @@
   color: #717171;
 }
 
-.item-grid {
+.item-grid-listado {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex: 1;
   margin-bottom: 2rem;
   width: 100%;
-  border: 1px solid rebeccapurple;
+ 
 }
 
 .pagination {

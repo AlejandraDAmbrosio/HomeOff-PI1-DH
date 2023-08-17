@@ -8,8 +8,7 @@
   border-radius: 11px 11px 11px 11px;
   -webkit-border-radius: 11px 11px 11px 11px;
   -moz-border-radius: 11px 11px 11px 11px;
-  /* border: 1px solid red; */
-  /* border: 1px solid var(--colorGrey4); */
+  margin-bottom: 1rem;
   box-shadow: var(--BShadow);
   border-radius: var(--bRadiusButton);
   transition: color 0.2s, transform 0.2s;

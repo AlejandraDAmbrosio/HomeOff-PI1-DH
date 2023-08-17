@@ -53,7 +53,7 @@ const ListadoProductos = ({ CantidadCards }) => {
         {paginatedProducts.length ? (
           paginatedProducts[currentPage].map((producto, idRecurso) => (
             <CardProducto
-              className=".item-grid"
+              className=".item-grid-listado"
               key={producto.idRecurso}
               title={producto.nombre}
               descripcion={producto.descripción}
