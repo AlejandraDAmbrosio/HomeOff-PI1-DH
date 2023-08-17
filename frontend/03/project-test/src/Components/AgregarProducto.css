@@ -1,0 +1,96 @@
+.division-form-preview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: auto;
+  padding-top: 12rem;
+  max-width: 1000px;
+  margin: auto auto;
+  gap: 3rem;
+}
+
+/* .card-simulada {
+    width: 600px;
+} */
+
+.segmento-preview {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  height: auto;
+}
+
+.titulo-preview {
+  font-size: var(--fsizeT);
+  color: var(--blue);
+}
+
+
+.pagina-formulario-alta-producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    height: auto;
+    /* padding-top: 12rem; */
+    padding-bottom: 2rem;
+    margin: auto auto;
+  
+  }
+    .titulo-form-inicio-sesion {
+      font-size: 30px;
+      color:var(--blue);
+    }
+  
+    .formularioAgregarProducto {
+      
+    }
+  
+    .campo-anotacion {
+      margin: 1rem 0rem;
+    }
+  
+    .anotacion {
+      color:var(-colorGrey)
+    }
+  
+   
+  .campo-formulario {
+    border-radius: 10px 10px 10px 10px;
+    width: 100%;
+    height: 35px;
+    background-color:white;
+   
+  }
+  
+    .boton-acceso-agregar-producto {
+
+      /* text-align: center; */
+      /* line-height: 30px; */
+      /* background-color:  rgb(3, 141, 165); */
+      /* width: 340px;
+      height: 30px; */
+      /* border-radius: 10px 10px 10px 10px;
+      color: white; */
+      justify-content: space-around;
+      display: flex;
+
+    }
+  
+    .acceso-cuenta-o-usuarionuevo {
+      color:  rgb(3, 141, 165);
+      font-weight: 700;
+      width: 340px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    
+  
+   

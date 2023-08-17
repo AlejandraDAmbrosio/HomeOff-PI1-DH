@@ -1,0 +1,96 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+/* Estilos para pantallas grandes */
+.grid-container-listado-home {
+  /* margin: auto; */
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    45%
+  ); /* Dos columnas con ancho del 45% de la página */
+  /* grid-auto-rows: minmax(100px, auto);  */
+  grid-template-rows: repeat(
+    5,
+    minmax(100px, auto)
+  ); /* Máximo de 5 filas con altura mínima de 100px, se ajusta según el contenido */
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2rem;
+  /* max-width: 1900px; */
+}
+
+
+@media (max-width: 900px) {
+  .grid-container-listado-home {
+    grid-template-columns: repeat(
+      1,
+      90%
+    ); 
+    margin-left: 15%;
+  }
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 600px) {
+  .grid-container-listado-home {
+    grid-template-columns: repeat(1, 100%);
+    margin-left: 10%;
+  }
+}
+
+
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 380px) {
+  .grid-container-listado-home {
+    grid-template-columns: repeat(1, 100%);
+  }
+}
+
+@media (max-width: 380px) {
+  .grid-container-listado-home {
+    margin-left: 15%;
+  }
+}
+
+.segmento-listado-productos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  z-index: 0;
+}
+
+.txt-titulo-listado-productos {
+  font-size: 20px;
+  color: #717171;
+}
+
+.item-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  margin-bottom: 2rem;
+  width: 100%;
+  border: 1px solid rebeccapurple;
+}
+
+.pagination {
+  margin: 3rem;
+}
+
+/* .ImgCard-producto {
+  max-width: 100%;
+  max-height: 100%;
+  width: 700px;
+  height: 400px;
+  border-radius: 10px 10px 10px 10px;
+  margin-right: 0px;
+  object-fit: cover; 
+} */

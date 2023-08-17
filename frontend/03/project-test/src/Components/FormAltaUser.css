@@ -1,0 +1,155 @@
+.pagina-formulario-alta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 350px;
+  /* height: auto; */
+  padding-top: 12rem;
+  padding-bottom: 2rem;
+  margin: auto auto;
+}
+.formularioAltaUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.form-control {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.form-control label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.error-form {
+  font-size: var(--fsizeS);
+  color: #cc2e2e;
+  width: 100%;
+}
+
+.campo-formulario {
+  background-color: white;
+}
+
+.titulo-form-inicio-sesion {
+  font-size: 30px;
+  color: rgb(3, 141, 165);
+}
+
+.formularioAltaUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* .campo-anotacion {
+    margin: 1rem 0rem;
+  } */
+.form-control label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.form-control input {
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  display: block;
+  font-size: var(--fsizeCat);
+  padding: 10px;
+  width: 350px;
+}
+
+/* .anotacion {
+    color: #717171;
+  } */
+/* 
+  .campo-formulario {
+    border-radius: 10px 10px 10px 10px;
+    width: 340px;
+    height: 30px;
+    background-color: #dfdfdf;
+   
+  } */
+/* 
+  .boton-acceso {
+
+    text-align: center;
+    line-height: 30px;
+    background-color:  rgb(3, 141, 165);
+    width: 340px;
+    height: 30px;
+    border-radius: 10px 10px 10px 10px;
+    color: white;
+  } */
+
+.acceso-cuenta-o-usuarionuevo {
+  color: rgb(3, 141, 165);
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fsizeS);
+}
+
+/* ---------------------------- */
+ @import url("https://fonts.googleapis.com/css?family=Roboto:100"); 
+
+.boton-alta-user {
+  background-color: white;
+  border: 1px solid var(--colorGrey4);
+  box-shadow: var(--BShadow);
+  border-radius: var(--bRadiusButton);
+  color: var(--colorGrey1);
+   font-family: "Roboto", sans-serif; 
+  font-size: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  max-height: 1.5rem;
+  max-width: 200px;
+  overflow: hidden;
+  line-height: 2rem;
+  padding: 1rem 2rem;
+  position: relative;
+  transition: 0.3s transform ease;
+  will-change: transform;
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.boton-alta-user::after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-shadow: none;
+  transform: translate(-100%, 0) rotate(1deg);
+  transform-origin: top;
+  transition: 0.15s transform ease;
+  will-change: transform;
+  z-index: -1;
+}
+
+.boton-alta-user:hover::after {
+  transform: translate(0, 0);
+}
+
+.boton-alta-user:hover {
+  border: 1px solid var(--BGrey);
+
+  transform: scale(1.009);
+    box-shadow: var(--BShadowD);
+}
