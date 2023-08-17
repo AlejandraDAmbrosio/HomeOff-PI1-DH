@@ -35,4 +35,7 @@ public class RecursosRepository implements IRecursosRepository {
         String SQL = "DELETE FROM offi_recursos WHERE IdRecurso =?";
         return jdbcTemplate.update(SQL, id);
     }
+
+
+
 }

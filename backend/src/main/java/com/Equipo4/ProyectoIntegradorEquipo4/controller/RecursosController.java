@@ -12,7 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/recursos")
-@CrossOrigin("*")
+//@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class RecursosController {
     @Autowired
     private IRecursosService iRecursosService;
@@ -21,6 +22,8 @@ public class RecursosController {
         var result=iRecursosService.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
     @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody Recursos recursos){
         ServiceResponse serviceResponse = new ServiceResponse();
