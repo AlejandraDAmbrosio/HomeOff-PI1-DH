@@ -237,8 +237,8 @@ const AgregarProducto = () => {
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
   
-    const existe = nombreExiste(nuevoProducto.nombre, jsonData);
-    setNombreYaExiste(existe);
+    // const existe = nombreExiste(nuevoProducto.nombre, jsonData);
+    setNombreYaExiste(nombreExiste(nuevoProducto.nombre, jsonData));
 
 
 
