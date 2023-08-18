@@ -92,5 +92,7 @@
       margin-top: 2rem;
     }
     
-  
+  .error-nombre-existe {
+    color: red;
+  }
    

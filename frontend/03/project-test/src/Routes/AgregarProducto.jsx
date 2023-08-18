@@ -6,22 +6,28 @@ import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/Genericos/CardProductoSimulado.css";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 
+function nombreExiste(nombre, data) {
+  return data.find((objeto) => objeto.nombre === nombre) !== undefined;
+}
+// const nombreYaExiste = nombreExiste(nombreBuscado, jsonData);
+
 const AgregarProducto = () => {
   //// Variables y constantes ////
+
+  
   const urlBase = "http://localhost:8080/api/v1/recursos/save";
   const jwt = localStorage.getItem("jwt");
   const { productosBKLista, setProductosBKLista, getDatosBKLista } =
     useContext(ContextGlobal);
+    const jsonData = productosBKLista;
+
 
   const [showPreview, setShowPreview] = useState(false);
   const [selectedServiceIds, setSelectedServiceIds] = useState([]);
   const MAX_SELECTED_SERVICES = 5;
 
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
-  const [sedeValida, setSedeValida] = useState(true);
-
-  useState(true);
-
+  const [nombreYaExiste, setNombreYaExiste] = useState(false); 
   /////// Preparar obbjeto para enviar al servidor    ///////
 
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -143,40 +149,6 @@ const AgregarProducto = () => {
     },
   ];
 
-  const serviciosArray = [
-    {
-      id: 1,
-      tipo: "Wifi",
-    },
-    {
-      id: 2,
-      tipo: "Internet de alta velocidad",
-    },
-    {
-      id: 3,
-      tipo: "Impresora y escáner",
-    },
-    {
-      id: 4,
-      tipo: "Terraza",
-    },
-    {
-      id: 5,
-      tipo: "Sala de juegos",
-    },
-    {
-      id: 6,
-      tipo: "Estacionamiento",
-    },
-    {
-      id: 7,
-      tipo: "Locker",
-    },
-    {
-      id: 8,
-      tipo: "Seguridad privada",
-    },
-  ];
 
   const [form, setForm] = useState(false);
 
@@ -184,6 +156,7 @@ const AgregarProducto = () => {
 
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
+    setNombreYaExiste(false);
   };
 
   const onChangeDescripcion = (e) => {
@@ -203,9 +176,9 @@ const AgregarProducto = () => {
 
   const validarPrecio = (n) => {
     if (isNaN(n)) {
-      mensajeErrorAltaProd = "Por favor, ingrese un numero";
+      setMensajeErrorAltaProd( "Por favor, ingrese un numero");
     } else if (n == 0) {
-      mensajeErrorAltaProd = "Por favor, ingrese un numero mayor a 0";
+      setMensajeErrorAltaProd("Por favor, ingrese un numero mayor a 0");
     } else {
     }
     return true;
@@ -259,15 +232,17 @@ const AgregarProducto = () => {
     return regex.test(n);
   };
 
-  // const validarFormulario = () => {
-  //   validarNombreProducto(nuevoProducto.nombre);
-  // };
-
+  
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
+  
+    const existe = nombreExiste(nuevoProducto.nombre, jsonData);
+    setNombreYaExiste(existe);
 
-    if (validarNombreProducto()) {
+
+
+    if (validarNombreProducto(nuevoProducto.nombre)) {
       setForm(true);
       // setShowPreview(true);
       // console.log(form);
@@ -375,6 +350,14 @@ const AgregarProducto = () => {
                 onChange={onChangeNombre}
                 required
               />
+                {nombreYaExiste ? (
+                <p className="error-nombre-existe">
+                  Ya existe un producto con el mismo nombre. Por favor, indique
+                  un nuevo nombre.
+                </p>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="campo-anotacion">
@@ -582,7 +565,6 @@ const AgregarProducto = () => {
           descripcion={nuevoProducto.descripción}
           url={nuevoProducto.imagenURL}
           precio={nuevoProducto.precioUnitario}
-          // tipoDeRecurso={nuevoProducto.id_Tipo_Espacio}
         />
       </div>
     </div>
