@@ -28,7 +28,6 @@ const AgregarProducto = () => {
     idSede: 1,
     categoria_id: 1,
     id_Tipo_Espacio: 1,
-    idSede: 0,
     imagenUrl01:
       "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
     imagenUrl02: "",
@@ -53,36 +52,10 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: false,
   });
 
-  const tieneCafeteriaValue = servicios.tieneCafeteria ? 1 : 0;
-  const tieneWifiValue = servicios.tieneWifi ? 1 : 0;
-  const tieneLokkerValue = servicios.tieneLokker ? 1 : 0;
-  const tieneFotocopiadoraImpresionValue = servicios.tieneFotocopiadoraImpresion
-    ? 1
-    : 0;
-  const tieneEspacioDescansoValue = servicios.tieneEspacioDescanso ? 1 : 0;
-  const tieneEstacionCafeAguaAromaticaValue =
-    servicios.tieneEstacionCafeAguaAromatica ? 1 : 0;
+
 
   ///////////////Envio de datos
 
-  // const enviarDatos = async () => {
-  //   try {
-  //     const jsonData = JSON.stringify(nuevoProducto); // Convertir el objeto a JSON
-  //     const response = await axios.post(
-  //       "http://localhost:8080/api/v1/recursos/save",
-  //       jsonData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Respuesta:", response.data);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
 
   /////////////////////////////
 
@@ -122,13 +95,18 @@ const AgregarProducto = () => {
     },
     {
       id: 4,
-      tipo: "Oficina House",
-      valor: "SALAFLEXIBLE",
+      tipo: "Auditorio",
+      valor: "Auditorio",
     },
     {
       id: 5,
-      tipo: "Oficina Abierta",
-      valor: "OFICINAPRIVADA",
+      tipo: "Oficina Set",
+      valor: "Oficina Set",
+    },
+    {
+      id: 6,
+      tipo: "Area de aprendizaje",
+      valor: "Area de aprendizaje",
     },
   ];
 
@@ -222,24 +200,12 @@ const AgregarProducto = () => {
     setNuevoProducto({ ...nuevoProducto, idSede: e.target.value });
   };
 
-  const onChangeFoto = (e) => {
-    const fotos = e.target.files; // Obtener los archivos seleccionados
-    const fotosArray = Array.from(fotos); // Convertir FileList en un array
-    // Crear un objeto con las URLs temporales de las fotos seleccionadas
-    const fotosTempUrls = fotosArray.map((foto) => URL.createObjectURL(foto));
-
-    setNuevoProducto({
-      ...nuevoProducto,
-      imagenURL: fotosTempUrls[0] || "",
-      imagenUrl01: fotosTempUrls[1] || "",
-      imagenUrl02: fotosTempUrls[2] || "",
-      imagenUrl03: fotosTempUrls[3] || "",
-      imagenUrl04: fotosTempUrls[4] || "",
-    });
+  const onChangeTipoRecurso = (e) => {
+    setNuevoProducto({ ...nuevoProducto, categoria_id: e.target.value });
   };
 
-  const onChangeTipoRecurso = (e) => {
-    setNuevoProducto({ ...nuevoProducto, tipoDeRecurso: e.target.value });
+  const onChangeAbiertoCerrado = (e) => {
+    setNuevoProducto({...nuevoProducto, id_Tipo_Espacio: e.target.value});
   };
 
   const onChangeDisponibilidad = (e) => {
@@ -256,19 +222,21 @@ const AgregarProducto = () => {
     }));
   };
 
-  // const onChangeServicios = (e) => {
-  //   const selectedServiceId = e.target.value;
+  const onChangeFoto = (e) => {
+    const fotos = e.target.files; // Obtener los archivos seleccionados
+    const fotosArray = Array.from(fotos); // Convertir FileList en un array
+    // Crear un objeto con las URLs temporales de las fotos seleccionadas
+    const fotosTempUrls = fotosArray.map((foto) => URL.createObjectURL(foto));
 
-  //   if (selectedServiceIds.includes(selectedServiceId)) {
-  //     setSelectedServiceIds(
-  //       selectedServiceIds.filter((id) => id !== selectedServiceId)
-  //     );
-  //   } else {
-  //     if (selectedServiceIds.length < MAX_SELECTED_SERVICES) {
-  //       setSelectedServiceIds([...selectedServiceIds, selectedServiceId]);
-  //     }
-  //   }
-  // };
+    setNuevoProducto({
+      ...nuevoProducto,
+      imagenURL: fotosTempUrls[0] || "",
+      imagenUrl01: fotosTempUrls[1] || "",
+      imagenUrl02: fotosTempUrls[2] || "",
+      imagenUrl03: fotosTempUrls[3] || "",
+      imagenUrl04: fotosTempUrls[4] || "",
+    });
+  };
 
   ///////////////Validaciones ///////////////////
   const validarNombreProducto = (n) => {
@@ -296,8 +264,8 @@ const AgregarProducto = () => {
         capacidadMáxima: nuevoProducto.capacidadMáxima,
         precioUnitario: parseInt(nuevoProducto.precioUnitario),
         idSede: nuevoProducto.idSede,
-        categoria_id: 1,
-        id_Tipo_Espacio: 1,
+        categoria_id: nuevoProducto.categoria_id,
+        id_Tipo_Espacio: nuevoProducto.id_Tipo_Espacio,
         idSede: 1,
         estadoRecurso: nuevoProducto.estadoRecurso,
         imagenUrl01:
@@ -416,14 +384,14 @@ const AgregarProducto = () => {
                 className="campo-formulario"
                 type="text"
                 placeholder="Elija un tipo de recurso"
-                value={nuevoProducto.id_Tipo_Espacio}
+                value={nuevoProducto.categoria_id}
                 onChange={onChangeTipoRecurso}
               >
                 {tipoRecursoArray.map((tipoRecurso) => (
                   <option
                     key={tipoRecurso.id}
                     className="item-grid"
-                    value={tipoRecurso.valor}
+                    value={tipoRecurso.id}
                   >
                     {tipoRecurso.tipo}{" "}
                   </option>
@@ -468,28 +436,6 @@ const AgregarProducto = () => {
               </li>
             ))}
 
-            {/* <div className="campo-anotacion">
-            <label className="anotacion">Selecciona hasta 5 servicios *</label>
-            {serviciosArray.map((servicio) => (
-              <div key={servicio.id}>
-                <input
-                  type="checkbox"
-                  id={`servicio-${servicio.id}`}
-                  name={`servicio-${servicio.id}`}
-                  value={servicio.id}
-                  checked={selectedServiceIds.includes(servicio.id)}
-                  onChange={onChangeServicios}
-                  disabled={
-                    selectedServiceIds.length >= MAX_SELECTED_SERVICES &&
-                    !selectedServiceIds.includes(servicio.id)
-                  }
-                />
-                <label htmlFor={`servicio-${servicio.id}`}>
-                  {servicio.tipo}
-                </label>
-              </div>
-            ))}
-          </div> */}
             {/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
@@ -511,21 +457,21 @@ const AgregarProducto = () => {
 
             <div className="campo-anotacion">
               <label className="anotacion" for="tipoEspacio">
-                Esta Disponible? *
+                Elija el tipo de Espacio
               </label>
               <select
                 id="tipoEspacio"
                 className="campo-formulario"
-                type="text"
+                type="number"
                 placeholder="Elija el tipo de espacio"
                 value={nuevoProducto.id_Tipo_Espacio}
-                onChange={onChangeDisponibilidad}
+                onChange={onChangeAbiertoCerrado}
               >
-                <option className="item-grid" value="Disponible">
-                  Disponible
+                <option className="item-grid" value={1}>
+                  OFICINA ESPACIO ABIERTO
                 </option>
-                <option className="item-grid" value="No disponible">
-                  No disponible
+                <option className="item-grid" value={0}>
+                  OFICINA ESPACIO CERRADO
                 </option>
               </select>
             </div>
@@ -551,7 +497,7 @@ const AgregarProducto = () => {
                 ))}
               </select>
             </div>
-            {/* //////////////////////////////////////////////////////////////////////////////// */}
+            {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="disponible">
@@ -614,7 +560,7 @@ const AgregarProducto = () => {
           descripcion={nuevoProducto.descripción}
           url={nuevoProducto.imagenURL}
           precio={nuevoProducto.precioUnitario}
-          tipoDeRecurso={nuevoProducto.id_Tipo_Espacio}
+          // tipoDeRecurso={nuevoProducto.id_Tipo_Espacio}
         />
       </div>
     </div>
