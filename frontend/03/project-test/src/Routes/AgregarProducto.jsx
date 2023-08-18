@@ -17,12 +17,17 @@ const AgregarProducto = () => {
   const [selectedServiceIds, setSelectedServiceIds] = useState([]);
   const MAX_SELECTED_SERVICES = 5;
 
+  const [nombreProductoValido, setNombreProductoValido] = useState(true);
+  const [sedeValida, setSedeValida] = useState(true);
+
+  useState(true);
+
   /////// Preparar obbjeto para enviar al servidor    ///////
 
   const [nuevoProducto, setNuevoProducto] = useState({
     idRecurso: 0,
     nombre: "",
-    descripción: "  ",
+    descripción: "",
     capacidadMáxima: 0,
     precioUnitario: 1.0,
     idSede: 1,
@@ -52,10 +57,7 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: false,
   });
 
-
-
   ///////////////Envio de datos
-
 
   /////////////////////////////
 
@@ -193,7 +195,20 @@ const AgregarProducto = () => {
   };
 
   const onChangePreciounitario = (e) => {
-    setNuevoProducto({ ...nuevoProducto, precioUnitario: e.target.value });
+    const newValue = e.target.value;
+    setNuevoProducto({ ...nuevoProducto, precioUnitario: newValue });
+    validarPrecio(newValue);
+  };
+  const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
+
+  const validarPrecio = (n) => {
+    if (isNaN(n)) {
+      mensajeErrorAltaProd = "Por favor, ingrese un numero";
+    } else if (n == 0) {
+      mensajeErrorAltaProd = "Por favor, ingrese un numero mayor a 0";
+    } else {
+    }
+    return true;
   };
 
   const onChangeSede = (e) => {
@@ -205,7 +220,7 @@ const AgregarProducto = () => {
   };
 
   const onChangeAbiertoCerrado = (e) => {
-    setNuevoProducto({...nuevoProducto, id_Tipo_Espacio: e.target.value});
+    setNuevoProducto({ ...nuevoProducto, id_Tipo_Espacio: e.target.value });
   };
 
   const onChangeDisponibilidad = (e) => {
@@ -358,6 +373,7 @@ const AgregarProducto = () => {
                 placeholder="Ingresa el nombre del producto "
                 value={nuevoProducto.nombre}
                 onChange={onChangeNombre}
+                required
               />
             </div>
 
@@ -372,6 +388,7 @@ const AgregarProducto = () => {
                 placeholder="Ingrese una descripcion"
                 value={nuevoProducto.descripción}
                 onChange={onChangeDescripcion}
+                required
               />
             </div>
 
@@ -386,6 +403,7 @@ const AgregarProducto = () => {
                 placeholder="Elija un tipo de recurso"
                 value={nuevoProducto.categoria_id}
                 onChange={onChangeTipoRecurso}
+                required
               >
                 {tipoRecursoArray.map((tipoRecurso) => (
                   <option
@@ -407,6 +425,7 @@ const AgregarProducto = () => {
                 placeholder="Elija una capacidad máxima"
                 value={nuevoProducto.capacidadMáxima}
                 onChange={onChangeCapacidadMáxima}
+                required
               >
                 {capacidadArray.map((cant) => (
                   <option
@@ -466,6 +485,7 @@ const AgregarProducto = () => {
                 placeholder="Elija el tipo de espacio"
                 value={nuevoProducto.id_Tipo_Espacio}
                 onChange={onChangeAbiertoCerrado}
+                required
               >
                 <option className="item-grid" value={1}>
                   OFICINA ESPACIO ABIERTO
@@ -489,6 +509,7 @@ const AgregarProducto = () => {
                 placeholder="Elija una Sede"
                 value={nuevoProducto.idSede}
                 onChange={onChangeSede}
+                required
               >
                 {sedesArray.map((sede) => (
                   <option key={sede.id} className="item-grid" value={sede.id}>
@@ -510,6 +531,7 @@ const AgregarProducto = () => {
                 placeholder="Elija un tipo de recurso"
                 value={nuevoProducto.estadoRecurso}
                 onChange={onChangeDisponibilidad}
+                required
               >
                 <option className="item-grid" value="Disponible">
                   Disponible
