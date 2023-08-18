@@ -3,50 +3,86 @@ import { useLocalStorage } from "../Components/utils/useLocalStorage";
 import "../Components/AgregarProducto.css";
 import Error from "../Components/Error";
 import { Boton } from "../Components/Genericos/Boton";
-import axios from 'axios';
+import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/Genericos/CardProductoSimulado.css";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 
-
 const handlePost = async () => {
   try {
     const jsonData = JSON.stringify(postData2); // Convertir el objeto a JSON
-    const response = await axios.post('http://localhost:8080/api/v1/recursos/save', jsonData, {
-      headers: {
-        'Content-Type': 'application/json' // Especificar el tipo de contenido como JSON
+    const response = await axios.post(
+      "http://localhost:8080/api/v1/recursos/save",
+      jsonData,
+      {
+        headers: {
+          "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
+        },
       }
-    });
+    );
 
-    console.log('Respuesta:', response.data);
+    console.log("Respuesta:", response.data);
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 };
 
-const postData2 = {
-  categoria_id:3,
-id_Tipo_Espacio:1,
-idRecurso:0,
-descripción:"Prueba",
-nombre:"Prueba 3 18-08 ",
-imagenUrl01:"https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg", 
-imagenUrl02:"https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg ", 
-tieneCafetería:1,
-estadoRecurso:"DISPONIBLE",
-tieneWifi:1, 
-precioUnitario:4000.0, 
-imagenURL:"https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg", 
-imagenUrl03:"https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg", 
-idSede:2,
-imagenUrl04:"https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg", 
-tieneLokker:1,
-tieneFotocopiadoraImpresion:0, 
-tieneEspacioDescanso:0, 
-tieneEstaciónCafeAguaAromatica:1,
-capacidadMáxima:30
-}
+// const postData2 = {
+//   categoria_id: 3,
+//   id_Tipo_Espacio: 1,
+//   idRecurso: 0,
+//   descripción: "Prueba",
+//   nombre: "Prueba 3 18-08 ",
+//   imagenUrl01:
+//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+//   imagenUrl02:
+//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg ",
+//   tieneCafetería: 1,
+//   estadoRecurso: "DISPONIBLE",
+//   tieneWifi: 1,
+//   precioUnitario: 4000.0,
+//   imagenURL:
+//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
+//   imagenUrl03:
+//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
+//   idSede: 2,
+//   imagenUrl04:
+//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+//   tieneLokker: 1,
+//   tieneFotocopiadoraImpresion: 0,
+//   tieneEspacioDescanso: 0,
+//   tieneEstaciónCafeAguaAromatica: 1,
+//   capacidadMáxima: 30,
+// };
 
+const postData2 = {
+  idRecurso: 0,
+  nombre:"Prueba reordenamiento campos 1 ",
+  descripción: "Prueba",
+  capacidadMáxima: 30,
+  precioUnitario: 4000.0,
+  idSede: 2,
+  categoria_id: 3,
+  id_Tipo_Espacio: 1,
+  idSede: 2,
+  imagenUrl01:
+    "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+  imagenUrl02:
+    "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg ",
+  imagenURL:
+    "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
+  imagenUrl03:
+    "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
+  imagenUrl04:
+    "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+  tieneCafetería: 1,
+  tieneWifi: 1,
+  estadoRecurso: "DISPONIBLE",
+  tieneLokker: 1,
+  tieneFotocopiadoraImpresion: 0,
+  tieneEspacioDescanso: 0,
+  tieneEstaciónCafeAguaAromatica: 1,
+};
 
 const AgregarProducto = () => {
   //// Variables y constantes ////
@@ -312,76 +348,73 @@ const AgregarProducto = () => {
         capacidadMáxima: 5,
         precioUnitario: 999.11,
         idSede: 2,
-        imagenURL:
-        "",
-        imagenUrl01:
-          "",
-        imagenUrl02:
-          "",
-          imagenUrl03:
-          "",
-        imagenUrl04:
-          "",
+        imagenURL: "",
+        imagenUrl01: "",
+        imagenUrl02: "",
+        imagenUrl03: "",
+        imagenUrl04: "",
         tipoDeRecurso: "OFICINAPRIVADA",
         estadoRecurso: "DISPONIBLE",
         categoria_id: 3,
         IdRecurso: 0,
       };
-    
 
+      const datoSimulado = {
+        categoria_id: 3,
+        id_Tipo_Espacio: 1,
+        idRecurso: 0,
+        descripción: "Prueba",
+        nombre: "Prueba",
+        imagenUrl01:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+        imagenUrl02:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg",
+        tieneCafetería: 1,
+        estadoRecurso: "DISPONIBLE",
+        tieneWifi: 1,
+        precioUnitario: 4000.0,
+        imagenURL:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
+        imagenUrl03:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
+        idSede: 2,
+        imagenUrl04:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+        tieneLokker: 1,
+        tieneFotocopiadoraImpresion: 0,
+        tieneEspacioDescanso: 0,
+        tieneEstaciónCafeAguaAromatica: 1,
+        capacidadMáxima: 30,
+      };
 
-
-      const datoSimulado= {"categoria_id": 3,
-     "id_Tipo_Espacio": 1,
-     "idRecurso": 0,
-     "descripción": "Prueba",
-     "nombre":"Prueba",
-     "imagenUrl01": "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-     "imagenUrl02": "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg",
-     "tieneCafetería": 1,
-     "estadoRecurso": "DISPONIBLE",
-     "tieneWifi": 1,
-     "precioUnitario": 4000.0,
-     "imagenURL": "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",        
-     "imagenUrl03": "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",        
-     "idSede": 2,      
-     "imagenUrl04": "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",        
-     "tieneLokker": 1,        
-     "tieneFotocopiadoraImpresion": 0,        
-     "tieneEspacioDescanso": 0,
-     "tieneEstaciónCafeAguaAromatica": 1,
-     "capacidadMáxima": 30  }
-
-
-    //  -
-     const postData = {
-      categoria_id: 3,
-      id_Tipo_Espacio: 1,
-      idRecurso: 0,
-      descripción: "Prueba",
-      nombre: "Prueba",
-      imagenUrl01: "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-      imagenUrl02: "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg",
-      tieneCafetería: 1,
-      estadoRecurso: "DISPONIBLE",
-      tieneWifi: 1,
-      precioUnitario: 4000.0,
-      imagenURL: "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
-      imagenUrl03: "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
-      idSede: 2,
-      imagenUrl04: "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-      tieneLokker: 1,
-      tieneFotocopiadoraImpresion: 0,
-      tieneEspacioDescanso: 0,
-      tieneEstaciónCafeAguaAromatica: 1,
-      capacidadMáxima: 30,
-    };
-
-
-
-
-
-
+      //  -
+      const postData = {
+        categoria_id: 3,
+        id_Tipo_Espacio: 1,
+        idRecurso: 0,
+        descripción: "Prueba",
+        nombre: "Prueba",
+        imagenUrl01:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+        imagenUrl02:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg",
+        tieneCafetería: 1,
+        estadoRecurso: "DISPONIBLE",
+        tieneWifi: 1,
+        precioUnitario: 4000.0,
+        imagenURL:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
+        imagenUrl03:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
+        idSede: 2,
+        imagenUrl04:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+        tieneLokker: 1,
+        tieneFotocopiadoraImpresion: 0,
+        tieneEspacioDescanso: 0,
+        tieneEstaciónCafeAguaAromatica: 1,
+        capacidadMáxima: 30,
+      };
 
       console.log("ver body------------------------------------------------");
       console.log(JSON.stringify(bodyBase));
@@ -404,13 +437,10 @@ const AgregarProducto = () => {
           }
           const data = await response.json();
           console.log(data);
-
-     
         } catch (error) {
           console.error(error);
         }
       }
-    
 
       enviarDatos();
       // const configuraciones = {
@@ -662,8 +692,7 @@ const AgregarProducto = () => {
               {/* <button className="boton" type="submit" value="Guardar">
                 Guardar
               </button> */}
-            <button onClick={handlePost}>Realizar POST</button>
-              
+              <button onClick={handlePost}>Realizar POST</button>
 
               <button className="boton" type="reset">
                 Cancelar
