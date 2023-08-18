@@ -8,85 +8,57 @@ import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/Genericos/CardProductoSimulado.css";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 
-const handlePost = async () => {
-  try {
-    const jsonData = JSON.stringify(postData2); // Convertir el objeto a JSON
-    const response = await axios.post(
-      "http://localhost:8080/api/v1/recursos/save",
-      jsonData,
-      {
-        headers: {
-          "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
-        },
-      }
-    );
+// const handlePost = async () => {
+//   try {
+//     const jsonData = JSON.stringify(postData2); // Convertir el objeto a JSON
+//     const response = await axios.post(
+//       "http://localhost:8080/api/v1/recursos/save",
+//       jsonData,
+//       {
+//         headers: {
+//           "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
+//         },
+//       }
+//     );
 
-    console.log("Respuesta:", response.data);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+//     console.log("Respuesta:", response.data);
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// };
 
 // const postData2 = {
+//   idRecurso: 0,
+//   nombre:"Prueba reordenamiento campos 1 ",
+//   descripción: "Prueba",
+//   capacidadMáxima: 30,
+//   precioUnitario: 4000.0,
+//   idSede: 2,
 //   categoria_id: 3,
 //   id_Tipo_Espacio: 1,
-//   idRecurso: 0,
-//   descripción: "Prueba",
-//   nombre: "Prueba 3 18-08 ",
+//   idSede: 2,
 //   imagenUrl01:
 //     "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
 //   imagenUrl02:
 //     "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg ",
-//   tieneCafetería: 1,
-//   estadoRecurso: "DISPONIBLE",
-//   tieneWifi: 1,
-//   precioUnitario: 4000.0,
 //   imagenURL:
 //     "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
 //   imagenUrl03:
 //     "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
-//   idSede: 2,
 //   imagenUrl04:
 //     "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+//   tieneCafetería: 1,
+//   tieneWifi: 1,
+//   estadoRecurso: "DISPONIBLE",
 //   tieneLokker: 1,
 //   tieneFotocopiadoraImpresion: 0,
 //   tieneEspacioDescanso: 0,
 //   tieneEstaciónCafeAguaAromatica: 1,
-//   capacidadMáxima: 30,
 // };
-
-const postData2 = {
-  idRecurso: 0,
-  nombre:"Prueba reordenamiento campos 1 ",
-  descripción: "Prueba",
-  capacidadMáxima: 30,
-  precioUnitario: 4000.0,
-  idSede: 2,
-  categoria_id: 3,
-  id_Tipo_Espacio: 1,
-  idSede: 2,
-  imagenUrl01:
-    "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-  imagenUrl02:
-    "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg ",
-  imagenURL:
-    "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
-  imagenUrl03:
-    "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
-  imagenUrl04:
-    "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-  tieneCafetería: 1,
-  tieneWifi: 1,
-  estadoRecurso: "DISPONIBLE",
-  tieneLokker: 1,
-  tieneFotocopiadoraImpresion: 0,
-  tieneEspacioDescanso: 0,
-  tieneEstaciónCafeAguaAromatica: 1,
-};
 
 const AgregarProducto = () => {
   //// Variables y constantes ////
-  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/";
+  const urlBase = "http://localhost:8080/api/v1/recursos/save";
   const jwt = localStorage.getItem("jwt");
   const { productosBKLista, setProductosBKLista, getDatosBKLista } =
     useContext(ContextGlobal);
@@ -98,19 +70,50 @@ const AgregarProducto = () => {
   /////// Preparar obbjeto para enviar al servidor    ///////
 
   const [nuevoProducto, setNuevoProducto] = useState({
+    idRecurso: 0,
     nombre: "",
-    descripción: "",
-    capacidadMáxima: 1,
-    precioUnitario: 1,
+    descripción: "  ",
+    capacidadMáxima: 0,
+    precioUnitario: 1.0,
     idSede: 1,
-    imagenURL: "",
-    imagenUrl01: "",
+    categoria_id: 1,
+    id_Tipo_Espacio: 1,
+    idSede: 0,
+    imagenUrl01:
+      "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
     imagenUrl02: "",
+    imagenURL: "",
     imagenUrl03: "",
     imagenUrl04: "",
-    tipoDeRecurso: "OFICINAPRIVADA",
-    estadoRecurso: "DISPONIBLE",
+    tieneCafetería: 1,
+    tieneWifi: 1,
+    estadoRecurso: "",
+    tieneLokker: 1,
+    tieneFotocopiadoraImpresion: 1,
+    tieneEspacioDescanso: 1,
+    tieneEstaciónCafeAguaAromatica: 1,
   });
+
+  ///////////////Envio de datos
+
+  const enviarDatos = async () => {
+    try {
+      const jsonData = JSON.stringify(nuevoProducto); // Convertir el objeto a JSON
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/recursos/save",
+        jsonData,
+        {
+          headers: {
+            "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
+          },
+        }
+      );
+
+      console.log("Respuesta:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   /////////////////////////////
 
@@ -310,160 +313,56 @@ const AgregarProducto = () => {
       // setShowPreview(true);
       // console.log(form);
 
-      // const nuevoProductoData = {
-      //   nombre: "Sala sala sala",
-      //   descripción: "Sala sala sala",
-      //   capacidadMáxima: 1,
-      //   precioUnitario: 10.0,
-      //   idSede: 1,
-      //   // imagenURL: nuevoProducto.imagenURL,
-      //   // imagenUrl01: nuevoProducto.imagenUrl01,
-      //   // imagenUrl02: nuevoProducto.imagenUrl02,
-      //   // imagenUrl03: nuevoProducto.imagenUrl03,
-      //   // imagenUrl04: nuevoProducto.imagenUrl04,
-      //   imagenURL:
-      //     "https://drive.google.com/file/d/107pyQ8NvKzFtg6I9ZRUPe88eavWb95RT/view?usp=drive_link",
-      //   imagenUrl01:
-      //     "https://drive.google.com/file/d/107pyQ8NvKzFtg6I9ZRUPe88eavWb95RT/view?usp=drive_link",
-      //   imagenUrl02:
-      //     "https://drive.google.com/file/d/107pyQ8NvKzFtg6I9ZRUPe88eavWb95RT/view?usp=drive_link",
-      //   imagenUrl03:
-      //     "https://drive.google.com/file/d/107pyQ8NvKzFtg6I9ZRUPe88eavWb95RT/view?usp=drive_link",
-      //   imagenUrl04:
-      //     "https://drive.google.com/file/d/107pyQ8NvKzFtg6I9ZRUPe88eavWb95RT/view?usp=drive_link",
-
-      //   tipoDeRecurso: "OFICINAPRIVADA",
-      //   estadoRecurso: "DISPONIBLE",
-      //   IdRecurso: 0,
-      // };
-      // console.log("------------------Info data nuevo producto------------------");
-      // console.log(nuevoProducto);
-
-      // console.log("------------------Info paquete enviado en nuevoProductoData ------------------");
-      // console.log(nuevoProductoData);
-
-      const bodyBase = {
-        nombre: "xxxxxxxxxxxxxxxx",
-        descripción: "xxxxxxxxxxxxxxxxxxxxx",
-        capacidadMáxima: 5,
-        precioUnitario: 999.11,
-        idSede: 2,
-        imagenURL: "",
-        imagenUrl01: "",
+      const nuevoProductoData = {
+        idRecurso: 0,
+        nombre: nuevoProducto.nombre,
+        descripción: nuevoProducto.descripción,
+        capacidadMáxima: nuevoProducto.capacidadMáxima,
+        precioUnitario: parseInt(nuevoProducto.precioUnitario),
+        idSede: nuevoProducto.idSede,
+        categoria_id: 1,
+        id_Tipo_Espacio: 1,
+        idSede: 1,
+        imagenUrl01:
+          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
         imagenUrl02: "",
+        imagenURL: "",
         imagenUrl03: "",
         imagenUrl04: "",
-        tipoDeRecurso: "OFICINAPRIVADA",
-        estadoRecurso: "DISPONIBLE",
-        categoria_id: 3,
-        IdRecurso: 0,
-      };
-
-      const datoSimulado = {
-        categoria_id: 3,
-        id_Tipo_Espacio: 1,
-        idRecurso: 0,
-        descripción: "Prueba",
-        nombre: "Prueba",
-        imagenUrl01:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-        imagenUrl02:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg",
         tieneCafetería: 1,
-        estadoRecurso: "DISPONIBLE",
         tieneWifi: 1,
-        precioUnitario: 4000.0,
-        imagenURL:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
-        imagenUrl03:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
-        idSede: 2,
-        imagenUrl04:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+        estadoRecurso: nuevoProducto.estadoRecurso,
         tieneLokker: 1,
-        tieneFotocopiadoraImpresion: 0,
-        tieneEspacioDescanso: 0,
+        tieneFotocopiadoraImpresion: 1,
+        tieneEspacioDescanso: 1,
         tieneEstaciónCafeAguaAromatica: 1,
-        capacidadMáxima: 30,
       };
 
-      //  -
-      const postData = {
-        categoria_id: 3,
-        id_Tipo_Espacio: 1,
-        idRecurso: 0,
-        descripción: "Prueba",
-        nombre: "Prueba",
-        imagenUrl01:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-        imagenUrl02:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg",
-        tieneCafetería: 1,
-        estadoRecurso: "DISPONIBLE",
-        tieneWifi: 1,
-        precioUnitario: 4000.0,
-        imagenURL:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
-        imagenUrl03:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
-        idSede: 2,
-        imagenUrl04:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-        tieneLokker: 1,
-        tieneFotocopiadoraImpresion: 0,
-        tieneEspacioDescanso: 0,
-        tieneEstaciónCafeAguaAromatica: 1,
-        capacidadMáxima: 30,
-      };
+      console.log(
+        "------------------Info paquete enviado en nuevoProductoData ------------------"
+      );
+      console.log(nuevoProductoData);
 
-      console.log("ver body------------------------------------------------");
-      console.log(JSON.stringify(bodyBase));
+      // const enviarDatos = async () => {
+      //   try {
+      //     const jsonData = JSON.stringify(nuevoProductoData); // Convertir el objeto a JSON
+      //     const response = await axios.post(
+      //       "http://localhost:8080/api/v1/recursos/save",
+      //       jsonData,
+      //       {
+      //         headers: {
+      //           "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
+      //         },
+      //       }
+      //     );
 
-      async function enviarDatos() {
-        try {
-          const response = await fetch(
-            "http://localhost:8080/api/v1/recursos/save",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: datoSimulado,
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error("Error en la solicitud fetch");
-          }
-          const data = await response.json();
-          console.log(data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      enviarDatos();
-      // const configuraciones = {
-      //   method: "POST",
-      //   body: JSON.stringify(nuevoProductoData),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-
+      //     console.log("Respuesta:", response.data);
+      //   } catch (error) {
+      //     console.error("Error:", error);
+      //   }
       // };
 
-      // fetch(`${urlBase}save`, configuraciones)
-      //   .then((respuesta) => {
-      //     if (!respuesta.ok) {
-      //       throw new Error("Error al enviar los datos");
-      //     }
-      //     return respuesta.json();
-      //   })
-      //   .then((info) => {
-      //     console.log("Nuevo Producto 👇" + info);
-      //     getDatosBKLista();
-      //   })
-      //   .catch((error) => console.log(error));
+      enviarDatos();
 
       console.log("Muestra el valor de toda la Lista ");
       console.log(productosBKLista);
@@ -597,6 +496,7 @@ const AgregarProducto = () => {
               </div>
             ))}
           </div> */}
+{/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="precioProducto">
@@ -611,31 +511,41 @@ const AgregarProducto = () => {
                 onChange={onChangePreciounitario}
               />
             </div>
+            {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
+
+{/* //////////////////////////////////////////////////////////////////////////////// */}
+
+<div className="campo-anotacion">
+              <label className="anotacion" for="tipoEspacio">
+                Esta Disponible? *
+              </label>
+              <select
+                id="tipoEspacio"
+                className="campo-formulario"
+                type="text"
+                placeholder="Elija el tipo de espacio"
+                value={nuevoProducto.id_Tipo_Espacio}
+                onChange={onChangeDisponibilidad}
+              >
+                <option className="item-grid" value="Disponible">
+                  Disponible
+                </option>
+                <option className="item-grid" value="No disponible">
+                  No disponible
+                </option>
+              </select>
+            </div>
+
+
+
+
+
+{/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="sede">
                 Elija una Sede *
               </label>
-              {/* <select
-              id="sede"
-              className="campo-formulario"
-              type="text"
-              placeholder="Elija una Sede"
-              value={nuevoProducto.idSede}
-              onChange={onChangeSede}
-            >
-              <option className="item-grid" value={nuevoProducto.idSede}>
-                Argentina
-              </option>
-              <option className="item-grid" value={nuevoProducto.idSede}>
-                Colombia
-              </option>
-              <option className="item-grid" value={nuevoProducto.idSede}>
-                Chile
-              </option>
-              
-            </select> */}
-
               <select
                 id="sede"
                 className="campo-formulario"
@@ -651,6 +561,7 @@ const AgregarProducto = () => {
                 ))}
               </select>
             </div>
+{/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="disponible">
@@ -664,11 +575,11 @@ const AgregarProducto = () => {
                 value={nuevoProducto.estadoRecurso}
                 onChange={onChangeDisponibilidad}
               >
-                <option className="item-grid" value={true}>
-                  DISPONIBLE
+                <option className="item-grid" value="Disponible">
+                  Disponible
                 </option>
-                <option className="item-grid" value={false}>
-                  NODISPONIBLE
+                <option className="item-grid" value="No disponible">
+                  No disponible
                 </option>
               </select>
             </div>
@@ -692,7 +603,7 @@ const AgregarProducto = () => {
               {/* <button className="boton" type="submit" value="Guardar">
                 Guardar
               </button> */}
-              <button onClick={handlePost}>Realizar POST</button>
+              <button onClick={enviarDatos}>Realizar POST</button>
 
               <button className="boton" type="reset">
                 Cancelar
@@ -715,7 +626,7 @@ const AgregarProducto = () => {
           descripcion={nuevoProducto.descripción}
           url={nuevoProducto.imagenURL}
           precio={nuevoProducto.precioUnitario}
-          tipoRecurso={nuevoProducto.tipoDeRecurso}
+          tipoDeRecurso={nuevoProducto.id_Tipo_Espacio}
         />
       </div>
     </div>
