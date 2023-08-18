@@ -1,0 +1,10 @@
+.navbar-menu-drop {
+    height: var(--nav-size);
+    background-color: var(--BGrey);
+    padding:0 1rem;
+    border-bottom: 1px solid red;
+}
+
+.navbar-menu-drop-ul {
+    max-width: 100%;
+}

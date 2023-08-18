@@ -1,0 +1,51 @@
+
+.drop {
+    position: absolute;
+    top: 58px;
+    width: 200px;
+    transform: translateX(-45%);
+    background-color:white;
+    border: 1px solid var(--colorGrey3);
+    border-radius: var(--bRadiusButton);
+    padding: 1rem;
+    overflow: hidden;
+    gap: 0.5rem;
+    z-index: 1;
+}
+
+.drop-dropdown-item {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--bRadiusButton);
+    transition: background var(--speed) ;
+    padding: 0.5rem;
+    margin: 0.3rem 0  0.3rem 0;
+    /* position: relative; */
+    z-index: 1;
+}
+ 
+.drop-dropdown-item:hover {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--bRadiusButton);
+    transition: background var(--speed) ;
+    padding: 0.5rem;
+    color: white;
+    background-color: var(--green);
+    z-index: 1;
+}
+
+.icono-boton-menu {
+    color: inherit;
+}
+
+span .icono-boton-menu {
+    color: inherit;
+}
+
+.icono-boton-menu .right {
+
+}
+

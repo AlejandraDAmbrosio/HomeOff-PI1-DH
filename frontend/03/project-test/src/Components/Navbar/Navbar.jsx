@@ -12,6 +12,7 @@ import { useContext } from "react";
 import FormIngreso from "../../Routes/FormIngreso";
 import { ContextGlobal } from "../utils/global.context";
 import { useModalContext } from "../utils/global.contextModal";
+import DropDownMenu from "../MenuDropDown/DropDownMenu";
 
 const Navbar = () => {
   const { showModal, closeModal, openModal, productos } =
@@ -34,6 +35,9 @@ const Navbar = () => {
               </li>
               <li>
                 <BotonInicio className="boton-inicio" />
+              </li>
+              <li>
+                <DropDownMenu />
               </li>
               <li>
                 <BsPersonCircle className="icono-persona" />

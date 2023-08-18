@@ -1,8 +1,15 @@
 import React from 'react'
 
-const NavbarMenuDrop = () => {
+const NavbarMenuDrop = (props) => {
   return (
-    <div>NavbarMenuDrop</div>
+    <div>
+      <nav className='navbar-menu-drop'>
+        <ul className='navbar-menu-drop-ul'>
+       {props.children}
+
+        </ul>
+      </nav>
+    </div>
   )
 }
 

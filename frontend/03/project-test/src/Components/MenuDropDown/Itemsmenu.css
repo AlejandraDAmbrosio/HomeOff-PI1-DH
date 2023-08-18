@@ -1,0 +1,25 @@
+.item-menu-li {
+  width: calc(var(--nav-size) * 0.8);
+  height: calc(var(--nav-size) * 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 1rem 0;
+}
+
+.icon-button-menu-drop {
+  width: calc(var(--nav-size) * 0.8);
+  height: calc(var(--nav-size) * 0.8);
+    
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  padding: 5px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  transition:filter 300ms;
+}
+
+.icon-button-menu-drop:hover {
+    filter: brightness(1.2);
+}

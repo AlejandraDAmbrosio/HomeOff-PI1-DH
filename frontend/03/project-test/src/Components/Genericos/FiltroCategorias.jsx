@@ -4,7 +4,7 @@ import { MdFilterList } from 'react-icons/md';
 
 const FiltroCategorias = () => {
   return (
-    <div>
+    <div  className='div-boton-filtro'>
     
     <button className='boton-filtro'>
    

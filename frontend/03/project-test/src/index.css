@@ -18,6 +18,8 @@ texto - shadow multiples:
 
 
 #root {
+  --speed:500ms;
+  --nav-size: 60px;
   --color: #111;
   --colorGrey1: #424242;
   --colorGrey2: #979797;

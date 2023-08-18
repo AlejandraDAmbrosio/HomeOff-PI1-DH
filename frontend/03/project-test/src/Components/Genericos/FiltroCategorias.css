@@ -1,3 +1,7 @@
+.div-boton-filtro {
+  z-index: 3;
+}
+
 .boton-filtro {
   background-color: white;
   border: 1px solid var(--colorGrey4);
@@ -16,7 +20,7 @@
   position: relative;
   transition: 0.3s transform ease;
   will-change: transform;
-  z-index: 0;
+  z-index: 3;
   display: flex;
   flex-direction: row;
   align-items: center;
