@@ -1,60 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useLocalStorage } from "../Components/utils/useLocalStorage";
 import "../Components/AgregarProducto.css";
-import Error from "../Components/Error";
-import { Boton } from "../Components/Genericos/Boton";
+
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/Genericos/CardProductoSimulado.css";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
-
-// const handlePost = async () => {
-//   try {
-//     const jsonData = JSON.stringify(postData2); // Convertir el objeto a JSON
-//     const response = await axios.post(
-//       "http://localhost:8080/api/v1/recursos/save",
-//       jsonData,
-//       {
-//         headers: {
-//           "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
-//         },
-//       }
-//     );
-
-//     console.log("Respuesta:", response.data);
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// };
-
-// const postData2 = {
-//   idRecurso: 0,
-//   nombre:"Prueba reordenamiento campos 1 ",
-//   descripción: "Prueba",
-//   capacidadMáxima: 30,
-//   precioUnitario: 4000.0,
-//   idSede: 2,
-//   categoria_id: 3,
-//   id_Tipo_Espacio: 1,
-//   idSede: 2,
-//   imagenUrl01:
-//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-//   imagenUrl02:
-//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/mobiliario.jpg ",
-//   imagenURL:
-//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada.jpg",
-//   imagenUrl03:
-//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/oficinaprivada2.jpg",
-//   imagenUrl04:
-//     "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-//   tieneCafetería: 1,
-//   tieneWifi: 1,
-//   estadoRecurso: "DISPONIBLE",
-//   tieneLokker: 1,
-//   tieneFotocopiadoraImpresion: 0,
-//   tieneEspacioDescanso: 0,
-//   tieneEstaciónCafeAguaAromatica: 1,
-// };
 
 const AgregarProducto = () => {
   //// Variables y constantes ////
@@ -94,26 +44,45 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: 1,
   });
 
+  const [servicios, setServicios] = useState({
+    tieneCafetería: false,
+    tieneWifi: false,
+    tieneLokker: false,
+    tieneFotocopiadoraImpresion: false,
+    tieneEspacioDescanso: false,
+    tieneEstaciónCafeAguaAromatica: false,
+  });
+
+  const tieneCafeteriaValue = servicios.tieneCafeteria ? 1 : 0;
+  const tieneWifiValue = servicios.tieneWifi ? 1 : 0;
+  const tieneLokkerValue = servicios.tieneLokker ? 1 : 0;
+  const tieneFotocopiadoraImpresionValue = servicios.tieneFotocopiadoraImpresion
+    ? 1
+    : 0;
+  const tieneEspacioDescansoValue = servicios.tieneEspacioDescanso ? 1 : 0;
+  const tieneEstacionCafeAguaAromaticaValue =
+    servicios.tieneEstacionCafeAguaAromatica ? 1 : 0;
+
   ///////////////Envio de datos
 
-  const enviarDatos = async () => {
-    try {
-      const jsonData = JSON.stringify(nuevoProducto); // Convertir el objeto a JSON
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/recursos/save",
-        jsonData,
-        {
-          headers: {
-            "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
-          },
-        }
-      );
+  // const enviarDatos = async () => {
+  //   try {
+  //     const jsonData = JSON.stringify(nuevoProducto); // Convertir el objeto a JSON
+  //     const response = await axios.post(
+  //       "http://localhost:8080/api/v1/recursos/save",
+  //       jsonData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
+  //         },
+  //       }
+  //     );
 
-      console.log("Respuesta:", response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  //     console.log("Respuesta:", response.data);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   /////////////////////////////
 
@@ -280,6 +249,13 @@ const AgregarProducto = () => {
     });
   };
 
+  const handleOptionChange = (servicio) => {
+    setServicios((prevServicios) => ({
+      ...prevServicios,
+      [servicio]: !prevServicios[servicio],
+    }));
+  };
+
   // const onChangeServicios = (e) => {
   //   const selectedServiceId = e.target.value;
 
@@ -305,7 +281,7 @@ const AgregarProducto = () => {
   // };
 
   /////////handleSubmit //////
-  const handleSubmitCrearProducto = (e) => {
+  const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
 
     if (validarNombreProducto()) {
@@ -323,19 +299,23 @@ const AgregarProducto = () => {
         categoria_id: 1,
         id_Tipo_Espacio: 1,
         idSede: 1,
+        estadoRecurso: nuevoProducto.estadoRecurso,
         imagenUrl01:
           "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
         imagenUrl02: "",
         imagenURL: "",
         imagenUrl03: "",
         imagenUrl04: "",
-        tieneCafetería: 1,
-        tieneWifi: 1,
-        estadoRecurso: nuevoProducto.estadoRecurso,
-        tieneLokker: 1,
-        tieneFotocopiadoraImpresion: 1,
-        tieneEspacioDescanso: 1,
-        tieneEstaciónCafeAguaAromatica: 1,
+        tieneCafetería: servicios.tieneCafetería ? 1 : 0,
+        tieneWifi: servicios.tieneWifi ? 1 : 0,
+        tieneLokker: servicios.tieneLokker ? 1 : 0,
+        tieneFotocopiadoraImpresion: servicios.tieneFotocopiadoraImpresion
+          ? 1
+          : 0,
+        tieneEspacioDescanso: servicios.tieneEspacioDescanso ? 1 : 0,
+        tieneEstaciónCafeAguaAromatica: servicios.tieneEstaciónCafeAguaAromatica
+          ? 1
+          : 0,
       };
 
       console.log(
@@ -343,26 +323,24 @@ const AgregarProducto = () => {
       );
       console.log(nuevoProductoData);
 
-      // const enviarDatos = async () => {
-      //   try {
-      //     const jsonData = JSON.stringify(nuevoProductoData); // Convertir el objeto a JSON
-      //     const response = await axios.post(
-      //       "http://localhost:8080/api/v1/recursos/save",
-      //       jsonData,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json", // Especificar el tipo de contenido como JSON
-      //         },
-      //       }
-      //     );
+      // enviarDatos();
 
-      //     console.log("Respuesta:", response.data);
-      //   } catch (error) {
-      //     console.error("Error:", error);
-      //   }
-      // };
+      try {
+        const jsonData = JSON.stringify(nuevoProductoData);
+        const response = await axios.post(
+          "http://localhost:8080/api/v1/recursos/save",
+          jsonData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-      enviarDatos();
+        console.log("Respuesta:", response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
 
       console.log("Muestra el valor de toda la Lista ");
       console.log(productosBKLista);
@@ -438,7 +416,7 @@ const AgregarProducto = () => {
                 className="campo-formulario"
                 type="text"
                 placeholder="Elija un tipo de recurso"
-                value={nuevoProducto.tipoDeRecurso}
+                value={nuevoProducto.id_Tipo_Espacio}
                 onChange={onChangeTipoRecurso}
               >
                 {tipoRecursoArray.map((tipoRecurso) => (
@@ -474,6 +452,22 @@ const AgregarProducto = () => {
               </select>
             </div>
 
+            {/* -/////////////////////////////////////// */}
+
+            {Object.keys(servicios).map((servicio) => (
+              <li key={servicio}>
+                <label>
+                  <input
+                    type="checkbox"
+                    className="item-grid-check"
+                    checked={servicios[servicio]}
+                    onChange={() => handleOptionChange(servicio)}
+                  />
+                  {servicio}
+                </label>
+              </li>
+            ))}
+
             {/* <div className="campo-anotacion">
             <label className="anotacion">Selecciona hasta 5 servicios *</label>
             {serviciosArray.map((servicio) => (
@@ -496,7 +490,7 @@ const AgregarProducto = () => {
               </div>
             ))}
           </div> */}
-{/* //////////////////////////////////////////////////////////////////////////////// */}
+            {/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="precioProducto">
@@ -513,9 +507,9 @@ const AgregarProducto = () => {
             </div>
             {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
 
-{/* //////////////////////////////////////////////////////////////////////////////// */}
+            {/* //////////////////////////////////////////////////////////////////////////////// */}
 
-<div className="campo-anotacion">
+            <div className="campo-anotacion">
               <label className="anotacion" for="tipoEspacio">
                 Esta Disponible? *
               </label>
@@ -536,11 +530,7 @@ const AgregarProducto = () => {
               </select>
             </div>
 
-
-
-
-
-{/* //////////////////////////////////////////////////////////////////////////////// */}
+            {/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="sede">
@@ -561,7 +551,7 @@ const AgregarProducto = () => {
                 ))}
               </select>
             </div>
-{/* //////////////////////////////////////////////////////////////////////////////// */}
+            {/* //////////////////////////////////////////////////////////////////////////////// */}
 
             <div className="campo-anotacion">
               <label className="anotacion" for="disponible">
@@ -600,11 +590,9 @@ const AgregarProducto = () => {
 
             {/* //////////////-----------------------------////////////// */}
             <div className="boton-acceso-agregar-producto">
-              {/* <button className="boton" type="submit" value="Guardar">
+              <button className="boton" type="submit">
                 Guardar
-              </button> */}
-              <button onClick={enviarDatos}>Realizar POST</button>
-
+              </button>
               <button className="boton" type="reset">
                 Cancelar
               </button>
