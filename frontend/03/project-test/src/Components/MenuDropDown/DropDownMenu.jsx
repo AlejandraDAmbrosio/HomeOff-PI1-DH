@@ -15,9 +15,8 @@ const DropDownMenu = (props) => {
   return (
     <div>
       <NavbarMenuDrop>
-   
-<Itemsmenu icon={<BsPersonCircle className="icono-persona-drop" />}>
-        <Drop > </Drop>
+        <Itemsmenu icon={<BsPersonCircle className="icono-persona-drop" />}>
+          <Drop> </Drop>
         </Itemsmenu>
       </NavbarMenuDrop>
     </div>

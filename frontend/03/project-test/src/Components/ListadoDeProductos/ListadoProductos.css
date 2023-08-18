@@ -6,13 +6,13 @@
   margin-top: 0rem;
   display: grid;
   grid-template-columns: repeat(
-    2,
-    45%
+    5,
+    20%
   ); /* Dos columnas con ancho del 45% de la página */
   /* grid-auto-rows: minmax(100px, auto);  */
   grid-template-rows: repeat(
-    5,
-    minmax(100px, auto)
+    2,
+    minmax(100px, 500px)
   ); /* Máximo de 5 filas con altura mínima de 100px, se ajusta según el contenido */
   gap: 1rem;
   justify-content: center;
