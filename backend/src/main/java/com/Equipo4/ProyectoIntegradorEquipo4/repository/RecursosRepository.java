@@ -20,14 +20,14 @@ public class RecursosRepository implements IRecursosRepository {
 
     @Override
     public int save(Recursos recursos) {
-        String SQL ="INSERT INTO offi_recursos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        return jdbcTemplate.update(SQL, recursos.getIdRecurso(), recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getTipoDeRecurso(), recursos.getEstadoRecurso(), recursos.getCategoria_id());
+        String SQL ="INSERT INTO offi_recursos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(SQL, recursos.getIdRecurso(), recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getEstadoRecurso(), recursos.getCategoria_id(), recursos.getTieneWifi(), recursos.getTieneCafetería(), recursos.getTieneEspacioDescanso(), recursos.getTieneEstaciónCafeAguaAromatica(), recursos.getTieneFotocopiadoraImpresion(), recursos.getTieneLokker(), recursos.getId_Tipo_Espacio());
     }
 
     @Override
     public int update(Recursos recursos) {
-        String SQL = "UPDATE offi_recursos SET Nombre=?, Descripción=?, CapacidadMáxima=?, PrecioUnitario=?, IdSede=?, ImagenURL=?, ImagenUrl01=?, ImagenUrl02=?, ImagenUrl03=?, ImagenUrl04=?, TipoDeRecurso=?, EstadoRecurso=?, categoria_id=? WHERE IdRecurso =?";
-        return jdbcTemplate.update(SQL, recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getTipoDeRecurso(), recursos.getEstadoRecurso(), recursos.getCategoria_id(), recursos.getIdRecurso());
+        String SQL = "UPDATE offi_recursos SET Nombre=?, Descripción=?, CapacidadMáxima=?, PrecioUnitario=?, IdSede=?, ImagenURL=?, ImagenUrl01=?, ImagenUrl02=?, ImagenUrl03=?, ImagenUrl04=?, EstadoRecurso=?, categoria_id=?, TieneWifi=?, TieneCafetería=?, TieneEspacioDescanso=?, TieneEstaciónCafeAguaAromatica=?, TieneFotocopiadoraImpresion=?, TieneLokker=?, id_Tipo_Espacio=? WHERE IdRecurso =?";
+        return jdbcTemplate.update(SQL, recursos.getNombre(), recursos.getDescripción(), recursos.getCapacidadMáxima(),recursos.getPrecioUnitario(), recursos.getIdSede(), recursos.getImagenURL(), recursos.getImagenUrl01(), recursos.getImagenUrl02(), recursos.getImagenUrl03(), recursos.getImagenUrl04(), recursos.getEstadoRecurso(), recursos.getCategoria_id(), recursos.getTieneWifi(), recursos.getTieneCafetería(), recursos.getTieneEspacioDescanso(), recursos.getTieneEstaciónCafeAguaAromatica(), recursos.getTieneFotocopiadoraImpresion(), recursos.getTieneLokker(), recursos.getId_Tipo_Espacio(), recursos.getIdRecurso());
     }
 
     @Override

@@ -17,9 +17,14 @@ public class Recursos implements Serializable {
     private String	ImagenUrl02;
     private String	ImagenUrl03;
     private String	ImagenUrl04;
-    private String TipoDeRecurso;
     private String EstadoRecurso;
     private int categoria_id;
-
+    private int TieneWifi;
+    private int TieneCafetería;
+    private int TieneEspacioDescanso;
+    private int TieneEstaciónCafeAguaAromatica;
+    private int TieneFotocopiadoraImpresion;
+    private int TieneLokker;
+    private int id_Tipo_Espacio;
 
 }

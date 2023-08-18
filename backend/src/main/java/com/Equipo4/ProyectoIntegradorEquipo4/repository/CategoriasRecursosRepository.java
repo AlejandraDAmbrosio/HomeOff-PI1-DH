@@ -16,25 +16,25 @@ public class CategoriasRecursosRepository implements ICategoriasRecursosReposito
     private JdbcTemplate jdbcTemplate;
     @Override
     public List<CategoriasRecursos> findAll() {
-        String SQL = "SELECT * FROM CategoriasRecursos";
+        String SQL = "SELECT * FROM offi_CategoriaTipoRecurso";
         return jdbcTemplate.query(SQL, BeanPropertyRowMapper.newInstance(CategoriasRecursos.class));
     }
 
     @Override
     public int save(CategoriasRecursos categoriasRecursos) {
-        String SQL ="INSERT INTO CategoriasRecursos VALUES (?,?,?)";
+        String SQL ="INSERT INTO offi_CategoriaTipoRecurso VALUES (?,?,?)";
         return jdbcTemplate.update(SQL, categoriasRecursos.getCategoria_id(), categoriasRecursos.getName(), categoriasRecursos.getDescription());
     }
 
     @Override
     public int update(CategoriasRecursos categoriasRecursos) {
-        String SQL = "UPDATE CategoriasRecursos SET name=?, description=? WHERE categoria_id =?";
+        String SQL = "UPDATE offi_CategoriaTipoRecurso SET name=?, description=? WHERE categoria_id =?";
         return jdbcTemplate.update(SQL, categoriasRecursos.getName(), categoriasRecursos.getDescription(), categoriasRecursos.getCategoria_id());
     }
 
     @Override
     public int deleteById(int id) {
-        String SQL = "DELETE FROM CategoriasRecursos WHERE categoria_id =?";
+        String SQL = "DELETE FROM offi_CategoriaTipoRecurso WHERE categoria_id =?";
         return jdbcTemplate.update(SQL, id);
     }
 }
