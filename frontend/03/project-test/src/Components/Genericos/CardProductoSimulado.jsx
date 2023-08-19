@@ -45,7 +45,7 @@ CardProductoSimulado.propTypes = {
   url: PropTypes.string.isRequired,
   descripcion: PropTypes.string.isRequired,
   precio: PropTypes.number.isRequired,
-  tipoDeRecurso: PropTypes.number.isRequired,
+  // tipoDeRecurso: PropTypes.number.isRequired,
   // servicio1: PropTypes.string.isRequired,
 };
 

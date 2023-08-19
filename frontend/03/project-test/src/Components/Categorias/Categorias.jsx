@@ -61,7 +61,7 @@ const Categorias = ({NombreCategoria}) => {
         <div className="nombre-icono-categoria ofi-abierta">Oficina abierta</div>
       </div>
 
-      <FiltroCategorias></FiltroCategorias>
+      {/* <FiltroCategorias></FiltroCategorias> */}
     </div>
   );
 };

@@ -12,22 +12,21 @@ function nombreExiste(nombre, data) {
 // const nombreYaExiste = nombreExiste(nombreBuscado, jsonData);
 
 const AgregarProducto = () => {
-  //// Variables y constantes ////
-
-  
   const urlBase = "http://localhost:8080/api/v1/recursos/save";
   const jwt = localStorage.getItem("jwt");
   const { productosBKLista, setProductosBKLista, getDatosBKLista } =
     useContext(ContextGlobal);
-    const jsonData = productosBKLista;
-
+  const jsonData = productosBKLista;
 
   const [showPreview, setShowPreview] = useState(false);
   const [selectedServiceIds, setSelectedServiceIds] = useState([]);
   const MAX_SELECTED_SERVICES = 5;
 
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
-  const [nombreYaExiste, setNombreYaExiste] = useState(false); 
+  const [nombreYaExiste, setNombreYaExiste] = useState(false);
+  const [form, setForm] = useState(false);
+
+  const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
   /////// Preparar obbjeto para enviar al servidor    ///////
 
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -47,7 +46,7 @@ const AgregarProducto = () => {
     imagenUrl04: "",
     tieneCafetería: 1,
     tieneWifi: 1,
-    estadoRecurso: "",
+    estadoRecurso: "Disponible",
     tieneLokker: 1,
     tieneFotocopiadoraImpresion: 1,
     tieneEspacioDescanso: 1,
@@ -149,14 +148,13 @@ const AgregarProducto = () => {
     },
   ];
 
-
-  const [form, setForm] = useState(false);
-
   //////////////////OnChanges///////////////
 
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
     setNombreYaExiste(false);
+    setNombreProductoValido(true)
+
   };
 
   const onChangeDescripcion = (e) => {
@@ -172,11 +170,10 @@ const AgregarProducto = () => {
     setNuevoProducto({ ...nuevoProducto, precioUnitario: newValue });
     validarPrecio(newValue);
   };
-  const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
 
   const validarPrecio = (n) => {
     if (isNaN(n)) {
-      setMensajeErrorAltaProd( "Por favor, ingrese un numero");
+      setMensajeErrorAltaProd("Por favor, ingrese un numero");
     } else if (n == 0) {
       setMensajeErrorAltaProd("Por favor, ingrese un numero mayor a 0");
     } else {
@@ -232,18 +229,39 @@ const AgregarProducto = () => {
     return regex.test(n);
   };
 
-  
+  useEffect(() => {
+    if (form) {
+      getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
+    }
+  }, [form]);
+
+  // useEffect(() => {
+  //   if (validarNombreProducto(nuevoProducto.nombre) && !nombreYaExiste) {
+  //     setForm(true);
+  //   } else {
+  //     setForm(false);
+  //   }
+  // }, [nombreYaExiste, nuevoProducto.nombre]);
+
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
-  
+
     // const existe = nombreExiste(nuevoProducto.nombre, jsonData);
-    setNombreYaExiste(nombreExiste(nuevoProducto.nombre, jsonData));
 
+    const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
+    const nombreExisteEnData = nombreExiste(nuevoProducto.nombre, jsonData);
 
+    console.log("------------------nombreYaExiste ?????? ------------------");
+    console.log(nombreEsValido);
+    console.log(
+      "------------------validarNombreProducto ??? ------------------"
+    );
+    console.log(nombreExisteEnData);
 
-    if (validarNombreProducto(nuevoProducto.nombre)) {
+    if (nombreEsValido && !nombreExisteEnData) {
       setForm(true);
+      setNombreProductoValido(true)
       // setShowPreview(true);
       // console.log(form);
 
@@ -256,7 +274,6 @@ const AgregarProducto = () => {
         idSede: nuevoProducto.idSede,
         categoria_id: nuevoProducto.categoria_id,
         id_Tipo_Espacio: nuevoProducto.id_Tipo_Espacio,
-        idSede: 1,
         estadoRecurso: nuevoProducto.estadoRecurso,
         imagenUrl01:
           "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
@@ -285,24 +302,27 @@ const AgregarProducto = () => {
 
       try {
         const jsonData = JSON.stringify(nuevoProductoData);
-        const response = await axios.post(
-          "http://localhost:8080/api/v1/recursos/save",
-          jsonData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.post(urlBase, jsonData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         console.log("Respuesta:", response.data);
+        getDatosBKLista();
       } catch (error) {
         console.error("Error:", error);
       }
+      useEffect(() => {
+        if (form) {
+          getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
+        }
+      }, [form]);
 
       console.log("Muestra el valor de toda la Lista ");
       console.log(productosBKLista);
-
+      console.log("------------------productosBKLista  ------------------");
+      console.log(jsonData);
       // useEffect(() => {
       //   getDatosBKLista();
       // }, []);
@@ -310,11 +330,14 @@ const AgregarProducto = () => {
       /////ERROR ????////////////////////////
     } else {
       setForm(false);
+      setNombreYaExiste(nombreExisteEnData);
+      setNombreProductoValido(false)
+
       setNuevoProducto({
         nombre: "",
         descripción: "",
         capacidadMáxima: 0,
-        precioUnitario: 0,
+        precioUnitario: 1,
         idSede: 0,
         imagenURL: "",
         imagenURL01: "",
@@ -350,7 +373,14 @@ const AgregarProducto = () => {
                 onChange={onChangeNombre}
                 required
               />
-                {nombreYaExiste ? (
+                {nombreProductoValido ? (
+                <p className="error-nombre-existe">
+                  Ingrese un nombre que tenga mas de 3 y menos de 30 caracteres y solo letras.
+                </p>
+              ) : (
+                ""
+              )}
+              {nombreYaExiste ? (
                 <p className="error-nombre-existe">
                   Ya existe un producto con el mismo nombre. Por favor, indique
                   un nuevo nombre.
