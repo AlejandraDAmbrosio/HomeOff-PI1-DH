@@ -10,7 +10,7 @@ import FormIngreso from "./Routes/FormIngreso";
 import FormAltaUser from "./Routes/FormAltaUser";
 import AgregarProducto from "./Routes/AgregarProducto";
 import AdministracionUsers from "./Routes/AdministracionUsers";
-
+import EditarUser from "./Routes/EditarUser";
 
 function App() {
 
@@ -30,6 +30,8 @@ function App() {
         <Route path="/formaltauser/" element={<FormAltaUser />} />
         <Route path="/agregarproducto/" element={<AgregarProducto />} />
         <Route path="/administracionUsers/" element={<AdministracionUsers />} />
+        <Route path="/editarUser/" element={<EditarUser/>} />
+
 
       </Routes>
 

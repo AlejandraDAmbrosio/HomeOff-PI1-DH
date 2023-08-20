@@ -15,7 +15,7 @@ import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 import {
   TableContainer,
@@ -119,6 +119,17 @@ const Users = () => {
               </TableCell>
               <TableCell>
                 <div className="info-item">{user.rol}</div>
+                <Chip
+                  color="neutral"
+                  size="lg"
+                  variant="solid"
+                  endDecorator={<EditIcon />}
+                  onClick={(e) => {
+                    setUsuarioXEliminar(e.target.id);
+                    setOpen(true);
+                  }}
+                ></Chip>
+
               </TableCell>
               <TableCell>
                 <Chip
@@ -131,7 +142,7 @@ const Users = () => {
                     setOpen(true);
                   }}
                 >
-                  {/* Eliminar */}
+                 
                 </Chip>
                 <Modal open={open} onClose={() => setOpen(false)}>
                   <ModalDialog
@@ -182,7 +193,7 @@ const Users = () => {
                 </Modal>
               </TableCell>
               <TableCell>
-              <Chip
+                <Chip
                   color="neutral"
                   size="lg"
                   variant="solid"
@@ -191,85 +202,19 @@ const Users = () => {
                     setUsuarioXEliminar(e.target.id);
                     setOpen(true);
                   }}
-                >
-                  
-                </Chip>
-                {/* <div className="editar-button">Editar</div> */}
+                ></Chip>
+                
               </TableCell>
-              {/* </tr> */}
+              
             </TableRow>
           ))}
 
-          {/* </tbody> */}
+         
         </TableBody>
       </Table>
-      {/* </table> */}
+     
     </TableContainer>
   );
 };
 
 export default Users;
-
-// 2opcion CARDS
-// <div className="users-container">
-//       {usersLista.map((user, idUsuario) => (
-//         <div key={idUsuario} className="user-card">
-//           <div className="user-initials">
-//             {obtenerIniciales(user.nombreCompleto)}
-//           </div>
-//           <div className="user-info">
-//             <div className="info-item">IdUsuario: {user.idUsuario}</div>
-//             <div className="info-item">Nombre: {user.nombreCompleto}</div>
-//             <div className="info-item">Correo: {user.correo}</div>
-//             <div className="info-item">Rol: {user.rol}</div>
-//             <div className="info-item">
-//               <button className="editar-button">Editar</button>
-//               <img
-//                 src="./images/Eliminar.svg"
-//                 alt="Eliminar"
-//                 className="eliminar-button"
-//                 onClick={() => eliminarUsuario(user.idUsuario)}
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-
-// 1era OPCION tabla///////////////////////////////////////////////////
-// <table className="tabla">
-// <thead>
-//   <tr>
-//     <th>Imagen</th>
-//     <th>IdUsuario</th>
-//     <th>Nombre</th>
-//     <th>Correo</th>
-//     <th>Rol</th>
-//     <th>Eliminar</th>
-//     <th>Editar</th>
-//   </tr>
-// </thead>
-// <tbody>
-//   {usersLista.map((user, idUsuario) => (
-//     <tr key={idUsuario}>
-//       <th> {obtenerIniciales(user.nombreCompleto)} </th>
-//       <td>{user.idUsuario}</td>
-//       <td>{user.nombreCompleto}</td>
-//       <td>{user.correo}</td>
-//       <td>{user.rol}</td>
-//       <th className="boton-eliminar">Editar</th>
-//       <th
-//         className="boton-eliminar"
-//         onClick={() => eliminarUsuario(user.idUsuario)}
-//       >
-//         <img
-//           src="./images/Eliminar.svg"
-//           alt="Eliminar"
-//           className="imagen-eliminar"
-//         />
-//       </th>
-
-//     </tr>
-//   ))}
-// </tbody>
-// </table>
