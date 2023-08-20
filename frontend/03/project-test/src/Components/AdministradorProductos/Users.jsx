@@ -16,6 +16,7 @@ import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import EditIcon from "@mui/icons-material/Edit";
+import Avatar from "@mui/joy/Avatar";
 
 import {
   TableContainer,
@@ -70,6 +71,7 @@ const Users = () => {
               backgroundColor: "lightgray",
               borderRadius: ":var(--bRadiusButton)",
               padding: "10px",
+              width: "100%",
             }}
           >
             <TableCell>Imagen</TableCell>
@@ -77,8 +79,6 @@ const Users = () => {
             <TableCell>Nombre</TableCell>
             <TableCell>Correo</TableCell>
             <TableCell>Rol</TableCell>
-            <TableCell>Eliminar</TableCell>
-            <TableCell>Editar</TableCell>
           </TableRow>
 
           {/* </thead> */}
@@ -90,7 +90,7 @@ const Users = () => {
           {usersLista.map((user, idUsuario) => (
             <TableRow key={idUsuario} style={{ height: "100px" }}>
               <TableCell>
-                <div
+                {/* <Button
                   style={{
                     backgroundColor: "#9dd6b3",
                     fontSize: "20px",
@@ -106,7 +106,17 @@ const Users = () => {
                   }}
                 >
                   {obtenerIniciales(user.nombreCompleto)}
-                </div>
+                </Button> */}
+                <Avatar
+                  variant="solid"
+                  size="lg"
+                  style={{
+                    backgroundColor: "#9dd6b3",
+                    color: "black",
+                  }}
+                >
+                  {obtenerIniciales(user.nombreCompleto)}
+                </Avatar>
               </TableCell>
               <TableCell>
                 <div className="info-item">{user.idUsuario}</div>
@@ -117,83 +127,28 @@ const Users = () => {
               <TableCell>
                 <div className="info-item">{user.correo}</div>
               </TableCell>
-              <TableCell>
-                <div className="info-item">{user.rol}</div>
-                <Chip
-                  color="neutral"
-                  size="lg"
-                  variant="solid"
+              <TableCell
+                style={{
+                  display: "flex",
+                  gap: "1rem",
+                  width: "250px",
+                  aligItems: "center",
+                  textAlign: "center",
+                  padding: "30px 0 30px 0",
+                }}
+              >
+                <Button
+                  style={{
+                    backgroundColor: "#9dd6b3",
+                  }}
+                  size="md"
+                  variant="soft"
+                  color="primary"
                   endDecorator={<EditIcon />}
-                  onClick={(e) => {
-                    setUsuarioXEliminar(e.target.id);
-                    setOpen(true);
-                  }}
-                ></Chip>
-
-              </TableCell>
-              <TableCell>
-                <Chip
-                  color="danger"
-                  size="lg"
-                  variant="solid"
-                  endDecorator={<DeleteForever />}
-                  onClick={(e) => {
-                    setUsuarioXEliminar(e.target.id);
-                    setOpen(true);
-                  }}
                 >
-                 
-                </Chip>
-                <Modal open={open} onClose={() => setOpen(false)}>
-                  <ModalDialog
-                    variant="outlined"
-                    role="alertdialog"
-                    aria-labelledby="alert-dialog-modal-title"
-                    aria-describedby="alert-dialog-modal-description"
-                  >
-                    <Typography
-                      id="alert-dialog-modal-title"
-                      level="h2"
-                      startDecorator={<WarningRoundedIcon />}
-                    >
-                      Confirmación!!
-                    </Typography>
-                    <Divider />
-                    <Typography
-                      id="alert-dialog-modal-description"
-                      textColor="text.tertiary"
-                    >
-                      Está seguro que desea eliminar el usuario{" "}
-                      {usuarioXEliminar.nombreCompleto}?
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        gap: 1,
-                        justifyContent: "flex-end",
-                        pt: 2,
-                      }}
-                    >
-                      <Button
-                        variant="plain"
-                        color="neutral"
-                        onClick={() => setOpen(false)}
-                      >
-                        Cancelar
-                      </Button>
-                      <Button
-                        variant="solid"
-                        color="danger"
-                        onClick={() => eliminarUsuario(usuarioXEliminar)}
-                      >
-                        Eliminar Usuario
-                      </Button>
-                    </Box>
-                  </ModalDialog>
-                </Modal>
-              </TableCell>
-              <TableCell>
-                <Chip
+                  {user.rol}
+                </Button>
+                {/* <Chip
                   color="neutral"
                   size="lg"
                   variant="solid"
@@ -202,17 +157,12 @@ const Users = () => {
                     setUsuarioXEliminar(e.target.id);
                     setOpen(true);
                   }}
-                ></Chip>
-                
+                ></Chip> */}
               </TableCell>
-              
             </TableRow>
           ))}
-
-         
         </TableBody>
       </Table>
-     
     </TableContainer>
   );
 };

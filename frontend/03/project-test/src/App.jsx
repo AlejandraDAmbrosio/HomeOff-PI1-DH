@@ -11,6 +11,8 @@ import FormAltaUser from "./Routes/FormAltaUser";
 import AgregarProducto from "./Routes/AgregarProducto";
 import AdministracionUsers from "./Routes/AdministracionUsers";
 import EditarUser from "./Routes/EditarUser";
+import EspacioAdmin from "./Routes/EspacioAdmin";
+import AdministrarCategorias from "./Routes/AdministrarCategorias";
 
 function App() {
 
@@ -29,9 +31,12 @@ function App() {
         <Route path="/formingreso/" element={<FormIngreso />} />
         <Route path="/formaltauser/" element={<FormAltaUser />} />
         <Route path="/agregarproducto/" element={<AgregarProducto />} />
-        <Route path="/administracionUsers/" element={<AdministracionUsers />} />
-        <Route path="/editarUser/" element={<EditarUser/>} />
+        <Route path="/administracionusers/" element={<AdministracionUsers />} />
+        <Route path="/editaruser/" element={<EditarUser/>} />
+        <Route path="/espacioadmin/" element={<EspacioAdmin/>} />
+        <Route path="/administrarcategorias/" element={<AdministrarCategorias/>} />
 
+        
 
       </Routes>
 

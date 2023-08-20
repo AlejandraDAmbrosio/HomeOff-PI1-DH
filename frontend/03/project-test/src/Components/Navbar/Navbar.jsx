@@ -22,7 +22,7 @@ const Navbar = () => {
     <>
       <div className="header">
         <nav>
-          <ul>
+          <ul className="ul-nav">
             <li>
               <Logo />
             </li>

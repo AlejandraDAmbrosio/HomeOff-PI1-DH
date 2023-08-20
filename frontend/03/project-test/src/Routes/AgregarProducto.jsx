@@ -235,19 +235,12 @@ const AgregarProducto = () => {
     }
   }, [form]);
 
-  // useEffect(() => {
-  //   if (validarNombreProducto(nuevoProducto.nombre) && !nombreYaExiste) {
-  //     setForm(true);
-  //   } else {
-  //     setForm(false);
-  //   }
-  // }, [nombreYaExiste, nuevoProducto.nombre]);
 
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
 
-    // const existe = nombreExiste(nuevoProducto.nombre, jsonData);
+ 
 
     const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
     const nombreExisteEnData = nombreExiste(nuevoProducto.nombre, jsonData);

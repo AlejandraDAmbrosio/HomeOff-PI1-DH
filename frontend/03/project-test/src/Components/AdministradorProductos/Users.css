@@ -61,7 +61,7 @@ img {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    
+
 }
 
 
@@ -77,4 +77,10 @@ img {
     background-color:var(--BGrey) ;
     border-radius: var(--bRadiusButton);
     padding: 2rem 0 2rem 0;
+}
+
+
+.info-item {
+    display: flex;
+    align-items: center;
 }

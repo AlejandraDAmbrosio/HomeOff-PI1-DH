@@ -43,9 +43,22 @@ useEffect(() => {
   getDatosUsers();
 }, []);
 
-/////////////////////////////////Eliminar User
+/////////////////////////////////GetCategorias
 
+const [categoriasLista, setCategoriasLista] = useState([]);
+ const getCategoriasLista = async () => {
+   const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
+  const data = await res.json();
 
+  setCategoriasLista(data);
+  console.log(data);
+};
+
+useEffect(() => {
+  getCategoriasLista();
+}, []);
+
+///////////////// PostCategorias 
 
 
 
@@ -56,6 +69,9 @@ useEffect(() => {
   return (
     <ContextGlobal.Provider
       value={{
+        categoriasLista, 
+        setCategoriasLista, 
+        getCategoriasLista,
         usersLista, 
         setUsersLista,
         getDatosUsers,
