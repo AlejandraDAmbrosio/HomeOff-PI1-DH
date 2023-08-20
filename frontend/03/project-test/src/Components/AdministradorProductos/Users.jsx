@@ -15,6 +15,7 @@ import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
+import EditIcon from '@mui/icons-material/Edit';
 
 import {
   TableContainer,
@@ -58,7 +59,7 @@ const Users = () => {
   };
 
   return (
-    <TableContainer >
+    <TableContainer>
       <Table>
         {/* <div className="encabezado-tabla"> */}
         <TableHead>
@@ -68,7 +69,7 @@ const Users = () => {
             style={{
               backgroundColor: "lightgray",
               borderRadius: ":var(--bRadiusButton)",
-              padding:"10px",
+              padding: "10px",
             }}
           >
             <TableCell>Imagen</TableCell>
@@ -87,17 +88,23 @@ const Users = () => {
           {/* <tbody> */}
 
           {usersLista.map((user, idUsuario) => (
-            <TableRow key={idUsuario}>
-              {/* <tr key={idUsuario}> */}
-              <TableCell   style={{
-              backgroundColor: "#9dd6b3",
-              fontSize:"20px",
-              borderRadius: "50%",
-              margin:"0",
-              textAlign: "center",
-              width: "20px",
-            }}>
-                <div className="user-initials">
+            <TableRow key={idUsuario} style={{ height: "100px" }}>
+              <TableCell>
+                <div
+                  style={{
+                    backgroundColor: "#9dd6b3",
+                    fontSize: "20px",
+                    borderRadius: "50%",
+                    margin: "0",
+                    display: "flex",
+                    justifyContent: "center",
+                    aligItems: "center",
+                    textAlign: "center",
+                    padding: "30px",
+                    width: "60px",
+                    height: "60px",
+                  }}
+                >
                   {obtenerIniciales(user.nombreCompleto)}
                 </div>
               </TableCell>
@@ -122,10 +129,9 @@ const Users = () => {
                   onClick={(e) => {
                     setUsuarioXEliminar(e.target.id);
                     setOpen(true);
-                    
                   }}
                 >
-                  Remove
+                  {/* Eliminar */}
                 </Chip>
                 <Modal open={open} onClose={() => setOpen(false)}>
                   <ModalDialog
@@ -176,7 +182,19 @@ const Users = () => {
                 </Modal>
               </TableCell>
               <TableCell>
-                <div className="editar-button">Editar</div>
+              <Chip
+                  color="neutral"
+                  size="lg"
+                  variant="solid"
+                  endDecorator={<EditIcon />}
+                  onClick={(e) => {
+                    setUsuarioXEliminar(e.target.id);
+                    setOpen(true);
+                  }}
+                >
+                  
+                </Chip>
+                {/* <div className="editar-button">Editar</div> */}
               </TableCell>
               {/* </tr> */}
             </TableRow>
