@@ -17,14 +17,11 @@ const CardProducto = ({
   return (
     <div className="card-body-producto">
       <Link to={"/producto/" + id}>
-        {/* <div  style={{
-        backgroundImage: `url(${url})`,
-        backgroundSize: "cover",
-      }}
-></div> */}
         <img className="ImgCard-producto-home" src={url} alt="Foto producto" />
         <div className="textos-card">
           <div className="titulo-descripcion-tipo-servicios">
+          <p className="nombre-categoria-card-producto">{descripcion}</p>
+
             <h3 className="titulo-card-producto">{title}</h3>
             <div className="descripcion-tipo">
               <p className="descripcion-card-home p-sinmargin">{descripcion}</p>
@@ -48,6 +45,7 @@ CardProducto.propTypes = {
   descripcion: PropTypes.string.isRequired,
   precio: PropTypes.number.isRequired,
   tipoRecurso: PropTypes.string.isRequired,
+  
   // servicio1: PropTypes.string.isRequired,
 };
 

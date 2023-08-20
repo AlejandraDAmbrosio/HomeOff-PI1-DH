@@ -9,6 +9,7 @@ import { ContextProvider } from "./Components/utils/global.context";
 import FormIngreso from "./Routes/FormIngreso";
 import FormAltaUser from "./Routes/FormAltaUser";
 import AgregarProducto from "./Routes/AgregarProducto";
+import AdministracionUsers from "./Routes/AdministracionUsers";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/formingreso/" element={<FormIngreso />} />
         <Route path="/formaltauser/" element={<FormAltaUser />} />
         <Route path="/agregarproducto/" element={<AgregarProducto />} />
+        <Route path="/administracionUsers/" element={<AdministracionUsers />} />
 
       </Routes>
 

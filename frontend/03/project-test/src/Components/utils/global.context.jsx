@@ -1,21 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import listadoProductosData from "../ListadoProductos.json";
-import {useLocalStorageList} from '../utils/useStorageList.js'
 export const ContextGlobal = createContext();
 export const ContextProvider = ({ children }) => {
 
-  // const [listaProductosBase, setListaProductosBase] = useLocalStorageList("listaProductosBase", listadoProductosData);
-
-  ///////// este funcionaba
-  // const [listaProductosBase, setListaProductosBase] = useState([]);
-    // useEffect(() => {
-    //   const cargarDatos = async () => {
-    //     if (listaProductosBase.length === 0) {
-    //       setListaProductosBase(listadoProductosData);
-    //     }
-    //   };
-    //   cargarDatos();
-    // }, [listaProductosBase]);
 
   ///Modal Fotos ////
   const [showModal, setShowModal] = useState(false);
@@ -43,41 +29,34 @@ useEffect(() => {
   getDatosBKLista();
 }, []);
 
-/////////////////////////////////////////////////////
-  /////////GetOdontosID //////////////
-  const [datoBKID, setDatoBKID] = useState([]);
+/////////////////////////////////// GET USERS
+const [usersLista, setUsersLista] = useState([]);
+ const getDatosUsers = async () => {
+   const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
+  const data = await res.json();
 
-  const getDatoBKID = async (id) => {
-    try {
-      const res = await fetch(`http://52.32.210.155:8080/api/v1/recursos/list`);
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await res.json();
-      console.log("console del Listado en json");
-      console.log(data);
-      const productoID = data.find((item) => item.idRecurso === id);
-      console.log("console de producto ID encontrado");
-      console.log(productoID);
-      setDatoBKID(productoID);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  setUsersLista(data);
+  console.log(data);
+};
+
+useEffect(() => {
+  getDatosUsers();
+}, []);
 
 ///////////////////////////////////////////
-
-
 
   return (
     <ContextGlobal.Provider
       value={{
+        usersLista, 
+        setUsersLista,
+        getDatosUsers,
         productosBKLista, 
         setProductosBKLista,
         getDatosBKLista,
-        datoBKID, 
-        setDatoBKID, 
-        getDatoBKID,
+        // datoBKID, 
+        // setDatoBKID, 
+        // getDatoBKID,
         // listaProductosBase,
         // setListaProductosBase,
         showModal,
