@@ -58,7 +58,7 @@ const Users = () => {
   };
 
   return (
-    <TableContainer>
+    <TableContainer >
       <Table>
         {/* <div className="encabezado-tabla"> */}
         <TableHead>
@@ -89,7 +89,14 @@ const Users = () => {
           {usersLista.map((user, idUsuario) => (
             <TableRow key={idUsuario}>
               {/* <tr key={idUsuario}> */}
-              <TableCell>
+              <TableCell   style={{
+              backgroundColor: "#9dd6b3",
+              fontSize:"20px",
+              borderRadius: "50%",
+              margin:"0",
+              textAlign: "center",
+              width: "20px",
+            }}>
                 <div className="user-initials">
                   {obtenerIniciales(user.nombreCompleto)}
                 </div>

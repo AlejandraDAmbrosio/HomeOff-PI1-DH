@@ -65,7 +65,7 @@ img {
 } */
 
 .encabezado-tabla {
-    width: 1900px;
+    /* width: 1900px; */
     background-color:var(--BGrey) ;
     border-radius: var(--bRadiusButton);
     padding: 2rem 0 2rem 0;

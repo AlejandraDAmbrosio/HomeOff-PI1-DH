@@ -1,0 +1,16 @@
+.administracion-users {
+    margin-top: 18rem;
+  }
+
+.administracion-users-titulo {
+    font-size: var(--fsizeTL);
+    margin: 0 0 2rem 1rem;
+}
+
+.paneles {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 0 1rem 0 1rem;
+}
