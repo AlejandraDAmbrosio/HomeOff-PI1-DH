@@ -5,8 +5,16 @@ import { useState, useEffect, useContext } from "react";
 import obtenerIniciales from "../utils/iniciales";
 import "./Users.css";
 import axios from "axios";
-import Chip from '@mui/joy/Chip';
-import ChipDelete from '@mui/joy/ChipDelete';
+import Box from "@mui/joy/Box";
+import ChipDelete from "@mui/joy/ChipDelete";
+import Chip from "@mui/joy/Chip";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import DeleteForever from "@mui/icons-material/DeleteForever";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import Typography from "@mui/joy/Typography";
+import Button from "@mui/joy/Button";
+import Divider from "@mui/joy/Divider";
 
 import {
   TableContainer,
@@ -15,10 +23,12 @@ import {
   TableRow,
   TableHead,
   TableCell,
-  Chip,
+  //   Chip,
 } from "@mui/material";
 
 const Users = () => {
+  const [open, setOpen] = React.useState(false);
+  const [usuarioXEliminar, setUsuarioXEliminar] = useState("");
   const { usersLista, setUsersLista, getDatosUsers } =
     useContext(ContextGlobal);
 
@@ -40,22 +50,39 @@ const Users = () => {
       console.error("Error al eliminar el usuario:", error);
     }
   };
+
+  const handleClick = (e) => {
+    setUsuarioXEliminar(e.target.idUsuario);
+    setOpen(true);
+    console.log(e.target.idUsuario);
+  };
+
   return (
     <TableContainer>
       <Table>
+        {/* <div className="encabezado-tabla"> */}
         <TableHead>
           {/* <thead> */}
-          <tr>
-            <th>Imagen</th>
-            <th>IdUsuario</th>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Rol</th>
-            <th>Eliminar</th>
-            <th>Editar</th>
-          </tr>
+
+          <TableRow
+            style={{
+              backgroundColor: "lightgray",
+              borderRadius: ":var(--bRadiusButton)",
+              padding:"10px",
+            }}
+          >
+            <TableCell>Imagen</TableCell>
+            <TableCell>IdUsuario</TableCell>
+            <TableCell>Nombre</TableCell>
+            <TableCell>Correo</TableCell>
+            <TableCell>Rol</TableCell>
+            <TableCell>Eliminar</TableCell>
+            <TableCell>Editar</TableCell>
+          </TableRow>
+
           {/* </thead> */}
         </TableHead>
+        {/* </div> */}
         <TableBody>
           {/* <tbody> */}
 
@@ -80,30 +107,66 @@ const Users = () => {
                 <div className="info-item">{user.rol}</div>
               </TableCell>
               <TableCell>
-                {/* <div
-                // className="eliminar-button"
-               
-                > */}
-                <Chip  size="lg"
-                  variant="solid"
-                  color="danger"
-                  endDecorator={<ChipDelete onDelete={() => alert("Delete")} />}
-               ></Chip>
                 <Chip
+                  color="danger"
                   size="lg"
                   variant="solid"
-                  color="danger"
-                  endDecorator={<ChipDelete onDelete={() => alert("Delete")} />}
+                  endDecorator={<DeleteForever />}
+                  onClick={(e) => {
+                    setUsuarioXEliminar(e.target.id);
+                    setOpen(true);
+                    
+                  }}
                 >
-                  Delete
+                  Remove
                 </Chip>
-                {/* <img
-                    src="./images/Eliminar.svg"
-                    alt="Eliminar"
-                    className="eliminar-button"
-                    onClick={() => eliminarUsuario(user.idUsuario)}
-                /> */}
-                {/* </div> */}
+                <Modal open={open} onClose={() => setOpen(false)}>
+                  <ModalDialog
+                    variant="outlined"
+                    role="alertdialog"
+                    aria-labelledby="alert-dialog-modal-title"
+                    aria-describedby="alert-dialog-modal-description"
+                  >
+                    <Typography
+                      id="alert-dialog-modal-title"
+                      level="h2"
+                      startDecorator={<WarningRoundedIcon />}
+                    >
+                      Confirmación!!
+                    </Typography>
+                    <Divider />
+                    <Typography
+                      id="alert-dialog-modal-description"
+                      textColor="text.tertiary"
+                    >
+                      Está seguro que desea eliminar el usuario{" "}
+                      {usuarioXEliminar.nombreCompleto}?
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 1,
+                        justifyContent: "flex-end",
+                        pt: 2,
+                      }}
+                    >
+                      <Button
+                        variant="plain"
+                        color="neutral"
+                        onClick={() => setOpen(false)}
+                      >
+                        Cancelar
+                      </Button>
+                      <Button
+                        variant="solid"
+                        color="danger"
+                        onClick={() => eliminarUsuario(usuarioXEliminar)}
+                      >
+                        Eliminar Usuario
+                      </Button>
+                    </Box>
+                  </ModalDialog>
+                </Modal>
               </TableCell>
               <TableCell>
                 <div className="editar-button">Editar</div>

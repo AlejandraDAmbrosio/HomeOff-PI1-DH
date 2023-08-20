@@ -55,6 +55,18 @@ img {
   margin: auto;
 }
 
-.TableHead {
-    background-color: grey;
+
+
+/* .table-header {
+    background-color: lightgray;
+    height: 3rem;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: var(--bRadiusButton:15px;);
+} */
+
+.encabezado-tabla {
+    width: 1900px;
+    background-color:var(--BGrey) ;
+    border-radius: var(--bRadiusButton);
+    padding: 2rem 0 2rem 0;
 }
