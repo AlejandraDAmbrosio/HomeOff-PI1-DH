@@ -1,12 +1,13 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
 
-import com.Equipo4.ProyectoIntegradorEquipo4.model.Usuarios;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuarios;
 import com.Equipo4.ProyectoIntegradorEquipo4.repository.IUsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuariosService implements IUsuariosService{
@@ -56,6 +57,21 @@ public class UsuariosService implements IUsuariosService{
         }
         return row;
     }
+
+    @Override
+    public Optional<Usuarios> findById(int id) {
+        Optional<Usuarios> buscarPorID= iUsuariosRepository.findById(id);
+        try {
+            if (buscarPorID.isPresent()){
+                return buscarPorID;
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        return buscarPorID;
+    }
+
+
 
 
 }

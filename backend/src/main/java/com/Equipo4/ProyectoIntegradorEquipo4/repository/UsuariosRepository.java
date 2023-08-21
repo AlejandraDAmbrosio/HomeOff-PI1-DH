@@ -1,13 +1,14 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.repository;
 
 
-import com.Equipo4.ProyectoIntegradorEquipo4.model.Usuarios;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UsuariosRepository  implements IUsuariosRepository{
@@ -36,7 +37,15 @@ public class UsuariosRepository  implements IUsuariosRepository{
 
     @Override
     public int deleteById(int id) {
-        String SQL = "DELETE FROM offi_usuarios WHERE IdUsuario =?";
+        String SQL = "DELETE FROM offi_usuarios WHERE IdUsuario=?";
         return jdbcTemplate.update(SQL, id);
     }
+
+    @Override
+    public Optional<Usuarios> findById(int id) {
+        String SQL = "SELECT * FROM offi_usuarios WHERE IdUsuario=?";
+        return Optional.ofNullable(jdbcTemplate.queryForObject(SQL, new Object[]{id}, BeanPropertyRowMapper.newInstance(Usuarios.class)));
+    }
+
+
 }

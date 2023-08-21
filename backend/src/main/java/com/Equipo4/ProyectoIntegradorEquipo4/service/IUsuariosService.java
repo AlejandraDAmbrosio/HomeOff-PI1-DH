@@ -1,8 +1,9 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
-import com.Equipo4.ProyectoIntegradorEquipo4.model.Usuarios;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuarios;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUsuariosService {
 
@@ -10,4 +11,6 @@ public interface IUsuariosService {
     public int save(Usuarios usuarios);
     public int update(Usuarios usuarios);
     public int deleteById(int id);
+    Optional<Usuarios> findById(int id);
+
 }

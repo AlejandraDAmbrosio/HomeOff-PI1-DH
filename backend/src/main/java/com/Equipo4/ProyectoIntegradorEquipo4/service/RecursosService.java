@@ -1,11 +1,13 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
-import com.Equipo4.ProyectoIntegradorEquipo4.model.Recursos;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Rol;
 import com.Equipo4.ProyectoIntegradorEquipo4.repository.IRecursosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 
@@ -55,6 +57,19 @@ public class RecursosService implements IRecursosService {
             throw ex;
         }
         return row;
+    }
+
+    @Override
+    public Optional<Recursos> findById(int id) {
+        Optional<Recursos> buscarPorID= iRecursosRepository.findById(id);
+        try {
+            if (buscarPorID.isPresent()){
+                return buscarPorID;
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        return buscarPorID;
     }
 
 

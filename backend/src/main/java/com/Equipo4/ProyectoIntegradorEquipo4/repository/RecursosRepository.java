@@ -1,11 +1,13 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.repository;
 
-import com.Equipo4.ProyectoIntegradorEquipo4.model.Recursos;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class RecursosRepository implements IRecursosRepository {
@@ -32,10 +34,15 @@ public class RecursosRepository implements IRecursosRepository {
 
     @Override
     public int deleteById(int id) {
-        String SQL = "DELETE FROM offi_recursos WHERE IdRecurso =?";
+        String SQL = "DELETE FROM offi_recursos WHERE IdRecurso=?";
         return jdbcTemplate.update(SQL, id);
     }
 
+    @Override
+    public Optional<Recursos> findById(int id) {
+        String SQL = "SELECT * FROM offi_recursos WHERE IdRecurso=?";
+        return Optional.ofNullable(jdbcTemplate.queryForObject(SQL, new Object[]{id}, BeanPropertyRowMapper.newInstance(Recursos.class)));
+    }
 
 
 }
