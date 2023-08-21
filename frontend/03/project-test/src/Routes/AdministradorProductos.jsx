@@ -7,7 +7,7 @@ import TablaProductos from "../Components/AdministradorProductos/AdminProductos/
 const AdministradorProductos = () => {
   return (
     <div className="administracion-prod">
-      <div className="administracion-prod-titulo">Administrar Productos</div>
+      <div className="administracion-prod-titulo">Listar Productos</div>
       <div className="paneles-prod">
         <PanelAdminUser />
         <TablaProductos />
