@@ -15,10 +15,41 @@ import EspacioAdmin from "./Routes/EspacioAdmin";
 import AdministrarCategorias from "./Routes/AdministrarCategorias";
 import AdministracionCaracteristicas from "./Routes/AdministracionCaracteristicas";
 import AdministradorProductos from "./Routes/AdministradorProductos";
+import { useEffect, useState } from "react";
 
 function App() {
 
+  ////////////////// Segmento Logueo
+  // const [usuarios, setUsuarios] = useState([]);
+  // const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  // useEffect(() => {
+  //   fetchUsuarios();
+  // }, []);
 
+  // const fetchUsuarios = async () => {
+  //   try {
+  //     const response = await axios.get("http://52.32.210.155:8080/api/v1/usuarios/list");
+  //     setUsuarios(response.data);
+  //   } catch (error) {
+  //     console.error("Error al cargar usuarios:", error);
+  //   }
+  // };
+
+  const iniciarSesion = (email, password) => {
+    const usuarioEncontrado = usuarios.find(
+      (usuario) => usuario.email === email && usuario.password === password
+    );
+
+    if (usuarioEncontrado) {
+      setUsuarioLogueado(usuarioEncontrado);
+      console.log("Usuario logueado:", usuarioEncontrado);
+    } else {
+      console.log("Credenciales incorrectas");
+    }
+  };
+
+
+  /////////////////
   return (
     <>
       <Navbar />

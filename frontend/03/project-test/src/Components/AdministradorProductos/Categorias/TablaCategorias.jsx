@@ -25,6 +25,19 @@ import { useState, useEffect, useContext } from "react";
 import { Collapse, Container } from "@mui/material";
 
 
+
+
+function obtenerNombreCategoriaPorId(idCategoria, data) {
+  const categoriaEncontrada = data.find(item => item.categoria_id === idCategoria);
+  
+  if (categoriaEncontrada) {
+    return categoriaEncontrada.name;
+  } else {
+    return "Categoría no encontrada";
+  }
+}
+
+
 // const ExpandMore = styled((props) => {
 //   const { expand, ...other } = props;
 //   return <IconButton {...other} />;

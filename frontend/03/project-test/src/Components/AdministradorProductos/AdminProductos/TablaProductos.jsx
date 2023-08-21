@@ -13,7 +13,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import obtenerNombreCategoriaPorId from "../../utils/buscarNombreCategoria";
+// import obtenerNombreCategoriaPorId from "../../utils/buscarNombreCategoria";
 import axios from "axios";
 
 import {
@@ -26,6 +26,19 @@ import {
 } from "@mui/material";
 import { Collapse, Container } from "@mui/material";
 
+function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
+  const categoriaEncontrada = listaCategorias.find(
+    (item) => item.categoria_id === idCategoria
+  );
+
+  if (categoriaEncontrada) {
+    return categoriaEncontrada.name;
+  } else {
+    return "Categoría no encontrada";
+  }
+}
+
+
 const TablaProductos = () => {
   ///Traer datos de Base mediante UseContext
   const {
@@ -36,9 +49,6 @@ const TablaProductos = () => {
     setCategoriasLista,
     getCategoriasLista,
   } = useContext(ContextGlobal);
-  useEffect(() => {
-    getDatosBKLista();
-  }, []);
 
   useEffect(() => {
     getCategoriasLista();
@@ -48,10 +58,32 @@ const TablaProductos = () => {
   const [recursoXEliminar, setrecursoXEliminar] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
+  // const eliminarUsuario = async (idRecurso) => {
+  //   try {
+  //     await axios.delete(
+  //       `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`
+  //     );
+
+  //     const updatedRecursos = productosBKLista.filter(
+  //       (productoXId) => productoXId.idRecurso !== idRecurso
+  //     );
+  //     setProductosBKLista(updatedRecursos);
+  //   } catch (error) {
+  //     console.error("Error al eliminar el usuario:", error);
+  //   }
+
+  // };
+
   const eliminarUsuario = async (idRecurso) => {
     try {
-      await axios.delete(
-        `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`
+      const response = await axios.delete(
+        `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*", // O reemplaza '*' con tu dominio permitido
+            // Otros encabezados si es necesario
+          },
+        }
       );
 
       const updatedRecursos = productosBKLista.filter(
@@ -86,7 +118,7 @@ const TablaProductos = () => {
 
   return (
     <div>
-        <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -164,7 +196,8 @@ const TablaProductos = () => {
                   <TableCell style={{ width: "120px" }}>
                     {obtenerNombreCategoriaPorId(
                       recurso.categoria_id,
-                      productosBKLista
+                      productosBKLista,
+                      categoriasLista
                     )}
                   </TableCell>
                   <TableCell style={{ width: "450px" }}>
@@ -219,8 +252,7 @@ const TablaProductos = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      
-      </div>
+    </div>
   );
 };
 
