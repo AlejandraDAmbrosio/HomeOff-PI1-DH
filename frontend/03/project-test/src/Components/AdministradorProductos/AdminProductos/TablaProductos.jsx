@@ -117,13 +117,13 @@ const TablaProductos = () => {
             {/* <tbody> */}
 
             {productosBKLista.map((recurso, IdRecurso) => (
-              <TableRow key={IdRecurso} style={{ height: "40px" }}>
-                <TableCell style={{ width: "40px", padding:"0 0 0 15px"}}>
+              <TableRow key={IdRecurso} style={{ height: "30px" }}>
+                <TableCell style={{ width: "30px", padding:"0 0 0 15px"}}>
                   {" "}
                   <img
                     src={recurso.imagenURL}
                     alt={`Imagen de ${recurso.nombre}`}
-                    style={{ width: "50px", height: "40px", padding:"0", }}
+                    style={{ width: "60px", height: "50px", padding:"2px 0 0 0px", }}
                   />
                 </TableCell>
                 <TableCell>{recurso.idRecurso}</TableCell>
@@ -140,11 +140,11 @@ const TablaProductos = () => {
                 <TableCell
                   style={{
                     display: "flex",
-                    gap: "1rem",
+                    
                     width: "50px",
                     aligItems: "center",
                     textAlign: "center",
-                    padding: "10px 0 10px 0",
+                    padding: "8px 0 8px 0",
                   }}
                 >
                   <Button
@@ -158,7 +158,9 @@ const TablaProductos = () => {
                   ></Button>
                 </TableCell>
 
-                <TableCell>
+                <TableCell  style={{
+                    padding: "8px 0 8px 0",
+                  }}>
                   <Chip
                     color="danger"
                     size="lg"
