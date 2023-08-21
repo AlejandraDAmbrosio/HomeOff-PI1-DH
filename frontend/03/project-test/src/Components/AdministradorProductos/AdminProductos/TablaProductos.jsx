@@ -85,7 +85,7 @@ const TablaProductos = () => {
       sx={{ width: "100%", overflow: "hidden" }}
       style={{ margin: "0 20px 0 0" }}
     >
-      <TableContainer sx={{ maxHeight: 500 }}>
+      <TableContainer sx={{ maxHeight: 400 }}>
         <Table stickyHeader aria-label="sticky table">
           {/* <div className="encabezado-tabla"> */}
           <TableHead>
@@ -117,13 +117,13 @@ const TablaProductos = () => {
             {/* <tbody> */}
 
             {productosBKLista.map((recurso, IdRecurso) => (
-              <TableRow key={IdRecurso} style={{ height: "50px" }}>
-                <TableCell style={{ width: "50px", padding:"0 0 0 15px"}}>
+              <TableRow key={IdRecurso} style={{ height: "40px" }}>
+                <TableCell style={{ width: "40px", padding:"0 0 0 15px"}}>
                   {" "}
                   <img
                     src={recurso.imagenURL}
                     alt={`Imagen de ${recurso.nombre}`}
-                    style={{ width: "50px", height: "50px", padding:"0", }}
+                    style={{ width: "50px", height: "40px", padding:"0", }}
                   />
                 </TableCell>
                 <TableCell>{recurso.idRecurso}</TableCell>
@@ -144,7 +144,7 @@ const TablaProductos = () => {
                     width: "50px",
                     aligItems: "center",
                     textAlign: "center",
-                    padding: "30px 0 30px 0",
+                    padding: "10px 0 10px 0",
                   }}
                 >
                   <Button
