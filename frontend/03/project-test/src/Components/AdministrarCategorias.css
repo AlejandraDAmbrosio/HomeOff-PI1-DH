@@ -1,11 +1,23 @@
 
 .administracion-cat {
-    margin-top: 18rem;
+    margin-top: 14rem;
+    margin-bottom: 2rem;
   }
   
   .administracion-cat-titulo {
     font-size: var(--fsizeTL);
     margin: 0 0 2rem 1rem;
+    
+    /* background-image: url("/images/pexels-photo-1097930.jpeg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: grayscale(100%);
+    height: 100px;
+    width: 100%;
+    color: aquamarine;
+    display: flex;
+    align-items: center;
+    
   }
   
 

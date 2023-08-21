@@ -1,6 +1,6 @@
 import React from "react";
 import "./TablaCategorias.css";
-import { ContextGlobal } from "../utils/global.context";
+import { ContextGlobal } from "../../utils/global.context";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -24,6 +24,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { Collapse, Container } from "@mui/material";
 
+
 // const ExpandMore = styled((props) => {
 //   const { expand, ...other } = props;
 //   return <IconButton {...other} />;
@@ -41,7 +42,9 @@ function nombreExiste(nombre, data) {
 
 const TablaCategorias = () => {
   //// Traer base
-  const urlBase = "http://52.32.210.155:8080/api/v1/categorias/save";
+  const urlBaseGuardar = "http://52.32.210.155:8080/api/v1/categorias/save";
+  const urlBaseEliminar = "http://52.32.210.155:8080/api/v1/categorias/delete/";
+
   const { categoriasLista, setCategoriasLista, getCategoriasLista } =
     useContext(ContextGlobal);
 
@@ -62,12 +65,12 @@ const TablaCategorias = () => {
     name: "",
     description: "",
   });
-
+  const [selectedImage, setSelectedImage] = useState(null);
   //// State Para Validaciones
   // const [nombreYaExiste, setNombreYaExiste] = useState(false);
 
   const validarNombreCategoria = (n) => {
-    const regex = /^[A-Za-z\s]{6,40}$/;
+    const regex = /^[A-Za-z\s]{4,40}$/;
     return regex.test(n);
   };
 
@@ -81,6 +84,17 @@ const TablaCategorias = () => {
 
   const onChangeDescription = (e) => {
     setNuevaCategoria({ ...nuevaCategoria, description: e.target.value });
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   ////////// Modal Form
@@ -125,7 +139,7 @@ const TablaCategorias = () => {
 
       try {
         const jsonData = JSON.stringify(nuevaCategoriaData);
-        const response = await axios.post(urlBase, jsonData, {
+        const response = await axios.post(urlBaseGuardar, jsonData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -164,32 +178,35 @@ const TablaCategorias = () => {
   ///////////////////////////////////////
   return (
     <Container>
-    <div className="tabla-categorias">
-     
-      <div
-        className="lista-categorias"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        {categoriasLista.map((categoria, id) => (
-          <Card
-            key={categoria.categoria_id}
-            style={{ width: "250px", height: "70", margin: "30px" }}
-          >
-            {/* <CardMedia */}
-            {/* sx={{ height: "100" }} */}
-            {/* image="/static/images/cards/contemplative-reptile.jpg" */}
-            {/* title="green iguana" */}
-            {/* ></CardMedia> */}
-            <CardContent overflow="auto">
-              <Typography variant="h7" component="div" textOverflow="ellipsis">
-                {categoria.name}
-              </Typography>
-            </CardContent>
-            {/* <CardActions disableSpacing>
+      <div className="tabla-categorias">
+        <div
+          className="lista-categorias"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          {categoriasLista.map((categoria, id) => (
+            <Card
+              key={categoria.categoria_id}
+              style={{ width: "250px", height: "70", margin: "30px" }}
+            >
+              {/* <CardMedia */}
+              {/* sx={{ height: "100" }} */}
+              {/* image="/static/images/cards/contemplative-reptile.jpg" */}
+              {/* title="green iguana" */}
+              {/* ></CardMedia> */}
+              <CardContent overflow="auto">
+                <Typography
+                  variant="h7"
+                  component="div"
+                  textOverflow="ellipsis"
+                >
+                  {categoria.name}
+                </Typography>
+              </CardContent>
+              {/* <CardActions disableSpacing>
                   
                       <ExpandMore
                         expand={expandedMap[id]}
@@ -217,13 +234,13 @@ const TablaCategorias = () => {
                         </Typography>
                       </CardContent>
                     </Collapse> */}
-          </Card>
-        ))}
+            </Card>
+          ))}
 
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Crear Categoria
-        </Button>
-</div>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Crear Categoria
+          </Button>
+        </div>
 
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Crear categoria</DialogTitle>
@@ -254,6 +271,28 @@ const TablaCategorias = () => {
               fullWidth
               variant="standard"
             />
+
+            <TextField
+              autoFocus
+              margin="dense"
+              type="file"
+              accept="image/*"
+              label="Imagen Categoria"
+              value={nuevaCategoria.icono}
+              onChange={handleImageChange}
+              fullWidth
+              variant="standard"
+            />
+            {selectedImage && (
+              <Card>
+                <CardMedia
+                  component="img"
+                  alt="Selected"
+                  height="150"
+                  image={selectedImage}
+                />
+              </Card>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancelar</Button>
@@ -261,7 +300,7 @@ const TablaCategorias = () => {
           </DialogActions>
         </Dialog>
       </div>
-      </Container>
+    </Container>
   );
 };
 

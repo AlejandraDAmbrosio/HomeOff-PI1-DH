@@ -1,5 +1,5 @@
 import React from "react";
-import TablaCategorias from "../Components/AdministradorProductos/TablaCategorias";
+import TablaCategorias from "../Components/AdministradorProductos/Categorias/TablaCategorias";
 import PanelAdminUser from "../Components/AdministradorProductos/PanelAdminUser";
 import "../Components/AdministrarCategorias.css";
 
