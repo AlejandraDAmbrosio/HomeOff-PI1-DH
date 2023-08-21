@@ -1,12 +1,44 @@
+.paneles-agregar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 0 1rem 0 1rem;
+  width: 100%;
+}
+
+.administracion-agre {
+  margin-top: 14rem;
+  margin-bottom: 2rem;
+}
+
+.administracion-agre-titulo {
+  font-size: var(--fsizeTL);
+  margin: 0 0 1rem 1rem;
+
+  /* background-image: url("/images/pexels-photo-1097930.jpeg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* filter: grayscale(100%); */
+  height: 100px;
+  width: 100%;
+  color: var(--bgrey);
+  display: flex;
+  align-items: center;
+}
+
 .division-form-preview {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   height: auto;
-  padding-top: 12rem;
-  max-width: 1000px;
+  padding-top: 0rem;
+  margin-right: 5rem;
+  width: 100%;
+  max-width: 1400px;
   margin: auto auto;
-  gap: 3rem;
+  gap: 2rem;
+  border: 1px solid rgb(184, 184, 184);
 }
 
 /* .card-simulada {
@@ -28,71 +60,63 @@
   color: var(--blue);
 }
 
-
 .pagina-formulario-alta-producto {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 50%;
-    height: auto;
-    /* padding-top: 12rem; */
-    padding-bottom: 2rem;
-    margin: auto auto;
-  
-  }
-    .titulo-form-inicio-sesion {
-      font-size: 30px;
-      color:var(--blue);
-    }
-  
-    .formularioAgregarProducto {
-      
-    }
-  
-    .campo-anotacion {
-      margin: 1rem 0rem;
-    }
-  
-    .anotacion {
-      color:var(-colorGrey)
-    }
-  
-   
-  .campo-formulario {
-    border-radius: 10px 10px 10px 10px;
-    width: 100%;
-    height: 35px;
-    background-color:white;
-   
-  }
-  
-    .boton-acceso-agregar-producto {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: auto;
+  /* padding-top: 12rem; */
+  padding-bottom: 2rem;
+  margin: auto auto;
+}
+.titulo-form-inicio-sesion {
+  font-size: 30px;
+  color: var(--blue);
+}
 
-      /* text-align: center; */
-      /* line-height: 30px; */
-      /* background-color:  rgb(3, 141, 165); */
-      /* width: 340px;
+.formularioAgregarProducto {
+}
+
+.campo-anotacion {
+  margin: 1rem 0rem;
+}
+
+.anotacion {
+  color: var(-colorGrey);
+}
+
+.campo-formulario {
+  border-radius: 10px 10px 10px 10px;
+  width: 100%;
+  height: 35px;
+  background-color: white;
+}
+
+.boton-acceso-agregar-producto {
+  /* text-align: center; */
+  /* line-height: 30px; */
+  /* background-color:  rgb(3, 141, 165); */
+  /* width: 340px;
       height: 30px; */
-      /* border-radius: 10px 10px 10px 10px;
+  /* border-radius: 10px 10px 10px 10px;
       color: white; */
-      justify-content: space-around;
-      display: flex;
+  justify-content: space-around;
+  display: flex;
+}
 
-    }
-  
-    .acceso-cuenta-o-usuarionuevo {
-      color:  rgb(3, 141, 165);
-      font-weight: 700;
-      width: 340px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2rem;
-    }
-    
-  .error-nombre-existe {
-    color: red;
-  }
-   
+.acceso-cuenta-o-usuarionuevo {
+  color: rgb(3, 141, 165);
+  font-weight: 700;
+  width: 340px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.error-nombre-existe {
+  color: red;
+}

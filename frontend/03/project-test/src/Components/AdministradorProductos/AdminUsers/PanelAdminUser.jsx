@@ -42,10 +42,15 @@ const PanelAdminUser = () => {
         </ListItem>
 
         <ListDivider />
-     
+        <Link to="/agregarproducto/">
+          <ListItem>
+            <ListItemButton>Agregar productos</ListItemButton>
+          </ListItem>
+        </Link>
+
         <Link to="/administradorproductos/">
           <ListItem>
-            <ListItemButton>Administrar productos</ListItemButton>
+            <ListItemButton>Listar productos</ListItemButton>
           </ListItem>
         </Link>
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../Components/AgregarProducto.css";
-
+import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
+import { Container } from "@mui/material";
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/Genericos/CardProductoSimulado.css";
@@ -153,8 +154,7 @@ const AgregarProducto = () => {
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
     setNombreYaExiste(false);
-    setNombreProductoValido(true)
-
+    setNombreProductoValido(true);
   };
 
   const onChangeDescripcion = (e) => {
@@ -235,12 +235,9 @@ const AgregarProducto = () => {
     }
   }, [form]);
 
-
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
-
- 
 
     const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
     const nombreExisteEnData = nombreExiste(nuevoProducto.nombre, jsonData);
@@ -254,7 +251,7 @@ const AgregarProducto = () => {
 
     if (nombreEsValido && !nombreExisteEnData) {
       setForm(true);
-      setNombreProductoValido(true)
+      setNombreProductoValido(true);
       // setShowPreview(true);
       // console.log(form);
 
@@ -324,7 +321,7 @@ const AgregarProducto = () => {
     } else {
       setForm(false);
       setNombreYaExiste(nombreExisteEnData);
-      setNombreProductoValido(false)
+      setNombreProductoValido(false);
 
       setNuevoProducto({
         nombre: "",
@@ -345,250 +342,265 @@ const AgregarProducto = () => {
   };
 
   return (
-    <div className="division-form-preview">
-      <div className="pagina-formulario-alta-producto">
-        <div className="encabezado-formulario">
-          <div className="titulo-form-inicio-sesion">Agrega productos</div>
-        </div>
-
-        <form onSubmit={handleSubmitCrearProducto}>
-          <div className="formularioAgregarProducto">
-            <div className="campo-anotacion">
-              <label className="anotacion" for="nombreProducto">
-                Nombre del producto *
-              </label>
-              <input
-                id="nombreProducto"
-                className="campo-formulario"
-                type="text"
-                placeholder="Ingresa el nombre del producto "
-                value={nuevoProducto.nombre}
-                onChange={onChangeNombre}
-                required
-              />
-                {nombreProductoValido ? (
-                <p className="error-nombre-existe">
-                  Ingrese un nombre que tenga mas de 3 y menos de 30 caracteres y solo letras.
-                </p>
-              ) : (
-                ""
-              )}
-              {nombreYaExiste ? (
-                <p className="error-nombre-existe">
-                  Ya existe un producto con el mismo nombre. Por favor, indique
-                  un nuevo nombre.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="descripción">
-                Descripcion *
-              </label>
-              <textarea
-                id="descripción"
-                className="campo-formulario"
-                type="text"
-                placeholder="Ingrese una descripcion"
-                value={nuevoProducto.descripción}
-                onChange={onChangeDescripcion}
-                required
-              />
-            </div>
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="tipoRecurso">
-                Tipo de Recurso *
-              </label>
-              <select
-                id="tipoRecurso"
-                className="campo-formulario"
-                type="text"
-                placeholder="Elija un tipo de recurso"
-                value={nuevoProducto.categoria_id}
-                onChange={onChangeTipoRecurso}
-                required
-              >
-                {tipoRecursoArray.map((tipoRecurso) => (
-                  <option
-                    key={tipoRecurso.id}
-                    className="item-grid"
-                    value={tipoRecurso.id}
-                  >
-                    {tipoRecurso.tipo}{" "}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="campo-anotacion">
-              <div className="anotacion">Capacidad máxima *</div>
-              <select
-                className="campo-formulario"
-                type="number"
-                placeholder="Elija una capacidad máxima"
-                value={nuevoProducto.capacidadMáxima}
-                onChange={onChangeCapacidadMáxima}
-                required
-              >
-                {capacidadArray.map((cant) => (
-                  <option
-                    key={cant.id}
-                    className="item-grid"
-                    value={cant.cantidad}
-                  >
-                    {cant.cantidad}{" "}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* -/////////////////////////////////////// */}
-
-            {Object.keys(servicios).map((servicio) => (
-              <li key={servicio}>
-                <label>
-                  <input
-                    type="checkbox"
-                    className="item-grid-check"
-                    checked={servicios[servicio]}
-                    onChange={() => handleOptionChange(servicio)}
-                  />
-                  {servicio}
-                </label>
-              </li>
-            ))}
-
-            {/* //////////////////////////////////////////////////////////////////////////////// */}
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="precioProducto">
-                Precio del producto *
-              </label>
-              <input
-                id="precioProducto"
-                className="campo-formulario"
-                type="number"
-                placeholder="Ingresa el precio del producto "
-                value={nuevoProducto.precioUnitario}
-                onChange={onChangePreciounitario}
-              />
-            </div>
-            {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
-
-            {/* //////////////////////////////////////////////////////////////////////////////// */}
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="tipoEspacio">
-                Elija el tipo de Espacio
-              </label>
-              <select
-                id="tipoEspacio"
-                className="campo-formulario"
-                type="number"
-                placeholder="Elija el tipo de espacio"
-                value={nuevoProducto.id_Tipo_Espacio}
-                onChange={onChangeAbiertoCerrado}
-                required
-              >
-                <option className="item-grid" value={1}>
-                  OFICINA ESPACIO ABIERTO
-                </option>
-                <option className="item-grid" value={0}>
-                  OFICINA ESPACIO CERRADO
-                </option>
-              </select>
-            </div>
-
-            {/* //////////////////////////////////////////////////////////////////////////////// */}
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="sede">
-                Elija una Sede *
-              </label>
-              <select
-                id="sede"
-                className="campo-formulario"
-                type="text"
-                placeholder="Elija una Sede"
-                value={nuevoProducto.idSede}
-                onChange={onChangeSede}
-                required
-              >
-                {sedesArray.map((sede) => (
-                  <option key={sede.id} className="item-grid" value={sede.id}>
-                    {sede.nombre}{" "}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="disponible">
-                Esta Disponible? *
-              </label>
-              <select
-                id="disponible"
-                className="campo-formulario"
-                type="text"
-                placeholder="Elija un tipo de recurso"
-                value={nuevoProducto.estadoRecurso}
-                onChange={onChangeDisponibilidad}
-                required
-              >
-                <option className="item-grid" value="Disponible">
-                  Disponible
-                </option>
-                <option className="item-grid" value="No disponible">
-                  No disponible
-                </option>
-              </select>
-            </div>
-
-            <div className="campo-anotacion">
-              <label className="anotacion" for="fotos">
-                Ingresa las fotos del producto *
-              </label>
-              <input
-                type="file"
-                id="fotos"
-                name="fotos"
-                accept=".jpg, .jpeg, .png"
-                onChange={onChangeFoto}
-                multiple
-              />
-            </div>
-
-            {/* //////////////-----------------------------////////////// */}
-            <div className="boton-acceso-agregar-producto">
-              <button className="boton" type="submit">
-                Guardar
-              </button>
-              <button className="boton" type="reset">
-                Cancelar
-              </button>
-            </div>
-          </div>
-          {form && (
-            <h5 className="msj-form-guardado">
-              Gracias !! Tu producto ha sido guardado!
-            </h5>
-          )}
-        </form>
-        <div className="acceso-cuenta-o-usuarionuevo"></div>
+    <div className="administracion-agre">
+      <div className="administracion-agre-titulo">
+        Administracion Características
       </div>
-      <div className="segmento-preview">
-        <h1 className="titulo-preview">Preview Carga de producto</h1>
-        <CardProductoSimulado
-          className="card-simulada"
-          title={nuevoProducto.nombre}
-          descripcion={nuevoProducto.descripción}
-          url={nuevoProducto.imagenURL}
-          precio={nuevoProducto.precioUnitario}
-        />
+      <div className="paneles-agregar">
+        <PanelAdminUser />
+        <div className="division-form-preview">
+          {/* <Container style={{ width:"100%"}}> */}
+            <div className="pagina-formulario-alta-producto">
+              {/* <div className="encabezado-formulario">
+          {/* <div className="titulo-form-inicio-sesion">Agrega productos</div> */}
+              {/* </div>  */}
+
+              <form onSubmit={handleSubmitCrearProducto}>
+                <div className="formularioAgregarProducto">
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="nombreProducto">
+                      Nombre del producto *
+                    </label>
+                    <input
+                      id="nombreProducto"
+                      className="campo-formulario"
+                      type="text"
+                      placeholder="Ingresa el nombre del producto "
+                      value={nuevoProducto.nombre}
+                      onChange={onChangeNombre}
+                      required
+                    />
+                    {nombreProductoValido ? (
+                      <p className="error-nombre-existe">
+                        Ingrese un nombre que tenga mas de 3 y menos de 30
+                        caracteres y solo letras.
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                    {nombreYaExiste ? (
+                      <p className="error-nombre-existe">
+                        Ya existe un producto con el mismo nombre. Por favor,
+                        indique un nuevo nombre.
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="descripción">
+                      Descripcion *
+                    </label>
+                    <textarea
+                      id="descripción"
+                      className="campo-formulario"
+                      type="text"
+                      placeholder="Ingrese una descripcion"
+                      value={nuevoProducto.descripción}
+                      onChange={onChangeDescripcion}
+                      required
+                    />
+                  </div>
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="tipoRecurso">
+                      Tipo de Recurso *
+                    </label>
+                    <select
+                      id="tipoRecurso"
+                      className="campo-formulario"
+                      type="text"
+                      placeholder="Elija un tipo de recurso"
+                      value={nuevoProducto.categoria_id}
+                      onChange={onChangeTipoRecurso}
+                      required
+                    >
+                      {tipoRecursoArray.map((tipoRecurso) => (
+                        <option
+                          key={tipoRecurso.id}
+                          className="item-grid"
+                          value={tipoRecurso.id}
+                        >
+                          {tipoRecurso.tipo}{" "}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="campo-anotacion">
+                    <div className="anotacion">Capacidad máxima *</div>
+                    <select
+                      className="campo-formulario"
+                      type="number"
+                      placeholder="Elija una capacidad máxima"
+                      value={nuevoProducto.capacidadMáxima}
+                      onChange={onChangeCapacidadMáxima}
+                      required
+                    >
+                      {capacidadArray.map((cant) => (
+                        <option
+                          key={cant.id}
+                          className="item-grid"
+                          value={cant.cantidad}
+                        >
+                          {cant.cantidad}{" "}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* -/////////////////////////////////////// */}
+
+                  {Object.keys(servicios).map((servicio) => (
+                    <li key={servicio}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          className="item-grid-check"
+                          checked={servicios[servicio]}
+                          onChange={() => handleOptionChange(servicio)}
+                        />
+                        {servicio}
+                      </label>
+                    </li>
+                  ))}
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="precioProducto">
+                      Precio del producto *
+                    </label>
+                    <input
+                      id="precioProducto"
+                      className="campo-formulario"
+                      type="number"
+                      placeholder="Ingresa el precio del producto "
+                      value={nuevoProducto.precioUnitario}
+                      onChange={onChangePreciounitario}
+                    />
+                  </div>
+                  {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="tipoEspacio">
+                      Elija el tipo de Espacio
+                    </label>
+                    <select
+                      id="tipoEspacio"
+                      className="campo-formulario"
+                      type="number"
+                      placeholder="Elija el tipo de espacio"
+                      value={nuevoProducto.id_Tipo_Espacio}
+                      onChange={onChangeAbiertoCerrado}
+                      required
+                    >
+                      <option className="item-grid" value={1}>
+                        OFICINA ESPACIO ABIERTO
+                      </option>
+                      <option className="item-grid" value={0}>
+                        OFICINA ESPACIO CERRADO
+                      </option>
+                    </select>
+                  </div>
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="sede">
+                      Elija una Sede *
+                    </label>
+                    <select
+                      id="sede"
+                      className="campo-formulario"
+                      type="text"
+                      placeholder="Elija una Sede"
+                      value={nuevoProducto.idSede}
+                      onChange={onChangeSede}
+                      required
+                    >
+                      {sedesArray.map((sede) => (
+                        <option
+                          key={sede.id}
+                          className="item-grid"
+                          value={sede.id}
+                        >
+                          {sede.nombre}{" "}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="disponible">
+                      Esta Disponible? *
+                    </label>
+                    <select
+                      id="disponible"
+                      className="campo-formulario"
+                      type="text"
+                      placeholder="Elija un tipo de recurso"
+                      value={nuevoProducto.estadoRecurso}
+                      onChange={onChangeDisponibilidad}
+                      required
+                    >
+                      <option className="item-grid" value="Disponible">
+                        Disponible
+                      </option>
+                      <option className="item-grid" value="No disponible">
+                        No disponible
+                      </option>
+                    </select>
+                  </div>
+
+                  <div className="campo-anotacion">
+                    <label className="anotacion" for="fotos">
+                      Ingresa las fotos del producto *
+                    </label>
+                    <input
+                      type="file"
+                      id="fotos"
+                      name="fotos"
+                      accept=".jpg, .jpeg, .png"
+                      onChange={onChangeFoto}
+                      multiple
+                    />
+                  </div>
+
+                  {/* //////////////-----------------------------////////////// */}
+                  <div className="boton-acceso-agregar-producto">
+                    <button className="boton" type="submit">
+                      Guardar
+                    </button>
+                    <button className="boton" type="reset">
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+                {form && (
+                  <h5 className="msj-form-guardado">
+                    Gracias !! Tu producto ha sido guardado!
+                  </h5>
+                )}
+              </form>
+              <div className="acceso-cuenta-o-usuarionuevo"></div>
+            </div>
+            <div className="segmento-preview">
+              <h1 className="titulo-preview">Preview Carga de producto</h1>
+              <CardProductoSimulado
+                className="card-simulada"
+                title={nuevoProducto.nombre}
+                descripcion={nuevoProducto.descripción}
+                url={nuevoProducto.imagenURL}
+                precio={nuevoProducto.precioUnitario}
+              />
+            </div>
+          {/* </Container> */}
+        </div>
       </div>
     </div>
   );
