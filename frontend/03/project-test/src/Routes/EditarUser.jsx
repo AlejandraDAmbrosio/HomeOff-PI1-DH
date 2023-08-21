@@ -1,7 +1,7 @@
 import React from "react";
-import "../Components/AdministradorProductos/EditarUser.css";
+import "../Components/AdministradorProductos/AdminUsers/EditarUser.css";
 
-import PanelAdminUser from "../Components/AdministradorProductos/PanelAdminUser";
+import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 
 const EditarUser = () => {
   return (

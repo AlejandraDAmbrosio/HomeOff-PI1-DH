@@ -13,6 +13,8 @@ import AdministracionUsers from "./Routes/AdministracionUsers";
 import EditarUser from "./Routes/EditarUser";
 import EspacioAdmin from "./Routes/EspacioAdmin";
 import AdministrarCategorias from "./Routes/AdministrarCategorias";
+import AdministracionCaracteristicas from "./Routes/AdministracionCaracteristicas";
+import AdministradorProductos from "./Routes/AdministradorProductos";
 
 function App() {
 
@@ -35,9 +37,10 @@ function App() {
         <Route path="/editaruser/" element={<EditarUser/>} />
         <Route path="/espacioadmin/" element={<EspacioAdmin/>} />
         <Route path="/administrarcategorias/" element={<AdministrarCategorias/>} />
+        <Route path="/administracioncaracteristicas/" element={<AdministracionCaracteristicas/>} />
+        <Route path="/administradorproductos/" element={<AdministradorProductos/>} />
 
         
-
       </Routes>
 
       <Footer />

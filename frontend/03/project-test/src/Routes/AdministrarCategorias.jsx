@@ -1,6 +1,6 @@
 import React from "react";
 import TablaCategorias from "../Components/AdministradorProductos/Categorias/TablaCategorias";
-import PanelAdminUser from "../Components/AdministradorProductos/PanelAdminUser";
+import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 import "../Components/AdministrarCategorias.css";
 
 const AdministrarCategorias = () => {
@@ -8,7 +8,7 @@ const AdministrarCategorias = () => {
 
   return (
     <div className="administracion-cat">
-      <div className="administracion-cat-titulo">AdministrarCategorias</div>
+      <div className="administracion-cat-titulo">Administrar Categorías</div>
       <div className="paneles-cate">
         <PanelAdminUser />
         <TablaCategorias/>
