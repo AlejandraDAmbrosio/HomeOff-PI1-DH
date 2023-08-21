@@ -13,7 +13,7 @@ function nombreExiste(nombre, data) {
 // const nombreYaExiste = nombreExiste(nombreBuscado, jsonData);
 
 const AgregarProducto = () => {
-  const urlBase = "http://localhost:8080/api/v1/recursos/save";
+  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
   const jwt = localStorage.getItem("jwt");
   const { productosBKLista, setProductosBKLista, getDatosBKLista } =
     useContext(ContextGlobal);

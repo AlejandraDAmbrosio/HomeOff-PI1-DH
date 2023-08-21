@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import { Boton } from "../Components/Genericos/Boton";
 import "../Components/FormAltaUser.css";
 import Error from "../Components/Error";
+import axios from "axios";
+import { ContextGlobal } from "../Components/utils/global.context";
+import { useEffect, useContext } from "react";
+
 
 const FormAltaUser = () => {
+  const { usersLista, setUsersLista, getDatosUsers } =
+  useContext(ContextGlobal);
   const textoBotonGuardarForm = "Crear Cuenta";
+  const urlBase = "http://52.32.210.155:8080/api/v1/usuarios/save";
 
   //Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
@@ -41,13 +48,12 @@ const FormAltaUser = () => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, apellido: newValue });
     validarApellido(newValue);
-  
   };
 
   const onChangeEmail = (e) => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, email: newValue });
-    validarEmail(newValue);  
+    validarEmail(newValue);
   };
 
   const onChangeConfirmacionEmail = (e) => {
@@ -104,7 +110,7 @@ const FormAltaUser = () => {
   };
 
   const validarConfirmacionEmail = (e) => {
-const confirmarConfEmailRecortado = e.trim();
+    const confirmarConfEmailRecortado = e.trim();
     if (confirmarConfEmailRecortado === usuario.email) {
       setConfirmacionEmailValido(true);
       return true;
@@ -127,7 +133,7 @@ const confirmarConfEmailRecortado = e.trim();
   };
 
   const validarConfirmacionPassword = (e) => {
-    const confirmarConfirmacionPassword  = e.trim();
+    const confirmarConfirmacionPassword = e.trim();
     if (confirmarConfirmacionPassword == usuario.password.trim()) {
       setConfirmacionPasswordValido(true);
       return true;
@@ -150,13 +156,53 @@ const confirmarConfEmailRecortado = e.trim();
   };
 
   /////////handleSubmit //////
-  const handleSubmitCrearCuenta = (e) => {
+  const handleSubmitCrearCuenta = async (e) => {
     e.preventDefault();
     if (validarFormulario()) {
       setForm(true);
       console.log("Datos Enviados");
       console.log(usuario);
-      // dfsf ENVIAR DATOS
+      // Paquete de datos a enviar
+
+      const nuevoUserData = {
+        nombreCompleto: usuario.nombre,
+        correo: usuario.email,
+        contraseña: usuario.password,
+        celular: "",
+        rol: "CLIENTE",
+        dirección: "Falsa",
+        permisoEdición: "",
+        id_Rol: 1,
+        idUsuario: 0,
+      };
+
+      /////////////////////////////ENVIO DE DATOS
+      try {
+        const jsonData = JSON.stringify(nuevoUserData);
+        const response = await axios.post(urlBase, jsonData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("Respuesta:", response.data);
+        getDatosUsers();
+        console.log(usersLista)
+      } catch (error) {
+        console.error("Error:", error);
+      }
+      useEffect(() => {
+        if (form) {
+          getDatosUsers(); // Actualiza el estado jsonData después de enviar la petición POST
+        }
+      }, [form]);
+
+
+
+
+
+
+      ///////////////////////////////////////////
 
       setUsuario({
         nombre: "",
@@ -198,7 +244,6 @@ const confirmarConfEmailRecortado = e.trim();
               onChange={onChangeNombre}
               id="nombre"
               style={{ borderColor: nombreValido ? "" : "red" }}
-
             />
             {!nombreValido ? (
               <p className="error-form">
@@ -240,8 +285,8 @@ const confirmarConfEmailRecortado = e.trim();
             />
             {!emailValido ? (
               <p className="error-form">
-                Ingresar al menos 3 caracteres antes del @ y tener un
-                formato válido.
+                Ingresar al menos 3 caracteres antes del @ y tener un formato
+                válido.
               </p>
             ) : (
               ""
@@ -276,15 +321,14 @@ const confirmarConfEmailRecortado = e.trim();
               style={{ borderColor: passwordValido ? "" : "red" }}
             />
             {!passwordValido ? (
-            <p className="error-form">
-              La contraseña debe tener al menos 8 caracteres, incluir una letra
-              mayúscula y un carácter no alfanumérico.
-            </p>
-          ) : (
-            ""
-          )}
+              <p className="error-form">
+                La contraseña debe tener al menos 8 caracteres, incluir una
+                letra mayúscula y un carácter no alfanumérico.
+              </p>
+            ) : (
+              ""
+            )}
           </div>
-          
 
           <div className="form-control">
             <label for="confirmarpassword">Confirma Password *</label>
@@ -294,7 +338,6 @@ const confirmarConfEmailRecortado = e.trim();
               value={usuario.confirmarPassword}
               id="confirmarpassword"
               style={{ borderColor: confirmacionPasswordValido ? "" : "red" }}
-
               onChange={onChangeConfirmacionPassword}
             />
             {!confirmacionPasswordValido ? (
