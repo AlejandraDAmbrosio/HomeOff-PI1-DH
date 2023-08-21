@@ -138,7 +138,7 @@ public class NavigateTo {
 
     WikipediaHomePage homePage;
 
-    @Step("Open the Wikipedia home page")
+    @steps("Open the Wikipedia home page")
     public void theHomePage() {
         homePage.open();
     }
@@ -155,7 +155,7 @@ The second class, `SearchFor`, is an interaction class. It needs to interact wit
 ```java
 public class SearchFor extends UIInteractionSteps {
 
-    @Step("Search for term {0}")
+    @steps("Search for term {0}")
     public void term(String term) {
         $(SearchForm.SEARCH_FIELD).clear();
         $(SearchForm.SEARCH_FIELD).sendKeys(term, Keys.ENTER);
