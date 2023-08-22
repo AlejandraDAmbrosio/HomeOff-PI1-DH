@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 export const ContextGlobal = createContext();
 import axios from "axios";
+// const { useHistory } = require("react-router-dom");
 
 export const ContextProvider = ({ children }) => {
   ///Modal Fotos ////
@@ -111,12 +112,12 @@ export const ContextProvider = ({ children }) => {
       setUsuarioLogueado(usuarioGuardado);
     }
   }, []);
-
+  // const history = useHistory();
   const cerrarSesion = () => {
     localStorage.removeItem("usuarioLogueado");
     setUsuarioLogueado(null);
     console.log("----------Cerrando sesión. en Context .---------");
-
+    // history.push("/");
   };
 
   ////////////////////////////////////////////
