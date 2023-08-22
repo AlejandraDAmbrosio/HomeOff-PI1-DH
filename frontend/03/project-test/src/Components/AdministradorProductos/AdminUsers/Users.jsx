@@ -30,7 +30,20 @@ import {
 
 const Users = () => {
   const [open, setOpen] = React.useState(false);
-  const [usuarioXEliminar, setUsuarioXEliminar] = useState("");
+  const [usuarioXEliminar, setUsuarioXEliminar] = useState(null);
+
+  const [usuarioXEditar, setUsuarioXEditar] = useState({
+    nombreCompleto: "",
+    correo: "",
+    contraseña: "",
+    celular: "",
+    rol: "",
+    dirección: "Falsa",
+    permisoEdición: "",
+    id_Rol: 0,
+    idUsuario: 2,
+  });
+
   const { usersLista, setUsersLista, getDatosUsers } =
     useContext(ContextGlobal);
 
@@ -38,26 +51,71 @@ const Users = () => {
     getDatosUsers();
   }, []);
 
-  const eliminarUsuario = async (idUsuario) => {
-    try {
-      await axios.delete(
-        `http://52.32.210.155:8080/api/v1/usuarios/delete/${idUsuario}`
-      );
+  // const eliminarUsuario = async (idUsuario) => {
+  //   try {
+  //     await axios.get(
+  //       `http://52.32.210.155:8080/api/v1/usuarios/delete/${idUsuario}`
+  //     );
 
-      const updatedUsers = usersLista.filter(
-        (user) => user.idUsuario !== idUsuario
-      );
-      setUsersLista(updatedUsers);
-    } catch (error) {
-      console.error("Error al eliminar el usuario:", error);
+  //     const updatedUsers = usersLista.filter(
+  //       (user) => user.idUsuario !== idUsuario
+  //     );
+  //     setUsersLista(updatedUsers);
+  //   } catch (error) {
+  //     console.error("Error al eliminar el usuario:", error);
+  //   }
+  // };
+
+  // const handleClick = (e) => {
+  //   setUsuarioXEliminar(e.target.idUsuario);
+  //   setOpen(true);
+  //   console.log(e.target.idUsuario);
+  // };
+
+  ////////////////////////////// Actualizar Rol //////////////////////////////
+  // 1) Indicar que usuario debemos modificar
+  const handleClick = (e, idRecurso) => {
+    setIdRecursoToDelete(idRecurso);
+    setOpenDialog(true);
+  };
+
+  // 2) Traer info de todos los campos del usuario seleccionado y si tiene un valor el rol, cambiarlo
+
+  //////////////////////////////////
+  const urlBaseActualizar = "http://52.32.210.155:8080/api/v1/usuarios/update";
+  const handleUpdateUser = async (usuarioXEditar) => {
+    console.log(usuarioXEditar.idUsuario);
+    if (usuarioXEditar.idUsuario) {
+
+      const updatedUser = {
+        nombreCompleto: usuarioXEditar.nombreCompleto,
+        correo: usuarioXEditar.correo,
+        contraseña: usuarioXEditar.contraseña,
+        celular: usuarioXEditar.celular,
+        rol: "ADMINISTRADOR",
+        dirección: "Falsa",
+        permisoEdición: "EDITAR",
+        id_Rol: 1,
+        idUsuario: usuarioXEditar.idUsuario,
+      };
+
+      try {
+        const response = await axios.post(urlBaseActualizar, updatedUser, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("Respuesta:", response.data);
+        getDatosUsers(); // Actualizar la lista de usuarios
+        setUsuarioXEditar(null); // Limpiar el usuario seleccionado
+      } catch (error) {
+        console.error("Error al actualizar el usuario:", error);
+      }
     }
   };
 
-  const handleClick = (e) => {
-    setUsuarioXEliminar(e.target.idUsuario);
-    setOpen(true);
-    console.log(e.target.idUsuario);
-  };
+  /////////////////////////////////////
 
   return (
     <TableContainer>
@@ -145,19 +203,10 @@ const Users = () => {
                   variant="soft"
                   color="primary"
                   endDecorator={<EditIcon />}
+                  onClick={() => handleUpdateUser(user)}
                 >
                   {user.rol}
                 </Button>
-                {/* <Chip
-                  color="neutral"
-                  size="lg"
-                  variant="solid"
-                  endDecorator={<EditIcon />}
-                  onClick={(e) => {
-                    setUsuarioXEliminar(e.target.id);
-                    setOpen(true);
-                  }}
-                ></Chip> */}
               </TableCell>
             </TableRow>
           ))}

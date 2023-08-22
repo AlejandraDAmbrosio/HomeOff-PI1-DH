@@ -74,7 +74,7 @@ const TablaProductos = () => {
 
   // };
 
-  const eliminarUsuario = async (idRecurso) => {
+  const eliminarRecurso = async (idRecurso) => {
     try {
       const response = await axios.get(
         `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`,
@@ -128,7 +128,7 @@ const TablaProductos = () => {
         <DialogActions>
           <Button
             onClick={() => {
-              eliminarUsuario(idRecursoToDelete);
+              eliminarRecurso(idRecursoToDelete);
               setOpenDialog(false);
             }}
             color="primary"
