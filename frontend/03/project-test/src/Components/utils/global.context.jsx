@@ -30,6 +30,21 @@ export const ContextProvider = ({ children }) => {
     getDatosBKLista();
   }, []);
 
+  /////////////////////////////////
+  const [recursoXID, setRecursoXID] = useState(null);
+
+  const getRecursoXID = async (id) => {
+    const response = await axios.get(`http://52.32.210.155:8080/api/v1/recursos/unico/${id}`);
+    const data = response.data;
+
+    setRecursoXID(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    getRecursoXID();
+  }, []);
+
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
   const getDatosUsers = async () => {
@@ -137,7 +152,9 @@ export const ContextProvider = ({ children }) => {
         productosBKLista,
         setProductosBKLista,
         getDatosBKLista,
-
+        recursoXID, 
+        setRecursoXID, 
+        getRecursoXID,
         showModal,
         selectedImage,
         closeModal,
@@ -148,44 +165,3 @@ export const ContextProvider = ({ children }) => {
     </ContextGlobal.Provider>
   );
 };
-
-// useEffect(() => {
-//   const storedData = localStorage.getItem("listaProductos");
-//   if (storedData) {
-//     setListaProductosBase(JSON.parse(storedData));
-//   } else {
-//     // If no data is stored in localStorage, use initial data
-//     setListaProductosBase(listadoProductosData);
-//   }
-// }, []);
-
-// useEffect(() => {
-//   localStorage.setItem("listaProductos", JSON.stringify(listaProductosBase));
-// }, [listaProductosBase]);
-
-/////////GetDatos //////////////
-// const [producto, setProducto] = useState([]);
-
-// const getDatos = async () => {
-//   const res = await fetch("https://jsonplaceholder.typicode.com/photos/");
-//   const data = await res.json();
-//   setProducto(data);
-// };
-
-// useEffect(() => {
-//     getDatos();
-// }, []);
-//////////////////////////////////////////////////
-// const getMapeoProductos = (productos, tituloProducto, claseCss) => {
-//   const mapeo = productos.map((producto, index) => (
-//     <div key={producto.id} className={claseCss}>
-//       {tituloProducto? <div className="titulo-producto">{producto.name}</div>:""};
-//       <img
-//         src={producto.src}
-//         alt={`Imagen del producto ${producto.id}`}
-//       />
-//     </div>
-//   ));
-
-//   return mapeo;
-// };

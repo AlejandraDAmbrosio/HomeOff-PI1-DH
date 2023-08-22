@@ -92,10 +92,10 @@ const Users = () => {
         correo: usuarioXEditar.correo,
         contraseña: usuarioXEditar.contraseña,
         celular: usuarioXEditar.celular,
-        rol: "ADMINISTRADOR",
+        rol: usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
         dirección: "Falsa",
-        permisoEdición: "EDITAR",
-        id_Rol: 1,
+        permisoEdición:  usuarioXEditar.permisoEdición ===  "EDITAR"? "" : "EDITAR" ,
+        id_Rol: usuarioXEditar.id_Rol ===  1? "2" : "1",
         idUsuario: usuarioXEditar.idUsuario,
       };
 
