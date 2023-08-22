@@ -3,9 +3,12 @@ import "../Components/FormIngreso.css";
 import Error from "../Components/Error";
 import { MdCheckCircleOutline, MdHighlightOff } from "react-icons/md";
 import axios from "axios";
+// import { AuthContext } from "../Components/utils/global.contextauth";
+
 
 
 const FormIngreso = () => {
+  // const { usuarioLogueado, iniciarSesion, cerrarSesion } = useContext(AuthContext);
   /////////////////////////
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
@@ -21,18 +24,41 @@ const FormIngreso = () => {
       console.error("Error al cargar usuarios:", error);
     }
   };
-  const iniciarSesion = (email, password) => {
+
+  const iniciarSesion = (nombre, email, password) => {
     const usuarioEncontrado = usuarios.find(
-      (usuario) => usuario.correo === email && usuario.contraseña === password
+      (usuario) => usuario.nombreCompleto === nombre && usuario.correo === email && usuario.contraseña === password
     );
   
     if (usuarioEncontrado) {
       setUsuarioLogueado(usuarioEncontrado);
-      console.log("Usuario logueado:", usuarioEncontrado);
+      localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
     } else {
       console.log("Credenciales incorrectas");
     }
   };
+
+  // const iniciarSesion = (email, password) => {
+  //   const usuarioEncontrado = usuarios.find(
+  //     (usuario) => usuario.correo === email && usuario.contraseña === password
+  //   );
+  
+  //   if (usuarioEncontrado) {
+  //     setUsuarioLogueado(usuarioEncontrado);
+  //     console.log("Usuario logueado:", usuarioEncontrado);
+  
+  //     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
+  //   } else {
+  //     console.log("Credenciales incorrectas");
+  //   }
+  // };
+
+  useEffect(() => {
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+    if (usuarioGuardado) {
+      setUsuarioLogueado(usuarioGuardado);
+    }
+  }, []);
 
 
   //////////////////////////////////////
@@ -140,8 +166,10 @@ const FormIngreso = () => {
       setForm(true);
       console.log("Datos Enviados");
       console.log(usuario);
+
       // dfsf ENVIAR DATOS
-      iniciarSesion(usuario.email, usuario.password);
+
+      iniciarSesion(usuario.nombre, usuario.email, usuario.password);
 
       setUsuario({
         nombre: "",
@@ -241,9 +269,12 @@ const FormIngreso = () => {
             </button>
           </div>
 
+
+
+
           {form && (
             <h5 className="msj-form-guardado">
-              Gracias!! Has ingresado como usuario a HomeOFF !
+              Gracias!! Has ingresado como usuario {usuarioLogueado.nombreCompleto} a HomeOFF !
             </h5>
           )}
         </form>

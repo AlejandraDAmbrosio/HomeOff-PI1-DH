@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 export const ContextGlobal = createContext();
+import axios from "axios";
+
 export const ContextProvider = ({ children }) => {
-
-
   ///Modal Fotos ////
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -14,93 +14,116 @@ export const ContextProvider = ({ children }) => {
     setShowModal(false);
   };
 
-/////////GetDatosLista //////////////
- const [productosBKLista, setProductosBKLista] = useState([]);
+  /////////GetDatosLista //////////////
+  const [productosBKLista, setProductosBKLista] = useState([]);
 
- const getDatosBKLista = async () => {
-   const res = await fetch("http://52.32.210.155:8080/api/v1/recursos/list");
-  const data = await res.json();
+  const getDatosBKLista = async () => {
+    const res = await fetch("http://52.32.210.155:8080/api/v1/recursos/list");
+    const data = await res.json();
 
-  setProductosBKLista(data);
-  console.log(productosBKLista);
-};
+    setProductosBKLista(data);
+    console.log(productosBKLista);
+  };
 
-useEffect(() => {
-  getDatosBKLista();
-}, []);
+  useEffect(() => {
+    getDatosBKLista();
+  }, []);
 
-/////////////////////////////////// GET USERS
-const [usersLista, setUsersLista] = useState([]);
- const getDatosUsers = async () => {
-   const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
-  const data = await res.json();
+  /////////////////////////////////// GET USERS
+  const [usersLista, setUsersLista] = useState([]);
+  const getDatosUsers = async () => {
+    const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
+    const data = await res.json();
 
-  setUsersLista(data);
-  console.log(data);
-};
+    setUsersLista(data);
+    console.log(data);
+  };
 
-useEffect(() => {
-  getDatosUsers();
-}, []);
+  useEffect(() => {
+    getDatosUsers();
+  }, []);
 
-/////////////////////////////////GetCategorias
+  /////////////////////////////////GetCategorias
 
-const [categoriasLista, setCategoriasLista] = useState([]);
- const getCategoriasLista = async () => {
-   const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
-  const data = await res.json();
+  const [categoriasLista, setCategoriasLista] = useState([]);
+  const getCategoriasLista = async () => {
+    const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
+    const data = await res.json();
 
-  setCategoriasLista(data);
-  console.log(data);
-};
+    setCategoriasLista(data);
+    console.log(data);
+  };
 
-useEffect(() => {
-  getCategoriasLista();
-}, []);
+  useEffect(() => {
+    getCategoriasLista();
+  }, []);
 
-///////////////// Get Caracteristicas
+  ///////////////// Get Caracteristicas
 
-const [caracteristicasLista, setCaracteristicasLista] = useState([]);
- const getCaracteristicasLista = async () => {
-   const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
-  const data = await res.json();
+  const [caracteristicasLista, setCaracteristicasLista] = useState([]);
+  const getCaracteristicasLista = async () => {
+    const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
+    const data = await res.json();
 
-  setCategoriasLista(data);
-  console.log(data);
-};
+    setCategoriasLista(data);
+    console.log(data);
+  };
 
-useEffect(() => {
-  getCategoriasLista();
-}, []);
+  useEffect(() => {
+    getCategoriasLista();
+  }, []);
 
+  //////////////////////////LOGUEO //////////////////Autenticacion
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  useEffect(() => {
+    fetchUsuarios();
+  }, []);
 
+  const fetchUsuarios = async () => {
+    try {
+      const response = await axios.get("http://52.32.210.155:8080/api/v1/usuarios/list");
+      setUsuarios(response.data);
+    } catch (error) {
+      console.error("Error al cargar usuarios:", error);
+    }
+  };
 
-////////////////////////////////////////////
+  const iniciarSesion = (nombre, email, password) => {
+    const usuarioEncontrado = usuarios.find(
+      (usuario) => usuario.nombreCompleto === nombre && usuario.correo === email && usuario.contraseña === password
+    );
+  
+    if (usuarioEncontrado) {
+      setUsuarioLogueado(usuarioEncontrado);
+      localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
+    } else {
+      console.log("Credenciales incorrectas");
+    }
+  };
+
+  ////////////////////////////////////////////
 
   return (
     <ContextGlobal.Provider
       value={{
-        categoriasLista, 
-        setCategoriasLista, 
+        usuarioLogueado, 
+        iniciarSesion, 
+        cerrarSesion,
+        categoriasLista,
+        setCategoriasLista,
         getCategoriasLista,
-        usersLista, 
+        usersLista,
         setUsersLista,
         getDatosUsers,
-        productosBKLista, 
+        productosBKLista,
         setProductosBKLista,
         getDatosBKLista,
-        // datoBKID, 
-        // setDatoBKID, 
-        // getDatoBKID,
-        // listaProductosBase,
-        // setListaProductosBase,
+
         showModal,
         selectedImage,
         closeModal,
         openModal,
-        // openModalCU,
-        // closeModalCU,
-        // showModalCU,
       }}
     >
       {children}
