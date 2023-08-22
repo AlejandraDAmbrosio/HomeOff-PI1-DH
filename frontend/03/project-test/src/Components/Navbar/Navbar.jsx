@@ -14,7 +14,7 @@ import { ContextGlobal } from "../utils/global.context";
 import { useModalContext } from "../utils/global.contextModal";
 import DropDownMenu from "../MenuDropDown/DropDownMenu";
 import AvatarNav from "./AvatarNav";
-import AccountMenu from "../MenuDropDown/AccountMenu";
+import AccountMenu from "./AccountMenu";
 
 const Navbar = () => {
   const { showModal, closeModal, openModal, productos } =
