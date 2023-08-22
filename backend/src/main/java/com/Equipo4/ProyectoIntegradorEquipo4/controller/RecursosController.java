@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/recursos")
-//@CrossOrigin("*")
 @CrossOrigin(origins="*")
 public class RecursosController {
     @Autowired
@@ -43,7 +42,8 @@ public class RecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @PostMapping("/update")
+    //@PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<ServiceResponse> update(@RequestBody Recursos recursos){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRecursosService.update(recursos);
@@ -52,8 +52,10 @@ public class RecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+    //@GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
+    //public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+    public ResponseEntity<ServiceResponse> delete(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRecursosService.deleteById(id);
         if(result ==1){

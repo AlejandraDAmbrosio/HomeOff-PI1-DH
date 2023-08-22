@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/rol")
-//@CrossOrigin("*")
 @CrossOrigin(origins="*")
 public class RolController {
 
@@ -46,7 +45,8 @@ public class RolController {
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+    //@PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<ServiceResponse> update(@RequestBody Rol rol){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRolService.update(rol);
@@ -56,8 +56,10 @@ public class RolController {
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+    //@GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
+    //public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+    public ResponseEntity<ServiceResponse> delete(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRolService.deleteById(id);
         if(result ==1){

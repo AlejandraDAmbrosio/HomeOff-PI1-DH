@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/usuarios")
-//@CrossOrigin("*")
 @CrossOrigin(origins="*")
 public class UsuariosController {
 
@@ -47,7 +46,8 @@ public class UsuariosController {
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+    //@PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<ServiceResponse> update(@RequestBody Usuarios usuarios){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iUsuariosService.update(usuarios);
@@ -56,8 +56,10 @@ public class UsuariosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+    //@GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
+    //public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+    public ResponseEntity<ServiceResponse> delete(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iUsuariosService.deleteById(id);
         if(result ==1){
