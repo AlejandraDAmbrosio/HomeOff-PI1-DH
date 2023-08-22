@@ -7,7 +7,7 @@ public class HomeStep extends PageObject {
 
     @Step
     public void abrirUrl() throws InterruptedException {
-        openUrl("https://maquillajetrendyshop.com/");
+        openUrl("http://127.0.0.1:5173/");
         Thread.sleep(5000);
     }
 }
