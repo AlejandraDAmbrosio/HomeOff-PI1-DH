@@ -1,65 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import "../Components/FormIngreso.css";
 import Error from "../Components/Error";
 import { MdCheckCircleOutline, MdHighlightOff } from "react-icons/md";
 import axios from "axios";
+import { ContextGlobal } from "../Components/utils/global.context";
 // import { AuthContext } from "../Components/utils/global.contextauth";
 
-
-
 const FormIngreso = () => {
+  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+    useContext(ContextGlobal);
   // const { usuarioLogueado, iniciarSesion, cerrarSesion } = useContext(AuthContext);
   /////////////////////////
-  const [usuarios, setUsuarios] = useState([]);
-  const [usuarioLogueado, setUsuarioLogueado] = useState(null);
-  useEffect(() => {
-    fetchUsuarios();
-  }, []);
+  // const [usuarios, setUsuarios] = useState([]);
+  // const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  // useEffect(() => {
+  //   fetchUsuarios();
+  // }, []);
 
-  const fetchUsuarios = async () => {
-    try {
-      const response = await axios.get("http://52.32.210.155:8080/api/v1/usuarios/list");
-      setUsuarios(response.data);
-    } catch (error) {
-      console.error("Error al cargar usuarios:", error);
-    }
-  };
+  // const fetchUsuarios = async () => {
+  //   try {
+  //     const response = await axios.get("http://52.32.210.155:8080/api/v1/usuarios/list");
+  //     setUsuarios(response.data);
+  //   } catch (error) {
+  //     console.error("Error al cargar usuarios:", error);
+  //   }
+  // };
 
-  const iniciarSesion = (nombre, email, password) => {
-    const usuarioEncontrado = usuarios.find(
-      (usuario) => usuario.nombreCompleto === nombre && usuario.correo === email && usuario.contraseña === password
-    );
-  
-    if (usuarioEncontrado) {
-      setUsuarioLogueado(usuarioEncontrado);
-      localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
-    } else {
-      console.log("Credenciales incorrectas");
-    }
-  };
-
-  // const iniciarSesion = (email, password) => {
+  // const iniciarSesion = (nombre, email, password) => {
   //   const usuarioEncontrado = usuarios.find(
-  //     (usuario) => usuario.correo === email && usuario.contraseña === password
+  //     (usuario) => usuario.nombreCompleto === nombre && usuario.correo === email && usuario.contraseña === password
   //   );
-  
+
   //   if (usuarioEncontrado) {
   //     setUsuarioLogueado(usuarioEncontrado);
-  //     console.log("Usuario logueado:", usuarioEncontrado);
-  
   //     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
   //   } else {
   //     console.log("Credenciales incorrectas");
   //   }
   // };
 
-  useEffect(() => {
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
-    if (usuarioGuardado) {
-      setUsuarioLogueado(usuarioGuardado);
-    }
-  }, []);
+  // const iniciarSesion = (email, password) => {
+  //   const usuarioEncontrado = usuarios.find(
+  //     (usuario) => usuario.correo === email && usuario.contraseña === password
+  //   );
 
+  //   if (usuarioEncontrado) {
+  //     setUsuarioLogueado(usuarioEncontrado);
+  //     console.log("Usuario logueado:", usuarioEncontrado);
+
+  //     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
+  //   } else {
+  //     console.log("Credenciales incorrectas");
+  //   }
+  // };
+
+  // // useEffect(() => {
+  //   const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  //   if (usuarioGuardado) {
+  //     setUsuarioLogueado(usuarioGuardado);
+  //   }
+  // }, []);
 
   //////////////////////////////////////
   // Repo de validaciones
@@ -197,7 +197,6 @@ const FormIngreso = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="formulario-inicio">
-            
             <div className="form-control-ingreso">
               <label for="nombre">Username *</label>
               <input
@@ -209,13 +208,14 @@ const FormIngreso = () => {
                 id="nombre"
               />
               {!nombreValido ? (
-                  <p className="error-form">Ingrese entre 3 y 30 caracteres y solo contener letras.</p>
-
+                <p className="error-form">
+                  Ingrese entre 3 y 30 caracteres y solo contener letras.
+                </p>
+              ) : (
                 // <Error
                 //   className="error-form"
                 //   mensajeError="Ingrese entre 3 y 30 caracteres y solo contener letras."
                 // />
-              ) : (
                 ""
               )}
             </div>
@@ -235,7 +235,10 @@ const FormIngreso = () => {
                 //   className="error-form"
                 //   mensajeError="El email debe tener al menos 3 caracteres antes del arroba y tener un formato válido."
                 // />
-                <p className="error-form">Ingresar al menos 3 caracteres antes del arroba y tener un formato válido.</p>
+                <p className="error-form">
+                  Ingresar al menos 3 caracteres antes del arroba y tener un
+                  formato válido.
+                </p>
               ) : (
                 ""
               )}
@@ -244,7 +247,9 @@ const FormIngreso = () => {
             <div className="form-control-ingreso">
               <label for="pass">Password *</label>
               <input
-                className={` ${passwordValido ? "border-valid" : "border-error"}`}
+                className={` ${
+                  passwordValido ? "border-valid" : "border-error"
+                }`}
                 type="password"
                 placeholder="Password"
                 value={usuario.password}
@@ -254,12 +259,15 @@ const FormIngreso = () => {
               />
 
               {!passwordValido ? (
-                <p className="error-form">La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula y un carácter no alfanumérico.</p>
+                <p className="error-form">
+                  La contraseña debe tener al menos 8 caracteres, incluir una
+                  letra mayúscula y un carácter no alfanumérico.
+                </p>
+              ) : (
                 // <Error
                 //   className="error-form"
                 //   mensajeError="La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula y un carácter no alfanumérico."
                 // />
-              ) : (
                 ""
               )}
             </div>
@@ -269,12 +277,10 @@ const FormIngreso = () => {
             </button>
           </div>
 
-
-
-
           {form && (
             <h5 className="msj-form-guardado">
-              Gracias!! Has ingresado como usuario {usuarioLogueado.nombreCompleto} a HomeOFF !
+              Gracias!! Has ingresado como usuario{" "}
+              {usuarioLogueado.nombreCompleto} a HomeOFF !
             </h5>
           )}
         </form>

@@ -13,6 +13,8 @@ import FormIngreso from "../../Routes/FormIngreso";
 import { ContextGlobal } from "../utils/global.context";
 import { useModalContext } from "../utils/global.contextModal";
 import DropDownMenu from "../MenuDropDown/DropDownMenu";
+import AvatarNav from "./AvatarNav";
+import AccountMenu from "../MenuDropDown/AccountMenu";
 
 const Navbar = () => {
   const { showModal, closeModal, openModal, productos } =
@@ -36,12 +38,16 @@ const Navbar = () => {
               <li>
                 <BotonInicio className="boton-inicio" />
               </li>
-              <li>
+              {/* <li>
                 <DropDownMenu />
-              </li>
+              </li> */}
               <li>
-                <BsPersonCircle className="icono-persona" />
+                <AccountMenu/>
               </li>
+              {/* <li>
+              <AvatarNav/> */}
+                {/* <BsPersonCircle className="icono-persona" />  */}
+              {/* </li> */}
             </div>
           </ul>
         </nav>
@@ -56,3 +62,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

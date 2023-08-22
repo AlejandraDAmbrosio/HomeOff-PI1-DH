@@ -76,7 +76,7 @@ const TablaProductos = () => {
 
   const eliminarUsuario = async (idRecurso) => {
     try {
-      const response = await axios.delete(
+      const response = await axios.get(
         `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`,
         {
           headers: {

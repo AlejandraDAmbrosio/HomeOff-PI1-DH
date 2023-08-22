@@ -97,9 +97,26 @@ export const ContextProvider = ({ children }) => {
     if (usuarioEncontrado) {
       setUsuarioLogueado(usuarioEncontrado);
       localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
+      
+    
     } else {
       console.log("Credenciales incorrectas");
     }
+  };
+
+  
+  useEffect(() => {
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+    if (usuarioGuardado) {
+      setUsuarioLogueado(usuarioGuardado);
+    }
+  }, []);
+
+  const cerrarSesion = () => {
+    localStorage.removeItem("usuarioLogueado");
+    setUsuarioLogueado(null);
+    console.log("----------Cerrando sesión. en Context .---------");
+
   };
 
   ////////////////////////////////////////////

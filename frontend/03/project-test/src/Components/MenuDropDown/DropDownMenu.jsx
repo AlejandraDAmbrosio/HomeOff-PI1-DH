@@ -7,7 +7,10 @@ import Itemsmenu from "./itemsmenu.jsx";
 import "./DropDownMenu.css";
 import { useState } from "react";
 import Drop from "./Drop.jsx";
+import AvatarNav from "../Navbar/AvatarNav.jsx";
 
+
+AvatarNav
 const DropDownMenu = (props) => {
   //  Donde se ejecuta el dropmenu
   // const[dropOpen, setDropOpen]= useState(true);
@@ -15,7 +18,7 @@ const DropDownMenu = (props) => {
   return (
     <div>
       <NavbarMenuDrop>
-        <Itemsmenu icon={<BsPersonCircle className="icono-persona-drop" />}>
+        <Itemsmenu icon={<AvatarNav />}>
           <Drop> </Drop>
         </Itemsmenu>
       </NavbarMenuDrop>

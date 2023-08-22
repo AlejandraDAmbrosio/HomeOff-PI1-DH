@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Drop.css";
 import { MdSettings, MdClose } from "react-icons/md";
+import { ContextGlobal } from "../utils/global.context";
 
 const Drop = () => {
+  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+    useContext(ContextGlobal);
   const [menuHeight, setMenuHeight] = useState(null);
 
   function calcularHeight(h) {
@@ -37,7 +40,15 @@ const Drop = () => {
   return (
     <div className="drop" style={{ height: menuHeight }}>
       <DropdownItem>Mi cuenta</DropdownItem>
-      <DropdownItem>Cerrar sesión</DropdownItem>
+      <DropdownItem
+        onClick={() => {
+          console.log("----------Cerrando sesión. en Drop.---------");
+          cerrarSesion();
+        }}
+      >
+        Cerrar sesión
+      </DropdownItem>
+      <button onClick={cerrarSesion}>Cerrar sesión</button>
       <DropdownItem leftIcon={<MdSettings className="icono-persona-drop" />}>
         Configuración
       </DropdownItem>
