@@ -195,7 +195,7 @@ const Detail = () => {
               <div className="descripcion-producto">
                 <p className="descripcion-bullets">{recursoXID.descripción}</p>
                 <div className="segmento-icon-detalle">
-                  
+                  Rehacer esta parte
                 </div>
               </div>
             </div>

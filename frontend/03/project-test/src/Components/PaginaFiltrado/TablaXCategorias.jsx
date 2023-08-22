@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import PanelFiltrado from "./PanelFiltrado";
+import { Container } from "@mui/material";
+import { ContextGlobal } from "../utils/global.context";
 
-const TablaXCategorias = () => {
+const TablaXCategorias = ({ productos }) => {
+  
+  const {
+    productosBKLista,
+    setProductosBKLista,
+    getDatosBKLista,
+    categoriasLista,
+    setCategoriasLista,
+    getCategoriasLista,
+  } = useContext(ContextGlobal);
+
+  useEffect(() => {
+    getDatosBKLista();
+  }, []);
+
+ 
+
   return (
     <div>
-      <div>TablaXCategorias</div>
+      <Container>
+        <div>TablaXCategorias</div>
+        <PanelFiltrado></PanelFiltrado>
+
+        {/* Mostrar los productos filtrados */}
+        {productos.map((producto) => (
+          <div key={producto.idRecurso}>{producto.nombre}</div>
+          // Puedes mostrar los detalles del producto aquí
+        ))}
+      </Container>
     </div>
   );
 };

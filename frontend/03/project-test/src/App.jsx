@@ -16,14 +16,10 @@ import AdministrarCategorias from "./Routes/AdministrarCategorias";
 import AdministracionCaracteristicas from "./Routes/AdministracionCaracteristicas";
 import AdministradorProductos from "./Routes/AdministradorProductos";
 import { useEffect, useState } from "react";
+import PaginaFiltrado from "./Routes/PaginaFiltrado";
 
 function App() {
-
   ////////////////// Segmento Logueo
-
-
-
-
 
   /////////////////
   return (
@@ -41,12 +37,24 @@ function App() {
         <Route path="/formaltauser/" element={<FormAltaUser />} />
         <Route path="/agregarproducto/" element={<AgregarProducto />} />
         <Route path="/administracionusers/" element={<AdministracionUsers />} />
-        <Route path="/editaruser/" element={<EditarUser/>} />
-        <Route path="/espacioadmin/" element={<EspacioAdmin/>} />
-        <Route path="/administrarcategorias/" element={<AdministrarCategorias/>} />
-        <Route path="/administracioncaracteristicas/" element={<AdministracionCaracteristicas/>} />
-        <Route path="/administradorproductos/" element={<AdministradorProductos/>} />
+        <Route path="/editaruser/" element={<EditarUser />} />
+        <Route path="/espacioadmin/" element={<EspacioAdmin />} />
+        <Route
+          path="/administrarcategorias/"
+          element={<AdministrarCategorias />}
+        />
+        <Route
+          path="/administracioncaracteristicas/"
+          element={<AdministracionCaracteristicas />}
+        />
+        <Route
+          path="/administradorproductos/"
+          element={<AdministradorProductos />}
+        />
 
+        <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
+          <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
+        </Route>
         
       </Routes>
 

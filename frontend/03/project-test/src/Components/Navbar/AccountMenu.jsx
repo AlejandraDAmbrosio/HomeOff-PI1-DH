@@ -102,7 +102,7 @@ export default function AccountMenu() {
 
         <Divider />
 
-        {usuarioLogueado && usuarioLogueado.rol == "CLIENTE" && (
+        {usuarioLogueado && usuarioLogueado.rol == "ADMINISTRADOR" && (
           <Link to="/agregarproducto/">
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
