@@ -15,6 +15,8 @@ import { ContextGlobal } from "../utils/global.context";
 import obtenerIniciales from "../utils/iniciales";
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+
 
 export default function AccountMenu() {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
@@ -100,12 +102,16 @@ export default function AccountMenu() {
 
         <Divider />
 
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Panel Administrador
-        </MenuItem>
+        {usuarioLogueado && usuarioLogueado.rol == "CLIENTE" && (
+          <Link to="/agregarproducto/">
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Panel Administrador
+            </MenuItem>
+          </Link>
+        )}
       </Menu>
     </div>
   );
