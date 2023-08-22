@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../Components/FormIngreso.css";
 import Error from "../Components/Error";
 import { MdCheckCircleOutline, MdHighlightOff } from "react-icons/md";
@@ -277,7 +277,7 @@ const FormIngreso = () => {
             </button>
           </div>
 
-          {form && (
+          {form && usuarioLogueado && (
             <h5 className="msj-form-guardado">
               Gracias!! Has ingresado como usuario{" "}
               {usuarioLogueado.nombreCompleto} a HomeOFF !
