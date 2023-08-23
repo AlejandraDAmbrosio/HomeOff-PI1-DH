@@ -4,7 +4,6 @@ import { Container } from "@mui/material";
 import { ContextGlobal } from "../utils/global.context";
 
 const TablaXCategorias = ({ productos }) => {
-  
   const {
     productosBKLista,
     setProductosBKLista,
@@ -17,8 +16,20 @@ const TablaXCategorias = ({ productos }) => {
   useEffect(() => {
     getDatosBKLista();
   }, []);
+  console.log(" ---------------------------------- productos Lista recibida por parametros ya filtrada");
+  console.log(productos);
+
 
  
+  // useEffect(() => {
+  //   const productosFiltrados = productosBKLista.filter(
+  //     producto => producto.categoria_id === id
+  //   );
+  //   setListaFiltrada(productosFiltrados);
+  // }, [id, productosBKLista]);
+
+
+
 
   return (
     <div>

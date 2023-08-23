@@ -21,17 +21,33 @@ const PaginaFiltrado = () => {
   useEffect(() => {
     getDatosBKLista();
   }, []);
+  console.log(" ---------------------------------- Impresion por pantalla de productosBKLista que trae el contexto a PaginaFiltrado");
+  console.log(productosBKLista);
 
-  const productosFiltrados = productosBKLista.filter(
-    (producto) => producto.categoria_id === id
-  );
+  // useEffect(() => {
+  //   const productosFiltrados = productosBKLista.filter(
+  //     producto => producto.categoria_id == id);
+  //   setListaFiltrada(productosFiltrados);
+  // }, [id, productosBKLista]);
 
+  useEffect(() => {
+    setListaFiltrada(
+      productosBKLista.filter(categoria => categoria.id === id)
+    );
+  }, [id]);
+
+
+  console.log(" ---------------------------------- listaFiltrada -----------------------------------------------");
+  console.log(listaFiltrada);
   return (
     <div className="administracion-fil">
       <div className="administracion-fil-titulo">PaginaFiltrado</div>
       <div className="paneles-fil">
         {/* <PanelFiltrado></PanelFiltrado> */}
-        <TablaXCategorias productos={productosFiltrados} />
+        <TablaXCategorias productos={listaFiltrada} />
+        {listaFiltrada.map(producto => (
+            <li key={producto.id}>{producto.nombre}</li>
+          ))}
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ const Home = () => {
   return (
     <>
     <BannerPrincipal/>
-      {/* <Recomendaciones CantidadCards={3} /> */}
       <ListadoProductos CantidadCards={10} />
    
     </>

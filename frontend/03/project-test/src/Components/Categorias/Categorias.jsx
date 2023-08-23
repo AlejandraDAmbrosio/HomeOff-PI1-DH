@@ -31,7 +31,7 @@ const Categorias = ({ NombreCategoria }) => {
     <div className="segmento-categorias">
       {categoriasLista.map((categoria, id) => (
         <Link
-          to={`/pagina-filtrado/${categoria.categoria_id}`}
+          to={`/paginafiltrado/${categoria.categoria_id}`}
           key={categoria.categoria_id}
         >
           <div className="card-categoria">
