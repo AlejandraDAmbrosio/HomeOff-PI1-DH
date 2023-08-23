@@ -18,11 +18,11 @@ texto - shadow multiples:
 
 .titulo-section {
   font-size: var(--fsizeTXL);
-  color: var( --green2);
+  color: var(--colorGrey1);
   margin: 0rem 2% ; 
   font-weight: var(--fweightL);  
-  border-bottom: #b6b5b5;
-
+  border-bottom: 0.5px solid var( --BGrey);
+  text-shadow: var(--BShadowD5);
 }
 
 #root {
@@ -36,19 +36,24 @@ texto - shadow multiples:
   --BGrey:#DDDDDD;
   --red: #ff385c;
   --blue: rgb(3, 141, 165);
-  --green: #9DD6B3;
-  --green2:#9dd6b3;
+  --green:#9dd6b3;
+  --green2: #7cc598;
+  --green3:#47a169;
+  --green4: #909F8C;
   --fweightXL: 900;
   --fweightM: 600;
   --fweight5: 500;
+  --fweight4: 400;
   --fweightL: 300;
   --hoverSinBShadow: 0 0px 0px;
+
   --BShadow:3px 3px 3px var(--BGrey);
   --BShadow1:1px 1px 1px var(--BGrey);
   --BShadowD1:3px 3px 3px var(--colorGrey1);
   --BShadowD2:3px 3px 3px var(--colorGrey2);
   --BShadowD:3px 3px 3px var(--colorGrey3);
   --BShadowD4:3px 3px 3px var(--colorGrey4);
+  --BShadowD5:1px 1px 4px var(--colorGrey4);
   --bRadiusButton:15px;
   --bRadImg: 20px;
   --fsizeTSXL:70px;
