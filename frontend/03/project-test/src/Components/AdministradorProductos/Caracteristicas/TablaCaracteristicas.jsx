@@ -2,8 +2,11 @@ import React from "react";
 import "./TablaCaracteristicas.css";
 import { ContextGlobal } from "../../utils/global.context";
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import IconButton from '@mui/material/IconButton';
+import EditIcon from "@mui/icons-material/Edit";
+import Chip from "@mui/joy/Chip";
+
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -17,10 +20,21 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import {
+  TableContainer,
+  TableBody,
+  Table,
+  TableRow,
+  TableHead,
+  TableCell,
+  //   Chip,
+} from "@mui/material";
+
 import { Collapse, Container } from "@mui/material";
 import axios from "axios";
 
 import { useState, useEffect, useContext } from "react";
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 function nombreExiste(nombre, data) {
   return data.find((objeto) => objeto.nombre === nombre) !== undefined;
@@ -32,8 +46,16 @@ const TablaCaracteristicas = () => {
   // const urlBaseEliminar = "http://52.32.210.155:8080/api/v1/categorias/delete/";
   // const urlBaseListar = "http://52.32.210.155:8080/api/v1/categorias/list";
 
-  const { caracteristicasLista, getCaracteristicasLista } =
-    useContext(ContextGlobal);
+  const {
+    caracteristicasLista,
+    setCaracteristicasLista,
+    getCaracteristicasLista,
+  } = useContext(ContextGlobal);
+
+  const [caracteristicaXEliminar, setCaracteristicaXEliminar] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [idCaracteristicaXBorrar, setIdCaracteristicaXBorrar] = useState(null);
+
   // console.log("Listado Caracteristicas en Tabla Caracteristicas");
   // console.log(caracteristicasLista);
 
@@ -146,72 +168,168 @@ const TablaCaracteristicas = () => {
       /////////////// VER ERROR ///////
     }
   };
+  ///////////////////Eliminar Caracteristica
+
+  const eliminarCaracteristica = async (idCaracteristica) => {
+    try {
+      const response = await axios.delete(
+        `http://52.32.210.155:8080/api/v1/caracteristicas/delete/${idCaracteristica}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+
+      const updatedCaracteristicas = caracteristicasLista.filter(
+        (caracteristicasListaXId) =>
+          caracteristicasListaXId.idCaracteristica !== idCaracteristica
+      );
+      setCaracteristicasLista(updatedCaracteristicas);
+    } catch (error) {
+      console.error("Error al eliminar caracteristicas:", error);
+    }
+  };
+
+  const handleClickEliminar = (e, idCaracteristica) => {
+    setIdCaracteristicaXBorrar(idCaracteristica);
+    setOpenDialog(true);
+  };
+
+  ////////////////////////////
 
   return (
-    <div>
-      <div>TablaCaracteristicas</div>
-      <Container>
-        <div className="tabla-caracteristicas">
-          <div
-            className="lista-caracteristicas"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
+    <div style={{ display: "flex",
+    flexDirection: "column", }}>
+       <div
+        className="lista-caracteristicas"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Crear Característica
+        </Button>
+      </div>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Confirmar Eliminación</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Estás seguro que deseas eliminar este producto?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              eliminarCaracteristica(idCaracteristicaXBorrar);
+              setOpenDialog(false);
             }}
+            color="primary"
           >
-            {caracteristicasLista.map((caracteristica, id) => (
-              <Card
-                key={caracteristica.idCaracteristica}
-                style={{ width: "250px", height: "70", margin: "30px" }}
-              >
-                {/* <CardMedia */}
-                {/* sx={{ height: "100" }} */}
-                {/* image="/static/images/cards/contemplative-reptile.jpg" */}
-                {/* title="green iguana" */}
-                {/* ></CardMedia> */}
-                <CardContent overflow="auto">
-                  <Typography
-                    variant="h7"
-                    component="div"
-                    textOverflow="ellipsis"
-                  >
-                    {caracteristica.nombre}
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
-                    <DeleteForeverIcon  /* onClick={handleClickEliminar} *//>
-                  </IconButton>
-                </CardActions>
-              </Card>
+            Confirmar
+          </Button>
+          <Button onClick={() => setOpenDialog(false)} color="primary">
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <TableContainer
+        sx={{ maxHeight: 400 }}
+        style={{
+          borderRadius: ":var(--bRadiusButton)",
+          padding: "10px",
+          width: "1000px",
+        }}
+      >
+        <Table stickyHeader aria-label="sticky table">
+          {/* <div className="encabezado-tabla"> */}
+          <TableHead>
+            {/* <thead> */}
+
+            <TableRow
+              style={{
+                backgroundColor: "lightgray",
+                borderRadius: ":var(--bRadiusButton)",
+                padding: "10px",
+                width: "100%",
+              }}
+            >
+              <TableCell>Imagen</TableCell>
+              <TableCell>Id Caracteristica</TableCell>
+              <TableCell>Nombre</TableCell>
+              {/* <TableCell>Editar</TableCell> */}
+              <TableCell>Eliminar</TableCell>
+            </TableRow>
+
+            {/* </thead> */}
+          </TableHead>
+          {/* </div> */}
+          <TableBody>
+            {/* <tbody> */}
+
+            {caracteristicasLista.map((caracteristica, idCaracteristica) => (
+              <TableRow key={idCaracteristica} style={{ height: "30px" }}>
+                <TableCell style={{ width: "100px" }}>
+                  {" "}
+                  {/*  <img
+                        src={recurso.imagenURL}
+                        alt={`Imagen de ${recurso.nombre}`}
+                        style={{
+                          width: "60px",
+                          height: "50px",
+                          padding: "2px 0 0 0px",
+                        }}
+                      /> */}
+                  Icono
+                </TableCell>
+                <TableCell style={{ width: "150px" }}>
+                  {caracteristica.idCaracteristica}
+                </TableCell>
+                <TableCell style={{ width: "400px" }}>
+                  {caracteristica.nombre}
+                </TableCell>
+
+                <TableCell>
+                  <Chip
+                    color="danger"
+                    size="lg"
+                    variant="solid"
+                    startDecorator={<DeleteForeverIcon />}
+                    onClick={(e) =>
+                      handleClickEliminar(e, caracteristica.idCaracteristica)
+                    }
+                  ></Chip>
+                </TableCell>
+              </TableRow>
             ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-            <Button variant="outlined" onClick={handleClickOpen}>
-              Crear Característica
-            </Button>
-          </div>
+    
 
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Crear Característica</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Por favor, complete los datos para crear una nueva
-                Característica.
-              </DialogContentText>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Crear Característica</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Por favor, complete los datos para crear una nueva Característica.
+          </DialogContentText>
 
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Nombre Categoria"
-                type="text"
-                value={nuevaCaracteristica.nombre}
-                onChange={onChangeNombre}
-                fullWidth
-                variant="standard"
-              />
-              {/* <TextField
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Nombre Categoria"
+            type="text"
+            value={nuevaCaracteristica.nombre}
+            onChange={onChangeNombre}
+            fullWidth
+            variant="standard"
+          />
+          {/* <TextField
               autoFocus
               margin="dense"
               id="name"
@@ -223,7 +341,7 @@ const TablaCaracteristicas = () => {
               variant="standard"
             /> */}
 
-              {/* <TextField
+          {/* <TextField
               autoFocus
               margin="dense"
               type="file"
@@ -243,15 +361,13 @@ const TablaCaracteristicas = () => {
                   image={selectedImage}
                 />
               </Card> */}
-              {/* )} */}
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancelar</Button>
-              <Button onClick={handleSubmitCrearCaracteristica}>Guardar</Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      </Container>
+          {/* )} */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleSubmitCrearCaracteristica}>Guardar</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
