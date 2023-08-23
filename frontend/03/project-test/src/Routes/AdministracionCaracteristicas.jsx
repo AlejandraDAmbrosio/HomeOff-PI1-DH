@@ -1,8 +1,8 @@
 import React from "react";
-import TablaCategorias from "../Components/AdministradorProductos/Categorias/TablaCategorias";
 
 import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 import "../Components/AdministrarCaracteristicas.css";
+import TablaCaracteristicas from "../Components/AdministradorProductos/Caracteristicas/TablaCaracteristicas";
 
 const AdministracionCaracteristicas = () => {
   return (
@@ -12,7 +12,7 @@ const AdministracionCaracteristicas = () => {
       </div>
       <div className="paneles-car">
         <PanelAdminUser />
-        <TablaCategorias />
+        <TablaCaracteristicas />
       </div>
     </div>
   );

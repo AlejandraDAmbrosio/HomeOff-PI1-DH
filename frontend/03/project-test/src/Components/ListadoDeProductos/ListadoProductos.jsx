@@ -14,7 +14,7 @@ const ListadoProductos = ({ CantidadCards }) => {
   const irAPaginaAnterior = "<";
   const { productosBKLista } = useContext(ContextGlobal);
 
-  console.log(" ----------Listado de Productos");
+  // console.log(" ----------Listado de Productos");
 
   const chunk = (arr, size) => {
     const chunkedArray = [];

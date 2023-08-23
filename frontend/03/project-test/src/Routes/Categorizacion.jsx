@@ -1,14 +1,14 @@
-import React from "react";
+// import React from "react";
 
-const Categorizacion = () => {
+// const Categorizacion = () => {
 
 
     
-  return (
-    <div>
-      <div>Categorizacion</div>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <div>Categorizacion</div>
+//     </div>
+//   );
+// };
 
-export default Categorizacion;
+// export default Categorizacion;

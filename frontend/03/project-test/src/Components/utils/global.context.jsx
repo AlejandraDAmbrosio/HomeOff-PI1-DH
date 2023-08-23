@@ -23,7 +23,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setProductosBKLista(data);
-    console.log(productosBKLista);
+    // console.log(productosBKLista);
   };
 
   useEffect(() => {
@@ -34,11 +34,13 @@ export const ContextProvider = ({ children }) => {
   const [recursoXID, setRecursoXID] = useState(null);
 
   const getRecursoXID = async (id) => {
-    const response = await axios.get(`http://52.32.210.155:8080/api/v1/recursos/unico/${id}`);
+    const response = await axios.get(
+      `http://52.32.210.155:8080/api/v1/recursos/unico/${id}`
+    );
     const data = response.data;
 
     setRecursoXID(data);
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setUsersLista(data);
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setCategoriasLista(data);
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -78,15 +80,17 @@ export const ContextProvider = ({ children }) => {
 
   const [caracteristicasLista, setCaracteristicasLista] = useState([]);
   const getCaracteristicasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
+    const res = await fetch(
+      "http://52.32.210.155:8080/api/v1/caracteristicas/list"
+    );
     const data = await res.json();
 
     setCategoriasLista(data);
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
-    getCategoriasLista();
+    getCaracteristicasLista();
   }, []);
 
   //////////////////////////LOGUEO //////////////////Autenticacion
@@ -98,7 +102,9 @@ export const ContextProvider = ({ children }) => {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await axios.get("http://52.32.210.155:8080/api/v1/usuarios/list");
+      const response = await axios.get(
+        "http://52.32.210.155:8080/api/v1/usuarios/list"
+      );
       setUsuarios(response.data);
     } catch (error) {
       console.error("Error al cargar usuarios:", error);
@@ -107,20 +113,23 @@ export const ContextProvider = ({ children }) => {
 
   const iniciarSesion = (nombre, email, password) => {
     const usuarioEncontrado = usuarios.find(
-      (usuario) => usuario.nombreCompleto === nombre && usuario.correo === email && usuario.contraseña === password
+      (usuario) =>
+        usuario.nombreCompleto === nombre &&
+        usuario.correo === email &&
+        usuario.contraseña === password
     );
-  
+
     if (usuarioEncontrado) {
       setUsuarioLogueado(usuarioEncontrado);
-      localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
-      
-    
+      localStorage.setItem(
+        "usuarioLogueado",
+        JSON.stringify(usuarioEncontrado)
+      );
     } else {
       console.log("Credenciales incorrectas");
     }
   };
 
-  
   useEffect(() => {
     const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
     if (usuarioGuardado) {
@@ -140,20 +149,23 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
-        usuarioLogueado, 
-        iniciarSesion, 
+        usuarioLogueado,
+        iniciarSesion,
         cerrarSesion,
         categoriasLista,
         setCategoriasLista,
         getCategoriasLista,
+        caracteristicasLista,
+        setCaracteristicasLista,
+        getCaracteristicasLista,
         usersLista,
         setUsersLista,
         getDatosUsers,
         productosBKLista,
         setProductosBKLista,
         getDatosBKLista,
-        recursoXID, 
-        setRecursoXID, 
+        recursoXID,
+        setRecursoXID,
         getRecursoXID,
         showModal,
         selectedImage,
