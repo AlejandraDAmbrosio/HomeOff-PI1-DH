@@ -6,9 +6,11 @@ import { useParams } from "react-router-dom";
 import { Container } from "@mui/material";
 // import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 // import Grid from '@mui/material/GridV5';
 import {
@@ -19,7 +21,6 @@ import {
   MdAcUnit,
   MdLocationOn,
 } from "react-icons/md";
-
 
 const style = {
   position: "absolute",
@@ -35,7 +36,13 @@ const style = {
 
 const Detail = () => {
   const navigate = useNavigate();
-  const { recursoXID, getRecursoXID } = useContext(ContextGlobal);
+  const {
+    recursoXID,
+    getRecursoXID,
+    caracteristicasLista,
+    getCaracteristicasLista,
+  } = useContext(ContextGlobal);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -196,10 +203,45 @@ const Detail = () => {
 
               <div className="descripcion-producto">
                 <p className="descripcion-bullets">{recursoXID.descripción}</p>
-                <div className="segmento-icon-detalle">
-                  Rehacer esta parte
-                </div>
               </div>
+            </div>
+            <div className="segmento-icon-detalle">
+              {caracteristicasLista.map((caracteristica, idCaracteristica) => (
+                <div className="container-icono-caracteristica-texto">
+                  <div className="icono-caracteristica-texto">
+                    {" "}
+                    {caracteristica.logoCaracteristica != "" ? (
+                      <Paper
+                        sx={{
+                          display: "flex", // Usar flexbox
+                          alignItems: "center", // Centrar verticalmente
+                          padding: "3px 10px", // Ajustar padding
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img
+                          className="icono-caracteristica"
+                          src={caracteristica.logoCaracteristica}
+                        />
+                        <div>{caracteristica.nombre}</div>
+                      </Paper>
+                    ) : (
+                      <Paper
+                        sx={{
+                          display: "flex",
+                          alignItems: "center", 
+                          padding: "3px 10px", 
+                          justifyContent: "center",
+                        }}
+                      >
+                        <CheckOutlinedIcon style={{ color: "green" }} />
+
+                        <div>{caracteristica.nombre}</div>
+                      </Paper>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
