@@ -42,11 +42,6 @@ function nombreExiste(nombre, data) {
 }
 
 const TablaCaracteristicas = () => {
-  const urlBaseGuardar =
-    "http://52.32.210.155:8080/api/v1/caracteristicas/save";
-  // const urlBaseEliminar = "http://52.32.210.155:8080/api/v1/categorias/delete/";
-  // const urlBaseListar = "http://52.32.210.155:8080/api/v1/categorias/list";
-
   const {
     caracteristicasLista,
     setCaracteristicasLista,
@@ -56,9 +51,6 @@ const TablaCaracteristicas = () => {
   const [caracteristicaXEliminar, setCaracteristicaXEliminar] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [idCaracteristicaXBorrar, setIdCaracteristicaXBorrar] = useState(null);
-
-  // console.log("Listado Caracteristicas en Tabla Caracteristicas");
-  // console.log(caracteristicasLista);
 
   useEffect(() => {
     getCaracteristicasLista();
@@ -116,7 +108,6 @@ const TablaCaracteristicas = () => {
       setForm(true);
       setNombreCaracteristicaValida(true);
       // setShowPreview(true);
-      // console.log(form);
 
       const nuevaCaracteristicaData = {
         nombre: nuevaCaracteristica.nombre,
@@ -124,12 +115,8 @@ const TablaCaracteristicas = () => {
         idCaracteristica: 0,
       };
 
-      console.log(
-        "------------------Info paquete enviado en nuevaNuevaCaracteristica ------------------"
-      );
-      console.log(nuevaCaracteristica);
-
-      // enviarDatos
+      const urlBaseGuardar =
+        "http://52.32.210.155:8080/api/v1/caracteristicas/save";
 
       try {
         const jsonData = JSON.stringify(nuevaCaracteristicaData);
@@ -151,10 +138,6 @@ const TablaCaracteristicas = () => {
         }
       }, [form]);
 
-      console.log(
-        "Muestra el valor de toda la Lista actualizada despues del Post"
-      );
-      console.log(caracteristicasLista);
       setOpen(false);
       /////ERROR ????////////////////////////
     } else {
@@ -200,9 +183,8 @@ const TablaCaracteristicas = () => {
   ////////////////////////////
 
   return (
-    <div style={{ display: "flex",
-    flexDirection: "column", }}>
-       <div
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div
         className="lista-caracteristicas"
         style={{
           display: "flex",
@@ -241,45 +223,45 @@ const TablaCaracteristicas = () => {
         sx={{ width: "100%", overflow: "hidden" }}
         style={{ margin: "0 20px 0 0" }}
       >
-      <TableContainer
-        sx={{ maxHeight: 400 }}
-        style={{
-          borderRadius: ":var(--bRadiusButton)",
-          padding: "10px",
-          width: "1000px",
-        }}
-      >
-        <Table stickyHeader aria-label="sticky table">
-          {/* <div className="encabezado-tabla"> */}
-          <TableHead>
-            {/* <thead> */}
+        <TableContainer
+          sx={{ maxHeight: 400 }}
+          style={{
+            borderRadius: ":var(--bRadiusButton)",
+            padding: "10px",
+            width: "1000px",
+          }}
+        >
+          <Table stickyHeader aria-label="sticky table">
+            {/* <div className="encabezado-tabla"> */}
+            <TableHead>
+              {/* <thead> */}
 
-            <TableRow
-              style={{
-                backgroundColor: "lightgray",
-                borderRadius: ":var(--bRadiusButton)",
-                padding: "10px",
-                width: "100%",
-              }}
-            >
-              <TableCell>Imagen</TableCell>
-              <TableCell>Id Caracteristica</TableCell>
-              <TableCell>Nombre</TableCell>
-              {/* <TableCell>Editar</TableCell> */}
-              <TableCell>Eliminar</TableCell>
-            </TableRow>
+              <TableRow
+                style={{
+                  backgroundColor: "lightgray",
+                  borderRadius: ":var(--bRadiusButton)",
+                  // padding: "10px",
+                  width: "100%",
+                }}
+              >
+                <TableCell>Imagen</TableCell>
+                <TableCell>Id Caracteristica</TableCell>
+                <TableCell>Nombre</TableCell>
+                {/* <TableCell>Editar</TableCell> */}
+                <TableCell>Eliminar</TableCell>
+              </TableRow>
 
-            {/* </thead> */}
-          </TableHead>
-          {/* </div> */}
-          <TableBody>
-            {/* <tbody> */}
+              {/* </thead> */}
+            </TableHead>
+            {/* </div> */}
+            <TableBody>
+              {/* <tbody> */}
 
-            {caracteristicasLista.map((caracteristica, idCaracteristica) => (
-              <TableRow key={idCaracteristica} style={{ height: "30px" }}>
-                <TableCell style={{ width: "100px" }}>
-                  {" "}
-                  {/*  <img
+              {caracteristicasLista.map((caracteristica, idCaracteristica) => (
+                <TableRow key={idCaracteristica} style={{ height: "30px" }}>
+                  <TableCell style={{ width: "100px" }}>
+                    {" "}
+                    {/*  <img
                         src={recurso.imagenURL}
                         alt={`Imagen de ${recurso.nombre}`}
                         style={{
@@ -288,33 +270,32 @@ const TablaCaracteristicas = () => {
                           padding: "2px 0 0 0px",
                         }}
                       /> */}
-                  Icono
-                </TableCell>
-                <TableCell style={{ width: "150px" }}>
-                  {caracteristica.idCaracteristica}
-                </TableCell>
-                <TableCell style={{ width: "400px" }}>
-                  {caracteristica.nombre}
-                </TableCell>
+                    Icono
+                  </TableCell>
+                  <TableCell style={{ width: "150px" }}>
+                    {caracteristica.idCaracteristica}
+                  </TableCell>
+                  <TableCell style={{ width: "400px" }}>
+                    {caracteristica.nombre}
+                  </TableCell>
 
-                <TableCell>
-                  <Chip
-                    color="danger"
-                    size="lg"
-                    variant="solid"
-                    startDecorator={<DeleteForeverIcon />}
-                    onClick={(e) =>
-                      handleClickEliminar(e, caracteristica.idCaracteristica)
-                    }
-                  ></Chip>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  <TableCell>
+                    <Chip
+                      color="danger"
+                      size="lg"
+                      variant="solid"
+                      startDecorator={<DeleteForeverIcon />}
+                      onClick={(e) =>
+                        handleClickEliminar(e, caracteristica.idCaracteristica)
+                      }
+                    ></Chip>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Paper>
-    
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Crear Característica</DialogTitle>
