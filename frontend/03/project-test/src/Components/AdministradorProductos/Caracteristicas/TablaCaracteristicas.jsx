@@ -228,7 +228,7 @@ const TablaCaracteristicas = () => {
           style={{
             borderRadius: ":var(--bRadiusButton)",
             padding: "10px",
-            width: "1000px",
+            width: "1200px",
           }}
         >
           <Table stickyHeader aria-label="sticky table">
@@ -259,23 +259,23 @@ const TablaCaracteristicas = () => {
 
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
                 <TableRow key={idCaracteristica} style={{ height: "30px" }}>
-                  <TableCell style={{ width: "100px" }}>
+                  <TableCell style={{ width: "200px" }}>
                     {" "}
-                    {/*  <img
-                        src={recurso.imagenURL}
-                        alt={`Imagen de ${recurso.nombre}`}
+                   <img
+                        src={caracteristica.logoCaracteristica}
+                        alt={`Imagen de ${caracteristica.nombre}`}
                         style={{
                           width: "60px",
                           height: "50px",
                           padding: "2px 0 0 0px",
                         }}
-                      /> */}
-                    {caracteristica.logoCaracteristica}
+                      />
+                   
                   </TableCell>
-                  <TableCell style={{ width: "150px" }}>
+                  <TableCell style={{ width: "200px" }}>
                     {caracteristica.idCaracteristica}
                   </TableCell>
-                  <TableCell style={{ width: "400px" }}>
+                  <TableCell style={{ width: "600px" }}>
                     {caracteristica.nombre}
                   </TableCell>
 
