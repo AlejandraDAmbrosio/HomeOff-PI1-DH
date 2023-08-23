@@ -1,3 +1,7 @@
+
+
+
+
 function buscadorXIDCategoria(idCategoria, data) {
   const categoriaEncontrada = data.find(
     (item) => item.categoria_id === idCategoria

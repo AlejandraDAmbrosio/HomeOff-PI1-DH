@@ -1,0 +1,11 @@
+.container-listado-home {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.item-listado {
+    gap:2rem;
+}
