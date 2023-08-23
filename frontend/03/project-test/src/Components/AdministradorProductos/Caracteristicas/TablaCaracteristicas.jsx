@@ -4,6 +4,7 @@ import { ContextGlobal } from "../../utils/global.context";
 
 import EditIcon from "@mui/icons-material/Edit";
 import Chip from "@mui/joy/Chip";
+import Paper from "@mui/material/Paper";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import IconButton from "@mui/material/IconButton";
@@ -236,6 +237,10 @@ const TablaCaracteristicas = () => {
         </DialogActions>
       </Dialog>
 
+      <Paper
+        sx={{ width: "100%", overflow: "hidden" }}
+        style={{ margin: "0 20px 0 0" }}
+      >
       <TableContainer
         sx={{ maxHeight: 400 }}
         style={{
@@ -308,7 +313,7 @@ const TablaCaracteristicas = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
+      </Paper>
     
 
       <Dialog open={open} onClose={handleClose}>
