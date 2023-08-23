@@ -1,8 +1,10 @@
 .segmento-producto {
   max-width: 1210px;
-  margin-top: 12rem;
+  margin: 11rem 0rem 2rem 0rem;
+  padding: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  padding-bottom: 2rem;
   width: 90%;
   height: fit-content;
   display: flex;
@@ -77,7 +79,7 @@ h3.descripcion {
   margin-bottom: auto;
   padding-bottom: 1rem;
   background-color: white;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 .contenedor-detalle-producto {
   display: flex;

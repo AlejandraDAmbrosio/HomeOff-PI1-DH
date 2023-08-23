@@ -37,12 +37,11 @@
 
 .buscar-por {
   cursor: pointer;
-  /* position: relative; */
+
   font-size: 1.1rem;
-  /* width: 65px; */
+ 
   color: var(--colorGrey2);
-  /* padding-left: 0.5rem;
-  padding-right: 0.5rem; */
+
 }
 
 .buscar-por:hover {

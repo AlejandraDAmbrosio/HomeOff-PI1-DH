@@ -79,7 +79,11 @@ const Detail = () => {
 
   return (
     <>
-      <Container>
+      <Container
+        style={{
+          paddingTop: "3rem",
+        }}
+      >
         <div className="segmento-producto">
           <div className="encabezado-descripcion">
             <div className="contenido-encabezado">
