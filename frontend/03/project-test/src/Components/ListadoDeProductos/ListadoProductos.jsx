@@ -8,14 +8,27 @@ import CardProducto from "./CardProducto";
 import "../ListadoDeProductos/CardProducto.css";
 import "./ListadoProductos.css";
 
+function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
+  const categoriaEncontrada = listaCategorias.find(
+    (item) => item.categoria_id === idCategoria
+  );
+
+  if (categoriaEncontrada) {
+    return categoriaEncontrada.name;
+  } else {
+    return "Categoría no encontrada";
+  }
+}
+
+
 const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const { productosBKLista } = useContext(ContextGlobal);
+  const { productosBKLista, categoriasLista } = useContext(ContextGlobal);
 
   // console.log(" ----------Listado de Productos");
-
+  console.log(productosBKLista)
   const chunk = (arr, size) => {
     const chunkedArray = [];
     for (let i = 0; i < arr.length; i += size) {
@@ -58,10 +71,12 @@ const ListadoProductos = ({ CantidadCards }) => {
               descripcion={producto.descripción}
               url={producto.imagenURL} // Aquí usamos la URL de la foto
               precio={producto.precioUnitario}
-              tipoRecurso={producto.tipoDeRecurso}
-              // servicio1={producto.servicios.servicio1}
-              // servicio2={producto.servicios.servicio2}
-              // servicio3={producto.servicios.servicio3}
+              categoria= {obtenerNombreCategoriaPorId(
+                producto.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}
+             
               id={producto.idRecurso}
             />
           ))

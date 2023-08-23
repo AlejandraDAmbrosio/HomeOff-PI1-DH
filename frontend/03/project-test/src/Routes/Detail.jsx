@@ -221,11 +221,13 @@ const Detail = () => {
                           alignItems: "center", // Centrar verticalmente
                           padding: "3px 10px", // Ajustar padding
                           justifyContent: "center",
+                          gap:"15px"
                         }}
                       >
                         <img
                           className="icono-caracteristica"
                           src={caracteristica.logoCaracteristica}
+                          style={{width:"25px", height:"25px", }}
                         />
                         <div>{caracteristica.nombre}</div>
                       </Paper>
