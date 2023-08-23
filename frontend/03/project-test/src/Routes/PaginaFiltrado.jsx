@@ -5,6 +5,9 @@ import TablaXCategorias from "../Components/PaginaFiltrado/TablaXCategorias";
 import PanelFiltrado from "../Components/PaginaFiltrado/PanelFiltrado";
 import "../Components/PaginaFiltrado.css"
 import { useParams } from "react-router-dom";
+import buscadorXIDCategoria from "../Components/utils/BuscarXIDCategoria";
+
+
 
 const PaginaFiltrado = () => {
   const { id } = useParams(); 
@@ -23,19 +26,18 @@ const PaginaFiltrado = () => {
   }, []);
   console.log(" ---------------------------------- Impresion por pantalla de productosBKLista que trae el contexto a PaginaFiltrado");
   console.log(productosBKLista);
+  console.log("/*-----------------------------  ID Categorias a buscar ----------------------");
+console.log( id);
 
-  // useEffect(() => {
-  //   const productosFiltrados = productosBKLista.filter(
-  //     producto => producto.categoria_id == id);
-  //   setListaFiltrada(productosFiltrados);
-  // }, [id, productosBKLista]);
+ 
+
+
 
   useEffect(() => {
     setListaFiltrada(
-      productosBKLista.filter(categoria => categoria.id === id)
+      productosBKLista.filter(producto => producto.categoria_id === parseInt(id))
     );
-  }, [id]);
-
+  }, [id, productosBKLista]);
 
   console.log(" ---------------------------------- listaFiltrada -----------------------------------------------");
   console.log(listaFiltrada);
@@ -43,11 +45,11 @@ const PaginaFiltrado = () => {
     <div className="administracion-fil">
       <div className="administracion-fil-titulo">PaginaFiltrado</div>
       <div className="paneles-fil">
-        {/* <PanelFiltrado></PanelFiltrado> */}
+         <PanelFiltrado></PanelFiltrado> 
         <TablaXCategorias productos={listaFiltrada} />
-        {listaFiltrada.map(producto => (
+        {/* {listaFiltrada.map(producto => (
             <li key={producto.id}>{producto.nombre}</li>
-          ))}
+          ))} */}
       </div>
     </div>
   );

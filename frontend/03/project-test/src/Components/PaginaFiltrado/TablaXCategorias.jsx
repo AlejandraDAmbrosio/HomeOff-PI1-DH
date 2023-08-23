@@ -3,6 +3,12 @@ import PanelFiltrado from "./PanelFiltrado";
 import { Container } from "@mui/material";
 import { ContextGlobal } from "../utils/global.context";
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
 const TablaXCategorias = ({ productos }) => {
   const {
     productosBKLista,
@@ -20,13 +26,7 @@ const TablaXCategorias = ({ productos }) => {
   console.log(productos);
 
 
- 
-  // useEffect(() => {
-  //   const productosFiltrados = productosBKLista.filter(
-  //     producto => producto.categoria_id === id
-  //   );
-  //   setListaFiltrada(productosFiltrados);
-  // }, [id, productosBKLista]);
+
 
 
 
@@ -34,13 +34,29 @@ const TablaXCategorias = ({ productos }) => {
   return (
     <div>
       <Container>
-        <div>TablaXCategorias</div>
-        <PanelFiltrado></PanelFiltrado>
-
-        {/* Mostrar los productos filtrados */}
+      
         {productos.map((producto) => (
-          <div key={producto.idRecurso}>{producto.nombre}</div>
-          // Puedes mostrar los detalles del producto aquí
+         
+          <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="140"
+              image={producto.imagenURL}
+              alt="green iguana"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+              {producto.nombre}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+              {producto.descripción}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+     
         ))}
       </Container>
     </div>
