@@ -270,8 +270,7 @@ const TablaCaracteristicas = () => {
                           padding: "2px 0 0 0px",
                         }}
                       /> */}
-                     
-                   {caracteristica.logoCaracteristica} 
+                    {caracteristica.logoCaracteristica}
                   </TableCell>
                   <TableCell style={{ width: "150px" }}>
                     {caracteristica.idCaracteristica}

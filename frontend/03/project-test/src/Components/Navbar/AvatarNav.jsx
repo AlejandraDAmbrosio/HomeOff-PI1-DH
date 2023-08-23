@@ -5,6 +5,7 @@ import obtenerIniciales from "../utils/iniciales";
 import { BsPersonCircle } from "react-icons/bs";
 import Avatar from "@mui/joy/Avatar";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const AvatarNav = () => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
@@ -29,11 +30,16 @@ const AvatarNav = () => {
           variant="solid"
           size="lg"
           style={{
-            backgroundColor: "#9dd6b3",
-            color: "black",
+            backgroundColor: "white",
+            color: "#9dd6b3",
+            
           }}
         >
-          <AccountCircleIcon/>
+          <AccountCircleOutlinedIcon style={{
+            width:"50px",
+            height:"50px",
+            
+          }}/>
         </Avatar>
       )}
     </div>

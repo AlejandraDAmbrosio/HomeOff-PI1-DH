@@ -4,7 +4,7 @@ import "./BannerPrincipal.css";
 const BannerPrincipal = () => {
   return (
     <div>
-      <div>BannerPrincial</div>
+      
       <div className="flexing">
         <div className="section section--yellow">
           <h3 className="title">Co Working</h3>

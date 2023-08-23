@@ -16,6 +16,14 @@ texto - shadow multiples:
     4px 4px 1px #000;
 */
 
+.titulo-section {
+  font-size: var(--fsizeTXL);
+  color: var( --green2);
+  margin: 0rem 2% ; 
+  font-weight: var(--fweightL);  
+  border-bottom: #b6b5b5;
+
+}
 
 #root {
   --speed:500ms;
@@ -29,6 +37,7 @@ texto - shadow multiples:
   --red: #ff385c;
   --blue: rgb(3, 141, 165);
   --green: #9DD6B3;
+  --green2:#9dd6b3;
   --fweightXL: 900;
   --fweightM: 600;
   --fweight5: 500;
