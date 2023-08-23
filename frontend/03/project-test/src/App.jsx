@@ -55,7 +55,6 @@ function App() {
         <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
           <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
         </Route>
-        
       </Routes>
 
       <Footer />

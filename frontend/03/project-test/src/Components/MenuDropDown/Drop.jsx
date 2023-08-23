@@ -6,6 +6,7 @@ import { ContextGlobal } from "../utils/global.context";
 const Drop = () => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
+    
   const [menuHeight, setMenuHeight] = useState(null);
 
   function calcularHeight(h) {

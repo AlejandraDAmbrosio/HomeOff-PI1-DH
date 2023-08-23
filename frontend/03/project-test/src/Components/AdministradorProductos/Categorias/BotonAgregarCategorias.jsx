@@ -31,7 +31,7 @@ const BotonAgregarCategorias = ({ onClick }) => {
         display: "flex",
         flexDirection: "row",
         gap: "1rem",
-        width: "250px",
+      
         aligItems: "center",
         textAlign: "center",
         onClick:{onClick}

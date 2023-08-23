@@ -10,7 +10,7 @@ import Buscador from "../Buscador/Buscador";
 import { useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
 
-import AccountMenu from "./AccountMenu";
+import AccountMenu from "../MenuDropDown/AccountMenu";
 
 const Navbar = () => {
   const { showModal, closeModal, openModal, productos } =
