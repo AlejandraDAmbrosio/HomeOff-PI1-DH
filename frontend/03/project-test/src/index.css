@@ -16,7 +16,17 @@ texto - shadow multiples:
     4px 4px 1px #000;
 */
 
-.titulo-section {
+.titulo-section-banner {
+  font-size: var(--fsizeTXL);
+  color: var(--colorGrey1);
+  padding-top: 4.3rem;
+  margin: 0rem 2%; 
+  font-weight: var(--fweightL);  
+  border-bottom: 0.5px solid var( --BGrey);
+  text-shadow: var(--BShadowD5);
+}
+
+.titulo-section-productos {
   font-size: var(--fsizeTXL);
   color: var(--colorGrey1);
   margin: 0rem 2% ; 
@@ -24,6 +34,8 @@ texto - shadow multiples:
   border-bottom: 0.5px solid var( --BGrey);
   text-shadow: var(--BShadowD5);
 }
+
+
 
 #root {
   --speed:500ms;

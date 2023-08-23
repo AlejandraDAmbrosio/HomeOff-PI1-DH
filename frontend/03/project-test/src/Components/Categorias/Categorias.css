@@ -1,7 +1,7 @@
 .segmento-categorias {
   padding-top: 3px;
-  width: 55%;
-  height: 73px;
+  width: 85%;
+  height: 100px;
   display: flex;
   flex-direction: row;
   gap: 3%;
@@ -23,7 +23,7 @@
 }
 
 .nombre-icono-categoria {
-  line-height: 17px;
+  line-height: 19px;
   font-size: var(--fsixeCatBig);
   font-weight: var(--fweight5);
   width: 140px;

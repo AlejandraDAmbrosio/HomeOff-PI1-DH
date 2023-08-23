@@ -229,8 +229,8 @@ const Detail = () => {
                       <Paper
                         sx={{
                           display: "flex",
-                          alignItems: "center", 
-                          padding: "3px 10px", 
+                          alignItems: "center",
+                          padding: "3px 10px",
                           justifyContent: "center",
                         }}
                       >

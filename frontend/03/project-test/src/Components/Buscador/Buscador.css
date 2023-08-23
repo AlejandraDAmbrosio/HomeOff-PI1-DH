@@ -1,7 +1,7 @@
 .segmento-buscador {
   /* width: 95%; */
   left: 0;
-  width: 42%;
+  width: 100%;
   height: 50px;
   display: flex;
   flex-direction: row;
