@@ -47,9 +47,7 @@ console.log( id);
       <div className="paneles-fil">
          <PanelFiltrado></PanelFiltrado> 
         <TablaXCategorias productos={listaFiltrada} />
-        {/* {listaFiltrada.map(producto => (
-            <li key={producto.id}>{producto.nombre}</li>
-          ))} */}
+      
       </div>
     </div>
   );
