@@ -24,11 +24,6 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { Collapse, Container } from "@mui/material";
 
-
-
-
-
-
 // const ExpandMore = styled((props) => {
 //   const { expand, ...other } = props;
 //   return <IconButton {...other} />;
@@ -57,7 +52,7 @@ const TablaCategorias = () => {
     getCategoriasLista();
   }, []);
 
-  console.log(categoriasLista);
+  // console.log(categoriasLista);
 
   /////////// Asigna valor lista a una 2da para comparar sin afectar
   const jsonData = categoriasLista;
@@ -151,6 +146,7 @@ const TablaCategorias = () => {
 
         console.log("Respuesta:", response.data);
         getCategoriasLista();
+        handleClose();
       } catch (error) {
         console.error("Error:", error);
       }

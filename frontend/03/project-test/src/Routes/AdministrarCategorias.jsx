@@ -1,11 +1,9 @@
 import React from "react";
-import TablaCategorias from "../Components/AdministradorProductos/Categorias/TablaCategorias";
 import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 import "../Components/AdministrarCategorias.css";
+import TablaCategorias from "../Components/AdministradorProductos/Categorias/TablaCategorias";
 
 const AdministrarCategorias = () => {
-
-
   return (
     <div className="administracion-cat">
       <div className="administracion-cat-titulo">Administrar Categorías</div>

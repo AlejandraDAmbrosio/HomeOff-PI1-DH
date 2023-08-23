@@ -64,6 +64,7 @@ export const ContextProvider = ({ children }) => {
   /////////////////////////////////GetCategorias
 
   const [categoriasLista, setCategoriasLista] = useState([]);
+  
   const getCategoriasLista = async () => {
     const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
     const data = await res.json();
@@ -85,8 +86,10 @@ export const ContextProvider = ({ children }) => {
     );
     const data = await res.json();
 
-    setCategoriasLista(data);
-    // console.log(data);
+    setCaracteristicasLista(data);
+    // console.log(" ----------------  Listado Caracteristicas  en Contexto--------------");
+
+    //  console.log(data);
   };
 
   useEffect(() => {

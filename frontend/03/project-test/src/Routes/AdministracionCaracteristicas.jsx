@@ -1,5 +1,4 @@
 import React from "react";
-
 import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 import "../Components/AdministrarCaracteristicas.css";
 import TablaCaracteristicas from "../Components/AdministradorProductos/Caracteristicas/TablaCaracteristicas";
