@@ -1,11 +1,11 @@
 
 import React, { useState, useContext, useEffect } from "react";
-import Error from "../Components/Error";
-import "../Components/Screen.css";
-import Modal from "../Components/Modal/Modal";
-import "../Components/Modal/Modal.css"
+// import Error from "../Components/Error";
+// import "../Components/Screen.css";
+// import Modal from "../Components/Modal/Modal";
+// import "../Components/Modal/Modal.css"
 import { ContextGlobal } from "../Components/utils/global.context";
-import GaleriaModal from "../Components/GaleriaFotos/GaleriaModal";
+// import GaleriaModal from "../Components/GaleriaFotos/GaleriaModal";
 import { useParams } from "react-router-dom";
 
 const Screen = () => {

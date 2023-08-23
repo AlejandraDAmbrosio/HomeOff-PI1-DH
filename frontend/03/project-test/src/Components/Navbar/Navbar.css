@@ -11,11 +11,11 @@
   width: 100%;
   background-color: white;
   border-bottom: 1px solid #e6e6e6;
-  /* padding-bottom: 0.5rem; */
+
 }
 
 nav {
-  height: 90px;
+  height: 100px;
   padding: 0 0rem;
   width: 99%;
   border-bottom: 1px solid #e6e6e6;
@@ -52,8 +52,6 @@ nav {
   height: 75px;
   width: 100%;
 
-  /* gap: 1rem; */
-  /* border-bottom: 1px solid #e6e6e6; */
 }
 
 .icono-persona {
@@ -78,19 +76,6 @@ nav {
 }
 
 
-
-
-/* 
-@media (max-width: 770px) {
-.buscador-cat{
-  height: 57px;
-  display: flex;
- 
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}} */
-
 @media (max-width: 770px) {
   .icono-persona {
     display: inline;
@@ -100,9 +85,7 @@ nav {
 
 }
 @media (max-width: 700px) {
-  /* .nombre-icono-categoria {
-    display: none;
-  } */
+
   .buscador-cat {
     height: 140px;
     overflow: hidden;

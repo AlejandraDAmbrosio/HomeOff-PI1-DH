@@ -27,8 +27,7 @@ const Navbar = () => {
             <div className="botones-header">
               <li>
                 <BotonCrearCuenta
-                  className="boton-persona"
-                  onClick={() => openModal()}
+                 
                 />
               </li>
               <li>

@@ -1,8 +1,3 @@
-/* .LogoJpg {
-  width: 100%;
-  max-width: 200px;
-  overflow: cover;
-} */
 
 .LogoJpg2 {
   width: 300px;
@@ -46,13 +41,5 @@
 .LogoJpg {
   width: 250px;
 } 
-
-/* .LogoJpgsinLema {
-  display: inline;
-  width: 100%;
-  padding-top: 0.7rem;
-  max-width: 300px;
-  overflow: cover;
-} */
 
   }

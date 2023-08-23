@@ -1,19 +1,18 @@
 import React from "react";
-import CardProducto from "./CardProducto";
-import "../ListadoDeProductos/CardProducto.css";
 
 import { useState, useEffect, useContext } from "react";
-import "./ListadoProductos.css";
 import { ContextGlobal } from "../utils/global.context";
-
 import { useNavigate } from "react-router-dom";
+
+import CardProducto from "./CardProducto";
+import "../ListadoDeProductos/CardProducto.css";
+import "./ListadoProductos.css";
 
 const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const { productosBKLista, setProductosBKLista, getDatosBKLista } =
-    useContext(ContextGlobal);
+  const { productosBKLista } = useContext(ContextGlobal);
 
   console.log(" ----------Listado de Productos");
 

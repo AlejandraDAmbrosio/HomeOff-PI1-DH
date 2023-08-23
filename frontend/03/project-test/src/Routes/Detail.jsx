@@ -20,19 +20,17 @@ import {
   MdLocationOn,
 } from "react-icons/md";
 
-// import Grid from '@mui/material/Grid';
-// import Grid from '@mui/material/Unstable_Grid2'; 
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "50%",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "2px solid grey",
   boxShadow: 24,
-  p: 4,
+  p: 1,
 };
 
 const Detail = () => {
@@ -185,7 +183,7 @@ const Detail = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box >
+              <Box sx={style}>
                 <img
                   className="item-grid-fotos5 foto-producto block"
                   src={recursoXID.imagenUrl04}
