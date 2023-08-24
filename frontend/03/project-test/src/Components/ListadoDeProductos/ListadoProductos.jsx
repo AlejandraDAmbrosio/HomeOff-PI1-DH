@@ -20,7 +20,6 @@ function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
   }
 }
 
-
 const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
@@ -71,12 +70,11 @@ const ListadoProductos = ({ CantidadCards }) => {
               descripcion={producto.descripción}
               url={producto.imagenURL} // Aquí usamos la URL de la foto
               precio={producto.precioUnitario}
-              categoria= {obtenerNombreCategoriaPorId(
+              categoria={obtenerNombreCategoriaPorId(
                 producto.categoria_id,
                 productosBKLista,
                 categoriasLista
               )}
-             
               id={producto.idRecurso}
             />
           ))
@@ -87,20 +85,36 @@ const ListadoProductos = ({ CantidadCards }) => {
           </>
         )}
       </div>
+  
 
-      <div className="pagination  pagination is-centered">
-        {currentPage > 0 && (
+      <div className="paginacion">
+        {currentPage > 0 ? (
+          <button className="boton-paginacion" onClick={handlePreviousPage}>
+            {irAPaginaAnterior}
+          </button>
+        ) : (
+          <button className="boton-no-paginacion" >
+            {irAPaginaAnterior}
+          </button>
+        )}
+        {currentPage < paginatedProducts.length - 1 ? (
+          <button className="boton-paginacion" onClick={handleNextPage}>
+            {pasaPaginaSiguiente}
+          </button>
+        ) : ( <button className="boton-no-paginacion" >
+        {pasaPaginaSiguiente}
+      </button>)}
+
+        {/* {currentPage > 0 && (
           <button className="pagination-previous" onClick={handlePreviousPage}>
             {irAPaginaAnterior}
           </button>
         )}
         {currentPage < paginatedProducts.length - 1 && (
-          <>
-            <button className="pagination-next" onClick={handleNextPage}>
-              {pasaPaginaSiguiente}
-            </button>
-          </>
-        )}
+          <button className="pagination-next" onClick={handleNextPage}>
+            {pasaPaginaSiguiente}
+          </button>
+        )} */}
       </div>
     </div>
   );

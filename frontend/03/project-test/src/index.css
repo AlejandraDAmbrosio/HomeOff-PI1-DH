@@ -23,7 +23,7 @@ texto - shadow multiples:
   margin: 0rem 2%; 
   font-weight: var(--fweightL);  
   border-bottom: 0.5px solid var( --BGrey);
-  text-shadow: var(--BShadowD5);
+  /* text-shadow: var(--BShadowD6); */
 }
 
 .titulo-section-productos {
@@ -32,7 +32,7 @@ texto - shadow multiples:
   margin: 0rem 2% ; 
   font-weight: var(--fweightL);  
   border-bottom: 0.5px solid var( --BGrey);
-  text-shadow: var(--BShadowD5);
+  /* text-shadow: var(--BShadowD6); */
 }
 
 
@@ -68,6 +68,7 @@ texto - shadow multiples:
   --BShadowD:3px 3px 3px var(--colorGrey3);
   --BShadowD4:3px 3px 3px var(--colorGrey4);
   --BShadowD5:1px 1px 4px var(--colorGrey4);
+  --BShadowD6: 1px 1px 6px var(--colorGrey2);
   --bRadiusButton:15px;
   --bRadImg: 20px;
   --fsizeTSXL:70px;

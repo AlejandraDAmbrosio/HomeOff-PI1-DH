@@ -44,7 +44,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-gap: 1.5rem;
+  gap: 1.5rem;
   width: 100%;
 
   z-index: 0;
@@ -62,7 +62,6 @@ gap: 1.5rem;
   flex: 1;
   margin-bottom: 1rem;
   width: 100%;
- 
 }
 
 .pagination {
@@ -78,3 +77,36 @@ gap: 1.5rem;
   margin-right: 0px;
   object-fit: cover; 
 } */
+
+.paginacion {
+  margin: 3rem;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  font-size: 1rem;
+  gap: 2rem;
+}
+
+.boton-paginacion {
+  clear: both;
+  background-color: white;
+  color: var(--coloreGrey5);
+  background-color: white;
+  border: 1px solid var(--colorGrey4);
+  box-shadow: var(--BShadow1);
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--bRadiusButton);
+  font-size: 1.5rem;
+  font-weight: var(--fweightM);
+}
+
+.boton-no-paginacion {
+  color: var(--colorGrey3);
+  background-color: white;
+  border: 1px solid var(--colorGrey4);
+  box-shadow: var(--BShadow1);
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--bRadiusButton);
+  font-size: 1.5rem;
+  font-weight: var(--fweightL);
+}

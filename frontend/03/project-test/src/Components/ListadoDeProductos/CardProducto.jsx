@@ -27,7 +27,7 @@ const CardProducto = ({
   return (
     // <div className="card-body-producto">
     <Link to={"/producto/" + id}>
-      <Card sx={{ width: 320,/* height: 440, */borderRadius:" 11px 11px 11px 11px" }}>
+      <Card sx={{ width: 315, /* height: 440, */ borderRadius:" 11px 11px 11px 11px", boxShadow:"1px 1px 6px #979797" }}>
         <CardMedia sx={{ height: 240 }} image={url} title="imagen" />
         <CardContent style={{ height: "120px" }}>
           <Typography
@@ -46,7 +46,7 @@ const CardProducto = ({
           >
             {title}
           </Typography>
-          <Typography
+          {/* <Typography
             gutterBottom
             variant="body2"
             component="div"
@@ -54,7 +54,7 @@ const CardProducto = ({
           >
             <LocationOnIcon style={{ width: 17, height: 17, marginRight:"10px" }} />
             sede
-          </Typography>
+          </Typography> */}
 
           <Typography variant="body2" color="text.secondary"   style={{
               color: "#383B58",
@@ -79,7 +79,8 @@ const CardProducto = ({
               fontSize: "20px",
               fontWeight: "600",
               marginLeft: "auto",
-              marginTop:"20px"
+              marginTop:"20px",
+              paddingRight:"10px"
             }}
           >
             ${precio}
