@@ -3,19 +3,19 @@ const categoriasArray = [
       categoria_id: 1,
       name: "OFICINAS PRIVADAS",
       description: "Sumérgete en un oasis de productividad y tranquilidad con nuestras elegantes oficinas privadas. Diseñadas para brindarte un espacio exclusivo donde puedas concentrarte al máximo en tus tareas, nuestras oficinas privadas te ofrecen comodidad y privacidad en un entorno profesional. Con un diseño pensado para inspirar y una amplia gama de comodidades a tu disposición, esta es la elección ideal para profesionales que buscan un espacio que refleje su éxito y ambición.",
-      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias/OficinaPrivada.png"
+      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias2/OficinaPrivada.jpg"
     },
     {
       categoria_id: 2,
       name: "COWORKING",
       description: "Únete a una comunidad dinámica de pensadores innovadores en nuestro espacio de coworking. Aquí, la colaboración cobra vida y las ideas fluyen sin cesar. Imagina un entorno donde puedes trabajar rodeado de mentes creativas, compartir conocimientos y establecer conexiones valiosas. Nuestro espacio de coworking está diseñado para fomentar la interacción mientras disfrutas de comodidades modernas y un diseño inspirador que te impulsará a alcanzar tus objetivos profesionales.",
-      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias/Coworking.png"
+      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias2/Coworking3.jpg"
     },
     {
       categoria_id: 3,
       name: "SALAS DE REUNIONES",
       description: "Eleva tus presentaciones y negociaciones a un nivel superior en nuestras salas de reuniones de vanguardia. Desde sesiones estratégicas hasta reuniones colaborativas, nuestras salas están equipadas con tecnología de última generación y un ambiente que inspira el pensamiento innovador. Encuentra el espacio perfecto para impresionar a tus clientes, cerrar acuerdos importantes y llevar a cabo discusiones productivas en un entorno profesional y confortable.",
-      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias/SalaDeReuniones.png"
+      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias2/Reuniones.jpg"
     },
     {
       categoria_id: 4,
@@ -33,7 +33,7 @@ const categoriasArray = [
       categoria_id: 6,
       name: "AREA APRENDIZAJE",
       description: "Espacio adecuado para enseñar y aprender en grupo.",
-      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias/AreaAprendizaje.png"
+      link: "https://c2-team4-images-test-bucket.s3.amazonaws.com/24Ago2023/IconosCategorias2/SalaAprendizaje.jpg"
     }
   ];
 
@@ -41,7 +41,7 @@ const categoriasArray = [
 
 
   function buscadorIconoCategoria(categoria_id) {
-    const categoriaEncontrada = categoriasArray.find(item => item.categoria_id === categoria_id+1);
+    const categoriaEncontrada = categoriasArray.find(item => item.categoria_id === categoria_id);
     
     if (categoriaEncontrada) {
       return categoriaEncontrada.link;
