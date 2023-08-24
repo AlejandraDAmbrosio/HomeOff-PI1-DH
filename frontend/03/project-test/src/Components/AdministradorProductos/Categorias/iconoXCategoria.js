@@ -41,7 +41,7 @@ const categoriasArray = [
 
 
   function buscadorIconoCategoria(categoria_id) {
-    const categoriaEncontrada = categoriasArray.find(item => item.categoria_id === categoria_id);
+    const categoriaEncontrada = categoriasArray.find(item => item.categoria_id === categoria_id+1);
     
     if (categoriaEncontrada) {
       return categoriaEncontrada.link;
