@@ -43,7 +43,7 @@ console.log( id);
   console.log(listaFiltrada);
   return (
     <div className="administracion-fil">
-      <div className="administracion-fil-titulo">PaginaFiltrado</div>
+      <div className="administracion-fil-titulo">Encontra tu espacio</div>
       <div className="paneles-fil">
          <PanelFiltrado></PanelFiltrado> 
         <TablaXCategorias productos={listaFiltrada} />

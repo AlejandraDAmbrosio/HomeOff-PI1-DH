@@ -24,16 +24,16 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { Collapse, Container } from "@mui/material";
 
-// const ExpandMore = styled((props) => {
-//   const { expand, ...other } = props;
-//   return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-//   marginLeft: "auto",
-//   transition: theme.transitions.create("transform", {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 function nombreExiste(nombre, data) {
   return data.find((objeto) => objeto.nombre === nombre) !== undefined;
@@ -51,7 +51,13 @@ const TablaCategorias = () => {
   useEffect(() => {
     getCategoriasLista();
   }, []);
+  //////////////
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   // console.log(categoriasLista);
 
   /////////// Asigna valor lista a una 2da para comparar sin afectar
@@ -177,21 +183,28 @@ const TablaCategorias = () => {
 
   ///////////////////////////////////////
   return (
-    <Container>
-      <div className="tabla-categorias">
-        <div
-          className="lista-categorias"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
+    <Container
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        margin: "0",
+      }}
+    >
+      <div
+        className="tabla-categorias"
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "row",
+        //   alignItems: "center",
+        //   width: "100%",
+        //   margin: "0",
+        // }}
+      >
+        <div className="lista-categorias">
           {categoriasLista.map((categoria, id) => (
-            <Card
-              key={categoria.categoria_id}
-              style={{ width: "250px", height: "70", margin: "30px" }}
-            >
+            <Card className="card-categorias" key={categoria.categoria_id}>
               {/* <CardMedia */}
               {/* sx={{ height: "100" }} */}
               {/* image="/static/images/cards/contemplative-reptile.jpg" */}
@@ -202,15 +215,17 @@ const TablaCategorias = () => {
                   variant="h7"
                   component="div"
                   textOverflow="ellipsis"
+                  textAlign=" center"
+                  alignSelf="center" 
                 >
                   {categoria.name}
                 </Typography>
               </CardContent>
-              {/* <CardActions disableSpacing>
+             <CardActions disableSpacing>
                   
                       <ExpandMore
-                        expand={expandedMap[id]}
-                        onClick={() => handleExpandClick(id)}
+                        expand={categoria.categoria_id}
+                        onClick={() => handleExpandClick(categoria_id)}
                         
                         aria-expanded={expanded}
                         aria-label="show more"
@@ -233,7 +248,7 @@ const TablaCategorias = () => {
                           {categoria.description}
                         </Typography>
                       </CardContent>
-                    </Collapse> */}
+                    </Collapse> 
             </Card>
           ))}
 
@@ -277,7 +292,7 @@ const TablaCategorias = () => {
               margin="dense"
               type="file"
               accept="image/*"
-              label="Imagen Categoria"
+              label=""
               value={nuevaCategoria.icono}
               onChange={handleImageChange}
               fullWidth
@@ -287,7 +302,7 @@ const TablaCategorias = () => {
               <Card>
                 <CardMedia
                   component="img"
-                  alt="Selected"
+                  alt=""
                   height="150"
                   image={selectedImage}
                 />
