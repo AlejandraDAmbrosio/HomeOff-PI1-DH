@@ -243,11 +243,17 @@ const EditarProducto = () => {
 
     setNuevoProducto({
       ...nuevoProducto,
-      imagenURL: fotosTempUrls[0] || "",
-      imagenUrl01: fotosTempUrls[1] || "",
-      imagenUrl02: fotosTempUrls[2] || "",
-      imagenUrl03: fotosTempUrls[3] || "",
-      imagenUrl04: fotosTempUrls[4] || "",
+      imagenUrl01: `${recursoXID.imagenUrl01}`,
+      imagenUrl02: `${recursoXID.imagenUrl02}`,
+      imagenURL: `${recursoXID.imagenUrl02}`,
+      imagenUrl03: `${recursoXID.imagenUrl03}`,
+      imagenUrl04: `${recursoXID.imagenUrl04}`,
+
+      // imagenURL: fotosTempUrls[0] || "",
+      // imagenUrl01: fotosTempUrls[1] || "",
+      // imagenUrl02: fotosTempUrls[2] || "",
+      // imagenUrl03: fotosTempUrls[3] || "",
+      // imagenUrl04: fotosTempUrls[4] || "",
     });
   };
 
@@ -291,12 +297,11 @@ const EditarProducto = () => {
         categoria_id: nuevoProducto.categoria_id,
         id_Tipo_Espacio: nuevoProducto.id_Tipo_Espacio,
         estadoRecurso: nuevoProducto.estadoRecurso,
-        imagenUrl01:
-          "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-        imagenUrl02: "",
-        imagenURL: "",
-        imagenUrl03: "",
-        imagenUrl04: "",
+        imagenUrl01: `${recursoXID.imagenUrl01}`,
+        imagenUrl02: `${recursoXID.imagenUrl02}`,
+        imagenURL: `${recursoXID.imagenUrl02}`,
+        imagenUrl03: `${recursoXID.imagenUrl03}`,
+        imagenUrl04: `${recursoXID.imagenUrl04}`,
         tieneCafetería: servicios.tieneCafetería ? 1 : 0,
         tieneWifi: servicios.tieneWifi ? 1 : 0,
         tieneLokker: servicios.tieneLokker ? 1 : 0,

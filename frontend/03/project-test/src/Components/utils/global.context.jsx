@@ -40,12 +40,12 @@ export const ContextProvider = ({ children }) => {
     const data = response.data;
 
     setRecursoXID(data);
-  //  console.log("Console en recursoXID en Context -------------------------------------");
-  //  console.log(data);
+    //  console.log("Console en recursoXID en Context -------------------------------------");
+    //  console.log(data);
   };
- useEffect(() => {
-   getRecursoXID();
- }, []);
+  useEffect(() => {
+    getRecursoXID();
+  }, []);
 
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
@@ -64,7 +64,7 @@ export const ContextProvider = ({ children }) => {
   /////////////////////////////////GetCategorias
 
   const [categoriasLista, setCategoriasLista] = useState([]);
-  
+
   const getCategoriasLista = async () => {
     const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
     const data = await res.json();
@@ -81,9 +81,7 @@ export const ContextProvider = ({ children }) => {
 
   const [caracteristicasLista, setCaracteristicasLista] = useState([]);
   const getCaracteristicasLista = async () => {
-    const res = await fetch(
-      "http://52.32.210.155:8080/api/v1/caracteristicas/list"
-    );
+    const res = await fetch("http://52.32.210.155:8080/api/v1/caracteristicas/list");
     const data = await res.json();
 
     setCaracteristicasLista(data);
@@ -114,8 +112,8 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-//   console.log("Usuarios antes de validaciones");
-// console.log(usuarios);
+  //   console.log("Usuarios antes de validaciones");
+  // console.log(usuarios);
   const iniciarSesion = (nombre, email, password) => {
     const usuarioEncontrado = usuarios.find(
       (usuario) =>

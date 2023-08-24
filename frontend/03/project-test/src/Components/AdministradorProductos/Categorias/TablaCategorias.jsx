@@ -179,11 +179,6 @@ const TablaCategorias = () => {
     try {
       const response = await axios.delete(
         `http://52.32.210.155:8080/api/v1/categorias/delete/${categoria_id}`,
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
       );
 
 
@@ -191,7 +186,7 @@ const TablaCategorias = () => {
       const updatedCategorias = categoriasLista.filter(
         (categoriasListaXId) => categoriasListaXId.categoria_id !== categoria_id
       );
-      setCaracteristicasLista(updatedCategorias);
+      setCategoriasLista(updatedCategorias);
     } catch (error) {
       console.error("Error al eliminar caracteristicas:", error);
     }
@@ -282,7 +277,7 @@ const TablaCategorias = () => {
                   <TableCell style={{ width: "200px" }}>
                     {" "}
                     <img
-                      src={buscadorIconoCategoria(categoria_id)}
+                      src={buscadorIconoCategoria(categoria.categoria_id)}
                       alt={`Imagen de ${categoria.name}`}
                       style={{
                         width: "60px",
@@ -307,8 +302,8 @@ const TablaCategorias = () => {
                       variant="solid"
                       startDecorator={<DeleteForeverIcon />}
                       onClick={(e) =>
-                        handleClickEliminar(e, categoria.categoria_id)
-                      }
+                        {handleClickEliminar(e, categoria.categoria_id)
+                        console.log(categoria.categoria_id)}}
                     ></Chip>
                   </TableCell>
                 </TableRow>

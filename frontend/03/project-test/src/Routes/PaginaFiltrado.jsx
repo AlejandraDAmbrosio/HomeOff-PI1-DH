@@ -3,14 +3,28 @@ import { ContextGlobal } from "../Components/utils/global.context";
 import { useContext } from "react";
 import TablaXCategorias from "../Components/PaginaFiltrado/TablaXCategorias";
 import PanelFiltrado from "../Components/PaginaFiltrado/PanelFiltrado";
-import "../Components/PaginaFiltrado.css"
+import "../Components/PaginaFiltrado.css";
 import { useParams } from "react-router-dom";
 import buscadorXIDCategoria from "../Components/utils/BuscarXIDCategoria";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
+//////////////////////////////
+function obtenerNombreCategoriaPorId(idParam, listaCategorias) {
+  const categoriaEncontrada = listaCategorias.find(
+    (item) => item.categoria_id == idParam
+  );
 
+  if (categoriaEncontrada) {
+    return categoriaEncontrada.name;
+  } else {
+    return "Categoría no encontrada";
+  }
+}
+//////////////
 
 const PaginaFiltrado = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [listaFiltrada, setListaFiltrada] = useState([]);
   const {
     productosBKLista,
@@ -24,30 +38,69 @@ const PaginaFiltrado = () => {
   useEffect(() => {
     getDatosBKLista();
   }, []);
-  console.log(" ---------------------------------- Impresion por pantalla de productosBKLista que trae el contexto a PaginaFiltrado");
+  console.log(
+    " ---------------------------------- Impresion por pantalla de productosBKLista que trae el contexto a PaginaFiltrado"
+  );
   console.log(productosBKLista);
-  console.log("/*-----------------------------  ID Categorias a buscar ----------------------");
-console.log( id);
-
- 
-
-
+  console.log(
+    "/*-----------------------------  ID Categorias a buscar ----------------------"
+  );
+  console.log(id);
 
   useEffect(() => {
     setListaFiltrada(
-      productosBKLista.filter(producto => producto.categoria_id === parseInt(id))
+      productosBKLista.filter(
+        (producto) => producto.categoria_id === parseInt(id)
+      )
     );
   }, [id, productosBKLista]);
 
-  console.log(" ---------------------------------- listaFiltrada -----------------------------------------------");
-  console.log(listaFiltrada);
+  console.log(
+    " ---------------------------------- listaFiltrada -----------------------------------------------"
+  );
+  console.log(listaFiltrada.length);
+  ////////////////////////////////////////////////////////////////
+  const handleClick = () => {
+    console.info("You clicked the Chip.");
+  };
+
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+    setListaFiltrada(productosBKLista);
+
+
+  };
+
   return (
     <div className="administracion-fil">
-      <div className="administracion-fil-titulo">Encontra tu espacio</div>
+      <div className="administracion-fil-titulo">
+        <div className="fil-titulo">Encontra tu Espacio:</div>
+        {/* <div className="fil-frase">Hay {productosBKLista.length} espacios esperandote.</div> */}
+
+        <div className="fil-frase">
+          Tenés {listaFiltrada.length} espacios relacionados con tu busqueda.
+        </div>
+        <Stack direction="row" spacing={2} >
+          <Chip
+            label={`Total productos ${productosBKLista.length}`}
+            onClick={handleClick}
+            onDelete={handleDelete}
+            size="small"
+          />
+
+{listaFiltrada.length < productosBKLista.length && (
+          <Chip
+            label={`${obtenerNombreCategoriaPorId( id,categoriasLista)} - ${listaFiltrada.length} `}
+            variant="outlined"
+            onClick={handleClick}
+            onDelete={handleDelete}
+          />
+          )}
+        </Stack>
+      </div>
       <div className="paneles-fil">
-         <PanelFiltrado></PanelFiltrado> 
+        <PanelFiltrado></PanelFiltrado>
         <TablaXCategorias productos={listaFiltrada} />
-      
       </div>
     </div>
   );
