@@ -28,8 +28,15 @@ const CardProducto = ({
   return (
     // <div className="card-body-producto">
     <Link to={"/producto/" + id}>
-      <Card sx={{ width: 315, /* height: 440, */ borderRadius:" 11px 11px 11px 11px", boxShadow:"1px 1px 6px #979797" }}>
+      <Card
+        sx={{
+          width: 315,
+          /* height: 440, */ borderRadius: " 11px 11px 11px 11px",
+          boxShadow: "1px 1px 6px #979797",
+        }}
+      >
         <CardMedia sx={{ height: 240 }} image={url} title="imagen" />
+        <div className="caja-texto-card">
         <CardContent style={{ height: "120px" }}>
           <Typography
             gutterBottom
@@ -51,15 +58,33 @@ const CardProducto = ({
             gutterBottom
             variant="body2"
             component="div"
-            style={{ fontWeight: "600", color: "#383B58", alignItems:"center"}}
+            style={{
+              fontWeight: "600",
+              color: "#383B58",
+              alignItems: "center",
+            }}
           >
-            <LocationOnIcon style={{ width: 17, height: 17, marginRight:"10px" }} />
+            <LocationOnIcon
+              style={{ width: 17, height: 17, marginRight: "10px" }}
+            />
             {sede}
           </Typography>
 
-          <Typography variant="body2" color="text.secondary"   style={{
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style={{
               color: "#383B58",
-              fontSize: "14px"}}>
+              fontSize: "14px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 2, // Mostrar hasta 2 líneas
+              WebkitBoxOrient: "vertical",
+              paddingBottom: "5px",
+              marginBottom: "5px",
+            }}
+          >
             {descripcion}
           </Typography>
         </CardContent>
@@ -69,8 +94,8 @@ const CardProducto = ({
             flexDirection: "row",
             alignContent: "right",
             // justifyContent: "",
-            vertical: 'bottom',
-            horizontal: 'right',
+            vertical: "bottom",
+            horizontal: "right",
           }}
         >
           {/* <Button size="small">Share</Button> */}
@@ -80,13 +105,14 @@ const CardProducto = ({
               fontSize: "20px",
               fontWeight: "600",
               marginLeft: "auto",
-              marginTop:"20px",
-              paddingRight:"10px"
+              marginTop: "20px",
+              paddingRight: "10px",
             }}
           >
             ${precio}
           </Typography>
         </CardActions>
+        </div>
       </Card>
     </Link>
     // </div>

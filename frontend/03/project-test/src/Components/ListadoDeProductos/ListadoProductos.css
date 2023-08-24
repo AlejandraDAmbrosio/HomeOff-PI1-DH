@@ -5,8 +5,8 @@
   margin-top: 0rem;
   display: grid;
   grid-template-columns: repeat(5, minmax(300px, 19%));
-  grid-auto-rows: minmax(100px, 400px);
-  gap: 3rem;
+  grid-auto-rows: minmax(100px, 440px);
+  gap: 4rem;
   justify-content: center;
   align-items: center;
   /* margin-left: 2rem; */
@@ -44,7 +44,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
   width: 100%;
 
   z-index: 0;
