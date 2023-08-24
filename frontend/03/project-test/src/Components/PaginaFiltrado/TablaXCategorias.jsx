@@ -11,6 +11,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import CardProducto from "../ListadoDeProductos/CardProducto";
+import "./TablaXCategorias.css"
 
 function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
   const categoriaEncontrada = listaCategorias.find(
@@ -44,7 +45,7 @@ const TablaXCategorias = ({ productos }) => {
 
   return (
     <div>
-      <Container>
+      {/* <Container> */}
         <div className="container-listado-home">
           
         {productos.map((producto) => (
@@ -67,7 +68,7 @@ const TablaXCategorias = ({ productos }) => {
         {/* -------------------------------------------------- */}
      
         
-      </Container>
+      {/* </Container> */}
     </div>
   );
 };
