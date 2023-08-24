@@ -17,6 +17,7 @@ import AdministracionCaracteristicas from "./Routes/AdministracionCaracteristica
 import AdministradorProductos from "./Routes/AdministradorProductos";
 import { useEffect, useState } from "react";
 import PaginaFiltrado from "./Routes/PaginaFiltrado";
+import EditarProducto from "./Routes/EditarProducto";
 
 function App() {
   ////////////////// Segmento Logueo
@@ -55,7 +56,15 @@ function App() {
         <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
           <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
         </Route>
+
+
+        <Route path="/editarproducto/" element={<EditarProducto />}>
+          <Route path="/editarproducto/:id" element={<EditarProducto />} />
+        </Route>
       </Routes>
+
+      
+
 
       <Footer />
     </>
