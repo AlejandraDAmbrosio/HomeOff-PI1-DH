@@ -181,7 +181,7 @@ const EditarProducto = () => {
 
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
-    // setNombreYaExiste(false);
+
     setNombreProductoValido(true);
   };
 
@@ -260,30 +260,26 @@ const EditarProducto = () => {
 
   useEffect(() => {
     if (form) {
-      getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
+      getDatosBKLista(); 
     }
   }, [form]);
   const jsonData = productosBKLista;
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
+
     console.log("----------------- Console al arrancar HandleSubmit");
     console.log(e);
-    const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
-    // const nombreExisteEnData = nombreExiste(nuevoProducto.nombre, jsonData);
 
+    const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
+ 
     console.log("------------------nombreYaExiste ?????? ------------------");
     console.log(nombreEsValido);
-    // console.log(
-    //   "------------------validarNombreProducto ??? ------------------"
-    // );
-    // console.log(nombreExisteEnData);
 
-    if (nombreEsValido /* && !nombreExisteEnData */) {
+
+    if (nombreEsValido) {
       setForm(true);
       setNombreProductoValido(true);
-      // setShowPreview(true);
-      // console.log(form);
 
       const nuevoProductoData = {
         idRecurso: nuevoProducto.idRecurso,

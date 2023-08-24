@@ -13,6 +13,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Link } from "react-router-dom";
+
 // import obtenerNombreCategoriaPorId from "../../utils/buscarNombreCategoria";
 import axios from "axios";
 
@@ -37,7 +39,6 @@ function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
     return "Categoría no encontrada";
   }
 }
-
 
 const TablaProductos = () => {
   ///Traer datos de Base mediante UseContext
@@ -207,25 +208,21 @@ const TablaProductos = () => {
                     {recurso.precioUnitario}
                   </TableCell>
                   <TableCell>{recurso.estadoRecurso}</TableCell>
-                  <TableCell
-                    style={{
-                      display: "flex",
-
-                      width: "50px",
-                      aligItems: "center",
-                      textAlign: "center",
-                      padding: "8px 0 8px 0",
-                    }}
-                  >
-                    <Button
-                      style={{
-                        backgroundColor: "#9dd6b3",
-                      }}
-                      size="md"
-                      variant="soft"
-                      color="primary"
-                      endDecorator={<EditIcon />}
-                    ></Button>
+                  <TableCell>
+                    <Link
+                      to={`/editarproducto/${recurso.idRecurso}`}
+                      key={recurso.idRecurso}
+                    >
+                      <Button
+                        style={{
+                          backgroundColor: "#9dd6b3",
+                        }}
+                        size="md"
+                        variant="soft"
+                        color="primary"
+                        endDecorator={<EditIcon />}
+                      ></Button>
+                    </Link>
                   </TableCell>
 
                   <TableCell>
