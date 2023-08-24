@@ -199,15 +199,15 @@ const TablaCaracteristicas = () => {
           alignItems: "center",
         }}
       >
-        <Button variant="outlined" onClick={handleClickOpen}>
+        {/* <Button variant="outlined" onClick={handleClickOpen}>
           Crear Característica
-        </Button>
+        </Button> */}
       </div>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Estás seguro que deseas eliminar este producto?
+            ¿Estás seguro que deseas eliminar esta Característica?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -361,6 +361,9 @@ const TablaCaracteristicas = () => {
           <Button onClick={handleSubmitCrearCaracteristica}>Guardar</Button>
         </DialogActions>
       </Dialog>
+      <Button variant="outlined" onClick={handleClickOpen}>
+          Crear Característica
+        </Button>
     </div>
   );
 };
