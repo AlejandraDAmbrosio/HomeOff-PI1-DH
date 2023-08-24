@@ -67,9 +67,14 @@ const PaginaFiltrado = () => {
   const handleDelete = () => {
     console.info("You clicked the delete icon.");
     setListaFiltrada(productosBKLista);
-
-
   };
+
+  const handleFiltrarPorSede = (idSede) => {
+    setListaFiltrada(
+      productosBKLista.filter((producto) => producto.idSede === idSede)
+    );
+  };
+
 
   return (
     <div className="administracion-fil">
@@ -96,6 +101,30 @@ const PaginaFiltrado = () => {
             onDelete={handleDelete}
           />
           )}
+
+<Chip
+            label={`COLOMBIA (${productosBKLista.filter(
+              (producto) => producto.idSede === 1
+            ).length})`}
+            onClick={() => handleFiltrarPorSede(1)}
+            size="small"
+          />
+
+          <Chip
+            label={`ARGENTINA (${productosBKLista.filter(
+              (producto) => producto.idSede === 2
+            ).length})`}
+            onClick={() => handleFiltrarPorSede(2)}
+            size="small"
+          />
+
+          <Chip
+            label={`CHILE (${productosBKLista.filter(
+              (producto) => producto.idSede === 3
+            ).length})`}
+            onClick={() => handleFiltrarPorSede(3)}
+            size="small"
+          />
         </Stack>
       </div>
       <div className="paneles-fil">
