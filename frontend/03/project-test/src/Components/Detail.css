@@ -87,7 +87,7 @@ h3.descripcion {
   justify-content: space-around;
   width: 100%;
   border-top: 1px solid #d8d8d8;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 /* 
 .descripcion-producto {

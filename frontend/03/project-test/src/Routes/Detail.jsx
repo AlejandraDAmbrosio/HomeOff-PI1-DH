@@ -145,7 +145,7 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenURL}
-                  style={{height:"50vh"}}
+                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
@@ -160,7 +160,7 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl01}
-                  style={{height:"50vh"}}
+                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
@@ -174,7 +174,7 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl02}
-                  style={{height:"50vh"}}
+                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
@@ -188,7 +188,7 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl03}
-                  style={{height:"50vh"}}
+                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
@@ -202,17 +202,13 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl04}
-                  style={{height:"50vh"}}
+                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
 
             <div className="contenedor-detalle-producto">
               <h2 className="titulo-caracteristicas">Características</h2>
-
-              <div className="descripcion-producto">
-                <p className="descripcion-bullets">{recursoXID.descripción}</p>
-              </div>
             </div>
             <div className="segmento-icon-detalle">
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
@@ -226,13 +222,15 @@ const Detail = () => {
                           alignItems: "center", // Centrar verticalmente
                           padding: "3px 10px", // Ajustar padding
                           justifyContent: "center",
-                          gap:"15px"
+                          gap: "15px",
+                          borderRadius: " 11px 11px 11px 11px",
+                          boxShadow: "1px 1px 6px #979797",
                         }}
                       >
                         <img
                           className="icono-caracteristica"
                           src={caracteristica.logoCaracteristica}
-                          style={{width:"25px", height:"25px", }}
+                          style={{ width: "25px", height: "25px" }}
                         />
                         <div>{caracteristica.nombre}</div>
                       </Paper>
