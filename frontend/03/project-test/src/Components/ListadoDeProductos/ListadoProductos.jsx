@@ -1,5 +1,5 @@
 import React from "react";
-
+import buscadorSedeXIDSede from "../utils/buscadorSedeXIDSede"
 import { useState, useEffect, useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
 import { useNavigate } from "react-router-dom";
@@ -56,6 +56,9 @@ const ListadoProductos = ({ CantidadCards }) => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
 
+
+  
+
   return (
     <div className="segmento-listado-productos">
       <h3 className="txt-titulo-listado-productos"></h3>
@@ -70,6 +73,7 @@ const ListadoProductos = ({ CantidadCards }) => {
               descripcion={producto.descripción}
               url={producto.imagenURL} // Aquí usamos la URL de la foto
               precio={producto.precioUnitario}
+              sede={buscadorSedeXIDSede(producto.idSede)}
               categoria={obtenerNombreCategoriaPorId(
                 producto.categoria_id,
                 productosBKLista,

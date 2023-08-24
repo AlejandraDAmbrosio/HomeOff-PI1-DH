@@ -1,4 +1,6 @@
 import React from "react";
+import buscadorIconoCategoria from "../AdministradorProductos/Categorias/iconoXCategoria"
+
 import "./Categorias.css";
 import "./CardCategoria.css";
 import CardCategoria from "./CardCategoria";
@@ -34,7 +36,18 @@ const Categorias = ({ NombreCategoria }) => {
           <div className="card-categoria">
             {/* <div className="fondo-icono caja-blanca-sombreada"> */}
             <div className="fondo-icono">
-              <HiOutlineBuildingOffice2 className="icono" />
+              {/* <HiOutlineBuildingOffice2 className="icono" /> */}
+               <img
+                      src={buscadorIconoCategoria(categoria.categoria_id)}
+                      alt={`Imagen de ${categoria.name}`}
+                      className="icono"
+                      style={{
+                        width: "60px",
+                        height: "50px",
+                        padding: "2px 0 0 0px",
+                        backgroundColor:"white",
+                      }}
+                    />
             </div>
             <div className="nombre-icono-categoria">{categoria.name}</div>
           </div>

@@ -37,16 +37,6 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { Collapse, Container } from "@mui/material";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 function nombreExiste(nombre, data) {
   return data.find((objeto) => objeto.nombre === nombre) !== undefined;
@@ -196,6 +186,8 @@ const TablaCategorias = () => {
         }
       );
 
+
+      
       const updatedCategorias = categoriasLista.filter(
         (categoriasListaXId) => categoriasListaXId.categoria_id !== categoria_id
       );
