@@ -37,7 +37,7 @@
   width: 100%;
   max-width: 1400px;
   margin: auto auto;
-  gap: 2rem;
+  gap: 1rem;
   border: 1px solid rgb(184, 184, 184);
 }
 
@@ -77,6 +77,28 @@
 }
 
 .formularioAgregarProducto {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.container-check-boxs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  width: 700px;
+  height: 100px;
+  margin: 0.5rem 0rem 1rem 0rem;
+  /* padding-bottom: 3rem; */
+ 
+}
+
+
+.formgroup-check-boxs {
+  border: 1px solid grey;
+  padding: 1rem;
 }
 
 .campo-anotacion {
