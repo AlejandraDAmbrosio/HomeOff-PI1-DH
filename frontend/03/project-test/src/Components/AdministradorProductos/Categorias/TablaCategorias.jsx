@@ -99,7 +99,7 @@ const TablaCategorias = () => {
   };
 
   const onChangeIconoCat = (e) => {
-    setNuevaCategoria({ ...nuevaCategoria, IconoCat: e.target.value });
+    setNuevaCategoria({ ...nuevaCategoria, icono_Categoria: e.target.value });
   };
 
   ////////// Modal Form
@@ -221,9 +221,7 @@ const TablaCategorias = () => {
           alignItems: "center",
         }}
       >
-        {/* <Button variant="outlined" onClick={handleClickOpen}>
-          Crear Categoría
-        </Button> */}
+      
       </div>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
