@@ -21,13 +21,14 @@ import { useParams } from "react-router-dom";
 
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-function nombreExiste(nombre, data) {
-  return data.find((objeto) => objeto.nombre === nombre) !== undefined;
-}
-// const nombreYaExiste = nombreExiste(nombreBuscado, jsonData);
+// function nombreExiste(nombre, data) {
+//   return data.find((objeto) => objeto.nombre === nombre) !== undefined;
+// }
 
 const EditarProducto = () => {
-  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
+  const { id } = useParams();
+
+  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/update";
   const jwt = localStorage.getItem("jwt");
   const {
     productosBKLista,
@@ -37,35 +38,27 @@ const EditarProducto = () => {
     setCategoriasLista,
     getCategoriasLista,
     recursoXID,
-    getRecursoXID
+    getRecursoXID,
   } = useContext(ContextGlobal);
 
- const{id}= useParams();
- useEffect(() => {
-  getRecursoXID(id);
-}, [id]);
+  const datosRecursoXID = recursoXID;
 
-  
+  console.log(
+    "----------------- Print recursoXID ---------------- en Editar Producto en linea 44"
+  );
+  console.log(recursoXID);
 
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const handleFileChange = (event) => {
-  //   const files = event.target.files;
-  //   const newFiles = Array.from(files).slice(0, 5); // Limitar a 5 archivos
-  //   setSelectedFiles(newFiles);
-  // };
+  useEffect(() => {
+    getRecursoXID(id);
+  }, [id]);
 
-  // const handleUpload = () => {
-  //   if (selectedFiles.length > 0) {
-  //     // Aquí puedes implementar la lógica para enviar los archivos al servidor
-  //     console.log("Subiendo archivos:", selectedFiles.map(file => file.name));
-  //   }
-  // };
-  // const [showPreview, setShowPreview] = useState(false);
-  // const [selectedServiceIds, setSelectedServiceIds] = useState([]);
-  // const MAX_SELECTED_SERVICES = 5;
+  console.log(
+    "----------------- Print recursoXID ---------------- en Editar Producto en linea 51"
+  );
+  console.log(recursoXID);
 
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
-  const [nombreYaExiste, setNombreYaExiste] = useState(true);
+  // const [nombreYaExiste, setNombreYaExiste] = useState(true);
   const [form, setForm] = useState(false);
 
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
@@ -73,7 +66,7 @@ const EditarProducto = () => {
 
   const [nuevoProducto, setNuevoProducto] = useState({
     idRecurso: 0,
-    nombre: recursoXID.nombre,
+    nombre: "",
     descripción: "",
     capacidadMáxima: 0,
     precioUnitario: 1.0,
@@ -94,6 +87,33 @@ const EditarProducto = () => {
     tieneEspacioDescanso: 1,
     tieneEstaciónCafeAguaAromatica: 1,
   });
+
+  useEffect(() => {
+    if (recursoXID) {
+      setNuevoProducto({
+        idRecurso: `${recursoXID.idRecurso}`,
+        nombre: `${recursoXID.nombre}`,
+        descripción: `${recursoXID.descripción}`,
+        capacidadMáxima: `${recursoXID.capacidadMáxima}`,
+        precioUnitario: `${recursoXID.precioUnitario}`,
+        idSede: `${recursoXID.idSede}`,
+        categoria_id: `${recursoXID.categoria_id}`,
+        id_Tipo_Espacio: `${recursoXID.id_Tipo_Espacio}`,
+        imagenUrl01: `${recursoXID.imagenUrl01}`,
+        imagenUrl02: `${recursoXID.imagenUrl02}`,
+        imagenURL: `${recursoXID.imagenUrl02}`,
+        imagenUrl03: `${recursoXID.imagenUrl03}`,
+        imagenUrl04: `${recursoXID.imagenUrl04}`,
+        tieneCafetería: `${recursoXID.tieneCafetería}`,
+        tieneWifi: `${recursoXID.tieneWifi}`,
+        estadoRecurso: `${recursoXID.estadoRecurso}`,
+        tieneLokker: `${recursoXID.tieneLokker}`,
+        tieneFotocopiadoraImpresion: `${recursoXID.tieneFotocopiadoraImpresion}`,
+        tieneEspacioDescanso: `${recursoXID.tieneEspacioDescanso}`,
+        tieneEstaciónCafeAguaAromatica: `${recursoXID.tieneEstaciónCafeAguaAromatica}`,
+      });
+    }
+  }, [recursoXID]);
 
   const [servicios, setServicios] = useState({
     tieneCafetería: false,
@@ -161,7 +181,7 @@ const EditarProducto = () => {
 
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
-    setNombreYaExiste(false);
+    // setNombreYaExiste(false);
     setNombreProductoValido(true);
   };
 
@@ -250,23 +270,23 @@ const EditarProducto = () => {
     console.log("----------------- Console al arrancar HandleSubmit");
     console.log(e);
     const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
-    const nombreExisteEnData = nombreExiste(nuevoProducto.nombre, jsonData);
+    // const nombreExisteEnData = nombreExiste(nuevoProducto.nombre, jsonData);
 
     console.log("------------------nombreYaExiste ?????? ------------------");
     console.log(nombreEsValido);
-    console.log(
-      "------------------validarNombreProducto ??? ------------------"
-    );
-    console.log(nombreExisteEnData);
+    // console.log(
+    //   "------------------validarNombreProducto ??? ------------------"
+    // );
+    // console.log(nombreExisteEnData);
 
-    if (nombreEsValido && !nombreExisteEnData) {
+    if (nombreEsValido /* && !nombreExisteEnData */) {
       setForm(true);
       setNombreProductoValido(true);
       // setShowPreview(true);
       // console.log(form);
 
       const nuevoProductoData = {
-        idRecurso: 0,
+        idRecurso: nuevoProducto.idRecurso,
         nombre: nuevoProducto.nombre,
         descripción: nuevoProducto.descripción,
         capacidadMáxima: nuevoProducto.capacidadMáxima,
@@ -313,11 +333,11 @@ const EditarProducto = () => {
       } catch (error) {
         console.error("Error:", error);
       }
-      useEffect(() => {
-        if (form) {
-          getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
-        }
-      }, [form]);
+      // useEffect(() => {
+      //   if (form) {
+      //     getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
+      //   }
+      // }, [form]);
 
       console.log("Muestra el valor de toda la Lista ");
       console.log(productosBKLista);
@@ -330,7 +350,7 @@ const EditarProducto = () => {
       /////ERROR ????////////////////////////
     } else {
       setForm(false);
-      setNombreYaExiste(nombreExisteEnData);
+      // setNombreYaExiste(nombreExisteEnData);
       setNombreProductoValido(false);
 
       setNuevoProducto({
@@ -352,8 +372,11 @@ const EditarProducto = () => {
   };
 
   return (
-    <div className="administracion-agre" style={{padding:"2rem 0rem"}}>
-      <div className="administracion-agre-titulo" style={{padding:"0rem 0rem"}}>
+    <div className="administracion-agre" style={{ padding: "2rem 0rem" }}>
+      <div
+        className="administracion-agre-titulo"
+        style={{ padding: "0rem 0rem" }}
+      >
         Agregar productos
       </div>
       <div className="paneles-agregar">
@@ -365,7 +388,7 @@ const EditarProducto = () => {
           <div className="pagina-formulario-alta-producto">
             <FormControl
               onSubmit={handleSubmitCrearProducto}
-              style={{ padding: "1rem 2rem", width:"890px"}}
+              style={{ padding: "1rem 2rem", width: "890px" }}
             >
               <div className="formularioAgregarProducto">
                 <TextField
@@ -388,14 +411,14 @@ const EditarProducto = () => {
                 ) : (
                   ""
                 )}
-                {nombreYaExiste ? (
+                {/* {nombreYaExiste ? (
                   <p className="error-nombre-existe">
                     Ya existe un producto con el mismo nombre. Por favor,
                     indique un nuevo nombre.
                   </p>
                 ) : (
                   ""
-                )}
+                )} */}
 
                 {/* /////////--------------------------------////// */}
 
@@ -413,87 +436,93 @@ const EditarProducto = () => {
                   style={{ width: "700px" }}
                 />
                 {/* /////////--------------------------------////// */}
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                <TextField 
-                  id="tipoRecurso"
-                  select
-                  label="Categorias de productos"
-                  defaultValue="OFICINAS PRIVADAS"
-                  style={{width:"300px"}}
-                  SelectProps={{
-                    native: true,
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
-                  helperText="Elija un tipo de recurso"
-                  variant="standard"
-                  value={nuevoProducto.categoria_id}
-                  onChange={onChangeTipoRecurso}
-                  required
-                  margin="normal"
                 >
-                  {categoriasLista.map((categoria, categoria_id) => (
-                    <option
-                      key={categoria.categoria_id}
-                      className="item-grid"
-                      value={categoria.categoria_id}
-                    >
-                      {categoria.name}{" "}
-                    </option>
-                  ))}
-                </TextField>
-                {/* /////////--------------------------------////// */}
+                  <TextField
+                    id="tipoRecurso"
+                    select
+                    label="Categorias de productos"
+                    defaultValue="OFICINAS PRIVADAS"
+                    style={{ width: "300px" }}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija un tipo de recurso"
+                    variant="standard"
+                    value={nuevoProducto.categoria_id}
+                    onChange={onChangeTipoRecurso}
+                    required
+                    margin="normal"
+                  >
+                    {categoriasLista.map((categoria, categoria_id) => (
+                      <option
+                        key={categoria.categoria_id}
+                        className="item-grid"
+                        value={categoria.categoria_id}
+                      >
+                        {categoria.name}{" "}
+                      </option>
+                    ))}
+                  </TextField>
+                  {/* /////////--------------------------------////// */}
 
-                <TextField
-                  id="tipoEspacio"
-                  select
-                  type="number"
-                  label="Tipo de Espacio"
-                  defaultValue="OFICINAS PRIVADAS"
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Elija el tipo de espacio"
-                  variant="standard"
-                  value={nuevoProducto.id_Tipo_Espacio}
-                  onChange={onChangeAbiertoCerrado}
-                  required
-                  margin="normal"
-                >
-                  <option className="item-grid" value={1}>
-                    OFICINA ESPACIO ABIERTO
-                  </option>
-                  <option className="item-grid" value={0}>
-                    OFICINA ESPACIO CERRADO
-                  </option>
-                </TextField>
-
-{/* //////////////////// */}
-<TextField
-                  id="capacidad maxima"
-                  select
-                  type="number"
-                  value={nuevoProducto.capacidadMáxima}
-                  onChange={onChangeCapacidadMáxima}
-                  label="Capacidad máxima"
-                  defaultValue="1"
-                  style={{width:"150px"}}
-                  margin="normal"
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Elija una capacidad máxima"
-                  variant="standard"
-                  required
-                >
-                  {capacidadArray.map((cant) => (
-                    <option
-                      key={cant.id}
-                      className="item-grid"
-                      value={cant.cantidad}
-                    >
-                      {cant.cantidad}{" "}
+                  <TextField
+                    id="tipoEspacio"
+                    select
+                    type="number"
+                    label="Tipo de Espacio"
+                    defaultValue="OFICINAS PRIVADAS"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija el tipo de espacio"
+                    variant="standard"
+                    value={nuevoProducto.id_Tipo_Espacio}
+                    onChange={onChangeAbiertoCerrado}
+                    required
+                    margin="normal"
+                  >
+                    <option className="item-grid" value={1}>
+                      OFICINA ESPACIO ABIERTO
                     </option>
-                  ))}
-                </TextField>
+                    <option className="item-grid" value={0}>
+                      OFICINA ESPACIO CERRADO
+                    </option>
+                  </TextField>
+
+                  {/* //////////////////// */}
+                  <TextField
+                    id="capacidad maxima"
+                    select
+                    type="number"
+                    value={nuevoProducto.capacidadMáxima}
+                    onChange={onChangeCapacidadMáxima}
+                    label="Capacidad máxima"
+                    defaultValue="1"
+                    style={{ width: "150px" }}
+                    margin="normal"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija una capacidad máxima"
+                    variant="standard"
+                    required
+                  >
+                    {capacidadArray.map((cant) => (
+                      <option
+                        key={cant.id}
+                        className="item-grid"
+                        value={cant.cantidad}
+                      >
+                        {cant.cantidad}{" "}
+                      </option>
+                    ))}
+                  </TextField>
                 </div>
                 {/* -/////////////////////////////////////// */}
                 <FormGroup
@@ -519,78 +548,93 @@ const EditarProducto = () => {
                   </div>
                 </FormGroup>
                 {/* /////////--------------------------------////// */}
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                <TextField
-                  id="precioProducto"
-                  label="Ingresa el precio del producto"
-                  type="number"
-                  value={nuevoProducto.precioUnitario}
-                  onChange={onChangePreciounitario}
-                  margin="normal"
-                  style={{width:"150px"}}
-                  InputLabelProps={{
-                    shrink: true,
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
-                  variant="standard"
-                />
-                {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
-                {/* //////////////////////////////////////////////////////////////////////////////// */}
-                <TextField
-                  id="sede"
-                  select
-                  type="text"
-                  label="Elija una Sede"
-                  defaultValue="Argentina"
-                  style={{width:"300px"}}
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Elija una Sede"
-                  variant="standard"
-                  value={nuevoProducto.idSede}
-                  onChange={onChangeSede}
-                  required
-                  margin="normal"
                 >
-                  {sedesArray.map((sede) => (
-                    <option key={sede.id} className="item-grid" value={sede.id}>
-                      {sede.nombre}{" "}
+                  <TextField
+                    id="precioProducto"
+                    label="Ingresa el precio del producto"
+                    type="number"
+                    value={nuevoProducto.precioUnitario}
+                    onChange={onChangePreciounitario}
+                    margin="normal"
+                    style={{ width: "150px" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+                  {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                  <TextField
+                    id="sede"
+                    select
+                    type="text"
+                    label="Elija una Sede"
+                    defaultValue="Argentina"
+                    style={{ width: "300px" }}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija una Sede"
+                    variant="standard"
+                    value={nuevoProducto.idSede}
+                    onChange={onChangeSede}
+                    required
+                    margin="normal"
+                  >
+                    {sedesArray.map((sede) => (
+                      <option
+                        key={sede.id}
+                        className="item-grid"
+                        value={sede.id}
+                      >
+                        {sede.nombre}{" "}
+                      </option>
+                    ))}
+                  </TextField>
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                  <TextField
+                    id="disponible"
+                    select
+                    type="text"
+                    label="Esta Disponible?"
+                    defaultValue="Argentina"
+                    style={{ width: "200px" }}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Esta Disponible?"
+                    variant="standard"
+                    value={nuevoProducto.estadoRecurso}
+                    onChange={onChangeDisponibilidad}
+                    required
+                    margin="normal"
+                  >
+                    <option className="item-grid" value="Disponible">
+                      Disponible
                     </option>
-                  ))}
-                </TextField>
-               
-                {/* //////////////////////////////////////////////////////////////////////////////// */}
-                <TextField
-                  id="disponible"
-                  select
-                  type="text"
-                  label="Esta Disponible?"
-                  defaultValue="Argentina"
-                  style={{width:"200px"}}
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Esta Disponible?"
-                  variant="standard"
-                  value={nuevoProducto.estadoRecurso}
-                  onChange={onChangeDisponibilidad}
-                  required
-                  margin="normal"
-                >
-                  <option className="item-grid" value="Disponible">
-                    Disponible
-                  </option>
-                  <option className="item-grid" value="No disponible">
-                    No disponible
-                  </option>
-                </TextField>
+                    <option className="item-grid" value="No disponible">
+                      No disponible
+                    </option>
+                  </TextField>
                 </div>
                 {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
 
-              
-
                 {/* ///////////////////////////////////////////////////////////////////// */}
-                <div className="campo-anotacion">
+                <div
+                  className="campo-anotacion"
+                  style={{
+                    margin: "35px 0px",
+                    border: "1px solid grey",
+                    padding: "10px 5px",
+                  }}
+                >
                   <label className="anotacion" for="fotos">
                     Ingresa las fotos del producto *
                   </label>
@@ -603,36 +647,7 @@ const EditarProducto = () => {
                     multiple
                   />
                 </div>
-                {/* ///////////////// */}
-                {/* <div>
-                  <input
-                    accept=".jpg, .jpeg, .png"
-                    type="file"
-                    id="file-upload"
-                    style={{ display: "none" }}
-                    onChange={handleFileChange}
-                  />
-                  <label htmlFor="file-upload">
-                    <Button
-                      variant="outlined"
-                      component="span"
-                      startIcon={<CloudUploadIcon />}
-                    >
-                      Cargar Archivo
-                    </Button>
-                  </label>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleUpload}
-                    disabled={!selectedFile}
-                  >
-                    Subir
-                  </Button>
-                  {selectedFile && (
-                    <p>Archivo seleccionado: {selectedFile.name}</p>
-                  )}
-                </div> */}
+
                 {/* //////////////-----------------------------////////////// */}
                 <div className="boton-acceso-agregar-producto">
                   <Button

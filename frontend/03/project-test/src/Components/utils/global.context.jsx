@@ -40,12 +40,12 @@ export const ContextProvider = ({ children }) => {
     const data = response.data;
 
     setRecursoXID(data);
-    // console.log(data);
+  //  console.log("Console en recursoXID en Context -------------------------------------");
+  //  console.log(data);
   };
-
-  useEffect(() => {
-    getRecursoXID();
-  }, []);
+ useEffect(() => {
+   getRecursoXID();
+ }, []);
 
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
@@ -114,8 +114,8 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  console.log("Usuarios antes de validaciones");
-console.log(usuarios);
+//   console.log("Usuarios antes de validaciones");
+// console.log(usuarios);
   const iniciarSesion = (nombre, email, password) => {
     const usuarioEncontrado = usuarios.find(
       (usuario) =>

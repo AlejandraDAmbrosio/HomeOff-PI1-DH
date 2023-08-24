@@ -28,7 +28,7 @@ const ListadoProductos = ({ CantidadCards }) => {
   const { productosBKLista, categoriasLista } = useContext(ContextGlobal);
 
   // console.log(" ----------Listado de Productos");
-  console.log(productosBKLista)
+  // console.log(productosBKLista)
   const chunk = (arr, size) => {
     const chunkedArray = [];
     for (let i = 0; i < arr.length; i += size) {
