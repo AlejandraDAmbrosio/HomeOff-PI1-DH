@@ -143,8 +143,9 @@ const Detail = () => {
             >
               <Box sx={style}>
                 <img
-                  className="item-grid-fotos1 foto-producto block"
+                  className="foto-producto block"
                   src={recursoXID.imagenURL}
+                  style={{height:"50vh"}}
                 />
               </Box>
             </Modal>
@@ -157,8 +158,9 @@ const Detail = () => {
             >
               <Box sx={style}>
                 <img
-                  className="item-grid-fotos2 foto-producto block"
+                  className="foto-producto block"
                   src={recursoXID.imagenUrl01}
+                  style={{height:"50vh"}}
                 />
               </Box>
             </Modal>
@@ -170,8 +172,9 @@ const Detail = () => {
             >
               <Box sx={style}>
                 <img
-                  className="item-grid-fotos3 foto-producto block"
+                  className="foto-producto block"
                   src={recursoXID.imagenUrl02}
+                  style={{height:"50vh"}}
                 />
               </Box>
             </Modal>
@@ -183,8 +186,9 @@ const Detail = () => {
             >
               <Box sx={style}>
                 <img
-                  className="item-grid-fotos4 foto-producto block"
+                  className="foto-producto block"
                   src={recursoXID.imagenUrl03}
+                  style={{height:"50vh"}}
                 />
               </Box>
             </Modal>
@@ -196,8 +200,9 @@ const Detail = () => {
             >
               <Box sx={style}>
                 <img
-                  className="item-grid-fotos5 foto-producto block"
+                  className="foto-producto block"
                   src={recursoXID.imagenUrl04}
+                  style={{height:"50vh"}}
                 />
               </Box>
             </Modal>
