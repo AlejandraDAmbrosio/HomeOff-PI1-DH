@@ -52,11 +52,14 @@ const TablaCategorias = () => {
     getCategoriasLista();
   }, []);
   //////////////
-
+  const [expandedMap, setExpandedMap] = React.useState({});
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (categoriaId) => {
+    setExpandedMap((prevExpandedMap) => ({
+      ...prevExpandedMap,
+      [categoriaId]: !prevExpandedMap[categoriaId], // Invierte el estado de expansión
+    }));
   };
   // console.log(categoriasLista);
 
@@ -216,39 +219,58 @@ const TablaCategorias = () => {
                   component="div"
                   textOverflow="ellipsis"
                   textAlign=" center"
-                  alignSelf="center" 
+                  alignSelf="center"
                 >
                   {categoria.name}
                 </Typography>
               </CardContent>
-             <CardActions disableSpacing>
-                  
-                      <ExpandMore
-                        expand={categoria.categoria_id}
-                        onClick={() => handleExpandClick(categoria_id)}
-                        
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                      >
-                        <ExpandMoreIcon />
-                      </ExpandMore>
-                    </CardActions>
-                    <Collapse
-                      in={expanded}
-                      timeout="auto" 
-                      id={categoria.id}
-                      unmountOnExit>
-                      <CardContent>
-                        <Typography paragraph>Descripcion:</Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          textOverflow="ellipsis"
-                        >
-                          {categoria.description}
-                        </Typography>
-                      </CardContent>
-                    </Collapse> 
+              <CardContent>
+              {/* - PONER ICONOS ACA- */}
+              </CardContent>
+              <CardActions disableSpacing>
+                <ExpandMore
+                  expand={expandedMap[categoria.categoria_id]}
+                  onClick={() => handleExpandClick(categoria.categoria_id)}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </CardActions>
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography paragraph>Descripción:</Typography>
+                  <Typography paragraph>{categoria.description}</Typography>
+                 
+                </CardContent>
+              </Collapse>
+              {/* <CardActions disableSpacing>
+                <ExpandMore
+                  expand={categoria.categoria_id}
+                  onClick={() => handleExpandClick(categoria_id)}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </CardActions>
+              <Collapse
+                in={expanded}
+                timeout="auto"
+                id={categoria.id}
+                unmountOnExit
+              >
+                <CardContent>
+                  <Typography paragraph>Descripcion:</Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    textOverflow="ellipsis"
+                  >
+                    {categoria.description}
+                  </Typography>
+                </CardContent>
+              </Collapse> */}
             </Card>
           ))}
 

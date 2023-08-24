@@ -82,6 +82,13 @@ const TablaCaracteristicas = () => {
     // setNombreYaExiste(false);
     setNombreCaracteristicaValida(true);
   };
+  const onChangeLogoCaracteristica = (e) => {
+    setNuevaCaracteristica({ ...nuevaCaracteristica, logoCaracteristica: e.target.value });
+    // setNombreYaExiste(false);
+    setNombreCaracteristicaValida(true);
+  };
+
+
 
   const [open, setOpen] = React.useState(false);
 
@@ -111,7 +118,7 @@ const TablaCaracteristicas = () => {
 
       const nuevaCaracteristicaData = {
         nombre: nuevaCaracteristica.nombre,
-        logoCaracteristica: "",
+        logoCaracteristica: nuevaCaracteristica.logoCaracteristica,
         idCaracteristica: 0,
       };
 
@@ -315,17 +322,17 @@ const TablaCaracteristicas = () => {
             fullWidth
             variant="standard"
           />
-          {/* <TextField
+           <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Descripción"
+              id="IconoCaracterística"
+              label="Icono Característica"
               type="text"
-              value={nuevaCaracteristica.description}
-              onChange={onChangeDescription}
+              value={nuevaCaracteristica.logoCaracteristica}
+              onChange={onChangeLogoCaracteristica}
               fullWidth
               variant="standard"
-            /> */}
+            /> 
 
           {/* <TextField
               autoFocus

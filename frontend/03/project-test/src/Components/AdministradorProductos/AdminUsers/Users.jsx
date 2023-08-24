@@ -4,6 +4,8 @@ import CardInfoUser from "./CardInfoUser";
 import { useState, useEffect, useContext } from "react";
 import obtenerIniciales from "../../utils/iniciales";
 import "./Users.css";
+import Paper from "@mui/material/Paper";
+
 import axios from "axios";
 import Box from "@mui/joy/Box";
 import ChipDelete from "@mui/joy/ChipDelete";
@@ -86,16 +88,17 @@ const Users = () => {
   const handleUpdateUser = async (usuarioXEditar) => {
     console.log(usuarioXEditar.idUsuario);
     if (usuarioXEditar.idUsuario) {
-
       const updatedUser = {
         nombreCompleto: usuarioXEditar.nombreCompleto,
         correo: usuarioXEditar.correo,
         contraseña: usuarioXEditar.contraseña,
         celular: usuarioXEditar.celular,
-        rol: usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
+        rol:
+          usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
         dirección: "Falsa",
-        permisoEdición:  usuarioXEditar.permisoEdición ===  "EDITAR"? "" : "EDITAR" ,
-        id_Rol: usuarioXEditar.id_Rol ===  1? "2" : "1",
+        permisoEdición:
+          usuarioXEditar.permisoEdición === "EDITAR" ? "" : "EDITAR",
+        id_Rol: usuarioXEditar.id_Rol === 1 ? "2" : "1",
         idUsuario: usuarioXEditar.idUsuario,
       };
 
@@ -118,37 +121,48 @@ const Users = () => {
   /////////////////////////////////////
 
   return (
-    <TableContainer>
-      <Table stickyHeader aria-label="sticky table">
-        {/* <div className="encabezado-tabla"> */}
-        <TableHead>
-          {/* <thead> */}
+    <Paper
+      sx={{ width: "100%", overflow: "hidden" }}
+      style={{ margin: "0 20px 0 0" }}
+    >
+      <TableContainer>
+        <Table stickyHeader aria-label="sticky table">
+          {/* <div className="encabezado-tabla"> */}
+          <TableHead>
+            {/* <thead> */}
 
-          <TableRow
-            style={{
-              backgroundColor: "lightgray",
-              borderRadius: ":var(--bRadiusButton)",
-              padding: "10px",
-              width: "100%",
-            }}
-          >
-            <TableCell>Imagen</TableCell>
-            <TableCell>IdUsuario</TableCell>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Correo</TableCell>
-            <TableCell>Rol</TableCell>
-          </TableRow>
+            <TableRow
+              style={{
+                backgroundColor: "lightgray",
+                borderRadius: ":var(--bRadiusButton)",
+                padding: "10px",
+                width: "100%",
+              }}
+            >
+              <TableCell>Imagen</TableCell>
+              <TableCell>IdUsuario</TableCell>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Correo</TableCell>
+              <TableCell>Rol</TableCell>
+            </TableRow>
 
-          {/* </thead> */}
-        </TableHead>
-        {/* </div> */}
-        <TableBody>
-          {/* <tbody> */}
+            {/* </thead> */}
+          </TableHead>
+          {/* </div> */}
+          <TableBody>
+            {/* <tbody> */}
 
-          {usersLista.map((user, idUsuario) => (
-            <TableRow key={idUsuario} style={{ height: "100px" }}>
-              <TableCell>
-                {/* <Button
+            {usersLista.map((user, idUsuario) => (
+              <TableRow
+                key={idUsuario}
+                style={{
+                  height: "100px",
+                  width: "100%",
+                  borderRadius: ":var(--bRadiusButton)",
+                }}
+              >
+                <TableCell>
+                  {/* <Button
                   style={{
                     backgroundColor: "#9dd6b3",
                     fontSize: "20px",
@@ -165,54 +179,63 @@ const Users = () => {
                 >
                   {obtenerIniciales(user.nombreCompleto)}
                 </Button> */}
-                <Avatar
-                  variant="solid"
-                  size="lg"
+                  <Avatar
+                    variant="solid"
+                    size="lg"
+                    style={{
+                      backgroundColor: "#9dd6b3",
+                      color: "black",
+                    }}
+                  >
+                    {obtenerIniciales(user.nombreCompleto)}
+                  </Avatar>
+                </TableCell>
+                <TableCell>
+                  <div className="info-item">{user.idUsuario}</div>
+                </TableCell>
+                <TableCell
                   style={{
-                    backgroundColor: "#9dd6b3",
-                    color: "black",
+                    width: "600px",
                   }}
                 >
-                  {obtenerIniciales(user.nombreCompleto)}
-                </Avatar>
-              </TableCell>
-              <TableCell>
-                <div className="info-item">{user.idUsuario}</div>
-              </TableCell>
-              <TableCell>
-                <div className="info-item">{user.nombreCompleto}</div>
-              </TableCell>
-              <TableCell>
-                <div className="info-item">{user.correo}</div>
-              </TableCell>
-              <TableCell
-                style={{
-                  display: "flex",
-                  gap: "1rem",
-                  width: "250px",
-                  aligItems: "center",
-                  textAlign: "center",
-                  padding: "30px 0 30px 0",
-                }}
-              >
-                <Button
+                  <div className="info-item">{user.nombreCompleto}</div>
+                </TableCell>
+                <TableCell
                   style={{
-                    backgroundColor: "#9dd6b3",
+                    width: "600px",
                   }}
-                  size="md"
-                  variant="soft"
-                  color="primary"
-                  endDecorator={<EditIcon />}
-                  onClick={() => handleUpdateUser(user)}
                 >
-                  {user.rol}
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                  <div className="info-item">{user.correo}</div>
+                </TableCell>
+                <TableCell
+                  style={{
+                    display: "flex",
+                    gap: "1rem",
+                    width: "250px",
+                    aligItems: "center",
+                    textAlign: "center",
+                    padding: "30px 0 30px 0",
+                  }}
+                >
+                  <Button
+                    style={{
+                      backgroundColor: "#9dd6b3",
+                    }}
+                    size="md"
+                    variant="soft"
+                    color="primary"
+                    endDecorator={<EditIcon />}
+                    onClick={() => handleUpdateUser(user)}
+                  >
+                    {user.rol}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };
 
