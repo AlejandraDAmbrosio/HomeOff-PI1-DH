@@ -169,10 +169,10 @@ const FormAltaUser = () => {
         correo: usuario.email,
         contraseña: usuario.password,
         celular: "",
-        rol: "CLIENTE",
+        rol: "ADMINISTRADOR",
         dirección: "Falsa",
-        permisoEdición: "",
-        id_Rol: 1,
+        permisoEdición: "EDITAR",
+        id_Rol: 2,
         idUsuario: 0,
       };
 

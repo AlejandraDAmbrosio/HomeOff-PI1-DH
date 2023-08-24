@@ -114,6 +114,8 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  console.log("Usuarios antes de validaciones");
+console.log(usuarios);
   const iniciarSesion = (nombre, email, password) => {
     const usuarioEncontrado = usuarios.find(
       (usuario) =>
