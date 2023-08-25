@@ -33,55 +33,43 @@ const PanelFiltrado = () => {
         }}
       >
         <ListItem>
-          <ListItemButton>
-            <ListItemDecorator>
-              <Home />
-            </ListItemDecorator>
-            Home
-          </ListItemButton>
+          <ListItemButton>Buscar por:</ListItemButton>
         </ListItem>
 
         <ListDivider />
-        <Link to="/agregarproducto/">
+        <Link>
           <ListItem>
-            <ListItemButton>Agregar productos</ListItemButton>
+            <ListItemButton>Categorias</ListItemButton>
           </ListItem>
         </Link>
 
-        <Link to="/administradorproductos/">
+        <Link>
           <ListItem>
-            <ListItemButton>Listar productos</ListItemButton>
+            <ListItemButton>Sedes</ListItemButton>
           </ListItem>
         </Link>
 
-        <Link to="/administracioncaracteristicas/">
+        <Link>
           <ListItem>
-            <ListItemButton>Administrar características</ListItemButton>
+            <ListItemButton>Características</ListItemButton>
           </ListItem>
         </Link>
 
-    
-
-        <Link to="/administrarcategorias/">
+        <Link>
           <ListItem>
-            <ListItemButton>Agregar categorías</ListItemButton>
+            <ListItemButton>Capacidad Máxima</ListItemButton>
           </ListItem>
         </Link>
 
-        <Link to="/administracionusers/">
+        <Link>
           <ListItem>
-            <ListItemButton>Usuarios</ListItemButton>
+            <ListItemButton>Tipo de espacio</ListItemButton>
           </ListItem>
         </Link>
 
-        <ListItemButton onClick={() => alert("You clicked")}>
-          <ListItem>
-            <ListItemDecorator>
-              <SettingsIcon />
-            </ListItemDecorator>
-            <ListItemButton>Settings</ListItemButton>
-          </ListItem>
-        </ListItemButton>
+        <ListItem>
+          <ListItemButton>Precio</ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );

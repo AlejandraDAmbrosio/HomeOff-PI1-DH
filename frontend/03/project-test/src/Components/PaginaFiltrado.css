@@ -1,4 +1,19 @@
+.chips {
+width: 80%;
+margin: auto;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+padding-bottom: 3rem;
+}
 
+.chip {
+  gap: 2rem;
+
+}
 .administracion-fil {
     margin-top: 16rem;
     margin-bottom: 2rem;
