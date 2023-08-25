@@ -29,13 +29,34 @@ texto - shadow multiples:
 .titulo-section-productos {
   font-size: var(--fsizeTXL);
   color: var(--colorGrey1);
-  margin: 0rem 2% ; 
+  margin: 1rem 2% ; 
   font-weight: var(--fweightL);  
   border-bottom: 0.5px solid var( --BGrey);
   /* text-shadow: var(--BShadowD6); */
 }
 
 
+@media (max-width: 1260px) {
+  .titulo-section-banner {
+    font-size: 40px;
+    color: var(--colorGrey1);
+    padding-top: 4.3rem;
+    margin: 0rem 2%; 
+    font-weight: var(--fweightL);  
+    border-bottom: 0.5px solid var( --BGrey);
+    /* text-shadow: var(--BShadowD6); */
+  }
+  
+  .titulo-section-productos {
+    font-size: 30px;
+    color: var(--colorGrey1);
+    margin: 2rem 2% ; 
+    font-weight: var(--fweightL);  
+    border-bottom: 0.5px solid var( --BGrey);
+    /* text-shadow: var(--BShadowD6); */
+  }
+  
+}
 
 #root {
   --speed:500ms;

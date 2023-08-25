@@ -61,7 +61,7 @@ const ListadoProductos = ({ CantidadCards }) => {
 
   return (
     <div className="segmento-listado-productos">
-      <h3 className="txt-titulo-listado-productos"></h3>
+      {/* <h3 className="txt-titulo-listado-productos"></h3> */}
 
       <div className="grid-container-listado-home">
         {paginatedProducts.length ? (

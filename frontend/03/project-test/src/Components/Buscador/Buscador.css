@@ -99,29 +99,46 @@
 
 
 /* Media query */
-@media (max-width: 770px) {
+@media (max-width: 1300px) {
   .buscar-por {
     display: none;
   }
   .boton-buscador {
-    width: 250px;
+    width: 200px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: end;
   }
   .segmento-buscador{
-    width: 95%;
+    width: 80%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
   .boton-buscador {
-    width: 80%;
+    width: 70%;
   }
   .separador {
     display: none;
   }
 }
 
+@media (max-width: 800px) {
+  .buscar-por {
+    display: none;
+  }
+  .boton-buscador {
+    display: none;
+  }
+  .segmento-buscador{
+    display: none;
+  }
+  .boton-buscador {
+    display: none;
+  }
+  .separador {
+    display: none;
+  }
+}

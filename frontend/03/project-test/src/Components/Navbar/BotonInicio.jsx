@@ -23,7 +23,7 @@ const BotonInicio = () => {
     };
   }, []);
 
-  const ocultarComponente = windowWidth < 770;
+  const ocultarComponente = windowWidth < 1300;
 
   if (ocultarComponente) {
     return null;

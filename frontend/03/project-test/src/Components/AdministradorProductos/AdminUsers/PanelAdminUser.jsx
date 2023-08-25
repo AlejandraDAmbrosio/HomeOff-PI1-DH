@@ -73,15 +73,15 @@ const PanelAdminUser = () => {
             <ListItemButton>Usuarios</ListItemButton>
           </ListItem>
         </Link>
-
-        <ListItemButton onClick={() => alert("You clicked")}>
+{/* 
+        <ListItemButton onClick={() => alert("Próximamente")}>
           <ListItem>
             <ListItemDecorator>
               <SettingsIcon />
             </ListItemDecorator>
             <ListItemButton>Settings</ListItemButton>
           </ListItem>
-        </ListItemButton>
+        </ListItemButton> */}
       </List>
     </Box>
   );

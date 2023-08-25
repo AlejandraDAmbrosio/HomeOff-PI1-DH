@@ -9,12 +9,35 @@
   gap: 4rem;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  width: 90%;
   /* margin-left: 2rem; */
 }
+
+@media (max-width:1800px) {
+  .grid-container-listado-home {
+    grid-template-columns: repeat(4, minmax(300px, 19%));
+    
+  }
+}
+
+@media (max-width:1500px) {
+  .grid-container-listado-home {
+    grid-template-columns: repeat(3, minmax(300px, 19%));
+    
+  }
+}
+@media (max-width:1200px) {
+  .grid-container-listado-home {
+    grid-template-columns: repeat(2, minmax(300px, 19%));
+    
+  }
+}
+
 @media (max-width: 900px) {
   .grid-container-listado-home {
     grid-template-columns: repeat(1, 90%);
-    margin-left: 15%;
+   place-items: center;
   }
 }
 
