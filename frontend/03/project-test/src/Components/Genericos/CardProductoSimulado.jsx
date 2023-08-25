@@ -57,8 +57,16 @@ const CardProductoSimulado = ({
         </Typography>
 
         <Typography variant="body2" color="text.secondary"   style={{
-            color: "#383B58",
-            fontSize: "14px"}}>
+              color: "#383B58",
+              fontSize: "14px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 2, // Mostrar hasta 2 líneas
+              WebkitBoxOrient: "vertical",
+              paddingBottom: "5px",
+              marginBottom: "5px",
+            }}>
           {descripcion}
         </Typography>
       </CardContent>

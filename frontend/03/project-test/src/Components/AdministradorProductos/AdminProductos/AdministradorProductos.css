@@ -32,3 +32,21 @@
   justify-content: space-around;
 }
 
+@media (max-width: 768px) {
+  .mobile-warning {
+    display: block;
+  }
+  .content {
+    display: none;
+  }
+}
+
+/* Estilos para dispositivos de pantalla grande */
+@media (min-width: 769px) {
+  .mobile-warning {
+    display: none;
+  }
+  .content {
+    display: block;
+  }
+}
