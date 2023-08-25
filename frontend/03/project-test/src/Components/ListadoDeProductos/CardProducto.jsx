@@ -105,7 +105,7 @@ const CardProducto = ({
               fontSize: "20px",
               fontWeight: "600",
               marginLeft: "auto",
-              marginTop: "20px",
+              marginTop: "35px",
               paddingRight: "10px",
             }}
           >

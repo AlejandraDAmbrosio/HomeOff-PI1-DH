@@ -6,6 +6,8 @@ import { ContextGlobal } from "../utils/global.context";
 
 
 const BotonCrearCuenta = () => {
+  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+  useContext(ContextGlobal);
   const textoBoton = "Crear Cuenta";
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -42,12 +44,17 @@ const BotonCrearCuenta = () => {
   }
 
   return (
+    <>
+    {!usuarioLogueado ? (
     <div>
  
       <Link to={"/formaltauser/"}>
         <Boton texto={textoBoton} />
       </Link>
     </div>
+    
+  ) : (<></>)}
+  </>
   );
 };
 

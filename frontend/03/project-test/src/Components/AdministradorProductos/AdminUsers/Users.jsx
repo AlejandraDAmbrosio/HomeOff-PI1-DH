@@ -125,7 +125,11 @@ const Users = () => {
       sx={{ width: "100%", overflow: "hidden" }}
       style={{ margin: "0 20px 0 0" }}
     >
-      <TableContainer>
+      <TableContainer   sx={{ maxHeight: 400 }}
+          style={{
+            borderRadius: ":var(--bRadiusButton)",
+            padding: "10px",
+          }}>
         <Table stickyHeader aria-label="sticky table">
           {/* <div className="encabezado-tabla"> */}
           <TableHead>

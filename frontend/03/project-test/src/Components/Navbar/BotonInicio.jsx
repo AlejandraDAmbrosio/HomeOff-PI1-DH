@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Boton } from "../Genericos/Boton";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ContextGlobal } from "../utils/global.context";
 
 
 const BotonInicio = () => {
-
+  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+    useContext(ContextGlobal);
 
   const textoBoton = "Iniciar sesion";
 
@@ -30,15 +32,16 @@ const BotonInicio = () => {
   }
 
   return (
-
+    <>
+    {!usuarioLogueado ? (
     <div>
  
     <Link to={"/formingreso/"}>
       <Boton texto={textoBoton} />
     </Link>
   </div>
-
-
+  ) : (<></>)}
+</>
   );
 };
 
