@@ -75,57 +75,70 @@ const PaginaFiltrado = () => {
     );
   };
 
-
   return (
     <div className="administracion-fil">
       <div className="administracion-fil-titulo">
         <div className="fil-titulo">Encontra tu Espacio:</div>
         {/* <div className="fil-frase">Hay {productosBKLista.length} espacios esperandote.</div> */}
+        <div className="fila-busqueda">
+          <div className="fil-frase">
+            Tenés {listaFiltrada.length} espacios relacionados con tu busqueda.
+          </div>
 
-        <div className="fil-frase">
-          Tenés {listaFiltrada.length} espacios relacionados con tu busqueda.
+          <div className="chips">
+            <Stack direction="row" spacing={2}>
+              <Chip
+                label={`Total productos ${productosBKLista.length}`}
+                onClick={handleClick}
+                onDelete={handleDelete}
+                size="small"
+              />
+
+              {listaFiltrada.length < productosBKLista.length && (
+                <Chip
+                  className="chip"
+                  label={`${obtenerNombreCategoriaPorId(
+                    id,
+                    categoriasLista
+                  )} - ${listaFiltrada.length} `}
+                  variant="outlined"
+                  onClick={handleClick}
+                  onDelete={handleDelete}
+                />
+              )}
+
+              <Chip
+                className="chip"
+                label={`COLOMBIA (${
+                  productosBKLista.filter((producto) => producto.idSede === 1)
+                    .length
+                })`}
+                onClick={() => handleFiltrarPorSede(1)}
+                size="small"
+              />
+
+              <Chip
+                className="chip"
+                label={`ARGENTINA (${
+                  productosBKLista.filter((producto) => producto.idSede === 2)
+                    .length
+                })`}
+                onClick={() => handleFiltrarPorSede(2)}
+                size="small"
+              />
+
+              <Chip
+                className="chip"
+                label={`CHILE (${
+                  productosBKLista.filter((producto) => producto.idSede === 3)
+                    .length
+                })`}
+                onClick={() => handleFiltrarPorSede(3)}
+                size="small"
+              />
+            </Stack>
+          </div>
         </div>
-        <Stack direction="row" spacing={2} >
-          <Chip
-            label={`Total productos ${productosBKLista.length}`}
-            onClick={handleClick}
-            onDelete={handleDelete}
-            size="small"
-          />
-
-{listaFiltrada.length < productosBKLista.length && (
-          <Chip
-            label={`${obtenerNombreCategoriaPorId( id,categoriasLista)} - ${listaFiltrada.length} `}
-            variant="outlined"
-            onClick={handleClick}
-            onDelete={handleDelete}
-          />
-          )}
-
-<Chip
-            label={`COLOMBIA (${productosBKLista.filter(
-              (producto) => producto.idSede === 1
-            ).length})`}
-            onClick={() => handleFiltrarPorSede(1)}
-            size="small"
-          />
-
-          <Chip
-            label={`ARGENTINA (${productosBKLista.filter(
-              (producto) => producto.idSede === 2
-            ).length})`}
-            onClick={() => handleFiltrarPorSede(2)}
-            size="small"
-          />
-
-          <Chip
-            label={`CHILE (${productosBKLista.filter(
-              (producto) => producto.idSede === 3
-            ).length})`}
-            onClick={() => handleFiltrarPorSede(3)}
-            size="small"
-          />
-        </Stack>
       </div>
       <div className="paneles-fil">
         <PanelFiltrado></PanelFiltrado>
