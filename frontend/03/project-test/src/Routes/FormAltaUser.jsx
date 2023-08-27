@@ -230,7 +230,7 @@ const FormAltaUser = () => {
   return (
     <div className="pagina-formulario-alta">
       <div className="encabezado-formulario">
-        <div className="titulo-form-inicio-sesion">Crea tu cuenta</div>
+        <div className="titulo-form-alta-user">Crea tu cuenta</div>
       </div>
 
       <form onSubmit={handleSubmitCrearCuenta}>
@@ -358,7 +358,7 @@ const FormAltaUser = () => {
           </h5>
         )}
       </form>
-      <div className="acceso-cuenta-o-usuarionuevo">
+      <div className="acceso-cuenta-o-usuarionuevo-alta">
         <p>¿No tenés cuenta?</p>
         <p>¿Se te olvidó tu contraseña?</p>
       </div>

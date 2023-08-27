@@ -4,62 +4,22 @@ import Error from "../Components/Error";
 import { MdCheckCircleOutline, MdHighlightOff } from "react-icons/md";
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
+import Paper from "@mui/material/Paper";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import FormGroup from "@mui/material/FormGroup";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import Typography from '@mui/material/Typography';
+
 // import { AuthContext } from "../Components/utils/global.contextauth";
 
 const FormIngreso = () => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
-  // const { usuarioLogueado, iniciarSesion, cerrarSesion } = useContext(AuthContext);
-  /////////////////////////
-  // const [usuarios, setUsuarios] = useState([]);
-  // const [usuarioLogueado, setUsuarioLogueado] = useState(null);
-  // useEffect(() => {
-  //   fetchUsuarios();
-  // }, []);
-
-  // const fetchUsuarios = async () => {
-  //   try {
-  //     const response = await axios.get("http://52.32.210.155:8080/api/v1/usuarios/list");
-  //     setUsuarios(response.data);
-  //   } catch (error) {
-  //     console.error("Error al cargar usuarios:", error);
-  //   }
-  // };
-
-  // const iniciarSesion = (nombre, email, password) => {
-  //   const usuarioEncontrado = usuarios.find(
-  //     (usuario) => usuario.nombreCompleto === nombre && usuario.correo === email && usuario.contraseña === password
-  //   );
-
-  //   if (usuarioEncontrado) {
-  //     setUsuarioLogueado(usuarioEncontrado);
-  //     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
-  //   } else {
-  //     console.log("Credenciales incorrectas");
-  //   }
-  // };
-
-  // const iniciarSesion = (email, password) => {
-  //   const usuarioEncontrado = usuarios.find(
-  //     (usuario) => usuario.correo === email && usuario.contraseña === password
-  //   );
-
-  //   if (usuarioEncontrado) {
-  //     setUsuarioLogueado(usuarioEncontrado);
-  //     console.log("Usuario logueado:", usuarioEncontrado);
-
-  //     localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
-  //   } else {
-  //     console.log("Credenciales incorrectas");
-  //   }
-  // };
-
-  // // useEffect(() => {
-  //   const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  //   if (usuarioGuardado) {
-  //     setUsuarioLogueado(usuarioGuardado);
-  //   }
-  // }, []);
 
   //////////////////////////////////////
   // Repo de validaciones
@@ -68,6 +28,16 @@ const FormIngreso = () => {
   const [emailValido, setEmailValido] = useState(true);
   const [passwordValido, setPasswordValido] = useState(true);
 
+  ////////// Segmento modal   //////////
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  //////////////////////
   // / Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
     nombre: "",
@@ -78,23 +48,6 @@ const FormIngreso = () => {
   const [form, setForm] = useState(false);
 
   ////////////////OnChanges///////////////
-
-  // const onChangeNombre = (e) => {
-
-  //   setUsuario({ ...usuario, nombre: e.target.value });
-
-  //   setNombreValido(true);
-  // };
-
-  // const onChangeEmail = (e) => {
-  //   setUsuario({ ...usuario, email: e.target.value });
-  //   setEmailValido(true);
-  // };
-
-  // const onChangePass = (e) => {
-  //   setUsuario({ ...usuario, password: e.target.value });
-  //   setPasswordValido(true);
-  // };
 
   const onChangeNombre = (e) => {
     const newValue = e.target.value;
@@ -167,7 +120,7 @@ const FormIngreso = () => {
       console.log("Datos Enviados");
       console.log(usuario);
 
-      // dfsf ENVIAR DATOS
+      //ENVIAR DATOS
 
       iniciarSesion(usuario.nombre, usuario.email, usuario.password);
 
@@ -186,109 +139,142 @@ const FormIngreso = () => {
         password: "",
       });
     }
+    handleOpen();
   };
 
   return (
     <>
-      <div className="pagina-formulario-Ingreso">
-        <div className="encabezado-formulario">
-          <div className="titulo-form-inicio-sesion">Inicia sesión ahora</div>
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          <div className="formulario-inicio">
-            <div className="form-control-ingreso">
-              <label for="nombre">Username *</label>
-              <input
-                style={{ borderColor: nombreValido ? "" : "red" }}
-                type="text"
-                placeholder="Ingresa tu nombre"
-                value={usuario.nombre}
-                onChange={onChangeNombre}
-                id="nombre"
-              />
-              {!nombreValido ? (
-                <p className="error-form">
-                  Ingrese entre 3 y 30 caracteres y solo contener letras.
-                </p>
-              ) : (
-                // <Error
-                //   className="error-form"
-                //   mensajeError="Ingrese entre 3 y 30 caracteres y solo contener letras."
-                // />
-                ""
-              )}
-            </div>
-
-            <div className="form-control-ingreso">
-              <label for="email">Email *</label>
-              <input
-                style={{ borderColor: emailValido ? "" : "red" }}
-                type="text"
-                placeholder="ejemplo@gmail.com"
-                value={usuario.email}
-                onChange={onChangeEmail}
-                id="email"
-              />
-              {!emailValido ? (
-                // <Error
-                //   className="error-form"
-                //   mensajeError="El email debe tener al menos 3 caracteres antes del arroba y tener un formato válido."
-                // />
-                <p className="error-form">
-                  Ingresar al menos 3 caracteres antes del arroba y tener un
-                  formato válido.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
-
-            <div className="form-control-ingreso">
-              <label for="pass">Password *</label>
-              <input
-                className={` ${
-                  passwordValido ? "border-valid" : "border-error"
-                }`}
-                type="password"
-                placeholder="Password"
-                value={usuario.password}
-                onChange={onChangePass}
-                style={{ borderColor: passwordValido ? "" : "red" }}
-                id="pass"
-              />
-
-              {!passwordValido ? (
-                <p className="error-form">
-                  La contraseña debe tener al menos 8 caracteres, incluir una
-                  letra mayúscula y un carácter no alfanumérico.
-                </p>
-              ) : (
-                // <Error
-                //   className="error-form"
-                //   mensajeError="La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula y un carácter no alfanumérico."
-                // />
-                ""
-              )}
-            </div>
-
-            <button className="boton-form-inicio" type="submit" value="Acceso">
-              Acceso
-            </button>
+      <Modal open={open} onClose={handleClose}>
+        <Paper
+          sx={{ width: "315px", overflow: "hidden" }}
+          style={{
+            placeItems: "center",
+            margin: "auto",
+            justifyContent: "spaceBetween",
+            height: "100px",
+            marginTop:"10rem" 
+          }}
+        >
+          <div>
+            {form && usuarioLogueado ? (
+              <h5 className="msj-form-guardado">
+                Gracias!! Has ingresado como usuario{" "}
+                {usuarioLogueado.nombreCompleto} a HomeOFF !
+              </h5>
+            ) : (
+              <h5 className="msj-form-guardado">
+               Por favor, revise las credenciales.
+              </h5>
+            )}
           </div>
+        </Paper>
+      </Modal>
 
-          {form && usuarioLogueado && (
-            <h5 className="msj-form-guardado">
-              Gracias!! Has ingresado como usuario{" "}
-              {usuarioLogueado.nombreCompleto} a HomeOFF !
-            </h5>
-          )}
-        </form>
-        <div className="acceso-cuenta-o-usuarionuevo">
-          <div>No tenés cuenta?</div>
-          <div>Se te olvidó tu contraseña?</div>
+      <Paper
+        sx={{ width: "315px", overflow: "hidden", height: "fitContent"}}
+        style={{ margin: "auto", justifyContent: "spaceBetween", marginTop:"5rem" }}
+      >
+        <div className="pagina-formulario-Ingreso">
+        <Typography variant="h4"> Inicia sesión ahora</Typography>
+     
+          <FormControl
+            onSubmit={handleSubmit}
+            sx={{
+              overflow: "hidden",
+              justifyContent: "spaceBetween",
+              height: "fitContent",
+            }}
+          >
+            <div className="formulario-inicio">
+            
+                <TextField
+                  id="nombre"
+                  label="Nombre"
+                  variant="standard"
+                  className="campo-formulario"
+                  type="text"
+                  placeholder="Ingresa tu nombre "
+                  value={usuario.nombre}
+                  onChange={onChangeNombre}
+                  required
+                  margin="normal"
+                  style={{ borderColor: nombreValido ? "" : "red" }}
+                />
+
+                {!nombreValido ? (
+                  <p className="error-form">
+                    Ingrese entre 3 y 30 caracteres y solo contener letras.
+                  </p>
+                ) : (
+                  ""
+                )}
+            
+
+            
+                <TextField
+                  id="email"
+                  label="Email"
+                  variant="standard"
+                  className="campo-formulario"
+                  type="email"
+                  placeholder="Ingresa tu email"
+                  value={usuario.email}
+                  onChange={onChangeEmail}
+                  required
+                  margin="normal"
+                  style={{ borderColor: emailValido ? "" : "red" }}
+                />
+                {!emailValido ? (
+                  <p className="error-form">
+                    Ingresar al menos 3 caracteres antes del arroba y tener un
+                    formato válido.
+                  </p>
+                ) : (
+                  ""
+                )}
+           
+
+             
+                <TextField
+                  id="password"
+                  label="Password *"
+                  variant="standard"
+                  className="campo-formulario"
+                  type="email"
+                  placeholder="Ingresa tu password"
+                  value={usuario.password}
+                  onChange={onChangePass}
+                  required
+                  margin="normal"
+                  style={{ borderColor: passwordValido ? "" : "red" }}
+                />
+                {!passwordValido ? (
+                  <p className="error-form">
+                    La contraseña debe tener al menos 8 caracteres, incluir una
+                    letra mayúscula y un carácter no alfanumérico.
+                  </p>
+                ) : (
+                  ""
+                )}
+              
+
+              <Button
+                className="boton-form-inicio"
+                type="submit"
+                value="Acceso"
+                variant="outlined"
+                onClick={handleSubmit}
+              >
+                Acceso
+              </Button>
+            </div>
+          </FormControl>
+          <div className="acceso-cuenta-o-usuarionuevo">
+            <div>No tenés cuenta?</div>
+            <div>Se te olvidó tu contraseña?</div>
+          </div>
         </div>
-      </div>
+      </Paper>
     </>
   );
 };

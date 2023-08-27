@@ -340,8 +340,11 @@ const AgregarProducto = () => {
   };
 
   return (
-    <div className="administracion-agre" style={{padding:"2rem 0rem"}}>
-      <div className="administracion-agre-titulo" style={{padding:"0rem 0rem"}}>
+    <div className="administracion-agre" style={{ padding: "2rem 0rem" }}>
+      <div
+        className="administracion-agre-titulo"
+        style={{ padding: "0rem 0rem" }}
+      >
         Agregar productos
       </div>
       <div className="paneles-agregar">
@@ -353,7 +356,7 @@ const AgregarProducto = () => {
           <div className="pagina-formulario-alta-producto">
             <FormControl
               onSubmit={handleSubmitCrearProducto}
-              style={{ padding: "1rem 2rem", width:"890px"}}
+              style={{ padding: "1rem 2rem", width: "890px" }}
             >
               <div className="formularioAgregarProducto">
                 <TextField
@@ -401,87 +404,93 @@ const AgregarProducto = () => {
                   style={{ width: "700px" }}
                 />
                 {/* /////////--------------------------------////// */}
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                <TextField 
-                  id="tipoRecurso"
-                  select
-                  label="Categorias de productos"
-                  defaultValue="OFICINAS PRIVADAS"
-                  style={{width:"300px"}}
-                  SelectProps={{
-                    native: true,
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
-                  helperText="Elija un tipo de recurso"
-                  variant="standard"
-                  value={nuevoProducto.categoria_id}
-                  onChange={onChangeTipoRecurso}
-                  required
-                  margin="normal"
                 >
-                  {categoriasLista.map((categoria, categoria_id) => (
-                    <option
-                      key={categoria.categoria_id}
-                      className="item-grid"
-                      value={categoria.categoria_id}
-                    >
-                      {categoria.name}{" "}
-                    </option>
-                  ))}
-                </TextField>
-                {/* /////////--------------------------------////// */}
+                  <TextField
+                    id="tipoRecurso"
+                    select
+                    label="Categorias de productos"
+                    defaultValue="OFICINAS PRIVADAS"
+                    style={{ width: "300px" }}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija un tipo de recurso"
+                    variant="standard"
+                    value={nuevoProducto.categoria_id}
+                    onChange={onChangeTipoRecurso}
+                    required
+                    margin="normal"
+                  >
+                    {categoriasLista.map((categoria, categoria_id) => (
+                      <option
+                        key={categoria.categoria_id}
+                        className="item-grid"
+                        value={categoria.categoria_id}
+                      >
+                        {categoria.name}{" "}
+                      </option>
+                    ))}
+                  </TextField>
+                  {/* /////////--------------------------------////// */}
 
-                <TextField
-                  id="tipoEspacio"
-                  select
-                  type="number"
-                  label="Tipo de Espacio"
-                  defaultValue="OFICINAS PRIVADAS"
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Elija el tipo de espacio"
-                  variant="standard"
-                  value={nuevoProducto.id_Tipo_Espacio}
-                  onChange={onChangeAbiertoCerrado}
-                  required
-                  margin="normal"
-                >
-                  <option className="item-grid" value={1}>
-                    OFICINA ESPACIO ABIERTO
-                  </option>
-                  <option className="item-grid" value={0}>
-                    OFICINA ESPACIO CERRADO
-                  </option>
-                </TextField>
-
-{/* //////////////////// */}
-<TextField
-                  id="capacidad maxima"
-                  select
-                  type="number"
-                  value={nuevoProducto.capacidadMáxima}
-                  onChange={onChangeCapacidadMáxima}
-                  label="Capacidad máxima"
-                  defaultValue="1"
-                  style={{width:"150px"}}
-                  margin="normal"
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Elija una capacidad máxima"
-                  variant="standard"
-                  required
-                >
-                  {capacidadArray.map((cant) => (
-                    <option
-                      key={cant.id}
-                      className="item-grid"
-                      value={cant.cantidad}
-                    >
-                      {cant.cantidad}{" "}
+                  <TextField
+                    id="tipoEspacio"
+                    select
+                    type="number"
+                    label="Tipo de Espacio"
+                    defaultValue="OFICINAS PRIVADAS"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija el tipo de espacio"
+                    variant="standard"
+                    value={nuevoProducto.id_Tipo_Espacio}
+                    onChange={onChangeAbiertoCerrado}
+                    required
+                    margin="normal"
+                  >
+                    <option className="item-grid" value={1}>
+                      OFICINA ESPACIO ABIERTO
                     </option>
-                  ))}
-                </TextField>
+                    <option className="item-grid" value={0}>
+                      OFICINA ESPACIO CERRADO
+                    </option>
+                  </TextField>
+
+                  {/* //////////////////// */}
+                  <TextField
+                    id="capacidad maxima"
+                    select
+                    type="number"
+                    value={nuevoProducto.capacidadMáxima}
+                    onChange={onChangeCapacidadMáxima}
+                    label="Capacidad máxima"
+                    defaultValue="1"
+                    style={{ width: "150px" }}
+                    margin="normal"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija una capacidad máxima"
+                    variant="standard"
+                    required
+                  >
+                    {capacidadArray.map((cant) => (
+                      <option
+                        key={cant.id}
+                        className="item-grid"
+                        value={cant.cantidad}
+                      >
+                        {cant.cantidad}{" "}
+                      </option>
+                    ))}
+                  </TextField>
                 </div>
                 {/* -/////////////////////////////////////// */}
                 <FormGroup
@@ -507,75 +516,83 @@ const AgregarProducto = () => {
                   </div>
                 </FormGroup>
                 {/* /////////--------------------------------////// */}
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                <TextField
-                  id="precioProducto"
-                  label="Ingresa el precio del producto"
-                  type="number"
-                  value={nuevoProducto.precioUnitario}
-                  onChange={onChangePreciounitario}
-                  margin="normal"
-                  style={{width:"150px"}}
-                  InputLabelProps={{
-                    shrink: true,
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
-                  variant="standard"
-                />
-                {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
-                {/* //////////////////////////////////////////////////////////////////////////////// */}
-                <TextField
-                  id="sede"
-                  select
-                  type="text"
-                  label="Elija una Sede"
-                  defaultValue="Argentina"
-                  style={{width:"300px"}}
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Elija una Sede"
-                  variant="standard"
-                  value={nuevoProducto.idSede}
-                  onChange={onChangeSede}
-                  required
-                  margin="normal"
                 >
-                  {sedesArray.map((sede) => (
-                    <option key={sede.id} className="item-grid" value={sede.id}>
-                      {sede.nombre}{" "}
+                  <TextField
+                    id="precioProducto"
+                    label="Ingresa el precio del producto"
+                    type="number"
+                    value={nuevoProducto.precioUnitario}
+                    onChange={onChangePreciounitario}
+                    margin="normal"
+                    style={{ width: "150px" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+                  {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                  <TextField
+                    id="sede"
+                    select
+                    type="text"
+                    label="Elija una Sede"
+                    defaultValue="Argentina"
+                    style={{ width: "300px" }}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Elija una Sede"
+                    variant="standard"
+                    value={nuevoProducto.idSede}
+                    onChange={onChangeSede}
+                    required
+                    margin="normal"
+                  >
+                    {sedesArray.map((sede) => (
+                      <option
+                        key={sede.id}
+                        className="item-grid"
+                        value={sede.id}
+                      >
+                        {sede.nombre}{" "}
+                      </option>
+                    ))}
+                  </TextField>
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                  <TextField
+                    id="disponible"
+                    select
+                    type="text"
+                    label="Esta Disponible?"
+                    defaultValue="Argentina"
+                    style={{ width: "200px" }}
+                    SelectProps={{
+                      native: true,
+                    }}
+                    helperText="Esta Disponible?"
+                    variant="standard"
+                    value={nuevoProducto.estadoRecurso}
+                    onChange={onChangeDisponibilidad}
+                    required
+                    margin="normal"
+                  >
+                    <option className="item-grid" value="Disponible">
+                      Disponible
                     </option>
-                  ))}
-                </TextField>
-               
-                {/* //////////////////////////////////////////////////////////////////////////////// */}
-                <TextField
-                  id="disponible"
-                  select
-                  type="text"
-                  label="Esta Disponible?"
-                  defaultValue="Argentina"
-                  style={{width:"200px"}}
-                  SelectProps={{
-                    native: true,
-                  }}
-                  helperText="Esta Disponible?"
-                  variant="standard"
-                  value={nuevoProducto.estadoRecurso}
-                  onChange={onChangeDisponibilidad}
-                  required
-                  margin="normal"
-                >
-                  <option className="item-grid" value="Disponible">
-                    Disponible
-                  </option>
-                  <option className="item-grid" value="No disponible">
-                    No disponible
-                  </option>
-                </TextField>
+                    <option className="item-grid" value="No disponible">
+                      No disponible
+                    </option>
+                  </TextField>
                 </div>
                 {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
-
-              
 
                 {/* ///////////////////////////////////////////////////////////////////// */}
                 <div className="campo-anotacion">
@@ -649,7 +666,7 @@ const AgregarProducto = () => {
                 </h5>
               )}
             </FormControl>
-            <div className="acceso-cuenta-o-usuarionuevo"></div>
+            <div className="acceso-cuenta-o-usuarionuevo-agregar-prod"></div>
           </div>
           <div className="segmento-preview">
             <h1 className="titulo-preview">Preview Carga de producto</h1>

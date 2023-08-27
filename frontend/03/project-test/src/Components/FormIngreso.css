@@ -1,169 +1,48 @@
 
 .pagina-formulario-Ingreso {
-  height: auto;
+height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 350px;
-  height: auto;
-  padding-top: 15rem;
-  padding-bottom: 3rem;
-  margin: 0 auto;
-}
-
-
-.form-control-ingreso {
-  margin-bottom: 10px;
-  padding-bottom: 20px;
-  position: relative;
-}
-
-.form-control-ingreso label {
-  display: inline-block;
-  margin-bottom: 5px;
+  width: 315px;
+  height:fit-content; 
+  padding: 10px;
+  place-items: center;
+  gap: 1rem;
 }
 
 .border-error {
-  border: 1px solid red;
+ 
+  width: 315px;
 }
 
 .border-valid {
   border: 1px solid green;
 }
-
-
-.form-control-ingreso input {
-  border: 2px solid #f0f0f0;
-  border-radius: 4px;
-  display: block;
-  font-size: var(--fsizeCat);
-  padding: 10px;
-  width: 350px;
-}
-
-
-.error-form {
-  font-size: var( --fsizeS);
-  color: #cc2e2e;
-  width: 100%;
-}
-
-/* .form button {
-  background-color: #f0f0f0;
-  border: 2px solid #8e44ad;
-  border-radius: 4px;
-  color: #f0f0f0;
-  display: block;
-  font-size: var(--fsizeCat);
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-  width: 100%;
-
-
-} */
-
-
-/* //////////////////////////////////////////////////// */
-
-
-.titulo-form-inicio-sesion {
-  font-size: 30px;
-  color: rgb(3, 141, 165);
-  margin: 3rem 0rem;
-}
-
 .formulario-inicio {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+height:fit-content;
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+gap: 1rem;
+
 }
 
-/* .pack-campo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
 
-.campo-anotacion {
-  margin: 1rem 0rem;
-  display: flex;
-  flex-direction: row;
-}
 
-.anotacion {
-  color: #717171;
-} */
-
-.campo-formulario {
-  border-radius: 10px 10px 10px 10px;
-  width: 340px;
-  height: 30px;
-  background-color: white;
-}
 
 .acceso-cuenta-o-usuarionuevo {
-  color: rgb(3, 141, 165);
-  font-weight: 700;
-  width: 340px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+ 
 }
-/* -------------------------------------------------- */
 
- @import url("https://fonts.googleapis.com/css?family=Roboto:100"); 
-
-.boton-form-inicio {
-  background-color: white;
-  border: 1px solid var(--colorGrey4);
-  box-shadow: var(--BShadow);
-
-  border-radius: var(--bRadiusButton);
- color: var(--colorGrey1); 
-  font-family: "Roboto", sans-serif; 
-  font-size: 1rem;
-  font-weight: 600;
-  max-height: 1.5rem;
-  max-width: 200px;
-  overflow: hidden;
-  line-height: 2rem;
-  padding: 1rem 2rem;
-  position: relative;
-  transition: 0.3s transform ease;
-  will-change: transform;
-  z-index: 0;
+.msj-form-guardado {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
-  margin: 2rem 0 2rem 0; 
-}
-
-.boton-form-inicio::after {
-  content: "";
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  box-shadow: none;
-  transform: translate(-100%, 0) rotate(1deg);
-  transform-origin: top;
-  transition: 0.15s transform ease;
-  will-change: transform;
-  z-index: -1;
-}
-
-.boton-form-inicio:hover::after {
-  transform: translate(0, 0);
-}
-
-.boton-form-inicio:hover {
-  border: 1px solid var(--BGrey);
-
-  transform: scale(1.009);
-  box-shadow: var(--BShadowD);
 }

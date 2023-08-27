@@ -38,7 +38,7 @@
   background-color: white;
 }
 
-.titulo-form-inicio-sesion {
+.titulo-form-alta-user {
   font-size: 30px;
   color: rgb(3, 141, 165);
 }
@@ -90,7 +90,7 @@
     color: white;
   } */
 
-.acceso-cuenta-o-usuarionuevo {
+.acceso-cuenta-o-usuarionuevo-alta {
   color: rgb(3, 141, 165);
   font-weight: 700;
   width: 100%;

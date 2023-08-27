@@ -71,7 +71,7 @@
   padding-bottom: 2rem;
   margin: auto auto;
 }
-.titulo-form-inicio-sesion {
+.administracion-agre-titulo {
   font-size: 30px;
   color: var(--blue);
 }
@@ -128,7 +128,7 @@
   display: flex;
 }
 
-.acceso-cuenta-o-usuarionuevo {
+.acceso-cuenta-o-usuarionuevo-agregar-prod {
   color: rgb(3, 141, 165);
   font-weight: 700;
   width: 340px;
