@@ -49,7 +49,6 @@ const TablaProductos = () => {
   }, []);
 
   /////////////// Metodo Eliminar Producto
-  // const [recursoXEliminar, setrecursoXEliminar] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
 

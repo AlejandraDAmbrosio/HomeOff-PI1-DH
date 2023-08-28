@@ -3,22 +3,9 @@ import buscadorIconoCategoria from "../AdministradorProductos/Categorias/iconoXC
 
 import "./Categorias.css";
 import "./CardCategoria.css";
-import CardCategoria from "./CardCategoria";
-import {
-  HiOutlineBuildingOffice2,
-  HiOutlineBuildingStorefront,
-  HiOutlineHome,
-  HiOutlinePrinter,
-  HiOutlineFolder,
-  HiOutlineInboxStack,
-  HiOutlineTv,
-  HiMiniComputerDesktop,
-} from "react-icons/hi2";
-import { GiOfficeChair } from "react-icons/gi";
-import FiltroCategorias from "../Genericos/FiltroCategorias";
+
 import { ContextGlobal } from "../utils/global.context";
-import { useState, useEffect, useContext } from "react";
-import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 const Categorias = ({ NombreCategoria }) => {
@@ -58,15 +45,4 @@ const Categorias = ({ NombreCategoria }) => {
 };
 export default Categorias;
 
-{
-  /* <Card key={categoria.categoria_id}>
-            <CardMedia>
-            <HiOutlineBuildingOffice2 className="icono" />
-            </CardMedia>
-            <CardContent>
-            <Typography variant="h7" component="div" textOverflow="ellipsis">
-            {categoria.name}
-            </Typography>
-            </CardContent>
-          </Card> */
-}
+

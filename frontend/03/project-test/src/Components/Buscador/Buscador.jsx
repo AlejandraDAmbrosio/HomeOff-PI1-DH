@@ -4,7 +4,7 @@ import { MdSearch } from "react-icons/md";
 import { ContextGlobal } from "../utils/global.context";
 import { Box, TextField, Popover, Button } from "@mui/material";
 import Calendario from "./Fecha/Calendario";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 const Buscador = () => {
   const { fechasBusqueda } = useContext(ContextGlobal);
@@ -27,55 +27,63 @@ const Buscador = () => {
           <div className="buscar-por">Localidad</div>
           <div className="separador">|</div>
           <div className="buscar-por">
-          <Button onClick={handleDateDropdownOpen} style={{placeItems:"center",width:"100%"}}>
-            {" "}
-            {fechasBusqueda[0] && fechasBusqueda[1] ? (
-              <div style={{display:"flex", flexDirection:"row", gap:"1rem"}}>
-              <div>
-                {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
-                  month: "numeric",
-                  day: "numeric",
-                })} </div>   
+            <Button
+              onClick={handleDateDropdownOpen}
+              style={{ placeItems: "center", width: "100%" }}
+            >
+              {" "}
+              {fechasBusqueda[0] && fechasBusqueda[1] ? (
+                <div
+                  style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
+                >
+                  <div>
+                    {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
+                      month: "numeric",
+                      day: "numeric",
+                    })}{" "}
+                  </div>
                   <Divider orientation="vertical" flexItem />
-                <div>{fechasBusqueda[1].$d.toLocaleDateString("en-US", {
-                  month: "numeric",
-                  day: "numeric",
-                })} </div>
-             </div>
-            ) : (
-              <div>Fecha</div>
-            )}
-          </Button>
-          <Popover
-            open={isDateDropdownOpen}
-            onClose={handleDateDropdownClose}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            <Box p={2}>
-              <Calendario
-                value={fechasBusqueda}
-                onChange={(newValue) => {
-                  if (Array.isArray(newValue) && newValue.length === 2) {
-                    setFechasBusqueda(newValue.map((date) => date || null));
-                  } else {
-                    setFechasBusqueda([null, null]);
-                  }
-                }}
-              />
-            </Box>
-          </Popover>
+                  <div>
+                    {fechasBusqueda[1].$d.toLocaleDateString("en-US", {
+                      month: "numeric",
+                      day: "numeric",
+                    })}{" "}
+                  </div>
+                </div>
+              ) : (
+                <div>Fecha</div>
+              )}
+            </Button>
+            <Popover
+              open={isDateDropdownOpen}
+              onClose={handleDateDropdownClose}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <Box p={2}>
+                <Calendario
+                  value={fechasBusqueda}
+                  onChange={(newValue) => {
+                    if (Array.isArray(newValue) && newValue.length === 2) {
+                      setFechasBusqueda(newValue.map((date) => date || null));
+                    } else {
+                      setFechasBusqueda([null, null]);
+                    }
+                  }}
+                />
+              </Box>
+            </Popover>
           </div>
           <div className="separador">|</div>
           <div className="buscar-por">Precio</div>
-          <div className="separador">|</div>
+          {/* <div className="separador">|</div> */}
         </div>
         <div className="icono-lupa-contenedor">
           <MdSearch className="icono-lupa" />

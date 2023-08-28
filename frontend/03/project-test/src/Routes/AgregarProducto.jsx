@@ -358,6 +358,7 @@ const AgregarProducto = () => {
               onSubmit={handleSubmitCrearProducto}
               style={{ padding: "1rem 2rem", width: "890px" }}
             >
+              <h1 className="titulo-form-carga-prod">Carga de producto</h1>
               <div className="formularioAgregarProducto">
                 <TextField
                   id="nombreProducto"
@@ -667,7 +668,7 @@ const AgregarProducto = () => {
             <div className="acceso-cuenta-o-usuarionuevo-agregar-prod"></div>
           </div>
           <div className="segmento-preview">
-            <h1 className="titulo-preview">Preview Carga de producto</h1>
+            <h1 className="titulo-preview">Preview</h1>
             <CardProductoSimulado
               className="card-simulada"
               title={nuevoProducto.nombre}

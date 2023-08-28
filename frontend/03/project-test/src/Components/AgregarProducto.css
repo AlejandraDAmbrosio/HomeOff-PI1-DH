@@ -8,7 +8,7 @@
 }
 
 .administracion-agre {
-  margin-top: 14rem;
+  margin-top: 4rem;
   margin-bottom: 2rem;
 }
 
@@ -26,6 +26,15 @@
   display: flex;
   align-items: center;
 }
+
+.titulo-form-carga-prod {
+  font-size: var(--fsizeTT);
+  height: 60px;
+  width: 100%;
+  color: var(--bgrey);
+ 
+}
+
 
 .division-form-preview {
   display: flex;
@@ -72,8 +81,18 @@
   margin: auto auto;
 }
 .administracion-agre-titulo {
-  font-size: 30px;
-  color: var(--blue);
+  font-size: var(--fsizeTL);
+  margin: 0 0 1rem 1rem;
+  
+  /* background-image: url("/images/pexels-photo-1097930.jpeg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* filter: grayscale(100%); */
+  height: 100px;
+  width: 100%;
+  color: var(--bgrey);
+  display: flex;
+  align-items: center;
 }
 
 .formularioAgregarProducto {

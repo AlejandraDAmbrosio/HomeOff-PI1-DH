@@ -14,6 +14,10 @@
 
 }
 
+.admin-header {
+  height: 100px;
+}
+
 nav {
   height: 100px;
   padding: 0 0rem;

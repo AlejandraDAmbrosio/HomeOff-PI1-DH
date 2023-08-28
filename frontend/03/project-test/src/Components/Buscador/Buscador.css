@@ -23,7 +23,7 @@
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   width: 500px;
-  height: 38px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,6 +39,10 @@
   font-size: 1.1rem;
   width: 300px;
   color: var(--colorGrey2);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .buscar-por:hover {
@@ -70,7 +74,7 @@
 }
 
 .icono-lupa {
-  font-size: 40px;
+  font-size: 50px;
   color: white;
   padding-left: 3px;
   padding: 4px;
@@ -87,7 +91,7 @@
   color: rgb(255, 255, 255);
   transform: scale(1.07);
   font-weight: 1000;
-  font-size: 45px;
+  font-size: 50px;
   will-change: transform;
 }
 

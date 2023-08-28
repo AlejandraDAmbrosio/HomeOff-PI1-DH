@@ -9,19 +9,33 @@ import Buscador from "../Buscador/Buscador";
 
 import { useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
+import { useLocation } from "react-router-dom";
 
 import AccountMenu from "../MenuDropDown/AccountMenu";
 import Calendario from "../Buscador/Fecha/Calendario";
 
 const Navbar = () => {
-  const { showModal, closeModal, openModal, productos, usuarioLogueado, iniciarSesion, cerrarSesion } =
-    useContext(ContextGlobal);
+  const location = useLocation();
+  const {
+    showModal,
+    closeModal,
+    openModal,
+    productos,
+    usuarioLogueado,
+    iniciarSesion,
+    cerrarSesion,
+  } = useContext(ContextGlobal);
 
-
+  const isPanelAdmin =
+  location.pathname === "/agregarproducto/" ||
+  location.pathname === "/administradorproductos/" ||
+  location.pathname === "/administracioncaracteristicas/" ||
+  location.pathname === "/administrarcategorias/" ||
+  location.pathname === "/administracionusers/";
 
   return (
     <>
-      <div className="header">
+      <div className={`header ${isPanelAdmin ? "admin-header" : ""}`}>
         <nav>
           <ul className="ul-nav">
             <li>
@@ -32,7 +46,7 @@ const Navbar = () => {
               <Buscador />
             </li>
             <div className="botones-header">
-            {!usuarioLogueado && (
+              {!usuarioLogueado && (
                 <>
                   <li>
                     <BotonCrearCuenta />
@@ -45,14 +59,16 @@ const Navbar = () => {
               <li>
                 <AccountMenu />
               </li>
-          
             </div>
           </ul>
         </nav>
-
-        <div className="buscador-cat">
-          <Categorias />
-        </div>
+        {isPanelAdmin ? (
+          ""
+        ) : (
+          <div className="buscador-cat">
+            <Categorias />
+          </div>
+        )}
       </div>
     </>
   );
