@@ -177,10 +177,14 @@ const TablaCategorias = () => {
 
   const eliminarCategoria = async (categoria_id) => {
     try {
-      const response = await axios.delete(
+      const response = await axios.get(
         `http://52.32.210.155:8080/api/v1/categorias/delete/${categoria_id}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
-
 
       
       const updatedCategorias = categoriasLista.filter(
@@ -356,118 +360,3 @@ const TablaCategorias = () => {
 };
 
 export default TablaCategorias;
-
-// <Container
-// style={{
-//   display: "flex",
-//   flexDirection: "row",
-//   alignItems: "center",
-//   width: "100%",
-//   margin: "0",
-// }}
-// >
-// <div
-//   className="tabla-categorias"
-
-// >
-//   <div className="lista-categorias">
-//     {categoriasLista.map((categoria, id) => (
-//       <Card className="card-categorias" key={categoria.categoria_id}>
-
-//         <CardContent overflow="auto">
-//           <Typography
-//             variant="h7"
-//             component="div"
-//             textOverflow="ellipsis"
-//             textAlign=" center"
-//             alignSelf="center"
-//           >
-//             {categoria.name}
-//           </Typography>
-//         </CardContent>
-//         <CardContent>
-//           </CardContent>
-//         <CardActions disableSpacing>
-//           <ExpandMore
-//             expand={expandedMap[categoria.categoria_id]}
-//             onClick={() => handleExpandClick(categoria.categoria_id)}
-//             aria-expanded={expanded}
-//             aria-label="show more"
-//           >
-//             <ExpandMoreIcon />
-//           </ExpandMore>
-//         </CardActions>
-//         <Collapse in={expanded} timeout="auto" unmountOnExit>
-//           <CardContent>
-//             <Typography paragraph>Descripción:</Typography>
-//             <Typography paragraph>{categoria.description}</Typography>
-//           </CardContent>
-//         </Collapse>
-
-//       </Card>
-//     ))}
-
-//     <Button variant="outlined" onClick={handleClickOpen}>
-//       Crear Categoria
-//     </Button>
-//   </div>
-
-//   <Dialog open={open} onClose={handleClose}>
-//     <DialogTitle>Crear categoria</DialogTitle>
-//     <DialogContent>
-//       <DialogContentText>
-//         Por favor, complete los datos para crear una nueva categoria.
-//       </DialogContentText>
-
-//       <TextField
-//         autoFocus
-//         margin="dense"
-//         id="name"
-//         label="Nombre Categoria"
-//         type="text"
-//         value={nuevaCategoria.name}
-//         onChange={onChangeNombre}
-//         fullWidth
-//         variant="standard"
-//       />
-//       <TextField
-//         autoFocus
-//         margin="dense"
-//         id="name"
-//         label="Descripción"
-//         type="text"
-//         value={nuevaCategoria.description}
-//         onChange={onChangeDescription}
-//         fullWidth
-//         variant="standard"
-//       />
-
-//       <TextField
-//         autoFocus
-//         margin="dense"
-//         type="file"
-//         accept="image/*"
-//         label=""
-//         value={nuevaCategoria.icono}
-//         onChange={handleImageChange}
-//         fullWidth
-//         variant="standard"
-//       />
-//       {selectedImage && (
-//         <Card>
-//           <CardMedia
-//             component="img"
-//             alt=""
-//             height="150"
-//             image={selectedImage}
-//           />
-//         </Card>
-//       )}
-//     </DialogContent>
-//     <DialogActions>
-//       <Button onClick={handleClose}>Cancelar</Button>
-//       <Button onClick={handleSubmitCrearCategoria}>Guardar</Button>
-//     </DialogActions>
-//   </Dialog>
-// </div>
-// </Container>
