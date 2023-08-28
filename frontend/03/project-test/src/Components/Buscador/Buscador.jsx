@@ -4,6 +4,7 @@ import { MdSearch } from "react-icons/md";
 import { ContextGlobal } from "../utils/global.context";
 import { Box, TextField, Popover, Button } from "@mui/material";
 import Calendario from "./Fecha/Calendario";
+import Divider from '@mui/material/Divider';
 
 const Buscador = () => {
   const { fechasBusqueda } = useContext(ContextGlobal);
@@ -26,20 +27,21 @@ const Buscador = () => {
           <div className="buscar-por">Localidad</div>
           <div className="separador">|</div>
           <div className="buscar-por">
-          <Button onClick={handleDateDropdownOpen}>
+          <Button onClick={handleDateDropdownOpen} style={{placeItems:"center",width:"100%"}}>
             {" "}
             {fechasBusqueda[0] && fechasBusqueda[1] ? (
+              <div style={{display:"flex", flexDirection:"row", gap:"1rem"}}>
               <div>
                 {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
                   month: "numeric",
                   day: "numeric",
-                })}{" "}
-                -{" "}
-                {fechasBusqueda[1].$d.toLocaleDateString("en-US", {
+                })} </div>   
+                  <Divider orientation="vertical" flexItem />
+                <div>{fechasBusqueda[1].$d.toLocaleDateString("en-US", {
                   month: "numeric",
                   day: "numeric",
-                })}
-              </div>
+                })} </div>
+             </div>
             ) : (
               <div>Fecha</div>
             )}

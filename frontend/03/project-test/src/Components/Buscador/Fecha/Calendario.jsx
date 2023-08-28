@@ -16,21 +16,21 @@ const Calendario = () => {
     <div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Box display="flex" flexDirection="column" alignItems="center">
-          <Box width={"500px"} textAlign="center">
+          <Box width={"300px"} textAlign="center">
             Calendario
           </Box>
           <DateRangePicker
-            startText="Check inn"
-            endText="Check out"
+            startText="Ingreso"
+            endText="Egreso"
             value={fechasBusqueda}
             onChange={(newValue) => {
               setFechasBusqueda(newValue);
             }}
-            renderInput={(startProps, endProps) => (
+            renderInput={({ startInputProps, endInputProps }) => (
               <>
-                <TextField {...startProps} />
+                <TextField {...startInputProps} />
                 <Box sx={{ mx: 2 }}> to </Box>
-                <TextField {...endProps} />
+                <TextField {...endInputProps} />
               </>
             )}
           />
