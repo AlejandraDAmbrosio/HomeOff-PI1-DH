@@ -24,9 +24,6 @@ import axios from "axios";
 import nombreExiste from "../../utils/nombreExiste.js";
 
 
-// function nombreExiste(nombre, data) {
-//   return data.find((objeto) => objeto.nombre === nombre) !== undefined;
-// }
 
 const TablaCategorias = () => {
   const [openDialog, setOpenDialog] = useState(false);

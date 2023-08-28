@@ -1,37 +1,22 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../Components/AgregarProducto.css";
-import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
-import FormLabel from "@mui/material/FormLabel";
-import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
+import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
+import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
+import nombreExiste from "../Components/utils/nombreExiste.js";
+import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
+import axios from "axios";
+import "../Components/AgregarProducto.css";
 import "../Components/Genericos/CardProductoSimulado.css";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
-
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import FormGroup from "@mui/material/FormGroup";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
+import {
+  FormLabel,
+  FormControl,
+  TextField,
+  FormGroup,
+  Checkbox,
+  Button
+} from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
-// import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-function nombreExiste(nombre, data) {
-  return data.find((objeto) => objeto.nombre === nombre) !== undefined;
-}
-// const nombreYaExiste = nombreExiste(nombreBuscado, jsonData);
-
-function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
-  const categoriaEncontrada = listaCategorias.find(
-    (item) => item.categoria_id === idCategoria
-  );
-
-  if (categoriaEncontrada) {
-    return categoriaEncontrada.name;
-  } else {
-    return "Categoría no encontrada";
-  }
-}
 
 
 
@@ -47,6 +32,12 @@ const AgregarProducto = () => {
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
+  const [nombreProductoValido, setNombreProductoValido] = useState(true);
+  const [nombreYaExiste, setNombreYaExiste] = useState(true);
+  const [form, setForm] = useState(false);
+  const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
+
+  //////////////// codigo para cargar imagenes comentado ///////////////////////
   // const [selectedFile, setSelectedFile] = useState(null);
   // const handleFileChange = (event) => {
   //   const files = event.target.files;
@@ -64,13 +55,8 @@ const AgregarProducto = () => {
   // const [selectedServiceIds, setSelectedServiceIds] = useState([]);
   // const MAX_SELECTED_SERVICES = 5;
 
-  const [nombreProductoValido, setNombreProductoValido] = useState(true);
-  const [nombreYaExiste, setNombreYaExiste] = useState(true);
-  const [form, setForm] = useState(false);
 
-  const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
   /////// Preparar obbjeto para enviar al servidor    ///////
-
   const [nuevoProducto, setNuevoProducto] = useState({
     idRecurso: 0,
     nombre: "",
@@ -337,8 +323,10 @@ const AgregarProducto = () => {
         nombre: "",
         descripción: "",
         capacidadMáxima: 0,
+        categoria_id: 1,
         precioUnitario: 1,
         idSede: 0,
+        id_Tipo_Espacio: 1,
         imagenURL: "",
         imagenURL01: "",
         imagenURL02: "",
@@ -548,7 +536,6 @@ const AgregarProducto = () => {
                     }}
                     variant="standard"
                   />
-                  {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
                     id="sede"
@@ -604,7 +591,6 @@ const AgregarProducto = () => {
                     </option>
                   </TextField>
                 </div>
-                {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
 
                 {/* ///////////////////////////////////////////////////////////////////// */}
                 <div className="campo-anotacion">
@@ -620,7 +606,7 @@ const AgregarProducto = () => {
                     multiple
                   />
                 </div>
-                {/* ///////////////// */}
+                {/* /////////OPCIOM comentada para subir imagenes //////// */}
                 {/* <div>
                   <input
                     accept=".jpg, .jpeg, .png"
