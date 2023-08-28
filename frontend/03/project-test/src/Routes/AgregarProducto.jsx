@@ -21,6 +21,20 @@ function nombreExiste(nombre, data) {
 }
 // const nombreYaExiste = nombreExiste(nombreBuscado, jsonData);
 
+function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
+  const categoriaEncontrada = listaCategorias.find(
+    (item) => item.categoria_id === idCategoria
+  );
+
+  if (categoriaEncontrada) {
+    return categoriaEncontrada.name;
+  } else {
+    return "Categoría no encontrada";
+  }
+}
+
+
+
 const AgregarProducto = () => {
   const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
   const jwt = localStorage.getItem("jwt");
@@ -675,6 +689,11 @@ const AgregarProducto = () => {
               url={nuevoProducto.imagenURL}
               precio={nuevoProducto.precioUnitario}
               sede={buscadorSedeXIDSede(nuevoProducto.idSede)}
+              categoria={obtenerNombreCategoriaPorId(
+                nuevoProducto.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}
             />
           </div>
         </div>
