@@ -13,8 +13,10 @@ import { ContextGlobal } from "../utils/global.context";
 import AccountMenu from "../MenuDropDown/AccountMenu";
 
 const Navbar = () => {
-  const { showModal, closeModal, openModal, productos } =
+  const { showModal, closeModal, openModal, productos, usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
+
+
 
   return (
     <>
@@ -29,22 +31,20 @@ const Navbar = () => {
               <Buscador />
             </li>
             <div className="botones-header">
-              <li>
-                <BotonCrearCuenta />
-              </li>
-              <li>
-                <BotonInicio className="boton-inicio" />
-              </li>
-              {/* <li>
-                <DropDownMenu />
-              </li> */}
+            {!usuarioLogueado && (
+                <>
+                  <li>
+                    <BotonCrearCuenta />
+                  </li>
+                  <li>
+                    <BotonInicio className="boton-inicio" />
+                  </li>
+                </>
+              )}
               <li>
                 <AccountMenu />
               </li>
-              {/* <li>
-              <AvatarNav/> */}
-              {/* <BsPersonCircle className="icono-persona" />  */}
-              {/* </li> */}
+             
             </div>
           </ul>
         </nav>

@@ -13,9 +13,11 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 
-// import { AuthContext } from "../Components/utils/global.contextauth";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
 
 const FormIngreso = () => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
@@ -29,6 +31,8 @@ const FormIngreso = () => {
   const [passwordValido, setPasswordValido] = useState(true);
 
   ////////// Segmento modal   //////////
+
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -36,7 +40,10 @@ const FormIngreso = () => {
 
   const handleClose = () => {
     setOpen(false);
+    // Cambia "/"" por la ruta correcta hacia la página de inicio
   };
+
+
   //////////////////////
   // / Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -144,39 +151,63 @@ const FormIngreso = () => {
 
   return (
     <>
-      <Modal open={open} onClose={handleClose}>
-        <Paper
-          sx={{ width: "315px", overflow: "hidden" }}
-          style={{
-            placeItems: "center",
-            margin: "auto",
-            justifyContent: "spaceBetween",
-            height: "100px",
-            marginTop:"10rem" 
-          }}
-        >
-          <div>
-            {form && usuarioLogueado ? (
-              <h5 className="msj-form-guardado">
-                Gracias!! Has ingresado como usuario{" "}
-                {usuarioLogueado.nombreCompleto} a HomeOFF !
-              </h5>
-            ) : (
-              <h5 className="msj-form-guardado">
-               Por favor, revise las credenciales.
-              </h5>
-            )}
-          </div>
-        </Paper>
-      </Modal>
+   <Modal open={open} onClose={handleClose}>
+  <Paper
+    sx={{
+      width: "315px",
+      overflow: "hidden",
+      position: "relative", // Añadimos esta línea para posicionar correctamente el botón
+    }}
+    style={{
+      placeItems: "center",
+      margin: "auto",
+      justifyContent: "spaceBetween",
+      height: "100px",
+      marginTop: "10rem",
+    }}
+  >
+    {/* Botón de cerrar */}
+    <IconButton
+      aria-label="cerrar"
+      style={{
+        position: "absolute",
+        top: "10px",
+        right: "10px",
+      }}
+      onClick={handleClose}
+    >
+      <CloseIcon />
+    </IconButton>
 
+    <div>
+      {form && usuarioLogueado ? (
+        <h5 className="msj-form-guardado">
+          Gracias!! Has ingresado como usuario {usuarioLogueado.nombreCompleto} a HomeOFF !
+        </h5>
+      ) : (
+        <h5 className="msj-form-guardado">Por favor, revise las credenciales.</h5>
+      )}
+    </div>
+  </Paper>
+</Modal>
+{(!usuarioLogueado) ? (
       <Paper
-        sx={{ width: "315px", overflow: "hidden", height: "fitContent"}}
-        style={{ margin: "auto", justifyContent: "spaceBetween", marginTop:"5rem" }}
+        sx={{
+          width: "315px",
+          overflow: "hidden",
+          height: "fitContent",
+          justifyContent: "spaceAround",
+        }}
+        style={{
+          margin: "auto",
+          justifyContent: "spaceBetween",
+          marginTop: "5rem",
+          height: "fitContent",
+        }}
       >
         <div className="pagina-formulario-Ingreso">
-        <Typography variant="h4"> Inicia sesión ahora</Typography>
-     
+          <Typography variant="h4"> Inicia sesión ahora</Typography>
+
           <FormControl
             onSubmit={handleSubmit}
             sx={{
@@ -186,84 +217,81 @@ const FormIngreso = () => {
             }}
           >
             <div className="formulario-inicio">
-            
-                <TextField
-                  id="nombre"
-                  label="Nombre"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa tu nombre "
-                  value={usuario.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                  style={{ borderColor: nombreValido ? "" : "red" }}
-                />
+              <TextField
+                id="nombre"
+                label="Nombre"
+                variant="standard"
+                className="campo-formulario"
+                type="text"
+                placeholder="Ingresa tu nombre "
+                value={usuario.nombre}
+                onChange={onChangeNombre}
+                required
+                margin="normal"
+                style={{ borderColor: nombreValido ? "" : "red" }}
+              />
 
-                {!nombreValido ? (
-                  <p className="error-form">
-                    Ingrese entre 3 y 30 caracteres y solo contener letras.
-                  </p>
-                ) : (
-                  ""
-                )}
-            
+              {!nombreValido ? (
+                <p className="error-form-inicio">
+                  Ingrese entre 3 y 30 caracteres y solo contener letras.
+                </p>
+              ) : (
+                ""
+              )}
 
-            
-                <TextField
-                  id="email"
-                  label="Email"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="email"
-                  placeholder="Ingresa tu email"
-                  value={usuario.email}
-                  onChange={onChangeEmail}
-                  required
-                  margin="normal"
-                  style={{ borderColor: emailValido ? "" : "red" }}
-                />
-                {!emailValido ? (
-                  <p className="error-form">
-                    Ingresar al menos 3 caracteres antes del arroba y tener un
-                    formato válido.
-                  </p>
-                ) : (
-                  ""
-                )}
-           
+              <TextField
+                id="email"
+                label="Email"
+                variant="standard"
+                className="campo-formulario"
+                type="email"
+                placeholder="Ingresa tu email"
+                value={usuario.email}
+                onChange={onChangeEmail}
+                required
+                margin="normal"
+                style={{ borderColor: emailValido ? "" : "red" }}
+              />
+              {!emailValido ? (
+                <p className="error-form-inicio">
+                  Ingresar al menos 3 caracteres antes del arroba y tener un
+                  formato válido.
+                </p>
+              ) : (
+                ""
+              )}
 
-             
-                <TextField
-                  id="password"
-                  label="Password *"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="email"
-                  placeholder="Ingresa tu password"
-                  value={usuario.password}
-                  onChange={onChangePass}
-                  required
-                  margin="normal"
-                  style={{ borderColor: passwordValido ? "" : "red" }}
-                />
-                {!passwordValido ? (
-                  <p className="error-form">
-                    La contraseña debe tener al menos 8 caracteres, incluir una
-                    letra mayúscula y un carácter no alfanumérico.
-                  </p>
-                ) : (
-                  ""
-                )}
-              
+              <TextField
+                id="password"
+                label="Password *"
+                variant="standard"
+                className="campo-formulario"
+                type="email"
+                placeholder="Ingresa tu password"
+                value={usuario.password}
+                onChange={onChangePass}
+                required
+                margin="normal"
+                style={{ borderColor: passwordValido ? "" : "red" }}
+              />
+              {!passwordValido ? (
+                <p className="error-form-inicio">
+                  La contraseña debe tener al menos 8 caracteres, incluir una
+                  letra mayúscula y un carácter no alfanumérico.
+                </p>
+              ) : (
+                ""
+              )}
 
               <Button
-                className="boton-form-inicio"
+                className="boton-form-ini"
                 type="submit"
                 value="Acceso"
                 variant="outlined"
                 onClick={handleSubmit}
+                style={{
+                  margin: "30px 0 15px 0",
+                }}
               >
                 Acceso
               </Button>
@@ -275,6 +303,7 @@ const FormIngreso = () => {
           </div>
         </div>
       </Paper>
+      ):("") }
     </>
   );
 };
