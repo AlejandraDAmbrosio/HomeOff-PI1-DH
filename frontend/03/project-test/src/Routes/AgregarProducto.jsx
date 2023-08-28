@@ -606,7 +606,7 @@ const AgregarProducto = () => {
                     multiple
                   />
                 </div>
-                {/* /////////OPCIOM comentada para subir imagenes //////// */}
+                {/* /////////OPCION comentada para subir imagenes //////// */}
                 {/* <div>
                   <input
                     accept=".jpg, .jpeg, .png"
