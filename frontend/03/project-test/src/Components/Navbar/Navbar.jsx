@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
 
 import AccountMenu from "../MenuDropDown/AccountMenu";
+import Calendario from "../Buscador/Fecha/Calendario";
 
 const Navbar = () => {
   const { showModal, closeModal, openModal, productos, usuarioLogueado, iniciarSesion, cerrarSesion } =
@@ -44,7 +45,7 @@ const Navbar = () => {
               <li>
                 <AccountMenu />
               </li>
-             
+             <li> <Calendario/></li>
             </div>
           </ul>
         </nav>

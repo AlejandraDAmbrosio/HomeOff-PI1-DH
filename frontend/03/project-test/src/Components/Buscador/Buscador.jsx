@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import "./Buscador.css";
 import { MdSearch } from "react-icons/md";
-// import {
-//   DateRangePicker,
-// } from "@mui/x-date-pickers";
+// // import {
+// //   DateRangePicker,
+// // } from "@mui/x-date-pickers";
 
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// import { LocalizationProvider } from '@mui/x-date-pickers';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+// // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+// // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
+// import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 const Buscador = () => {
   const [isDateDropdownOpen, setDateDropdownOpen] = useState(false);
@@ -25,9 +25,9 @@ const Buscador = () => {
           <div className="separador">|</div>
           <div
             className="buscar-por"
-            onClick={() => setDateDropdownOpen(!isDateDropdownOpen)}
+          
           >
-            Fecha
+          
           </div>
           <div className="separador">|</div>
           <div className="buscar-por">Precio</div>
@@ -37,15 +37,7 @@ const Buscador = () => {
           <MdSearch className="icono-lupa" />
         </div>
       </div>
-      {isDateDropdownOpen && (
-        <div className="date-dropdown">
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DateRangePicker"]}>
-              {/* <DateRangePicker localeText={{ start: "Check-in", end: "Check-out" }} /> */}
-            </DemoContainer>
-          </LocalizationProvider>
-        </div>
-      )}
+      
     </div>
   );
 };
