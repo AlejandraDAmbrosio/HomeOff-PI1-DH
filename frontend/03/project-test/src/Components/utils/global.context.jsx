@@ -145,11 +145,15 @@ export const ContextProvider = ({ children }) => {
     // history.push("/");
   };
 
-  ////////////////////////////////////////////
+  //////////////////////////////////////////// FECHAS
+  const [fechasBusqueda, setFechasBusqueda] = useState([null, null]);
+
 
   return (
     <ContextGlobal.Provider
       value={{
+        fechasBusqueda,
+        setFechasBusqueda,
         usuarioLogueado,
         iniciarSesion,
         cerrarSesion,

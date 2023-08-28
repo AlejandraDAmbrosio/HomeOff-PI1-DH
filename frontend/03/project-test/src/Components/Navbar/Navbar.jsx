@@ -45,7 +45,7 @@ const Navbar = () => {
               <li>
                 <AccountMenu />
               </li>
-             <li> <Calendario/></li>
+          
             </div>
           </ul>
         </nav>
