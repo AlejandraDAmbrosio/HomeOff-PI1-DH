@@ -21,7 +21,7 @@ const sedesArray = [
 
 
 function buscadorSedeXIDSede(idSede) {
-    const sedeXID = sedesArray.find(sede => sede.id === idSede);
+    const sedeXID = sedesArray.find(sede => sede.id == idSede);
     console.log(idSede);
     console.log(sedeXID);
 

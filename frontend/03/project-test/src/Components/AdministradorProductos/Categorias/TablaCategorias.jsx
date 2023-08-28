@@ -1,14 +1,10 @@
-import React from "react";
-import buscadorIconoCategoria from "../Categorias/iconoXCategoria.js"
+import React, { useState, useEffect, useContext } from "react";
+import buscadorIconoCategoria from "../Categorias/iconoXCategoria.js";
 import "./TablaCategorias.css";
 import { ContextGlobal } from "../../utils/global.context";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 import {
+  Button,
+  Paper,
   TableContainer,
   TableBody,
   Table,
@@ -17,15 +13,7 @@ import {
   TableCell,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
 import Chip from "@mui/joy/Chip";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import IconButton from "@mui/material/IconButton";
-import { styled } from "@mui/material/styles";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import AddIcon from "@mui/icons-material/Add";
-import BotonAgregarCategorias from "./BotonAgregarCategorias";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -33,14 +21,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
-
-import { useState, useEffect, useContext } from "react";
-import { Collapse, Container } from "@mui/material";
+import nombreExiste from "../../utils/nombreExiste.js";
 
 
-function nombreExiste(nombre, data) {
-  return data.find((objeto) => objeto.nombre === nombre) !== undefined;
-}
+// function nombreExiste(nombre, data) {
+//   return data.find((objeto) => objeto.nombre === nombre) !== undefined;
+// }
 
 const TablaCategorias = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -111,7 +97,7 @@ const TablaCategorias = () => {
     e.preventDefault();
 
     const nombreCategoriaValida = validarNombreCategoria(nuevaCategoria.name);
-
+    console.log(jsonData);
     const categoriaExisteEnData = nombreExiste(nuevaCategoria.name, jsonData);
     if (nombreCategoriaValida && !categoriaExisteEnData) {
       setForm(true);
@@ -161,8 +147,8 @@ const TablaCategorias = () => {
       setOpen(false);
       /////ERROR ????////////////////////////
     } else {
-      setForm(true);
-      setNombreCategoriaValida(true);
+      setForm(false);
+      setNombreCategoriaValida(false);
 
       setNuevaCategoria({
         categoria_id: 0,
@@ -335,6 +321,14 @@ const TablaCategorias = () => {
             fullWidth
             variant="standard"
           />
+   {!nombreCategoriaValida ? (
+                  <p className="error-form-inicio">
+                    Por favor, ingrese un nombre válido.
+                  </p>
+                ) : (
+                  ""
+                )}
+
           <TextField
             autoFocus
             margin="dense"

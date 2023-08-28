@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 export const ContextGlobal = createContext();
 import axios from "axios";
-// const { useHistory } = require("react-router-dom");
+
 
 export const ContextProvider = ({ children }) => {
   ///Modal Fotos ////
@@ -15,7 +15,7 @@ export const ContextProvider = ({ children }) => {
     setShowModal(false);
   };
 
-  /////////GetDatosLista //////////////
+  ///////////////////////GetDatosLista 
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
@@ -23,14 +23,14 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setProductosBKLista(data);
-    // console.log(productosBKLista);
+   
   };
 
   useEffect(() => {
     getDatosBKLista();
   }, []);
 
-  /////////////////////////////////
+  ///////////////////////////////// Get Recurso XID
   const [recursoXID, setRecursoXID] = useState(null);
 
   const getRecursoXID = async (id) => {
@@ -40,8 +40,7 @@ export const ContextProvider = ({ children }) => {
     const data = response.data;
 
     setRecursoXID(data);
-    //  console.log("Console en recursoXID en Context -------------------------------------");
-    //  console.log(data);
+ 
   };
   useEffect(() => {
     getRecursoXID();
@@ -62,7 +61,6 @@ export const ContextProvider = ({ children }) => {
   }, []);
 
   /////////////////////////////////GetCategorias
-
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
@@ -78,16 +76,16 @@ export const ContextProvider = ({ children }) => {
   }, []);
 
   ///////////////// Get Caracteristicas
-
   const [caracteristicasLista, setCaracteristicasLista] = useState([]);
+  
   const getCaracteristicasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/caracteristicas/list");
+    const res = await fetch(
+      "http://52.32.210.155:8080/api/v1/caracteristicas/list"
+    );
     const data = await res.json();
 
     setCaracteristicasLista(data);
-    // console.log(" ----------------  Listado Caracteristicas  en Contexto--------------");
-
-    //  console.log(data);
+   
   };
 
   useEffect(() => {

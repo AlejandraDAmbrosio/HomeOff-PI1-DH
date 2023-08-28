@@ -1,26 +1,7 @@
-import React from "react";
-import "./TablaCaracteristicas.css";
+import React, { useState, useEffect, useContext } from "react";
 import { ContextGlobal } from "../../utils/global.context";
-
-import EditIcon from "@mui/icons-material/Edit";
-import Chip from "@mui/joy/Chip";
-import Paper from "@mui/material/Paper";
-
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import IconButton from "@mui/material/IconButton";
-import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import axios from "axios";
+import "./TablaCaracteristicas.css";
 import {
   TableContainer,
   TableBody,
@@ -28,18 +9,18 @@ import {
   TableRow,
   TableHead,
   TableCell,
-  //   Chip,
+  Paper,
+  TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
-
-import { Collapse, Container } from "@mui/material";
-import axios from "axios";
-
-import { useState, useEffect, useContext } from "react";
-import { alignProperty } from "@mui/material/styles/cssUtils";
-
-function nombreExiste(nombre, data) {
-  return data.find((objeto) => objeto.nombre === nombre) !== undefined;
-}
+import Chip from "@mui/joy/Chip";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import nombreExiste from "../../utils/nombreExiste.js";
 
 const TablaCaracteristicas = () => {
   const {
@@ -48,7 +29,6 @@ const TablaCaracteristicas = () => {
     getCaracteristicasLista,
   } = useContext(ContextGlobal);
 
-  const [caracteristicaXEliminar, setCaracteristicaXEliminar] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [idCaracteristicaXBorrar, setIdCaracteristicaXBorrar] = useState(null);
 
@@ -83,12 +63,13 @@ const TablaCaracteristicas = () => {
     setNombreCaracteristicaValida(true);
   };
   const onChangeLogoCaracteristica = (e) => {
-    setNuevaCaracteristica({ ...nuevaCaracteristica, logoCaracteristica: e.target.value });
+    setNuevaCaracteristica({
+      ...nuevaCaracteristica,
+      logoCaracteristica: e.target.value,
+    });
     // setNombreYaExiste(false);
     setNombreCaracteristicaValida(true);
   };
-
-
 
   const [open, setOpen] = React.useState(false);
 
@@ -148,8 +129,8 @@ const TablaCaracteristicas = () => {
       setOpen(false);
       /////ERROR ????////////////////////////
     } else {
-      setForm(true);
-      setNombreCaracteristicaValida(true);
+      setForm(false);
+      setNombreCaracteristicaValida(false);
 
       setNuevaCaracteristica({
         nombre: "",
@@ -268,16 +249,15 @@ const TablaCaracteristicas = () => {
                 <TableRow key={idCaracteristica} style={{ height: "30px" }}>
                   <TableCell style={{ width: "200px" }}>
                     {" "}
-                   <img
-                        src={caracteristica.logoCaracteristica}
-                        alt={`Imagen de ${caracteristica.nombre}`}
-                        style={{
-                          width: "60px",
-                          height: "50px",
-                          padding: "2px 0 0 0px",
-                        }}
-                      />
-                   
+                    <img
+                      src={caracteristica.logoCaracteristica}
+                      alt={`Imagen de ${caracteristica.nombre}`}
+                      style={{
+                        width: "60px",
+                        height: "50px",
+                        padding: "2px 0 0 0px",
+                      }}
+                    />
                   </TableCell>
                   <TableCell style={{ width: "200px" }}>
                     {caracteristica.idCaracteristica}
@@ -322,17 +302,26 @@ const TablaCaracteristicas = () => {
             fullWidth
             variant="standard"
           />
-           <TextField
-              autoFocus
-              margin="dense"
-              id="IconoCaracterística"
-              label="Icono Característica"
-              type="text"
-              value={nuevaCaracteristica.logoCaracteristica}
-              onChange={onChangeLogoCaracteristica}
-              fullWidth
-              variant="standard"
-            /> 
+
+          {!nombreCaracteristicaValida ? (
+            <p className="error-form-inicio">
+              Por favor, ingrese un nombre válido.
+            </p>
+          ) : (
+            ""
+          )}
+
+          <TextField
+            autoFocus
+            margin="dense"
+            id="IconoCaracterística"
+            label="Icono Característica"
+            type="text"
+            value={nuevaCaracteristica.logoCaracteristica}
+            onChange={onChangeLogoCaracteristica}
+            fullWidth
+            variant="standard"
+          />
 
           {/* <TextField
               autoFocus
@@ -362,8 +351,8 @@ const TablaCaracteristicas = () => {
         </DialogActions>
       </Dialog>
       <Button variant="outlined" onClick={handleClickOpen}>
-          Crear Característica
-        </Button>
+        Crear Característica
+      </Button>
     </div>
   );
 };

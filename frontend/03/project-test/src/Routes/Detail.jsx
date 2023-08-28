@@ -1,33 +1,17 @@
-import React from "react";
-import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ContextGlobal } from "../Components/utils/global.context";
-import { useParams } from "react-router-dom";
-import { Container } from "@mui/material";
-// import Grid from "@mui/material/Unstable_Grid2";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { Container, Box, Paper, Modal } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
-// import Grid from '@mui/material/GridV5';
-import {
-  MdArrowBackIosNew,
-  MdPerson,
-  MdWifi,
-  MdApartment,
-  MdAcUnit,
-  MdLocationOn,
-} from "react-icons/md";
+import { MdArrowBackIosNew } from "react-icons/md";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
+  maxWidth: "40%",
   bgcolor: "background.paper",
   border: "2px solid grey",
   boxShadow: 24,
@@ -66,7 +50,6 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-  const [selectedImage, setSelectedImage] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -145,7 +128,6 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenURL}
-                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
@@ -160,10 +142,11 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl01}
-                  style={{ height: "50vh" }}
                 />
               </Box>
+
             </Modal>
+
             <Modal
               open={openImage3}
               onClose={handleCloseImage3}
@@ -174,10 +157,10 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl02}
-                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
+
             <Modal
               open={openImage4}
               onClose={handleCloseImage4}
@@ -188,10 +171,10 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl03}
-                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
+
             <Modal
               open={openImage5}
               onClose={handleCloseImage5}
@@ -202,7 +185,6 @@ const Detail = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl04}
-                  style={{ height: "50vh" }}
                 />
               </Box>
             </Modal>
@@ -210,6 +192,7 @@ const Detail = () => {
             <div className="contenedor-detalle-producto">
               <h2 className="titulo-caracteristicas">Características</h2>
             </div>
+            
             <div className="segmento-icon-detalle">
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
                 <div className="container-icono-caracteristica-texto">
@@ -218,9 +201,9 @@ const Detail = () => {
                     {caracteristica.logoCaracteristica != "" ? (
                       <Paper
                         sx={{
-                          display: "flex", // Usar flexbox
-                          alignItems: "center", // Centrar verticalmente
-                          padding: "3px 10px", // Ajustar padding
+                          display: "flex",
+                          alignItems: "center",
+                          padding: "3px 10px",
                           justifyContent: "center",
                           gap: "15px",
                           borderRadius: " 11px 11px 11px 11px",

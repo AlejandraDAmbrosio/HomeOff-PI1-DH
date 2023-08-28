@@ -21,13 +21,13 @@ function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
 }
 
 const ListadoProductos = ({ CantidadCards }) => {
+
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
   const { productosBKLista, categoriasLista } = useContext(ContextGlobal);
 
-  // console.log(" ----------Listado de Productos");
-  // console.log(productosBKLista)
+ 
   const chunk = (arr, size) => {
     const chunkedArray = [];
     for (let i = 0; i < arr.length; i += size) {
@@ -61,7 +61,7 @@ const ListadoProductos = ({ CantidadCards }) => {
 
   return (
     <div className="segmento-listado-productos">
-      {/* <h3 className="txt-titulo-listado-productos"></h3> */}
+   
 
       <div className="grid-container-listado-home">
         {paginatedProducts.length ? (
@@ -109,16 +109,7 @@ const ListadoProductos = ({ CantidadCards }) => {
         {pasaPaginaSiguiente}
       </button>)}
 
-        {/* {currentPage > 0 && (
-          <button className="pagination-previous" onClick={handlePreviousPage}>
-            {irAPaginaAnterior}
-          </button>
-        )}
-        {currentPage < paginatedProducts.length - 1 && (
-          <button className="pagination-next" onClick={handleNextPage}>
-            {pasaPaginaSiguiente}
-          </button>
-        )} */}
+     
       </div>
     </div>
   );

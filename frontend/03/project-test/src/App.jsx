@@ -10,8 +10,7 @@ import FormIngreso from "./Routes/FormIngreso";
 import FormAltaUser from "./Routes/FormAltaUser";
 import AgregarProducto from "./Routes/AgregarProducto";
 import AdministracionUsers from "./Routes/AdministracionUsers";
-// import EditarUser from "./Routes/EditarUser";
-import EspacioAdmin from "./Routes/EspacioAdmin";
+
 import AdministrarCategorias from "./Routes/AdministrarCategorias";
 import AdministracionCaracteristicas from "./Routes/AdministracionCaracteristicas";
 import AdministradorProductos from "./Routes/AdministradorProductos";
@@ -38,8 +37,7 @@ function App() {
         <Route path="/formaltauser/" element={<FormAltaUser />} />
         <Route path="/agregarproducto/" element={<AgregarProducto />} />
         <Route path="/administracionusers/" element={<AdministracionUsers />} />
-        {/* <Route path="/editaruser/" element={<EditarUser />} /> */}
-        <Route path="/espacioadmin/" element={<EspacioAdmin />} />
+
         <Route
           path="/administrarcategorias/"
           element={<AdministrarCategorias />}
@@ -57,14 +55,10 @@ function App() {
           <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
         </Route>
 
-
         <Route path="/editarproducto/" element={<EditarProducto />}>
           <Route path="/editarproducto/:id" element={<EditarProducto />} />
         </Route>
       </Routes>
-
-      
-
 
       <Footer />
     </>

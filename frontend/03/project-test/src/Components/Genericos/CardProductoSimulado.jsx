@@ -20,6 +20,7 @@ const CardProductoSimulado = ({
   descripcion,
   precio,
   categoria,
+  sede,
   tipoRecurso,
   servicio1,
   servicio2,
@@ -47,14 +48,20 @@ const CardProductoSimulado = ({
           {title}
         </Typography>
         <Typography
-          gutterBottom
-          variant="body2"
-          component="div"
-          style={{ fontWeight: "600", color: "#383B58", alignItems:"center"}}
-        >
-          <LocationOnIcon style={{ width: 17, height: 17, marginRight:"10px" }} />
-          sede
-        </Typography>
+            gutterBottom
+            variant="body2"
+            component="div"
+            style={{
+              fontWeight: "600",
+              color: "#383B58",
+              alignItems: "center",
+            }}
+          >
+            <LocationOnIcon
+              style={{ width: 17, height: 17, marginRight: "10px" }}
+            />
+            {sede}
+          </Typography>
 
         <Typography variant="body2" color="text.secondary"   style={{
               color: "#383B58",

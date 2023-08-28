@@ -1,24 +1,20 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ContextGlobal } from "../../utils/global.context";
-import "./TablaProductos.css";
-import { useState, useEffect, useContext } from "react";
-import Button from "@mui/joy/Button";
-import EditIcon from "@mui/icons-material/Edit";
-import Chip from "@mui/joy/Chip";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Link } from "react-router-dom";
-
-// import obtenerNombreCategoriaPorId from "../../utils/buscarNombreCategoria";
+import "./TablaProductos.css";import { Link } from "react-router-dom";
 import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import  Chip from "@mui/joy/Chip";
+import  Button  from "@mui/joy/Chip";
 
 import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Paper,
+  TablePagination,
   TableContainer,
   TableBody,
   Table,
@@ -26,13 +22,12 @@ import {
   TableHead,
   TableCell,
 } from "@mui/material";
-import { Collapse, Container } from "@mui/material";
+
 
 function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
   const categoriaEncontrada = listaCategorias.find(
     (item) => item.categoria_id === idCategoria
   );
-
   if (categoriaEncontrada) {
     return categoriaEncontrada.name;
   } else {
@@ -45,9 +40,7 @@ const TablaProductos = () => {
   const {
     productosBKLista,
     setProductosBKLista,
-    getDatosBKLista,
     categoriasLista,
-    setCategoriasLista,
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
@@ -56,24 +49,10 @@ const TablaProductos = () => {
   }, []);
 
   /////////////// Metodo Eliminar Producto
-  const [recursoXEliminar, setrecursoXEliminar] = useState("");
+  // const [recursoXEliminar, setrecursoXEliminar] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
-  // const eliminarUsuario = async (idRecurso) => {
-  //   try {
-  //     await axios.delete(
-  //       `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`
-  //     );
 
-  //     const updatedRecursos = productosBKLista.filter(
-  //       (productoXId) => productoXId.idRecurso !== idRecurso
-  //     );
-  //     setProductosBKLista(updatedRecursos);
-  //   } catch (error) {
-  //     console.error("Error al eliminar el usuario:", error);
-  //   }
-
-  // };
 
   const eliminarRecurso = async (idRecurso) => {
     try {

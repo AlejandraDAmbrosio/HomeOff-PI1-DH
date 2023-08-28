@@ -1,21 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../Components/AgregarProducto.css";
 import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
-import { Container } from "@mui/material";
 import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/Genericos/CardProductoSimulado.css";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
+
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function nombreExiste(nombre, data) {
@@ -676,6 +674,7 @@ const AgregarProducto = () => {
               descripcion={nuevoProducto.descripción}
               url={nuevoProducto.imagenURL}
               precio={nuevoProducto.precioUnitario}
+              sede={buscadorSedeXIDSede(nuevoProducto.idSede)}
             />
           </div>
         </div>
