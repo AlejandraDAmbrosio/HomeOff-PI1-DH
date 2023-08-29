@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import dayjs, { Dayjs } from 'dayjs';
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -7,14 +8,18 @@ import { ContextGlobal } from "../../utils/global.context";
 
 const Calendario = () => {
   const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
-
+ 
 
   console.log({ fechasBusqueda });
   console.log(fechasBusqueda[0]);
 
   const [fechaInicio, setFechaInicio] = useState(null)
   const [fechaFin, setFechaFin] = useState(null)
+  console.log("----------------------------- Fechas asignadas en Date Picker -------------------------------------");
 
+  
+
+  console.log(fechaInicio)
 
   return (
     <div>
@@ -25,6 +30,10 @@ const Calendario = () => {
               label="Inicio"
               value={fechaInicio}
               onChange={(newValue) => setFechaInicio(newValue)}
+              showDaysOutsideCurrentMonth={false}
+              minDate={dayjs()}
+              maxDate={dayjs().add(60, 'days')}
+              disableNavigation={true}
             />
           </DemoContainer>
         </LocalizationProvider>
@@ -35,6 +44,10 @@ const Calendario = () => {
             <DatePicker label="Fin" 
             value={fechaInicio}
             onChange={(newValue) => setFechaFin(newValue)}
+            showDaysOutsideCurrentMonth={false}
+              minDate={dayjs()}
+              maxDate={dayjs().add(60, 'days')}
+              disableNavigation={true}
             />
           </DemoContainer>
         </LocalizationProvider>
