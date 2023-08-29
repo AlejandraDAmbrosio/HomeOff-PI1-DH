@@ -25,7 +25,7 @@ const Buscador = () => {
       <div className="boton-buscador">
         <div className="espaciado-centrado">
           <div className="buscar-por">Localidad</div>
-          <div className="separador">|</div>
+          <Divider orientation="vertical" flexItem />
           <div className="buscar-por">
             <Button
               onClick={handleDateDropdownOpen}
@@ -81,7 +81,7 @@ const Buscador = () => {
               </Box>
             </Popover>
           </div>
-          <div className="separador">|</div>
+          <Divider orientation="vertical" flexItem />
           <div className="buscar-por">Precio</div>
           {/* <div className="separador">|</div> */}
         </div>
