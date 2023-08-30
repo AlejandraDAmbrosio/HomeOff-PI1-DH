@@ -18,11 +18,8 @@ build_homeoff-fe:
   artifacts:
     paths:
       - frontend/03/project-test/dist/
-  rules:
-      - changes:frontend/03/project-test/**/*
   only:
-    refs:
-      - lab
+    - lab
 
 
 deploy_web-fe_2_aws-homeoff-lab-fe:
@@ -37,8 +34,6 @@ deploy_web-fe_2_aws-homeoff-lab-fe:
   script:
     - aws s3 rm s3://$S3_LAB_HOMEOFF_FE --recursive
     - aws s3 sync frontend/03/project-test/dist/ s3://$S3_LAB_HOMEOFF_FE --acl public-read
-  rules:
-    - changes:frontend/03/project-test/**/*
   only:
-    refs:
-      - lab
+    - lab
+
