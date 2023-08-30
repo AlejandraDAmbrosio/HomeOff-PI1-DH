@@ -52,6 +52,11 @@ const Calendario = () => {
 
   console.log(fechaInicio);
 
+  // const diasDeshabilitados = highlightedDays.map((dayIndex) =>
+  //   dayjs().add(dayIndex, "days").toDate()
+  // );
+
+
   function ServerDay(props) {
     const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
@@ -102,14 +107,13 @@ const Calendario = () => {
                disablePast={true}
               format="DD-MM-YY"
               slotProps={{
+                textField: { size: "small" },
                 day: {
-                  textField: { size: "small" },
                   highlightedDays,
                 },
               }}
               slots={{
                 day: ServerDay,
-                // disabled: true,
               }}
             />
           </DemoContainer>

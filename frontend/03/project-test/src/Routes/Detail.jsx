@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import { ContextGlobal } from "../Components/utils/global.context";
-import { Container, Box, Paper, Modal } from "@mui/material";
+import { Container, Box, Paper, Modal, Button, Stack, Typography } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
-import { MdArrowBackIosNew } from "react-icons/md";
+import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
+import Compartir from "../Components/CompartirEnRedes/Compartir";
+import { BsInstagram, BsTwitter } from "react-icons/bs";
+import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
+import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
+import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
 
 const style = {
   position: "absolute",
@@ -20,16 +25,27 @@ const style = {
 
 const Detail = () => {
   const navigate = useNavigate();
+  
+  const { id } = useParams();
+  const location = useLocation();
   const {
     recursoXID,
     getRecursoXID,
     caracteristicasLista,
+    productosBKLista,
+    categoriasLista,
     getCaracteristicasLista,
   } = useContext(ContextGlobal);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -50,7 +66,6 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-  const { id } = useParams();
 
   useEffect(() => {
     getRecursoXID(id);
@@ -62,6 +77,63 @@ const Detail = () => {
 
   return (
     <>
+      <Modal
+        open={openShareModal}
+        onClose={handleCloseShareModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <Typography  margin="1rem" justifyContent="center" textAlign="center" flexItem alignContent="center">Comparti este espacio en</Typography>
+          <Stack justifyContent="center" direction="row" spacing={2} flexItem alignContent="center" >
+            
+            <a
+              href={`https://www.facebook.com/sharer.php?u=${location.pathname}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MdFacebook style={{fontSize:"50px"}}/>
+            </a>
+
+            <a
+              href={`https://twitter.com/intent/tweet?text=MIEpresa&url=${location.pathname}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsTwitter style={{fontSize:"50px"}}/>
+            </a>
+            <a
+              href={`https://www.instagram.com/sharer.php?u=${location.pathname}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsInstagram style={{fontSize:"50px"}}/>
+            </a>
+            </Stack>
+         
+          <hr />
+          <div className="">
+            
+          
+            <CardProductoSimulado
+              id={id}
+              className="card-simulada"
+              title={recursoXID.nombre}
+              descripcion={recursoXID.descripción}
+              url={recursoXID.imagenURL}
+              precio={recursoXID.precioUnitario}
+              sede={buscadorSedeXIDSede(recursoXID.idSede)}
+              categoria={obtenerNombreCategoriaPorId(
+                recursoXID.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}
+            />
+          <h3 style={{margin:"1rem"}}>Mira el espacio que encontre!</h3>
+          </div>
+        </Box>
+      </Modal>
+
       <Container
         style={{
           paddingTop: "3rem",
@@ -72,6 +144,11 @@ const Detail = () => {
             <div className="contenido-encabezado">
               <div className="encabezado">
                 <h1 className="titulo-nombre-detalle">{recursoXID.nombre}</h1>
+                <Button onClick={handleOpenShare}>
+                  {" "}
+                  {/* Agrega el onClick */}
+                  <MdShare />
+                </Button>
                 <div onClick={() => navigate(-1)}>
                   <MdArrowBackIosNew className="flecha" />
                 </div>
@@ -144,7 +221,6 @@ const Detail = () => {
                   src={recursoXID.imagenUrl01}
                 />
               </Box>
-
             </Modal>
 
             <Modal
@@ -192,10 +268,13 @@ const Detail = () => {
             <div className="contenedor-detalle-producto">
               <h2 className="titulo-caracteristicas">Características</h2>
             </div>
-            
+
             <div className="segmento-icon-detalle">
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
-                <div className="container-icono-caracteristica-texto">
+                <div
+                  key={idCaracteristica}
+                  className="container-icono-caracteristica-texto"
+                >
                   <div className="icono-caracteristica-texto">
                     {" "}
                     {caracteristica.logoCaracteristica != "" ? (
