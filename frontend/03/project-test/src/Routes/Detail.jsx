@@ -21,6 +21,8 @@ import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCatego
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
+import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
+import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
 
 
 
@@ -382,9 +384,10 @@ const Detail = () => {
 
         <Divider style={{ margin: "1rem" }} flexItem />
         <CalendarioXId></CalendarioXId>
-
-
-
+        <Divider style={{ margin: "1rem" }} flexItem />
+        <Puntuacion/>
+        <Divider style={{ margin: "1rem" }} flexItem />                
+        <Comentarios></Comentarios>
       </Container>
     </>
   );

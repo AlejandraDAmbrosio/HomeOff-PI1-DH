@@ -11,6 +11,12 @@ import React from "react";
 import "./CardProducto.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import Puntuacion from "../Genericos/Puntuaciones/Puntuacion";
+import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
+import { Stack } from "@mui/material";
+
+
+
 
 const CardProducto = ({
   title,
@@ -38,6 +44,7 @@ const CardProducto = ({
         <CardMedia sx={{ height: 240 }} image={url} title="imagen" />
         <div className="caja-texto-card">
         <CardContent style={{ height: "120px" }}>
+          <Stack direction="row" flexItem justifyContent="space-between">
           <Typography
             gutterBottom
             variant="body2"
@@ -46,6 +53,10 @@ const CardProducto = ({
           >
             {categoria}
           </Typography>
+
+          <EstrellaValor puntuacion={id}/>
+          </Stack>
+          
           <Typography
             gutterBottom
             variant="h5"
