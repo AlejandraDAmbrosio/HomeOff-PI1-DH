@@ -1,0 +1,32 @@
+
+.administracion-cat {
+  margin-top: 6rem;
+
+    margin-bottom: 2rem;
+  }
+  
+  .administracion-cat-titulo {
+    font-size: var(--fsizeTL);
+    margin: 0 0 1rem 1rem;
+    
+    /* background-image: url("/images/pexels-photo-1097930.jpeg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* filter: grayscale(100%); */
+    height: 100px;
+    width: 100%;
+    color: var(--bgrey);
+    display: flex;
+    align-items: center;
+    
+  }
+  
+
+.paneles-cate {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 0 1rem 0 1rem;
+  width: 100%;
+}

@@ -1,0 +1,45 @@
+
+.LogoJpg2 {
+  width: 300px;
+  padding-top: 0;
+  max-width: 300px;
+  overflow: cover;
+}
+
+.LogoJpgsinLema {
+  display: none;
+}
+
+
+
+.Logo {
+  color: #0D5608;
+  font-size: 40px;
+  font-weight: 900;
+}
+.Lema {
+  color: #0D5608;
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.LogoLema {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:baseline;
+  float: left;
+}
+
+
+/* Media query */
+@media (max-width: 900px) {
+    .Lema {
+      display: none;
+    }
+     
+.LogoJpg {
+  width: 250px;
+} 
+
+  }

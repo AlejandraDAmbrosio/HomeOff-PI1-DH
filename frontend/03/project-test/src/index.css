@@ -1,0 +1,152 @@
+
+#root {
+  --fsizeTSXL:70px;
+  --fsizeTSL:60px;
+  --fsizeTXL:50px;
+  --fsizeTL:40px;
+  --fsizeTT:30px;
+  --fsizeT:26px;
+  --fsizeSecc:20px;
+  --fsixeCatBig:17px;
+  --fsizeCat:15px;
+  --fsizeP:13px;
+  --fsizeS:10px;
+  --fsizeXS:6px;
+
+  --fweightXL: 900;
+  --fweightM: 600;
+  --fweight5: 500;
+  --fweight4: 400;
+  --fweightL: 300;
+
+  --color: #111;
+  --colorGrey1: #424242;
+  --colorGrey2: #979797;
+  --colorGrey3: #b6b5b5;
+  --colorGrey4: #dfdfdf;
+  --coloreGrey5:#383B58;
+  --BGrey:#DDDDDD;
+  --red: #ff385c;
+  --blue: rgb(3, 141, 165);
+  --green:#9dd6b3;
+  --green2: #7cc598;
+  --green3:#47a169;
+  --green4: #3c9960;
+  --green5: #909F8C;
+
+  --BShadow:3px 3px 3px var(--BGrey);
+  --BShadow1:1px 1px 1px var(--BGrey);
+  --BShadowD1:3px 3px 3px var(--colorGrey1);
+  --BShadowD2:3px 3px 3px var(--colorGrey2);
+  --BShadowD:3px 3px 3px var(--colorGrey3);
+  --BShadowD4:3px 3px 3px var(--colorGrey4);
+  --BShadowD5:1px 1px 4px var(--colorGrey4);
+  --BShadowD6: 1px 1px 6px var(--colorGrey2);
+  --bRadiusButton:11px;
+  --bRadImg: 20px;
+
+
+  --hoverSinBShadow: 0 0px 0px;
+  --speed:500ms;
+  --nav-size: 60px;
+ 
+}
+
+* {
+  box-sizing: border-box;
+  line-break: strict;
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: source-code-pro, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  /* display: block; */
+ 
+}
+
+header,
+main,
+footer {
+  width: 100%;
+}
+
+
+.titulo-section-banner {
+  font-size: var(--fsizeTXL);
+  color: var(--colorGrey1);
+  padding-top: 4.3rem;
+  margin: 0rem 2%; 
+  font-weight: var(--fweightL);  
+  border-bottom: 0.5px solid var( --BGrey);
+  /* text-shadow: var(--BShadowD6); */
+}
+
+.titulo-section-productos {
+  font-size: var(--fsizeTXL);
+  color: var(--colorGrey1);
+  margin: 1rem 2% ; 
+  font-weight: var(--fweightL);  
+  border-bottom: 0.5px solid var( --BGrey);
+  /* text-shadow: var(--BShadowD6); */
+}
+
+
+@media (max-width: 1260px) {
+  .titulo-section-banner {
+    font-size: 40px;
+    color: var(--colorGrey1);
+    padding-top: 4.3rem;
+    margin: 0rem 2%; 
+    font-weight: var(--fweightL);  
+    border-bottom: 0.5px solid var( --BGrey);
+    /* text-shadow: var(--BShadowD6); */
+  }
+  
+  .titulo-section-productos {
+    font-size: 30px;
+    color: var(--colorGrey1);
+    margin: 2rem 2% ; 
+    font-weight: var(--fweightL);  
+    border-bottom: 0.5px solid var( --BGrey);
+    /* text-shadow: var(--BShadowD6); */
+  }
+  
+}
+
+/*   //////////////   Seteo de estilos genericos   //////////////    */
+
+.wrapper {
+  width: 95%;
+  margin: 0;
+}
+
+a {
+  color: black;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.caja-blanca-sombreada {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  background-color: rgb(255, 255, 255);
+}
+
+.msj-form-guardado{
+  text-align: center;
+  color: var(--color);
+  font-weight: 700;
+  margin-top: 2rem;
+}
+
