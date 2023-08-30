@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import { ContextGlobal } from "../Components/utils/global.context";
-import { Container, Box, Paper, Modal, Button, Stack, Typography } from "@mui/material";
+import {
+  Container,
+  Box,
+  Paper,
+  Modal,
+  Button,
+  Stack,
+  Typography,
+} from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
@@ -10,6 +18,12 @@ import { BsInstagram, BsTwitter } from "react-icons/bs";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
 import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
+import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
+import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
+
+
+
 
 const style = {
   position: "absolute",
@@ -25,7 +39,12 @@ const style = {
 
 const Detail = () => {
   const navigate = useNavigate();
-  
+  const [publicacionRedes, setPublicacionRedes] = useState("");
+
+  const onChangeCopy = (event) => {
+    setPublicacionRedes(event.target.value);
+  };
+
   const { id } = useParams();
   const location = useLocation();
   const {
@@ -66,7 +85,6 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-
   useEffect(() => {
     getRecursoXID(id);
   }, [id]);
@@ -74,6 +92,10 @@ const Detail = () => {
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
+
+  /////////////////////////
+
+  ///////////////
 
   return (
     <>
@@ -84,37 +106,55 @@ const Detail = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <Typography  margin="1rem" justifyContent="center" textAlign="center" flexItem alignContent="center">Comparti este espacio en</Typography>
-          <Stack justifyContent="center" direction="row" spacing={2} flexItem alignContent="center" >
-            
+          <Typography
+            margin="1rem"
+            justifyContent="center"
+            textAlign="center"
+            flexItem
+            alignContent="center"
+          >
+            Comparti este espacio en
+          </Typography>
+          <Stack
+            justifyContent="center"
+            direction="row"
+            spacing={2}
+            flexItem
+            alignContent="center"
+          >
             <a
-              href={`https://www.facebook.com/sharer.php?u=${location.pathname}`}
+              href={`https://www.facebook.com/sharer.php?u=${
+                location.pathname
+              }&quote=${encodeURIComponent(publicacionRedes)}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <MdFacebook style={{fontSize:"50px"}}/>
+              <MdFacebook style={{ fontSize: "50px" }} />
             </a>
 
             <a
-              href={`https://twitter.com/intent/tweet?text=MIEpresa&url=${location.pathname}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                publicacionRedes
+              )}&url=${location.pathname}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <BsTwitter style={{fontSize:"50px"}}/>
+              <BsTwitter style={{ fontSize: "50px" }} />
             </a>
+
             <a
-              href={`https://www.instagram.com/sharer.php?u=${location.pathname}`}
+              href={`https://www.instagram.com/sharer.php?u=${
+                location.pathname
+              }&caption=${encodeURIComponent(publicacionRedes)}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <BsInstagram style={{fontSize:"50px"}}/>
+              <BsInstagram style={{ fontSize: "50px" }} />
             </a>
-            </Stack>
-         
+          </Stack>
+
           <hr />
           <div className="">
-            
-          
             <CardProductoSimulado
               id={id}
               className="card-simulada"
@@ -129,7 +169,21 @@ const Detail = () => {
                 categoriasLista
               )}
             />
-          <h3 style={{margin:"1rem"}}>Mira el espacio que encontre!</h3>
+
+            <Divider style={{ margin: "1rem" }} flexItem />
+                <Typography>{publicacionRedes}</Typography>
+            <TextField
+              id="copy"
+              label="Ingresá tu comentario"
+              multiline
+              rows={1}
+              defaultValue="Mirá el espacio que encontré!"
+              variant="standard"
+              value={publicacionRedes} // Corrected variable name
+              onChange={onChangeCopy} // Corrected function name
+              required
+              style={{ fontSize:"10px", width: "200px", margin: "1rem", maxHeight:"40px", paddingBottom:"2rem" }}
+            />
           </div>
         </Box>
       </Modal>
@@ -144,13 +198,20 @@ const Detail = () => {
             <div className="contenido-encabezado">
               <div className="encabezado">
                 <h1 className="titulo-nombre-detalle">{recursoXID.nombre}</h1>
-                <Button onClick={handleOpenShare}>
-                  {" "}
-                  {/* Agrega el onClick */}
-                  <MdShare />
-                </Button>
-                <div onClick={() => navigate(-1)}>
-                  <MdArrowBackIosNew className="flecha" />
+                <div style={{ display: "flex", gap: "2.5rem" }}>
+                  <Button
+                    variant="text"
+                    onClick={handleOpenShare}
+                    style={{ display: "flex", gap: "1rem" }}
+                  >
+                    {" "}
+                    {/* Agrega el onClick */}
+                    {/* <Typography variant="body1">Compartí</Typography> */}
+                    Compartí <MdShare style={{ fontSize: "25px" }} />
+                  </Button>
+                  <div onClick={() => navigate(-1)}>
+                    <MdArrowBackIosNew className="flecha" />
+                  </div>
                 </div>
               </div>
               <h3 className="descripcion">{recursoXID.descripción}</h3>
@@ -316,6 +377,14 @@ const Detail = () => {
             </div>
           </div>
         </div>
+
+
+
+        <Divider style={{ margin: "1rem" }} flexItem />
+        <CalendarioXId></CalendarioXId>
+
+
+
       </Container>
     </>
   );
