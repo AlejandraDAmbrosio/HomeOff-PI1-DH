@@ -16,9 +16,6 @@ build_homeoff-fe:
     - npm install dayjs
     - cd project-test
     - npm run build
-  rules:
-  - changes:
-    - frontend/**/*
   artifacts:
     paths:
       - frontend/03/project-test/dist/
