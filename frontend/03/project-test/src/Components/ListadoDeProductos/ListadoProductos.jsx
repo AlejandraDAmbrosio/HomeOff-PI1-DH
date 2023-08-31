@@ -31,21 +31,37 @@ const ListadoProductos = ({ CantidadCards }) => {
     setIdFilteredSedes,
     filteredSedes,
     setFilteredSedes,
+    filteredName,
+    setfilteredName,
+    idFilteredName,
+    setIdFilteredName,
+    prodFiltrados,
+    setProdFiltrados,
   } = useContext(ContextGlobal);
 
-  const shouldFilterProducts = filteredSedes.length > 0;
+  // const shouldFilterProducts = filteredSedes.length > 0;
+  const shouldFilterProducts = prodFiltrados.length > 0;
 
-  const filteredProducts = shouldFilterProducts
+  // const filteredProducts = shouldFilterProducts
+  //   ? productosBKLista.filter((producto) =>
+  //       idFilteredSedes.includes(producto.idSede)
+  //     )
+  //   : productosBKLista;
+
+
+    const filterproductsXName = shouldFilterProducts
     ? productosBKLista.filter((producto) =>
-        idFilteredSedes.includes(producto.idSede)
-      )
+    filteredName.includes(producto.idRecurso)
+    )
     : productosBKLista;
+
+
 
   useEffect(() => {
     // Actualiza los productos filtrados cada vez que idFilteredSedes cambie
-    const paginatedArray = chunk(filteredProducts, CantidadCards);
+    const paginatedArray = chunk(/*filteredProducts*/ filterproductsXName, CantidadCards);
     setPaginatedProducts(paginatedArray);
-  }, [CantidadCards, filteredProducts]);
+  }, [CantidadCards, filterproductsXName]);
 
   const chunk = (arr, size) => {
     const chunkedArray = [];
@@ -74,6 +90,19 @@ const ListadoProductos = ({ CantidadCards }) => {
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
+
+  // const handleSearch = () => {
+  //   const searchText = e.target.value;
+  //   const filteredProducts = shouldFilterProducts
+  //     ? productosBKLista.filter((producto) =>
+  //         idFilteredSedes.includes(producto.idSede) &&
+  //         producto.nombre.toLowerCase().includes(searchText.toLowerCase())
+  //       )
+  //     : productosBKLista.filter((producto) =>
+  //         producto.nombre.toLowerCase().includes(searchText.toLowerCase())
+  //       );
+  //   setPaginatedProducts(filteredProducts);
+  // };
 
   return (
     <div className="segmento-listado-productos">

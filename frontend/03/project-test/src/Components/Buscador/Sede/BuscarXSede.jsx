@@ -1,9 +1,10 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
+import "./BuscarXSede.css"
 
 const BuscarXSede = () => {
-  const { idFilteredSedes, setIdFilteredSedes, filteredSedes, setFilteredSedes} = useContext(ContextGlobal);
+  const { prodFiltrados, setProdFiltrados, idFilteredSedes, setIdFilteredSedes, filteredSedes, setFilteredSedes} = useContext(ContextGlobal);
 
 
   const sedesArray = [
@@ -28,24 +29,35 @@ const BuscarXSede = () => {
  
   
   const handleSearch = (e) => {
+    console.log("-------------------- antes filteredSedes 1");
+
+    console.log(filteredSedes);
     if (e.key === "Enter") {
       if (filteredSedes.length === 1) {
         e.target.value = filteredSedes[0].nombre;
       }
     }
-  
+    console.log("-------------------- despues filteredSedes 2");
+    console.log(filteredSedes);
     const searchText = e.target.value;
     const filtered = sedesArray.filter((sede) =>
       sede.nombre.toLowerCase().includes(searchText.toLowerCase())
     );
+    console.log("-------------------- despues filteredSedes 3");
+    console.log(filteredSedes);
     setFilteredSedes(filtered);
   
     const filteredIds = filtered.map((sede) => sede.id);
     setIdFilteredSedes(filteredIds);
+
+    setProdFiltrados(filteredSedes);
+    console.log("-------------------- despues filteredSedes 4");
+    console.log(filteredSedes);
+
   };
 
   return (
-    <div>
+    <div className="input-container">
        {/*  OPCION AUTOCOMPLETE MUI
        <Autocomplete
       id="buscarXSede"
@@ -69,20 +81,29 @@ const BuscarXSede = () => {
     /> */}
        <input
         id="buscarXSede"
+        list="paises"
         type="text"
         placeholder="Sede"
         onKeyUp={handleSearch}
         options={filteredSedes.map((sede) => sede.nombre)}
         style={{
-          background: "none",
-          border: "none",
+           background: "none",
+           border: "none",
           outline: 0,
           height: "98%",
           fontSize: "24px",
           width: "100%",
-          color: "#717171",
-        }}
+         color: "#717171",
+         }}
       ></input> 
+
+      <datalist id="paises" >
+        <option value="Colombia"></option>
+        <option value="Argentina"></option>
+        <option value="Chile"></option>
+
+      </datalist>
+     
     </div>
   );
 };

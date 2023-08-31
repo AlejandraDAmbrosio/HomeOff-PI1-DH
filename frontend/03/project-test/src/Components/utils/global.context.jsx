@@ -162,10 +162,20 @@ const [filteredName, setfilteredName] = useState([]);
 
 /////////////////////////////////////////
 
+////////////////////////////// Buscar por nombre
+
+const [filteredNombre, setFilteredNombre] = useState([]);
+
+/////////////////////////////
+const [prodFiltrados, setProdFiltrados] = useState([]);
+
   return (
     <ContextGlobal.Provider
       value={{
-        
+        prodFiltrados,
+        setProdFiltrados,
+        filteredNombre,
+        setFilteredNombre,
         idFilteredName,
         setIdFilteredName,
         filteredName,

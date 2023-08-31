@@ -6,6 +6,7 @@ import { Box, TextField, Popover, Button } from "@mui/material";
 import Calendario from "./Fecha/Calendario";
 import Divider from "@mui/material/Divider";
 import BuscarXSede from "./Sede/BuscarXSede";
+import BuscarXNombre from "./BuscarXNombre/BuscarXNombre";
 
 const Buscador = () => {
   const { fechasBusqueda } = useContext(ContextGlobal);
@@ -84,7 +85,8 @@ const Buscador = () => {
             </Popover>
           </div>
           <Divider orientation="vertical" flexItem />
-          <div className="buscar-por">Precio</div>
+          <BuscarXNombre/>
+          
           {/* <div className="separador">|</div> */}
         </div>
         <div className="icono-lupa-contenedor">
