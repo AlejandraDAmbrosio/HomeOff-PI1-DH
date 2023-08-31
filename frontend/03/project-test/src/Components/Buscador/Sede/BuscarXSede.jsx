@@ -3,7 +3,7 @@ import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
 
 const BuscarXSede = () => {
-  const { idFilteredSedes, setIdFilteredSedes } = useContext(ContextGlobal);
+  const { idFilteredSedes, setIdFilteredSedes, filteredSedes, setFilteredSedes} = useContext(ContextGlobal);
 
 
   const sedesArray = [
@@ -24,26 +24,24 @@ const BuscarXSede = () => {
     },
   ];
 
-  const [filteredSedes, setFilteredSedes] = useState([]);
+
  
   
   const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      if (filteredSedes.length === 1) {
+        e.target.value = filteredSedes[0].nombre;
+      }
+    }
+  
     const searchText = e.target.value;
     const filtered = sedesArray.filter((sede) =>
       sede.nombre.toLowerCase().includes(searchText.toLowerCase())
     );
-
-    // Actualizar el estado directamente aquí
     setFilteredSedes(filtered);
+  
     const filteredIds = filtered.map((sede) => sede.id);
     setIdFilteredSedes(filteredIds);
-
-    // Los console.log mostrarán los valores correctos aquí
-    console.log(filtered);
-    console.log(filteredIds);
-    if (filtered.length === 1) {
-      e.target.value = filtered[0].nombre;
-    }
   };
 
   return (

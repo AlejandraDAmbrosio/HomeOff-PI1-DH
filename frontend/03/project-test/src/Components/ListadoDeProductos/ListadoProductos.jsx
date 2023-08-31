@@ -1,5 +1,5 @@
 import React from "react";
-import buscadorSedeXIDSede from "../utils/buscadorSedeXIDSede"
+import buscadorSedeXIDSede from "../utils/buscadorSedeXIDSede";
 import { useState, useEffect, useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
 import { useNavigate } from "react-router-dom";
@@ -21,15 +21,25 @@ function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
 }
 
 const ListadoProductos = ({ CantidadCards }) => {
-
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const { productosBKLista, categoriasLista, idFilteredSedes, setIdFilteredSedes } = useContext(ContextGlobal);
- 
-  const filteredProducts = productosBKLista.filter(producto =>
-    idFilteredSedes.includes(producto.idSede)
-  );
+  const {
+    productosBKLista,
+    categoriasLista,
+    idFilteredSedes,
+    setIdFilteredSedes,
+    filteredSedes,
+    setFilteredSedes,
+  } = useContext(ContextGlobal);
+
+  const shouldFilterProducts = filteredSedes.length > 0;
+
+  const filteredProducts = shouldFilterProducts
+    ? productosBKLista.filter((producto) =>
+        idFilteredSedes.includes(producto.idSede)
+      )
+    : productosBKLista;
 
   useEffect(() => {
     // Actualiza los productos filtrados cada vez que idFilteredSedes cambie
@@ -65,13 +75,8 @@ const ListadoProductos = ({ CantidadCards }) => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
 
-
-  
-
   return (
     <div className="segmento-listado-productos">
-   
-
       <div className="grid-container-listado-home">
         {paginatedProducts.length ? (
           paginatedProducts[currentPage].map((producto, idRecurso) => (
@@ -98,7 +103,6 @@ const ListadoProductos = ({ CantidadCards }) => {
           </>
         )}
       </div>
-  
 
       <div className="paginacion">
         {currentPage > 0 ? (
@@ -106,19 +110,15 @@ const ListadoProductos = ({ CantidadCards }) => {
             {irAPaginaAnterior}
           </button>
         ) : (
-          <button className="boton-no-paginacion" >
-            {irAPaginaAnterior}
-          </button>
+          <button className="boton-no-paginacion">{irAPaginaAnterior}</button>
         )}
         {currentPage < paginatedProducts.length - 1 ? (
           <button className="boton-paginacion" onClick={handleNextPage}>
             {pasaPaginaSiguiente}
           </button>
-        ) : ( <button className="boton-no-paginacion" >
-        {pasaPaginaSiguiente}
-      </button>)}
-
-     
+        ) : (
+          <button className="boton-no-paginacion">{pasaPaginaSiguiente}</button>
+        )}
       </div>
     </div>
   );
