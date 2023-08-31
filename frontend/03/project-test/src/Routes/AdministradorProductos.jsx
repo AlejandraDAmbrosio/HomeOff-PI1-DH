@@ -3,9 +3,7 @@ import "../Components/AdministradorProductos/AdminProductos/AdministradorProduct
 import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 import TablaProductos from "../Components/AdministradorProductos/AdminProductos/TablaProductos";
 
-
 const AdministradorProductos = () => {
-
   useEffect(() => {
     function detectMobileDevice() {
       if (window.innerWidth <= 1024) {
@@ -18,7 +16,6 @@ const AdministradorProductos = () => {
     detectMobileDevice(); // Ejecuta la detección inicial
 
     window.addEventListener("resize", detectMobileDevice); // Agrega el event listener
-
     return () => {
       window.removeEventListener("resize", detectMobileDevice); // Limpia el event listener al desmontar
     };
@@ -27,10 +24,6 @@ const AdministradorProductos = () => {
     <div className="administracion-prod">
       <div className="administracion-prod-titulo">Listar Productos</div>
       <div className="paneles-prod">
-   
-
-  
-
         <PanelAdminUser />
         <TablaProductos />
       </div>

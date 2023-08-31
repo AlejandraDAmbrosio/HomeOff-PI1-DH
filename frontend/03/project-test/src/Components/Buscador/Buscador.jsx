@@ -5,6 +5,7 @@ import { ContextGlobal } from "../utils/global.context";
 import { Box, TextField, Popover, Button } from "@mui/material";
 import Calendario from "./Fecha/Calendario";
 import Divider from "@mui/material/Divider";
+import BuscarXSede from "./Sede/BuscarXSede";
 
 const Buscador = () => {
   const { fechasBusqueda } = useContext(ContextGlobal);
@@ -24,7 +25,8 @@ const Buscador = () => {
     <div className="segmento-buscador">
       <div className="boton-buscador">
         <div className="espaciado-centrado">
-          <div className="buscar-por">Localidad</div>
+        <BuscarXSede/>
+          {/* <div className="buscar-por">Localidad</div> */}
           <Divider orientation="vertical" flexItem />
           <div className="buscar-por">
             <Button

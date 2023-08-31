@@ -38,8 +38,17 @@
       display: none;
     }
      
-.LogoJpg {
-  width: 250px;
+
+
+  }
+
+  @media (max-width: 750px) {
+    .Lema {
+      display: none;
+    }
+     
+.LogoJpg2 {
+  width: 200px;
 } 
 
   }

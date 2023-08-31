@@ -105,7 +105,7 @@ const Detail = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} >
+        <Box sx={style}>
           <Typography
             margin="1rem"
             justifyContent="center"
@@ -207,192 +207,217 @@ const Detail = () => {
           paddingTop: "3rem",
         }}
       >
-        <div className="segmento-producto">
-          <div className="encabezado-descripcion">
-            <div className="contenido-encabezado">
-              <div className="encabezado">
-                <h1 className="titulo-nombre-detalle">{recursoXID.nombre}</h1>
-                <div style={{ display: "flex", gap: "2.5rem" }}>
-                  <Button
-                    variant="text"
-                    onClick={handleOpenShare}
-                    style={{ display: "flex", gap: "1rem" }}
-                  >
-                    {" "}
-                    {/* Agrega el onClick */}
-                    {/* <Typography variant="body1">Compartí</Typography> */}
-                    Compartí <MdShare style={{ fontSize: "25px" }} />
-                  </Button>
-                  <div onClick={() => navigate(-1)}>
-                    <MdArrowBackIosNew className="flecha" />
-                  </div>
-                </div>
-              </div>
-              <h3 className="descripcion">{recursoXID.descripción}</h3>
-            </div>
-          </div>
-
-          <div className="galeria-detalleservicios-compra">
-            <div className="grid-container-galeria">
-              <div className="item-grid-fotos1" onClick={handleOpenImage1}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenURL}
-                />
-              </div>
-
-              <div className="item-grid-fotos2" onClick={handleOpenImage2}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl01}
-                />
-              </div>
-
-              <div className="item-grid-fotos3" onClick={handleOpenImage3}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl02}
-                />
-              </div>
-
-              <div className="item-grid-fotos4" onClick={handleOpenImage4}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl03}
-                />
-              </div>
-
-              <div className="item-grid-fotos5" onClick={handleOpenImage5}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl04}
-                />
-              </div>
-            </div>
-
-            <Modal
-              open={openImage1}
-              onClose={handleCloseImage1}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenURL}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage2}
-              onClose={handleCloseImage2}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl01}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage3}
-              onClose={handleCloseImage3}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl02}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage4}
-              onClose={handleCloseImage4}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl03}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage5}
-              onClose={handleCloseImage5}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl04}
-                />
-              </Box>
-            </Modal>
-
-            <div className="contenedor-detalle-producto">
-              <h2 className="titulo-caracteristicas">Características</h2>
-            </div>
-
-            <div className="segmento-icon-detalle">
-              {caracteristicasLista.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto"
+        {/* <Paper> */}
+          <div className="segmento-producto">
+            <div className="encabezado-descripcion">
+              <div className="contenido-encabezado">
+               
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  useFlexGap
+                  flexWrap="wrap"
+                  spacing={2}
+                  justifyContent="space-between"
                 >
-                  <div className="icono-caracteristica-texto">
-                    {" "}
-                    {caracteristica.logoCaracteristica != "" ? (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: "250px",
-                          padding: "7px 5px",
-                          justifyContent: "center",
-                          gap: "15px",
-                          borderRadius: " 11px 11px 11px 11px",
-                          boxShadow: "1px 1px 6px #979797",
-                        }}
-                      >
-                        <img
-                          className="icono-caracteristica"
-                          src={caracteristica.logoCaracteristica}
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    ) : (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "3px 10px",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <CheckOutlinedIcon style={{ color: "green" }} />
+                  <Typography variant="h3">{recursoXID.nombre}</Typography>
+                 <Stack direction="row" spacing={3} style={{marginLeft: "auto" ,display:"flex", alignSelf:"center", justifyContent:"flex-end"}}>
+                 <Button
+                      variant="text"
+                      onClick={handleOpenShare}
+                      style={{ display: "flex", gap: "1rem" }}
+                    >
+                    
+                      Compartí <MdShare style={{ fontSize: "25px" }} />
+                    </Button>
+                    <div onClick={() => navigate(-1)}>
+                      <MdArrowBackIosNew className="flecha" />
+                    </div>
+                 </Stack>
+                  {/* <div style={{ display: "flex", gap: "2.5rem" }}>
+                    <Button
+                      variant="text"
+                      onClick={handleOpenShare}
+                      style={{ display: "flex", gap: "1rem" }}
+                    >
+                    
+                      Compartí <MdShare style={{ fontSize: "25px" }} />
+                    </Button>
+                    <div onClick={() => navigate(-1)}>
+                      <MdArrowBackIosNew className="flecha" />
+                    </div>
+                  </div> */}
+                </Stack>
+                {/* </div> */}
+                <Typography variant="body2" style={{ width: "98%", margin:"1rem 0rem 1.5rem 0rem" }}>
+                  {recursoXID.descripción}{" "}
+                </Typography>
+                {/* <h3 className="descripcion">{recursoXID.descripción}</h3> */}
+              </div>
+            </div>
 
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    )}
-                  </div>
+            <div className="galeria-detalleservicios-compra">
+              <div className="grid-container-galeria">
+                <div className="item-grid-fotos1" onClick={handleOpenImage1}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenURL}
+                  />
                 </div>
-              ))}
+
+                <div className="item-grid-fotos2" onClick={handleOpenImage2}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl01}
+                  />
+                </div>
+
+                <div className="item-grid-fotos3" onClick={handleOpenImage3}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl02}
+                  />
+                </div>
+
+                <div className="item-grid-fotos4" onClick={handleOpenImage4}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl03}
+                  />
+                </div>
+
+                <div className="item-grid-fotos5" onClick={handleOpenImage5}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl04}
+                  />
+                </div>
+              </div>
+
+              <Modal
+                open={openImage1}
+                onClose={handleCloseImage1}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenURL}
+                  />
+                </Box>
+              </Modal>
+
+              <Modal
+                open={openImage2}
+                onClose={handleCloseImage2}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl01}
+                  />
+                </Box>
+              </Modal>
+
+              <Modal
+                open={openImage3}
+                onClose={handleCloseImage3}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl02}
+                  />
+                </Box>
+              </Modal>
+
+              <Modal
+                open={openImage4}
+                onClose={handleCloseImage4}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl03}
+                  />
+                </Box>
+              </Modal>
+
+              <Modal
+                open={openImage5}
+                onClose={handleCloseImage5}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <img
+                    className="foto-producto block"
+                    src={recursoXID.imagenUrl04}
+                  />
+                </Box>
+              </Modal>
+
+              <div className="contenedor-detalle-producto">
+                <h2 className="titulo-caracteristicas">Características</h2>
+              </div>
+
+              <div className="segmento-icon-detalle">
+                {caracteristicasLista.map(
+                  (caracteristica, idCaracteristica) => (
+                    <div
+                      key={idCaracteristica}
+                      className="container-icono-caracteristica-texto"
+                    >
+                      <div className="icono-caracteristica-texto">
+                        {" "}
+                        {caracteristica.logoCaracteristica != "" ? (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              width: "250px",
+                              padding: "7px 5px",
+                              justifyContent: "center",
+                              gap: "15px",
+                              borderRadius: " 11px 11px 11px 11px",
+                              boxShadow: "1px 1px 6px #979797",
+                            }}
+                          >
+                            <img
+                              className="icono-caracteristica"
+                              src={caracteristica.logoCaracteristica}
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        ) : (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "3px 10px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CheckOutlinedIcon style={{ color: "green" }} />
+
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
           </div>
-        </div>
-
+        {/* </Paper> */}
         <CalendarioXId></CalendarioXId>
 
         <Puntuacion />

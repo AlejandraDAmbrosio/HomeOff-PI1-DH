@@ -106,12 +106,15 @@ const CalendarioXId = () => {
       direction="column"
       divider={<Divider orientation="vertical" flexItem />}
       spacing={1}
+      margin={"auto"}
+      
     >
       <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem />
 
       <Typography variant="h4">Fechas disponibles</Typography>
       <Stack
-        direction="row"
+        direction={{ xs: "column", sm: "row" }}
+        useFlexGap flexWrap="wrap"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
       >
