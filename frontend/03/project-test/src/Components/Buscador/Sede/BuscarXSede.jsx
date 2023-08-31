@@ -48,7 +48,7 @@ const BuscarXSede = () => {
     setFilteredSedes(filtered);
   
     const filteredIds = filtered.map((sede) => sede.id);
-    setIdFilteredSedes(filteredIds);
+    setIdFilteredSedes(filteredIds);   
 
     setProdFiltrados(filteredSedes);
     console.log("-------------------- despues filteredSedes 4");

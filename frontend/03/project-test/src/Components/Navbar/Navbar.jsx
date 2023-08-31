@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 
 import AccountMenu from "../MenuDropDown/AccountMenu";
 import Calendario from "../Buscador/Fecha/Calendario";
+import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
 
 const Navbar = () => {
   const location = useLocation();
@@ -43,7 +44,8 @@ const Navbar = () => {
             </li>
 
             <li>
-              <Buscador />
+              <NuevoBuscador></NuevoBuscador>
+              {/* <Buscador /> */}
             </li>
             <div className="botones-header">
               {!usuarioLogueado && (

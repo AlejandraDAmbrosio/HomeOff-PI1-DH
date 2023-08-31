@@ -41,7 +41,7 @@ const ListadoProductos = ({ CantidadCards }) => {
 
   // const shouldFilterProducts = filteredSedes.length > 0;
   const shouldFilterProducts = prodFiltrados.length > 0;
-
+console.log("prodFiltrados en LIstaProd:", prodFiltrados)
   // const filteredProducts = shouldFilterProducts
   //   ? productosBKLista.filter((producto) =>
   //       idFilteredSedes.includes(producto.idSede)
@@ -49,19 +49,20 @@ const ListadoProductos = ({ CantidadCards }) => {
   //   : productosBKLista;
 
 
-    const filterproductsXName = shouldFilterProducts
-    ? productosBKLista.filter((producto) =>
-    filteredName.includes(producto.idRecurso)
-    )
-    : productosBKLista;
+    // const filterproductsXName = shouldFilterProducts
+    // ? productosBKLista.filter((producto) =>
+    // filteredName.includes(producto.idRecurso)
+    // )
+    // : productosBKLista;
 
 
 
   useEffect(() => {
     // Actualiza los productos filtrados cada vez que idFilteredSedes cambie
-    const paginatedArray = chunk(/*filteredProducts*/ filterproductsXName, CantidadCards);
+    const paginatedArray = chunk(/*filteredProducts*/ prodFiltrados
+    , CantidadCards);
     setPaginatedProducts(paginatedArray);
-  }, [CantidadCards, filterproductsXName]);
+  }, [CantidadCards, prodFiltrados]);
 
   const chunk = (arr, size) => {
     const chunkedArray = [];
