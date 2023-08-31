@@ -107,6 +107,8 @@ const CalendarioXId = () => {
       divider={<Divider orientation="vertical" flexItem />}
       spacing={1}
     >
+      <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem />
+
       <Typography variant="h4">Fechas disponibles</Typography>
       <Stack
         direction="row"
@@ -166,6 +168,7 @@ const CalendarioXId = () => {
           </DemoContainer>
         </LocalizationProvider>
       </Stack>
+      <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem />
     </Stack>
   );
 };

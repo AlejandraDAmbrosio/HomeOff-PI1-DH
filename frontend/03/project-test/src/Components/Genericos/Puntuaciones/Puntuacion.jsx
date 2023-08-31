@@ -7,6 +7,7 @@ import {
   Button,
   Stack,
   Typography,
+  Divider,
 } from "@mui/material";
 import { MdStarRate, MdOutlineStarRate } from "react-icons/md";
 
@@ -32,7 +33,7 @@ const Puntuacion = (props) => {
         <Typography style={{ fontSize: "22px"}}>{valorEstrellas} puntos</Typography>
       </Stack>
 
-     
+      <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem />
     </Stack>
   );
 };

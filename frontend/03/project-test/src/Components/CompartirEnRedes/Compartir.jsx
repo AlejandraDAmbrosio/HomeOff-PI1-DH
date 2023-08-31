@@ -25,7 +25,7 @@ const Compartir = ({ showConfirmation, closeModal, shouldClose }) => {
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleCloseShare}>
       <div>
        
         <a

@@ -23,6 +23,7 @@ import Divider from "@mui/material/Divider";
 import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
 import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
 import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
+import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 
 
 
@@ -382,12 +383,13 @@ const Detail = () => {
 
 
 
-        <Divider style={{ margin: "1rem" }} flexItem />
         <CalendarioXId></CalendarioXId>
-        <Divider style={{ margin: "1rem" }} flexItem />
+        
         <Puntuacion/>
-        <Divider style={{ margin: "1rem" }} flexItem />                
+                        
         <Comentarios></Comentarios>
+        
+        <Politicas></Politicas>
       </Container>
     </>
   );
