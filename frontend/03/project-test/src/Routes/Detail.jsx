@@ -25,15 +25,12 @@ import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
 import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 
-
-
-
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: "40%",
+  Width: "320px",
   bgcolor: "background.paper",
   border: "2px solid grey",
   boxShadow: 24,
@@ -108,7 +105,7 @@ const Detail = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} >
           <Typography
             margin="1rem"
             justifyContent="center"
@@ -116,12 +113,12 @@ const Detail = () => {
             flexItem
             alignContent="center"
           >
-            Comparti este espacio en
+            Comparti esta publicación en
           </Typography>
           <Stack
             justifyContent="center"
             direction="row"
-            spacing={2}
+            spacing={5}
             flexItem
             alignContent="center"
           >
@@ -156,7 +153,7 @@ const Detail = () => {
             </a>
           </Stack>
 
-          <hr />
+          {/* <hr /> */}
           <div className="">
             <CardProductoSimulado
               id={id}
@@ -174,18 +171,32 @@ const Detail = () => {
             />
 
             <Divider style={{ margin: "1rem" }} flexItem />
-                <Typography>{publicacionRedes}</Typography>
+            <Typography>
+              {publicacionRedes.length === 0
+                ? "Mirá el espacio que encontré!"
+                : publicacionRedes}
+            </Typography>
             <TextField
               id="copy"
-              label="Ingresá tu comentario"
+              label="Editá tu comentario"
               multiline
               rows={1}
               defaultValue="Mirá el espacio que encontré!"
               variant="standard"
-              value={publicacionRedes} // Corrected variable name
-              onChange={onChangeCopy} // Corrected function name
+              value={
+                publicacionRedes.length === 0
+                  ? "Mirá el espacio que encontré!"
+                  : publicacionRedes
+              }
+              onChange={onChangeCopy}
               required
-              style={{ fontSize:"10px", width: "200px", margin: "1rem", maxHeight:"40px", paddingBottom:"2rem" }}
+              style={{
+                fontSize: "10px",
+                width: "280px",
+                margin: "1rem 0rem 1rem 0rem",
+                maxHeight: "40px",
+                paddingBottom: "2rem",
+              }}
             />
           </div>
         </Box>
@@ -346,7 +357,8 @@ const Detail = () => {
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          padding: "3px 10px",
+                          width: "250px",
+                          padding: "7px 5px",
                           justifyContent: "center",
                           gap: "15px",
                           borderRadius: " 11px 11px 11px 11px",
@@ -381,14 +393,12 @@ const Detail = () => {
           </div>
         </div>
 
-
-
         <CalendarioXId></CalendarioXId>
-        
-        <Puntuacion/>
-                        
+
+        <Puntuacion />
+
         <Comentarios></Comentarios>
-        
+
         <Politicas></Politicas>
       </Container>
     </>
