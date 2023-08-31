@@ -158,11 +158,14 @@ const [idFilteredName, setIdFilteredName] = useState([]);
 const [filteredName, setfilteredName] = useState([]);
 
 
+///////////////////////////////////Paginado 
 
+/////////////////////////////////////////
 
   return (
     <ContextGlobal.Provider
       value={{
+        
         idFilteredName,
         setIdFilteredName,
         filteredName,

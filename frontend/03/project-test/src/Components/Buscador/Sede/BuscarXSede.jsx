@@ -46,7 +46,28 @@ const BuscarXSede = () => {
 
   return (
     <div>
-      <input
+       {/*  OPCION AUTOCOMPLETE MUI
+       <Autocomplete
+      id="buscarXSede"
+      options={filteredSedes.map((sede) => sede.nombre)}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder="Sede"
+          style={{
+            background: "none",
+            border: "none",
+            outline: 0,
+            height: "98%",
+            fontSize: "24px",
+            width: "100%",
+            color: "#717171",
+          }}
+        />
+      )}
+      onKeyUp={handleSearch}
+    /> */}
+       <input
         id="buscarXSede"
         type="text"
         placeholder="Sede"
@@ -61,7 +82,7 @@ const BuscarXSede = () => {
           width: "100%",
           color: "#717171",
         }}
-      ></input>
+      ></input> 
     </div>
   );
 };
