@@ -25,9 +25,18 @@ const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const { productosBKLista, categoriasLista } = useContext(ContextGlobal);
-
+  const { productosBKLista, categoriasLista, idFilteredSedes, setIdFilteredSedes } = useContext(ContextGlobal);
  
+  const filteredProducts = productosBKLista.filter(producto =>
+    idFilteredSedes.includes(producto.idSede)
+  );
+
+  useEffect(() => {
+    // Actualiza los productos filtrados cada vez que idFilteredSedes cambie
+    const paginatedArray = chunk(filteredProducts, CantidadCards);
+    setPaginatedProducts(paginatedArray);
+  }, [CantidadCards, filteredProducts]);
+
   const chunk = (arr, size) => {
     const chunkedArray = [];
     for (let i = 0; i < arr.length; i += size) {

@@ -1,7 +1,11 @@
 import { Autocomplete, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { ContextGlobal } from "../../utils/global.context";
+import React, { useEffect, useState, useContext } from "react";
 
 const BuscarXSede = () => {
+  const { idFilteredSedes, setIdFilteredSedes } = useContext(ContextGlobal);
+
+
   const sedesArray = [
     {
       id: 1,
@@ -21,57 +25,45 @@ const BuscarXSede = () => {
   ];
 
   const [filteredSedes, setFilteredSedes] = useState([]);
-
+ 
+  
   const handleSearch = (e) => {
     const searchText = e.target.value;
     const filtered = sedesArray.filter((sede) =>
       sede.nombre.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    // Actualizar el estado directamente aquí
     setFilteredSedes(filtered);
-    console.log(filteredSedes);
+    const filteredIds = filtered.map((sede) => sede.id);
+    setIdFilteredSedes(filteredIds);
+
+    // Los console.log mostrarán los valores correctos aquí
+    console.log(filtered);
+    console.log(filteredIds);
+    if (filtered.length === 1) {
+      e.target.value = filtered[0].nombre;
+    }
   };
 
   return (
     <div>
-      {/* <TextFieldd
-       id="buscarXSede"
-       label="Sede"
-       variant="standard"
-       className="campo-formulario"
-       type="email"
-       placeholder="Ingresa tu password"
-       value={usuario.password}
-       onChange={onChangePass}
-       required
-       margin="normal"
-       style={{ borderColor: passwordValido ? "" : "red" }}
-      ></TextFieldd> */}
-
       <input
         id="buscarXSede"
         type="text"
         placeholder="Sede"
         onKeyUp={handleSearch}
         options={filteredSedes.map((sede) => sede.nombre)}
+        style={{
+          background: "none",
+          border: "none",
+          outline: 0,
+          height: "98%",
+          fontSize: "24px",
+          width: "100%",
+          color: "#717171",
+        }}
       ></input>
-
-      <Autocomplete
-        freeSolo
-        id="buscadorSede"
-        disableClearable
-        variant="standard"
-        options={sedesArray.map((sede) => sede.nombre)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search input"
-            InputProps={{
-              ...params.InputProps,
-              type: "search",
-            }}
-          />
-        )}
-      ></Autocomplete>
     </div>
   );
 };
