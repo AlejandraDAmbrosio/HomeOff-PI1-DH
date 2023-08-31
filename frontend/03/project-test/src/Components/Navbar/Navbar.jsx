@@ -14,8 +14,9 @@ import { useLocation } from "react-router-dom";
 import AccountMenu from "../MenuDropDown/AccountMenu";
 import Calendario from "../Buscador/Fecha/Calendario";
 import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
-
+import { useParams } from "react-router-dom";
 const Navbar = () => {
+  const { id } = useParams();
   const location = useLocation();
   const {
     showModal,
@@ -27,16 +28,20 @@ const Navbar = () => {
     cerrarSesion,
   } = useContext(ContextGlobal);
 
-  const isPanelAdmin =
+  const isPanelSinCategorias =
   location.pathname === "/agregarproducto/" ||
   location.pathname === "/administradorproductos/" ||
   location.pathname === "/administracioncaracteristicas/" ||
   location.pathname === "/administrarcategorias/" ||
-  location.pathname === "/administracionusers/";
+  location.pathname === "/administracionusers/" ||
+  location.pathname === "/paginafiltrado/" ||
+  location.pathname.startsWith("/paginafiltrado/")||
+  location.pathname.startsWith("/editarproducto/");
+;
 
   return (
     <>
-      <div className={`header ${isPanelAdmin ? "admin-header" : ""}`}>
+      <div className={`header ${isPanelSinCategorias ? "admin-header" : ""}`}>
         <nav>
           <ul className="ul-nav">
             <li>
@@ -64,7 +69,7 @@ const Navbar = () => {
             </div>
           </ul>
         </nav>
-        {isPanelAdmin ? (
+        {isPanelSinCategorias ? (
           ""
         ) : (
           <div className="buscador-cat">

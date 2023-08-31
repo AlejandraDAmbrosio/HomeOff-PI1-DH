@@ -1,7 +1,7 @@
 .flexing {
   display: flex;
   flex-direction: row;
-  height: 50vh;
+  height: 30vh;
   gap: 0.5rem;
   margin: 1rem 2%;
 }
@@ -10,7 +10,7 @@
 
 @media (max-width: 1260px) {
   .flexing {
-    height: 40vh;
+    height: 30vh;
 
     margin: 2rem 2rem 2% 2rem;
   }

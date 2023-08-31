@@ -35,114 +35,79 @@ const PaginaFiltrado = () => {
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
-  useEffect(() => {
-    getDatosBKLista();
-  }, []);
-  console.log(
-    " ---------------------------------- Impresion por pantalla de productosBKLista que trae el contexto a PaginaFiltrado"
-  );
-  console.log(productosBKLista);
-  console.log(
-    "/*-----------------------------  ID Categorias a buscar ----------------------"
-  );
-  console.log(id);
 
-  useEffect(() => {
-    setListaFiltrada(
-      productosBKLista.filter(
-        (producto) => producto.categoria_id === parseInt(id)
-      )
-    );
-  }, [id, productosBKLista]);
-
-  console.log(
-    " ---------------------------------- listaFiltrada -----------------------------------------------"
-  );
-  console.log(listaFiltrada.length);
-  ////////////////////////////////////////////////////////////////
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
+  const [selectedFilters, setSelectedFilter] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  let filters = categoriasLista.map((categoria) => categoria);
+  console.log(filters);
+  const handlefilterButtonClick = (selectedCategory) => {
+    if (selectedFilters.includes(selectedCategory)) {
+      let filters = selectedFilters.filter((el) => el !== selectedCategory);
+      setSelectedFilter(filters);
+    } else {
+      setSelectedFilter([...selectedFilters, selectedCategory]);
+    }
   };
+  
+  useEffect(() => {
+    // Filtra la categoría correspondiente al id en selectedFilters
+    if (id) {
+      const categoriaSeleccionada = categoriasLista.find(
+        (categoria) => categoria.categoria_id === parseInt(id)
+      );
+      if (categoriaSeleccionada) {
+        setSelectedFilter([categoriaSeleccionada]);
+      }
+    }
+  }, [id, categoriasLista]);
 
-  const handleDelete = () => {
-    console.info("You clicked the delete icon.");
-    setListaFiltrada(productosBKLista);
-  };
 
-  const handleFiltrarPorSede = (idSede) => {
-    setListaFiltrada(
-      productosBKLista.filter((producto) => producto.idSede === idSede)
-    );
+
+  useEffect(() => {
+    filterItems();
+  }, [selectedFilters]);
+
+  const filterItems = () => {
+    if (selectedFilters.length > 0) {
+      let tempItems = selectedFilters.map((selectedCategory) => {
+        let temp = productosBKLista.filter(
+          (item) => item.categoria_id === selectedCategory.categoria_id
+        );
+        return temp;
+      });
+      setFilteredItems(tempItems.flat());
+    } else {
+      setFilteredItems([...productosBKLista]);
+    }
   };
 
   return (
     <div className="administracion-fil">
       <div className="administracion-fil-titulo">
         <div className="fil-titulo">Encontra tu Espacio:</div>
-        {/* <div className="fil-frase">Hay {productosBKLista.length} espacios esperandote.</div> */}
         <div className="fila-busqueda">
           <div className="fil-frase">
-            Tenés {listaFiltrada.length} espacios relacionados con tu busqueda.
+            Tenés {filteredItems.length} espacios relacionados con tu busqueda.
           </div>
 
-          <div className="chips">
-            <Stack direction="row" spacing={2}>
-              <Chip
-                label={`Total productos ${productosBKLista.length}`}
-                onClick={handleClick}
-                onDelete={handleDelete}
-                size="small"
-              />
-
-              {listaFiltrada.length < productosBKLista.length && (
-                <Chip
-                  className="chip"
-                  label={`${obtenerNombreCategoriaPorId(
-                    id,
-                    categoriasLista
-                  )} - ${listaFiltrada.length} `}
-                  variant="outlined"
-                  onClick={handleClick}
-                  onDelete={handleDelete}
-                />
-              )}
-
-              <Chip
-                className="chip"
-                label={`COLOMBIA (${
-                  productosBKLista.filter((producto) => producto.idSede === 1)
-                    .length
-                })`}
-                onClick={() => handleFiltrarPorSede(1)}
-                size="small"
-              />
-
-              <Chip
-                className="chip"
-                label={`ARGENTINA (${
-                  productosBKLista.filter((producto) => producto.idSede === 2)
-                    .length
-                })`}
-                onClick={() => handleFiltrarPorSede(2)}
-                size="small"
-              />
-
-              <Chip
-                className="chip"
-                label={`CHILE (${
-                  productosBKLista.filter((producto) => producto.idSede === 3)
-                    .length
-                })`}
-                onClick={() => handleFiltrarPorSede(3)}
-                size="small"
-              />
-            </Stack>
-          </div>
+          <Stack direction={"horizontal"} spacing={3}>
+            {filters.map((categoria, id) => (
+              <div
+                className={`button ${
+                  selectedFilters?.includes(categoria) ? "active" : ""
+                }`}
+                onClick={() => handlefilterButtonClick(categoria)}
+                key={`filter-${id}`}
+                style={{ margin: "0 1rem 0 1rem" }}
+              >
+                {categoria.name}
+              </div>
+            ))}
+          </Stack>
         </div>
-      </div>
-      <div className="paneles-fil">
-        <PanelFiltrado></PanelFiltrado>
-        <TablaXCategorias productos={listaFiltrada} />
+        <Stack>
+          <TablaXCategorias productos={filteredItems} />
+        </Stack>
       </div>
     </div>
   );
