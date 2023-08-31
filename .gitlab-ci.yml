@@ -13,7 +13,7 @@ build_homeoff-fe:
     - npm install @mui/material @emotion/react @emotion/styled @mui/joy @mui/icons-material @mui/x-date-pickers-pro @mui/x-date-pickers
     - npm install @fontsource/roboto
     - cd project-test
-    - npm run dev
+    - npm run build
   artifacts:
     paths:
       - frontend/03/project-test/dist/
