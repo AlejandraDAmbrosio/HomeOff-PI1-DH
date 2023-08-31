@@ -153,9 +153,20 @@ export const ContextProvider = ({ children }) => {
 const [idFilteredSedes, setIdFilteredSedes] = useState([]);
 const [filteredSedes, setFilteredSedes] = useState([]);
 
+//////////////////////////Buscar por nombre   ///////////////////////////////// 
+const [idFilteredName, setIdFilteredName] = useState([]);
+const [filteredName, setfilteredName] = useState([]);
+
+
+
+
   return (
     <ContextGlobal.Provider
       value={{
+        idFilteredName,
+        setIdFilteredName,
+        filteredName,
+        setfilteredName,
         filteredSedes,
         setFilteredSedes,
         idFilteredSedes,
