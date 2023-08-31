@@ -34,7 +34,7 @@ deploy_web-fe_2_aws-homeoff-lab-fe:
     - aws configure set region $AWS_HOMEOFF_LAB_REGION
   script:
     - aws s3 rm s3://$S3_LAB_HOMEOFF_FE --recursive
-    - aws s3 sync frontend/03/project-test/dist/ s3://$S3_LAB_HOMEOFF_FE --acl public-read
+    - aws s3 sync frontend/03/project-test/dist/ s3://$S3_LAB_HOMEOFF_FE
   only:
     - lab
 
