@@ -7,7 +7,6 @@ build_homeoff-fe:
   image: node:16.14.0
   script:
     - cd frontend/03
-    - npm install
     - npm i react-router-dom
     - npm install react-icons --save
     - npm install axios
