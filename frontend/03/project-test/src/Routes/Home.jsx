@@ -12,7 +12,7 @@ const Home = () => {
       <TitularSection estilo={"titulo-section-banner"} titulo={"Oportunidades Únicas"}/>
     <BannerPrincipal/>
     </section>
-    <section>
+    <section style={{marginTop: "1rem"}}>
     <TitularSection estilo={"titulo-section-productos"}  titulo={"Productos"}/>
       <ListadoProductos CantidadCards={10} />
       </section>
