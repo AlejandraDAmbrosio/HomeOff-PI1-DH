@@ -11,6 +11,8 @@ import {
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
 import Calendario from "../Fecha/Calendario";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import BuscarXSede from "../Sede/BuscarXSede";
 
 const NuevoBuscador = () => {
   const { fechasBusqueda, productosBKLista } = useContext(ContextGlobal);
@@ -65,32 +67,19 @@ const NuevoBuscador = () => {
   ///////////////////////////
 
   return (
-    <Stack direction="row" spacing={2} style={{ width: "500px" }}>
+    <Stack direction="row" spacing={2} style={{ width: "400px", border:"1px solid grey", justifyContent:"space-between", height:"42px", padding:"0 5px 0 10px", borderRadius:"20px" }}>
       <Stack>
-        <Autocomplete
-          id="buscarXSede"
-          options={sedesArray.map((sede) => sede.nombre)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Sedes"
-              style={{
-                width: "200px",
-              }}
-            />
-          )}
-          onKeyUp={handleSearchSede}
-        />
+        <BuscarXSede></BuscarXSede>
+
       </Stack>
-      <datalist id="buscarXSede" >
+      {/* <datalist id="buscarXSede">
         <option value="Colombia"></option>
         <option value="Argentina"></option>
         <option value="Chile"></option>
-
-      </datalist>
+      </datalist> */}
 
       <Stack direction="row" spacing={2} style={{ marginBottom: "2rem" }}>
-        <Button
+        <div
           onClick={handleDateDropdownOpen}
           style={{ placeItems: "center", width: "100%" }}
         >
@@ -112,20 +101,20 @@ const NuevoBuscador = () => {
               </div>
             </div>
           ) : (
-            <div>Fecha</div>
+            <CalendarMonthIcon style={{ fontSize: "40px" }} />
           )}
-        </Button>
+        </div>
         <Popover
           open={isDateDropdownOpen}
           onClose={handleDateDropdownClose}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left",
+            horizontal: "center",
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "left",
+            horizontal: "center",
           }}
         >
           <Box p={2}>
@@ -141,22 +130,6 @@ const NuevoBuscador = () => {
             />
           </Box>
         </Popover>
-      </Stack>
-      <Stack direction="row">
-        <Autocomplete
-          id="buscarXNombre"
-          options={productosBKLista.map((producto) => producto.nombre)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Nombre"
-              style={{
-                width: "200px",
-              }}
-            />
-          )}
-          onKeyUp={handleSearchNombre}
-        />
       </Stack>
     </Stack>
   );

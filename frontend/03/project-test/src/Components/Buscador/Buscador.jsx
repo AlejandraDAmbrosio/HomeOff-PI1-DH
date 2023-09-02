@@ -26,10 +26,10 @@ const Buscador = () => {
     <div className="segmento-buscador">
       <div className="boton-buscador">
         <div className="espaciado-centrado">
-        <BuscarXSede/>
+          {/* <BuscarXSede /> */}
           {/* <div className="buscar-por">Localidad</div> */}
           <Divider orientation="vertical" flexItem />
-          <div className="buscar-por">
+          {/* <div className="buscar-por">
             <Button
               onClick={handleDateDropdownOpen}
               style={{ placeItems: "center", width: "100%" }}
@@ -83,10 +83,8 @@ const Buscador = () => {
                 />
               </Box>
             </Popover>
-          </div>
-          <Divider orientation="vertical" flexItem />
-          <BuscarXNombre/>
-          
+          </div> */}
+        
           {/* <div className="separador">|</div> */}
         </div>
         <div className="icono-lupa-contenedor">
