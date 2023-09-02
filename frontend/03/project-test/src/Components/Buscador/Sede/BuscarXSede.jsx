@@ -58,19 +58,34 @@ const BuscarXSede = () => {
 
     // Ahora, puedes mapear los nombres filtrados a sus objetos originales
     filtered.forEach((name) => {
-      const sede = sedesArray.find(
-        (sede) => sede.nombre.toLowerCase() === name
-      );
+      const sedeFiltrada = sedesArray.filter((sede) =>
+      sede.nombre.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+
+      const sedeXID = sedeFiltrada.map((sede) => sede.id);
+      console.log("-------------Console de sedeXID ---------" ,sedeXID);
+      console.log("-------------Console de sedeFiltrada ---------" ,sedeFiltrada);
+      
+      setIdFilteredSedes(sedeXID);  
+ 
+
+
+      console.log("-------------Console de sede ---------" ,sedeFiltrada);
+      console.log("-------------Console de name ---------" ,name);
+
+
       const producto = productosBKLista.find(
         (producto) => producto.nombre.toLowerCase() === name
       );
 
-      if (sede) {
-        const productosFiltradosPorSede = productosBKLista.filter(
-          (producto) =>
-            idFilteredSedes.includes(producto.idSede) &&
-            producto.nombre.toLowerCase() === name
+      if (sedeXID) {
+        const productosFiltradosPorSede = productosBKLista.filter((producto) =>
+        sedeXID.includes(producto.idSede)
         );
+        setIdFilteredSedes(productosFiltradosPorSede); 
+        console.log("-------------Console de idFilteredSedes ---------" ,idFilteredSedes);
+      console.log("-------------Console de productosFiltradosPorSede ---------" ,productosFiltradosPorSede);
 
         // Si se encontraron productos, agregarlos a filteredSedesAndProductos
         if (productosFiltradosPorSede.length > 0) {
@@ -93,32 +108,12 @@ const BuscarXSede = () => {
 
   return (
     <div className="input-container">
-      {/*  OPCION AUTOCOMPLETE MUI
-       <Autocomplete
-      id="buscarXSede"
-      options={filteredSedes.map((sede) => sede.nombre)}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Sede"
-          style={{
-            background: "none",
-            border: "none",
-            outline: 0,
-            height: "98%",
-            fontSize: "24px",
-            width: "100%",
-            color: "#717171",
-          }}
-        />
-      )}
-      onKeyUp={handleSearch}
-    /> */}
+     
       <input
         id="buscarXSede"
         list="paises"
         type="text"
-        placeholder="Sede"
+        placeholder="Encontrá tu espacio aquí"
         onKeyUp={handleSearch}
         options={filteredSedes.map((sede) => sede.nombre)}
         style={{
