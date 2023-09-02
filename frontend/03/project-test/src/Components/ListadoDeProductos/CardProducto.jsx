@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 //////////////////////////
 import React from "react";
@@ -41,7 +42,10 @@ const CardProducto = ({
           boxShadow: "1px 1px 6px #979797",
         }}
       >
-        <CardMedia sx={{ height: 240 }} image={url} title="imagen" />
+        <CardMedia sx={{ height: 240 }} image={url} title="imagen">
+        <FavoriteIcon style={{position:"relative" ,fontSize:"30px", color:"red", top:"5%", left:"88%"}} />
+        </CardMedia>
+     
         <div className="caja-texto-card">
         <CardContent style={{ height: "120px" }}>
           <Stack direction="row" flexItem justifyContent="space-between">
