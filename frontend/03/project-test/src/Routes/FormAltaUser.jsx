@@ -5,7 +5,7 @@ import Error from "../Components/Error";
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import { useEffect, useContext } from "react";
-import { Container, Stack } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 
 const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
@@ -223,15 +223,15 @@ const FormAltaUser = () => {
   };
 
   return (
-    // <div className="pagina-formulario-alta">
     <Container style={{ marginTop: "7rem", minHeight: "730px", width: "auto" }}>
-      <Stack>
-        <div
-          className="titulo-form-alta-user"
-          style={{ margin: "auto", fontSize: "35px", color: "#9dd6b3" }}
-        >
+      <Stack
+        style={{ placeItems: "center", gap: "1rem", paddingBottom: "2rem" }}
+      >
+        <Typography variant="h4" style={{ color: "#9dd6b3" }}>
+         
           Crea tu cuenta
-        </div>
+        </Typography>
+       
 
         <form onSubmit={handleSubmitCrearCuenta}>
           <div className="formularioAltaUser">
@@ -358,15 +358,15 @@ const FormAltaUser = () => {
             </h5>
           )}
         </form>
-        <Stack style={{ marginTop: "7rem", minHeight: "730px", width: "auto" }}>
-        <div className="acceso-cuenta-o-usuarionuevo-alta">
+        <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
+          {/* <div className="acceso-cuenta-o-usuarionuevo-alta"> */}
           <p>¿No tenés cuenta?</p>
           <p>¿Se te olvidó tu contraseña?</p>
-        </div>
+          {/* </div> */}
         </Stack>
       </Stack>
     </Container>
-    // </div>
+   
   );
 };
 

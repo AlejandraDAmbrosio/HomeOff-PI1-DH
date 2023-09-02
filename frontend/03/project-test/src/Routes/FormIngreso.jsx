@@ -143,7 +143,7 @@ const FormIngreso = () => {
       <Modal open={open} onClose={handleClose}>
         <Paper
           sx={{
-            width: "315px",
+            width: "320px",
             overflow: "hidden",
             position: "relative", 
           }}
@@ -186,20 +186,24 @@ const FormIngreso = () => {
       {!usuarioLogueado ? (
         <Paper
           sx={{
-            width: "315px",
+            width: "auto",
+            maxWidth:"400px",
+            margin:"auto",
             overflow: "hidden",
             height: "fitContent",
-            justifyContent: "spaceAround",
+             justifyContent: "spaceAround",
+            padding:"1rem"
           }}
           style={{
             margin: "auto",
             justifyContent: "spaceBetween",
             marginTop: "5rem",
             height: "fitContent",
+            alignContent:"center"
           }}
         >
           <div className="pagina-formulario-Ingreso">
-            <Typography variant="h4"> Inicia sesión ahora</Typography>
+            <Typography style={{fontSize:"30px"}}> Inicia sesión ahora</Typography>
 
             <FormControl
               onSubmit={handleSubmit}
