@@ -5,7 +5,6 @@ import Logo from "./Logo";
 
 import "./Navbar.css";
 import Categorias from "../Categorias/Categorias";
-import Buscador from "../Buscador/Buscador";
 
 import { useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
@@ -15,6 +14,7 @@ import AccountMenu from "../MenuDropDown/AccountMenu";
 import Calendario from "../Buscador/Fecha/Calendario";
 import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
 import { useParams } from "react-router-dom";
+
 const Navbar = () => {
   const { id } = useParams();
   const location = useLocation();
@@ -26,21 +26,20 @@ const Navbar = () => {
     usuarioLogueado,
     iniciarSesion,
     cerrarSesion,
+    prodFiltrados, setProdFiltrados
   } = useContext(ContextGlobal);
 
   const isPanelSinCategorias =
-  location.pathname === "/agregarproducto/" ||
-  location.pathname === "/administradorproductos/" ||
-  location.pathname === "/administracioncaracteristicas/" ||
-  location.pathname === "/administrarcategorias/" ||
-  location.pathname === "/administracionusers/" ||
-  location.pathname === "/paginafiltrado/" ||
-  location.pathname.startsWith("/paginafiltrado/")||
-  location.pathname.startsWith("/editarproducto/") ||
-  location.pathname.startsWith("/favoritos/") ||
-  location.pathname === "/favoritos/" ;
-;
-
+    location.pathname === "/agregarproducto/" ||
+    location.pathname === "/administradorproductos/" ||
+    location.pathname === "/administracioncaracteristicas/" ||
+    location.pathname === "/administrarcategorias/" ||
+    location.pathname === "/administracionusers/" ||
+    location.pathname === "/paginafiltrado/" ||
+    location.pathname.startsWith("/paginafiltrado/") ||
+    location.pathname.startsWith("/editarproducto/") ||
+    location.pathname.startsWith("/favoritos/") ||
+    location.pathname === "/favoritos/";
   return (
     <>
       <div className={`header ${isPanelSinCategorias ? "admin-header" : ""}`}>
@@ -52,7 +51,6 @@ const Navbar = () => {
 
             <li>
               <NuevoBuscador></NuevoBuscador>
-              {/* <Buscador /> */}
             </li>
             <div className="botones-header">
               {!usuarioLogueado && (

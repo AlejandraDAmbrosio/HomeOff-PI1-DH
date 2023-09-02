@@ -113,7 +113,12 @@ const BuscarXSede = () => {
     } else {
       setOpenModal(false);
     }
+
+    if (inputValue.length === 0) {
+      setProdFiltrados([]);
+    }
   };
+
 
   return (
     <div className="input-container">
