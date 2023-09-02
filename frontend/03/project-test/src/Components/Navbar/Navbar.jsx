@@ -36,7 +36,9 @@ const Navbar = () => {
   location.pathname === "/administracionusers/" ||
   location.pathname === "/paginafiltrado/" ||
   location.pathname.startsWith("/paginafiltrado/")||
-  location.pathname.startsWith("/editarproducto/");
+  location.pathname.startsWith("/editarproducto/") ||
+  location.pathname.startsWith("/favoritos/") ||
+  location.pathname === "/favoritos/" ;
 ;
 
   return (

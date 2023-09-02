@@ -80,7 +80,7 @@ const PaginaFiltrado = () => {
   };
 
   return (
-    // <div className="administracion-fil" style={{ marginTop: "7rem" }}>
+   
       <Stack style={{ marginTop: "7rem", minHeight :"730px"}}>
       <div className="administracion-fil-titulo">
         <div className="fil-titulo">Encontra tu Espacio:</div>
@@ -117,7 +117,7 @@ const PaginaFiltrado = () => {
         </Stack>
       </div>
       </Stack>
-    // </div>
+   
   );
 };
 
