@@ -16,7 +16,7 @@ const Politicas = () => {
         <Grid container spacing={4} justifyContent={"space-between"} direction={{ xs: "column", sm: "row" }}>
           <Grid item xs={4}>
             <Typography variant="h6">Titulo Politica</Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" style={{padding:"0 15px 0 0"}}>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -30,7 +30,7 @@ const Politicas = () => {
 
           <Grid item xs={4}>
             <Typography variant="h6">Titulo Politica</Typography>
-            <Typography variant="body2">
+            <Typography variant="body2"  style={{padding:"0 15px 0 0"}}>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -43,7 +43,7 @@ const Politicas = () => {
           </Grid>
           <Grid item xs={4}>
             <Typography variant="h6">Titulo Politica</Typography>
-            <Typography variant="body2">
+            <Typography variant="body2"  style={{padding:"0 15px 0 0"}}>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
