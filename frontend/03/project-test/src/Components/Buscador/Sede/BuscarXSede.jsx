@@ -1,4 +1,11 @@
 import { Autocomplete, TextField } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  Button,
+} from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
 import "./BuscarXSede.css";
@@ -15,6 +22,8 @@ const BuscarXSede = () => {
     prodFiltrados,
     setProdFiltrados,
   } = useContext(ContextGlobal);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const sedesArray = [
     {
@@ -41,6 +50,9 @@ const BuscarXSede = () => {
     );
     return [...sedeNames, ...productoNames];
   };
+
+  console.log("Nombres en combineNames");
+  console.log(combineNames());
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -95,6 +107,12 @@ const BuscarXSede = () => {
     setIdFilteredSedes(filteredIds);
 
     setProdFiltrados(filteredSedesAndProductos);
+
+    if (filteredSedesAndProductos.length === 0) {
+      setOpenModal(true);
+    } else {
+      setOpenModal(false);
+    }
   };
 
   return (
@@ -118,10 +136,28 @@ const BuscarXSede = () => {
       ></input>
 
       <datalist id="paises">
-        <option value="Colombia"></option>
+        {combineNames().map((valores, index) => (
+          <option key={index} value={valores}></option>
+        ))}
+        {/* <option value="Colombia"></option>
         <option value="Argentina"></option>
-        <option value="Chile"></option>
+        <option value="Chile"></option> */}
       </datalist>
+
+      <Dialog open={openModal} onClose={() => setOpenModal(false)}>
+        <DialogTitle>
+          No se encontraron productos asociados a su búsqueda
+        </DialogTitle>
+        <DialogContent>
+          {/* <Typography>
+            Lo sentimos, no se encontraron productos que coincidan con su
+            búsqueda.
+          </Typography> */}
+        </DialogContent>
+        <Button variant="contained" onClick={() => setOpenModal(false)}>
+          Cerrar
+        </Button>
+      </Dialog>
     </div>
   );
 };
