@@ -11,7 +11,6 @@ import React, { useEffect, useState, useContext } from "react";
 import "./BuscarXSede.css";
 
 const BuscarXSede = () => {
-  // const { prodFiltrados, setProdFiltrados, idFilteredSedes, setIdFilteredSedes, filteredSedes, setFilteredSedes} = useContext(ContextGlobal);
   const {
     productosBKLista,
     idFilteredSedes,
@@ -24,6 +23,7 @@ const BuscarXSede = () => {
   } = useContext(ContextGlobal);
 
   const [openModal, setOpenModal] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   const sedesArray = [
     {
@@ -123,6 +123,8 @@ const BuscarXSede = () => {
         type="text"
         placeholder="Encontrá tu espacio aquí"
         onKeyUp={handleSearch}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         options={filteredSedes.map((sede) => sede.nombre)}
         style={{
           background: "none",
@@ -139,20 +141,23 @@ const BuscarXSede = () => {
         {combineNames().map((valores, index) => (
           <option key={index} value={valores}></option>
         ))}
-        {/* <option value="Colombia"></option>
-        <option value="Argentina"></option>
-        <option value="Chile"></option> */}
       </datalist>
 
-      <Dialog open={openModal} onClose={() => setOpenModal(false)}>
+      <Dialog
+        open={openModal}
+        onClose={() => {
+          setOpenModal(false);
+          setInputValue(""); // Establecer el valor del input en blanco
+        }}
+        onKeyDown={(e) => {
+          setOpenModal(false);
+        }}
+      >
         <DialogTitle>
           No se encontraron productos asociados a su búsqueda
         </DialogTitle>
         <DialogContent>
-          {/* <Typography>
-            Lo sentimos, no se encontraron productos que coincidan con su
-            búsqueda.
-          </Typography> */}
+         
         </DialogContent>
         <Button variant="contained" onClick={() => setOpenModal(false)}>
           Cerrar

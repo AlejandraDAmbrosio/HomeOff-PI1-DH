@@ -48,6 +48,8 @@ const Detail = () => {
   const resolvedPath = useResolvedPath();
   const [publicacionRedes, setPublicacionRedes] = useState("");
 
+  const currentURL = window.location.href;
+
   const onChangeCopy = (event) => {
     setPublicacionRedes(event.target.value);
   };
@@ -103,6 +105,9 @@ const Detail = () => {
   /////////////////////////
 
   ///////////////
+  console.log( " resolvedPath.pathname --------------------" ,resolvedPath.pathname)
+  console.log( "URL completa:", currentURL)
+
 
   return (
     <>
@@ -131,7 +136,7 @@ const Detail = () => {
           >
             <a
               href={`https://www.facebook.com/sharer.php?u=${
-                resolvedPath.pathname
+                currentURL
               }&quote=${encodeURIComponent(publicacionRedes)}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -142,7 +147,7 @@ const Detail = () => {
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 publicacionRedes
-              )}&url=${resolvedPath.pathname}`}
+              )}&url=${currentURL}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -151,7 +156,7 @@ const Detail = () => {
 
             <a
               href={`https://www.instagram.com/sharer.php?u=${
-                resolvedPath.pathname
+                currentURL
               }&caption=${encodeURIComponent(publicacionRedes)}`}
               target="_blank"
               rel="noopener noreferrer"
