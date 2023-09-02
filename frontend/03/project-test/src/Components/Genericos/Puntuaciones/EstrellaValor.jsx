@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { MdStarRate, MdOutlineStarRate } from "react-icons/md";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import Puntuacion from "./Puntuacion";
 
 const EstrellaValor = ({puntuacion}) => {
 //   const [valorEstrellas, setValorEstrellas] = useState(null);

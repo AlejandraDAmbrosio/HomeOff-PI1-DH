@@ -1,12 +1,20 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
-import "./BuscarXSede.css"
+import "./BuscarXSede.css";
 
 const BuscarXSede = () => {
   // const { prodFiltrados, setProdFiltrados, idFilteredSedes, setIdFilteredSedes, filteredSedes, setFilteredSedes} = useContext(ContextGlobal);
-  const { idFilteredSedes, setIdFilteredSedes, filteredSedes, setFilteredSedes, prodFiltrados, setProdFiltrados} = useContext(ContextGlobal);
-
+  const {
+    productosBKLista,
+    idFilteredSedes,
+    setIdFilteredSedes,
+    filteredSedes,
+    filteredName,
+    setFilteredSedes,
+    prodFiltrados,
+    setProdFiltrados,
+  } = useContext(ContextGlobal);
 
   const sedesArray = [
     {
@@ -26,38 +34,66 @@ const BuscarXSede = () => {
     },
   ];
 
+  const combineNames = () => {
+    const sedeNames = sedesArray.map((sede) => sede.nombre.toLowerCase());
+    const productoNames = productosBKLista.map((producto) =>
+      producto.nombre.toLowerCase()
+    );
+    return [...sedeNames, ...productoNames];
+  };
 
- 
-  
   const handleSearch = (e) => {
-    
     if (e.key === "Enter") {
       if (filteredSedes.length === 1) {
         e.target.value = filteredSedes[0].nombre;
       }
     }
-    
-    
-    const searchText = e.target.value;
-    const filtered = sedesArray.filter((sede) =>
-      sede.nombre.toLowerCase().includes(searchText.toLowerCase())
-    );
-   
-    
-    setFilteredSedes(filtered);
-  
-    const filteredIds = filtered.map((sede) => sede.id);
-    setIdFilteredSedes(filteredIds);   
 
-    setProdFiltrados(filteredSedes);
-    
-    
+    const searchText = e.target.value.toLowerCase();
+    const combinedNames = combineNames();
 
+    const filtered = combinedNames.filter((name) => name.includes(searchText));
+
+    const filteredSedesAndProductos = [];
+
+    // Ahora, puedes mapear los nombres filtrados a sus objetos originales
+    filtered.forEach((name) => {
+      const sede = sedesArray.find(
+        (sede) => sede.nombre.toLowerCase() === name
+      );
+      const producto = productosBKLista.find(
+        (producto) => producto.nombre.toLowerCase() === name
+      );
+
+      if (sede) {
+        const productosFiltradosPorSede = productosBKLista.filter(
+          (producto) =>
+            idFilteredSedes.includes(producto.idSede) &&
+            producto.nombre.toLowerCase() === name
+        );
+
+        // Si se encontraron productos, agregarlos a filteredSedesAndProductos
+        if (productosFiltradosPorSede.length > 0) {
+          filteredSedesAndProductos.push(...productosFiltradosPorSede);
+        }
+      }
+
+      if (producto) {
+        filteredSedesAndProductos.push(producto);
+      }
+    });
+
+    setFilteredSedes(filteredSedesAndProductos);
+
+    const filteredIds = filteredSedesAndProductos.map((item) => item.id);
+    setIdFilteredSedes(filteredIds);
+
+    setProdFiltrados(filteredSedesAndProductos);
   };
 
   return (
     <div className="input-container">
-       {/*  OPCION AUTOCOMPLETE MUI
+      {/*  OPCION AUTOCOMPLETE MUI
        <Autocomplete
       id="buscarXSede"
       options={filteredSedes.map((sede) => sede.nombre)}
@@ -78,7 +114,7 @@ const BuscarXSede = () => {
       )}
       onKeyUp={handleSearch}
     /> */}
-       <input
+      <input
         id="buscarXSede"
         list="paises"
         type="text"
@@ -86,23 +122,21 @@ const BuscarXSede = () => {
         onKeyUp={handleSearch}
         options={filteredSedes.map((sede) => sede.nombre)}
         style={{
-           background: "none",
-           border: "none",
+          background: "none",
+          border: "none",
           outline: 0,
           height: "98%",
           fontSize: "24px",
           width: "100%",
-         color: "#717171",
-         }}
-      ></input> 
+          color: "#717171",
+        }}
+      ></input>
 
-      <datalist id="paises" >
+      <datalist id="paises">
         <option value="Colombia"></option>
         <option value="Argentina"></option>
         <option value="Chile"></option>
-
       </datalist>
-     
     </div>
   );
 };

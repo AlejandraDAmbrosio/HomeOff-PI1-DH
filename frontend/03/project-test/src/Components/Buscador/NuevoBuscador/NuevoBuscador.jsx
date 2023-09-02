@@ -35,9 +35,6 @@ const NuevoBuscador = () => {
   const [filteredName, setfilteredName] = useState([]);
   const [prodFiltrados, setProdFiltrados] = useState([]);
 
-  console.log("---------------------------- console.log(filteredProducts)");
-  console.log(prodFiltrados);
-
   const sedesArray = [
     {
       id: 1,
