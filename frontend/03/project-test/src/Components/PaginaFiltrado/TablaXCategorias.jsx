@@ -12,6 +12,8 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import CardProducto from "../ListadoDeProductos/CardProducto";
 import "./TablaXCategorias.css"
+import buscadorSedeXIDSede from "../utils/buscadorSedeXIDSede";
+
 
 function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
   const categoriaEncontrada = listaCategorias.find(
@@ -56,6 +58,7 @@ const TablaXCategorias = ({ productos }) => {
               descripcion={producto.descripción}
               url={producto.imagenURL} // Aquí usamos la URL de la foto
               precio={producto.precioUnitario}
+              sede={buscadorSedeXIDSede(producto.idSede)}
               categoria={obtenerNombreCategoriaPorId(
                 producto.categoria_id,
                 productosBKLista,
