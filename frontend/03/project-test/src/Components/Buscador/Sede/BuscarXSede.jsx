@@ -55,25 +55,14 @@ const BuscarXSede = () => {
     const filtered = combinedNames.filter((name) => name.includes(searchText));
 
     const filteredSedesAndProductos = [];
+    const seenIds = new Set();
 
-    // Ahora, puedes mapear los nombres filtrados a sus objetos originales
     filtered.forEach((name) => {
       const sedeFiltrada = sedesArray.filter((sede) =>
-      sede.nombre.toLowerCase().includes(searchText.toLowerCase())
-    );
-
+        sede.nombre.toLowerCase().includes(searchText.toLowerCase())
+      );
 
       const sedeXID = sedeFiltrada.map((sede) => sede.id);
-      console.log("-------------Console de sedeXID ---------" ,sedeXID);
-      console.log("-------------Console de sedeFiltrada ---------" ,sedeFiltrada);
-      
-      setIdFilteredSedes(sedeXID);  
- 
-
-
-      console.log("-------------Console de sede ---------" ,sedeFiltrada);
-      console.log("-------------Console de name ---------" ,name);
-
 
       const producto = productosBKLista.find(
         (producto) => producto.nombre.toLowerCase() === name
@@ -81,20 +70,22 @@ const BuscarXSede = () => {
 
       if (sedeXID) {
         const productosFiltradosPorSede = productosBKLista.filter((producto) =>
-        sedeXID.includes(producto.idSede)
+          sedeXID.includes(producto.idSede)
         );
-        setIdFilteredSedes(productosFiltradosPorSede); 
-        console.log("-------------Console de idFilteredSedes ---------" ,idFilteredSedes);
-      console.log("-------------Console de productosFiltradosPorSede ---------" ,productosFiltradosPorSede);
 
-        // Si se encontraron productos, agregarlos a filteredSedesAndProductos
-        if (productosFiltradosPorSede.length > 0) {
-          filteredSedesAndProductos.push(...productosFiltradosPorSede);
-        }
+        productosFiltradosPorSede.forEach((producto) => {
+          if (!seenIds.has(producto.idRecurso)) {
+            seenIds.add(producto.idRecurso);
+            filteredSedesAndProductos.push(producto);
+          }
+        });
       }
 
       if (producto) {
-        filteredSedesAndProductos.push(producto);
+        if (!seenIds.has(producto.idRecurso)) {
+          seenIds.add(producto.idRecurso);
+          filteredSedesAndProductos.push(producto);
+        }
       }
     });
 
@@ -108,7 +99,6 @@ const BuscarXSede = () => {
 
   return (
     <div className="input-container">
-     
       <input
         id="buscarXSede"
         list="paises"
