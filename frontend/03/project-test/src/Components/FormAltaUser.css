@@ -1,14 +1,13 @@
-.pagina-formulario-alta {
+/* .pagina-formulario-alta {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 350px;
-  /* height: auto; */
-  padding-top: 15rem;
+  padding-top: 7rem;
   padding-bottom: 2rem;
   margin: auto auto;
-}
+} */
 .formularioAltaUser {
   display: flex;
   flex-direction: column;
@@ -38,10 +37,10 @@
   background-color: white;
 }
 
-.titulo-form-alta-user {
+/* .titulo-form-alta-user {
   font-size: 30px;
   color: rgb(3, 141, 165);
-}
+} */
 
 .formularioAltaUser {
   display: flex;
