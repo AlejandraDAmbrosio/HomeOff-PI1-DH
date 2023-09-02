@@ -128,7 +128,14 @@ h3.descripcion {
   box-shadow: 15px 16px 11px -12px rgba(121, 121, 121, 0.46);
   -webkit-box-shadow: 15px 16px 11px -12px rgba(121, 121, 121, 0.46);
   -moz-box-shadow: 15px 16px 11px -12px rgba(121, 121, 121, 0.46);
+  transition: 1.5 ease;
 }
+
+.foto-producto:hover {
+scale: 0.97;
+box-shadow: 10px 26px 60px rgba(68, 77, 136, 0.3);
+}
+
 
 .ver-mas {
   width: auto;

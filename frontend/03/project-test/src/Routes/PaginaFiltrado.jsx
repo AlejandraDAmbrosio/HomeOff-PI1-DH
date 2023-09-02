@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import buscadorXIDCategoria from "../Components/utils/BuscarXIDCategoria";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { Container, Typography } from "@mui/material";
 
 //////////////////////////////
 function obtenerNombreCategoriaPorId(idParam, listaCategorias) {
@@ -35,7 +36,6 @@ const PaginaFiltrado = () => {
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
-
   const [selectedFilters, setSelectedFilter] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   let filters = categoriasLista.map((categoria) => categoria);
@@ -48,7 +48,7 @@ const PaginaFiltrado = () => {
       setSelectedFilter([...selectedFilters, selectedCategory]);
     }
   };
-  
+
   useEffect(() => {
     // Filtra la categoría correspondiente al id en selectedFilters
     if (id) {
@@ -60,8 +60,6 @@ const PaginaFiltrado = () => {
       }
     }
   }, [id, categoriasLista]);
-
-
 
   useEffect(() => {
     filterItems();
@@ -82,13 +80,22 @@ const PaginaFiltrado = () => {
   };
 
   return (
-    <div className="administracion-fil">
+    // <div className="administracion-fil" style={{ marginTop: "7rem" }}>
+      <Stack style={{ marginTop: "7rem", minHeight :"730px"}}>
       <div className="administracion-fil-titulo">
         <div className="fil-titulo">Encontra tu Espacio:</div>
-        <div className="fila-busqueda">
-          <div className="fil-frase">
+        <Stack
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            height: "30px",
+          }}
+        >
+          <Typography variant="h6">
             Tenés {filteredItems.length} espacios relacionados con tu busqueda.
-          </div>
+          </Typography>
 
           <Stack direction={"horizontal"} spacing={3}>
             {filters.map((categoria, id) => (
@@ -104,12 +111,13 @@ const PaginaFiltrado = () => {
               </div>
             ))}
           </Stack>
-        </div>
+        </Stack>
         <Stack>
           <TablaXCategorias productos={filteredItems} />
         </Stack>
       </div>
-    </div>
+      </Stack>
+    // </div>
   );
 };
 

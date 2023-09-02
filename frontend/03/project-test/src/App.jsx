@@ -17,6 +17,7 @@ import AdministradorProductos from "./Routes/AdministradorProductos";
 import { useEffect, useState } from "react";
 import PaginaFiltrado from "./Routes/PaginaFiltrado";
 import EditarProducto from "./Routes/EditarProducto";
+import Favoritos from "./Routes/Favoritos";
 
 function App() {
   ////////////////// Segmento Logueo
@@ -58,6 +59,11 @@ function App() {
         <Route path="/editarproducto/" element={<EditarProducto />}>
           <Route path="/editarproducto/:id" element={<EditarProducto />} />
         </Route>
+
+        <Route path="/favoritos/" element={<Favoritos />}>
+          <Route path="/favoritos/:id" element={<Favoritos />} />
+        </Route>
+        
       </Routes>
 
       <Footer />

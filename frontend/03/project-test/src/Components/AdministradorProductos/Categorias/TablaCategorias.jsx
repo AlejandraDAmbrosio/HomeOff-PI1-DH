@@ -23,12 +23,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import nombreExiste from "../../utils/nombreExiste.js";
 
-
-
 const TablaCategorias = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const [idCategoriaXBorrar, setIdCategoriaXBorrar] = useState(null);
+  const [nombreCategoriaXBorrar, setNombreCategoriaXBorrar] = useState(null);
 
   const { categoriasLista, setCategoriasLista, getCategoriasLista } =
     useContext(ContextGlobal);
@@ -169,7 +168,6 @@ const TablaCategorias = () => {
         }
       );
 
-      
       const updatedCategorias = categoriasLista.filter(
         (categoriasListaXId) => categoriasListaXId.categoria_id !== categoria_id
       );
@@ -179,8 +177,10 @@ const TablaCategorias = () => {
     }
   };
 
-  const handleClickEliminar = (e, categoria_id) => {
+  const handleClickEliminar = (e, categoria_id, categoria) => {
     setIdCategoriaXBorrar(categoria_id);
+    setNombreCategoriaXBorrar(`${categoria.name}`);
+    console.log(nombreCategoriaXBorrar);
     setOpenDialog(true);
   };
 
@@ -194,14 +194,12 @@ const TablaCategorias = () => {
           flexDirection: "column",
           alignItems: "center",
         }}
-      >
-      
-      </div>
+      ></div>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Estás seguro que deseas eliminar esta categoría?
+            ¿Estás seguro que deseas eliminar esta categoría ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -288,9 +286,10 @@ const TablaCategorias = () => {
                       size="lg"
                       variant="solid"
                       startDecorator={<DeleteForeverIcon />}
-                      onClick={(e) =>
-                        {handleClickEliminar(e, categoria.categoria_id)
-                        console.log(categoria.categoria_id)}}
+                      onClick={(e) => {
+                        handleClickEliminar(e, categoria.categoria_id, categoria);
+                        console.log(categoria.categoria_id);
+                      }}
                     ></Chip>
                   </TableCell>
                 </TableRow>
@@ -317,14 +316,15 @@ const TablaCategorias = () => {
             onChange={onChangeNombre}
             fullWidth
             variant="standard"
+            required
           />
-   {!nombreCategoriaValida ? (
-                  <p className="error-form-inicio">
-                    Por favor, ingrese un nombre válido.
-                  </p>
-                ) : (
-                  ""
-                )}
+          {!nombreCategoriaValida ? (
+            <p className="error-form-inicio">
+              Por favor, ingrese un nombre válido.
+            </p>
+          ) : (
+            ""
+          )}
 
           <TextField
             autoFocus
@@ -344,8 +344,8 @@ const TablaCategorias = () => {
         </DialogActions>
       </Dialog>
       <Button variant="outlined" onClick={handleClickOpen}>
-          Crear Categoría
-        </Button>
+        Crear Categoría
+      </Button>
     </div>
   );
 };
