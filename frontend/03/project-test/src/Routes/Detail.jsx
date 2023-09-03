@@ -105,9 +105,11 @@ const Detail = () => {
   /////////////////////////
 
   ///////////////
-  console.log( " resolvedPath.pathname --------------------" ,resolvedPath.pathname)
-  console.log( "URL completa:", currentURL)
-
+  console.log(
+    " resolvedPath.pathname --------------------",
+    resolvedPath.pathname
+  );
+  console.log("URL completa:", currentURL);
 
   return (
     <>
@@ -135,9 +137,9 @@ const Detail = () => {
             alignContent="center"
           >
             <a
-              href={`https://www.facebook.com/sharer.php?u=${
-                currentURL
-              }&quote=${encodeURIComponent(publicacionRedes)}`}
+              href={`https://www.facebook.com/sharer.php?u=${currentURL}&quote=${encodeURIComponent(
+                publicacionRedes
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -155,9 +157,9 @@ const Detail = () => {
             </a>
 
             <a
-              href={`https://www.instagram.com/sharer.php?u=${
-                currentURL
-              }&caption=${encodeURIComponent(publicacionRedes)}`}
+              href={`https://www.instagram.com/sharer.php?u=${currentURL}&caption=${encodeURIComponent(
+                publicacionRedes
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -214,9 +216,19 @@ const Detail = () => {
         </Box>
       </Modal>
 
-      <Container
+      {/* <Container
+        
+      > */}
+      <Stack
         style={{
-          paddingTop: "3rem",
+          paddingTop: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          placeItems: "center",
+          paddingLeft: "0",
+          paddingRight: "0",
         }}
       >
         {/* <Paper> */}
@@ -230,7 +242,7 @@ const Detail = () => {
                 spacing={2}
                 justifyContent="space-between"
               >
-                <Typography variant="h3">{recursoXID.nombre}</Typography>
+                <div className="titulo-detail">{recursoXID.nombre}</div>
                 <Stack
                   direction="row"
                   spacing={3}
@@ -277,7 +289,18 @@ const Detail = () => {
             </div>
           </div>
 
-          <div className="galeria-detalleservicios-compra">
+          {/* <div className="galeria-detalleservicios-compra"> */}
+          <Stack
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "center",
+              placeItems: "center",
+              paddingLeft: "0",
+              paddingRight: "0",
+            }}
+          >
             <div className="grid-container-galeria">
               <div className="item-grid-fotos1" onClick={handleOpenImage1}>
                 <img
@@ -435,7 +458,8 @@ const Detail = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </Stack>
+          {/* </div> */}
         </div>
         {/* </Paper> */}
         <CalendarioXId></CalendarioXId>
@@ -445,7 +469,8 @@ const Detail = () => {
         <Comentarios></Comentarios>
 
         <Politicas></Politicas>
-      </Container>
+      </Stack>
+      {/* </Container> */}
     </>
   );
 };

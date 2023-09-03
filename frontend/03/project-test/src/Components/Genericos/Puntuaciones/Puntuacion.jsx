@@ -16,9 +16,11 @@ const Puntuacion = (props) => {
   const [valorEstrellas, setValorEstrellas] = useState(null);
 
   return (
-    <Stack direction="column" spacing={2}>
- 
-      <Stack direction="row" spacing={0.1} alignContent="center"  textAlign="center" flexItem height="32px">
+    // <Stack direction="row" spacing={1} alignContent="right" textAlign="right" align="right">
+    <Stack style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+      <Stack style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+
+      {/* <Stack direction="row" spacing={0.1} alignContent="right"  textAlign="right" align="right" flexItem height="32px" style={{width:"75%", }}> */}
         {" "}
         <MdStarRate style={{ fontSize: "30px", color: "#F2C84B" }} />
 

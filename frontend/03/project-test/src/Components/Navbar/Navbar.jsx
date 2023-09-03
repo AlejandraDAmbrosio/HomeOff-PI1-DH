@@ -41,6 +41,7 @@ const Navbar = () => {
     location.pathname.startsWith("/favoritos/") ||
     location.pathname === "/formaltauser/"
     location.pathname === "/favoritos/";
+
   return (
     <>
       <div className={`header ${isPanelSinCategorias ? "admin-header" : ""}`}>

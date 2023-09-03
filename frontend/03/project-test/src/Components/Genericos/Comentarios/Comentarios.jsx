@@ -4,10 +4,11 @@ import { Stack, Typography, Divider, Paper, Box } from "@mui/material";
 import AvatarNav from "../../Navbar/AvatarNav";
 import Puntuacion from "../Puntuaciones/Puntuacion";
 import { alignProperty } from "@mui/material/styles/cssUtils";
+import EstrellaValor from "../../Genericos/Puntuaciones/EstrellaValor";
 
 const Comentarios = () => {
   return (
-    <Stack style={{ width: "100%", display: "flex", marginBottom: "2rem" }}>
+    <Stack style={{ width: "95%", display: "flex", marginBottom: "2rem" }}>
       <Typography variant="h4" style={{ marginBottom: "2rem" }}>
         Comentarios
       </Typography>
@@ -37,18 +38,22 @@ const Comentarios = () => {
           >
             <Stack
               direction="row"
-              style={{  display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"}}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
             >
-              <Stack direction="row">
+              <Stack direction="row" spacing={1}>
                 <AvatarNav></AvatarNav>
-                <Stack direction="column" spacing={0.1}>
+                <Stack direction="column" spacing={0.4}>
                   <Typography variant="h6">Nombre User</Typography>
                   <Typography variant="body2">Fecha</Typography>
                 </Stack>
               </Stack>
-              <Puntuacion ></Puntuacion>
+              {/* <Puntuacion></Puntuacion> */}
+              <EstrellaValor puntuacion={1} />
             </Stack>
             <Typography variant="body2">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -60,7 +65,6 @@ const Comentarios = () => {
               sunt in culpa qui officia deserunt mollit anim id est laborum.{" "}
             </Typography>
           </Stack>
-
         </Box>
       </Paper>
       <Divider orientation="horizontal" flexItem spacing={2} />

@@ -80,44 +80,49 @@ const PaginaFiltrado = () => {
   };
 
   return (
-   
-      <Stack style={{ marginTop: "7rem", minHeight :"730px"}}>
-      <div className="administracion-fil-titulo">
-        <div className="fil-titulo">Encontra tu Espacio:</div>
+    <Stack
+      style={{ marginTop: "7rem", marginBottom: "2.5rem", minHeight: "730px" }}
+    >
+      <div>
+        <div className="administracion-fil-titulo">
+          <div className="fil-titulo">Encontra tu Espacio:</div>
+        </div>
         <Stack
           style={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            height: "30px",
+            height: "fit-content",
           }}
         >
-          <Typography variant="h6">
+          <Typography variant="h6" className="segmento-frase-etiquetas">
             Tenés {filteredItems.length} espacios relacionados con tu busqueda.
           </Typography>
-
-          <Stack direction={"horizontal"} spacing={3}>
-            {filters.map((categoria, id) => (
-              <div
-                className={`button ${
-                  selectedFilters?.includes(categoria) ? "active" : ""
-                }`}
-                onClick={() => handlefilterButtonClick(categoria)}
-                key={`filter-${id}`}
-                style={{ margin: "0 1rem 0 1rem" }}
-              >
-                {categoria.name}
-              </div>
-            ))}
-          </Stack>
         </Stack>
-        <Stack>
-          <TablaXCategorias productos={filteredItems} />
+        <Stack
+          direction={"horizontal"}
+          spacing={3}
+          className="segmento-etiquetas"
+        >
+          {filters.map((categoria, id) => (
+            <div
+              className={`button ${
+                selectedFilters?.includes(categoria) ? "active" : ""
+              }`}
+              onClick={() => handlefilterButtonClick(categoria)}
+              key={`filter-${id}`}
+              // style={{ margin: "0 1rem 0 1rem" }}
+            >
+              {categoria.name}
+            </div>
+          ))}
         </Stack>
-      </div>
+        </div>
+      <Stack>
+        <TablaXCategorias productos={filteredItems} />
       </Stack>
-   
+    </Stack>
   );
 };
 

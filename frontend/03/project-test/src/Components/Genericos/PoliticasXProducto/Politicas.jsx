@@ -4,7 +4,7 @@ import React from "react";
 
 const Politicas = () => {
   return (
-    <Stack direction="column" spacing={1} style={{ width: "95%", display: "flex", marginBottom: "2rem" }}>
+    <Stack direction="column" spacing={1} style={{ width: "90%", display: "flex", marginBottom: "2rem" }}>
       <Typography variant="h4">Leer antes de reservar</Typography>
       <Stack
         direction={{ xs: "column", sm: "row" }}
