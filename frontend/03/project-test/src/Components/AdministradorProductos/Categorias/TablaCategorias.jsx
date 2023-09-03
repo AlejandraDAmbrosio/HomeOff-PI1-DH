@@ -57,6 +57,8 @@ const TablaCategorias = () => {
 
   const [nombreCategoriaValida, setNombreCategoriaValida] = useState(true);
 
+    ////// OnChanges
+
   const onChangeNombre = (e) => {
     setNuevaCategoria({ ...nuevaCategoria, name: e.target.value });
     setNombreCategoriaValida(true);

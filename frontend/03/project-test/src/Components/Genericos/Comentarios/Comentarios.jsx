@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Typography, Divider, Paper, Box } from "@mui/material";
+import { Stack, Typography, Divider, Paper, Box, Button } from "@mui/material";
 
 import AvatarNav from "../../Navbar/AvatarNav";
 import Puntuacion from "../Puntuaciones/Puntuacion";
@@ -8,12 +8,42 @@ import EstrellaValor from "../../Genericos/Puntuaciones/EstrellaValor";
 
 const Comentarios = () => {
   return (
-    <Stack style={{ width: "95%", display: "flex", marginBottom: "2rem" }}>
-      <Typography variant="h4" style={{ marginBottom: "2rem" }}>
-        Comentarios
-      </Typography>
+    <Stack
+      style={{
+        width: "95%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignContent:"center",
+        flexWrap: "wrap",
+        marginBottom: "2rem",
+        
+      }}
+    >
+      <Paper
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "1rem",
+          gap:"1rem",
+          padding:"15px",
+          width:"250px",
+          maxHeight: "320px",
+        }}
+      >
+        <Typography variant="h4">Opiniones</Typography>
 
-      <Paper sx={{ width: "100%", overflow: "hidden" }} style={{ margin: "0" }}>
+        <Puntuacion />
+        <Button className="boton-generico" sx={{ color: "#47a169", padding:"1.2rem 0.5rem",  width:"150px", borderRadius:"20px"}}>Comentar</Button>
+      </Paper>
+
+      <Paper
+        sx={{ /*width: "80%",*/ overflow: "hidden" }}
+        style={{ margin: "0", display: "flex", maxWidth:"600px" }}
+      >
         <Box
           sx={{
             maxHeight: "320px",
@@ -59,10 +89,7 @@ const Comentarios = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.{" "}
+              nisi ut aliquip ex ea commodo consequat. {" "}
             </Typography>
           </Stack>
         </Box>

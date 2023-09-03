@@ -1,9 +1,7 @@
 import React from "react";
 import buscadorIconoCategoria from "../AdministradorProductos/Categorias/iconoXCategoria";
-
 import "./Categorias.css";
 import "./CardCategoria.css";
-
 import { ContextGlobal } from "../utils/global.context";
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";

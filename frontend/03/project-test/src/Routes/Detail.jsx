@@ -15,12 +15,15 @@ import {
   Button,
   Stack,
   Typography,
+  Alert,
+  Snackbar,
+  IconButton,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
 import Compartir from "../Components/CompartirEnRedes/Compartir";
-import { BsInstagram, BsTwitter } from "react-icons/bs";
+import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
 import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
@@ -30,6 +33,9 @@ import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
 import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
 import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { FacebookIcon, TwitterIcon } from "react-share";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -38,12 +44,27 @@ const style = {
   transform: "translate(-50%, -50%)",
   Width: "320px",
   bgcolor: "background.paper",
-  border: "2px solid grey",
+  border: "12px solid white",
   boxShadow: 24,
   p: 1,
 };
 
 const Detail = () => {
+  const [copied, setCopied] = useState(false);
+  const [openSnack, setOpenSnack] = React.useState(false);
+
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
   const navigate = useNavigate();
   const resolvedPath = useResolvedPath();
   const [publicacionRedes, setPublicacionRedes] = useState("");
@@ -104,6 +125,18 @@ const Detail = () => {
 
   /////////////////////////
 
+  const handleCopyClick = (e) => {
+    e.preventDefault();
+    navigator.clipboard
+      .writeText(currentURL)
+      .then(() => {
+        setCopied(true);
+        handleClickSnack();
+      })
+      .catch((error) => {
+        console.error("Error al copiar la URL: ", error);
+      });
+  };
   ///////////////
   console.log(
     " resolvedPath.pathname --------------------",
@@ -120,55 +153,21 @@ const Detail = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography
-            margin="1rem"
-            justifyContent="center"
-            textAlign="center"
-            flexItem
-            alignContent="center"
-          >
-            Comparti esta publicación en
-          </Typography>
-          <Stack
-            justifyContent="center"
-            direction="row"
-            spacing={5}
-            flexItem
-            alignContent="center"
-          >
-            <a
-              href={`https://www.facebook.com/sharer.php?u=${currentURL}&quote=${encodeURIComponent(
-                publicacionRedes
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
+          <div>
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseShareModal}
+              sx={{
+                position: "relative",
+                marginBottom: "0.2rem",
+                float: "right",
+              }}
             >
-              <MdFacebook style={{ fontSize: "50px" }} />
-            </a>
+              {" "}
+              <CloseIcon  sx={{
 
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                publicacionRedes
-              )}&url=${currentURL}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BsTwitter style={{ fontSize: "50px" }} />
-            </a>
-
-            <a
-              href={`https://www.instagram.com/sharer.php?u=${currentURL}&caption=${encodeURIComponent(
-                publicacionRedes
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BsInstagram style={{ fontSize: "50px" }} />
-            </a>
-          </Stack>
-
-          {/* <hr /> */}
-          <div className="">
+              }}/>
+            </IconButton>
             <CardProductoSimulado
               id={id}
               className="card-simulada"
@@ -183,13 +182,6 @@ const Detail = () => {
                 categoriasLista
               )}
             />
-
-            {/* <Divider style={{ margin: "1rem" }} flexItem /> */}
-            {/* <Typography>
-              {publicacionRedes.length === 0
-                ? "Mirá el espacio que encontré!"
-                : publicacionRedes}
-            </Typography> */}
             <TextField
               id="copy"
               label="Editá tu comentario"
@@ -207,18 +199,119 @@ const Detail = () => {
               style={{
                 fontSize: "10px",
                 width: "280px",
-                margin: "1rem 0rem 1rem 0rem",
+                margin: "1.5rem 0rem 1rem 0rem",
                 maxHeight: "40px",
                 paddingBottom: "2rem",
               }}
             />
           </div>
+
+          <Divider
+            orientation="horizontal"
+            style={{ margin: "1.5rem 0rem" }}
+          ></Divider>
+
+          <Typography
+            margin="1rem"
+            justifyContent="center"
+            textAlign="center"
+            flexItem
+            alignContent="center"
+          >
+            Comparti esta publicación en
+          </Typography>
+          <Stack
+            justifyContent="center"
+            direction="row"
+            spacing={5}
+            flexItem
+            alignContent="center"
+          >
+            <FacebookShareButton
+              url={`"${currentURL}"`}
+              quote={`"${recursoXID.nombre}"`}
+              hashtag={`#${obtenerNombreCategoriaPorId(
+                recursoXID.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}`}
+              description={`${publicacionRedes} `}
+              className=""
+            >
+              <FacebookIcon size={40} round />
+            </FacebookShareButton>
+            {/* <a
+              href={`https://www.facebook.com/sharer.php?u=${currentURL}&quote=${encodeURIComponent(
+                publicacionRedes
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MdFacebook style={{ fontSize: "50px" }} />
+            </a> */}
+
+            <TwitterShareButton
+              title={`"${recursoXID.nombre}"`}
+              url={`"${currentURL}"`}
+              hashtags={[
+                `${obtenerNombreCategoriaPorId(
+                  recursoXID.categoria_id,
+                  productosBKLista,
+                  categoriasLista
+                )}`,
+              ]}
+            >
+              <TwitterIcon size={40} round />
+            </TwitterShareButton>
+
+            {/* <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                publicacionRedes
+              )}&url=${currentURL}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsTwitter style={{ fontSize: "50px" }} />
+            </a> */}
+
+            <a
+              href={`https://www.instagram.com/sharer.php?u=${currentURL}&caption=${encodeURIComponent(
+                publicacionRedes
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsInstagram style={{ fontSize: "50px" }} />
+            </a>
+
+            <a
+              href={currentURL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleCopyClick}
+            >
+              <BsLink45Deg style={{ fontSize: "50px" }} />
+            </a>
+          </Stack>
+
+          {/* <hr /> */}
         </Box>
       </Modal>
 
-      {/* <Container
-        
-      > */}
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={handleCloseSnack}
+      >
+        <Alert
+          onClose={handleCloseSnack}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Link copiado en portapapeles!
+        </Alert>
+      </Snackbar>
+
       <Stack
         style={{
           paddingTop: "2rem",
@@ -264,32 +357,17 @@ const Detail = () => {
                     <MdArrowBackIosNew className="flecha" />
                   </div>
                 </Stack>
-                {/* <div style={{ display: "flex", gap: "2.5rem" }}>
-                    <Button
-                      variant="text"
-                      onClick={handleOpenShare}
-                      style={{ display: "flex", gap: "1rem" }}
-                    >
-                    
-                      Compartí <MdShare style={{ fontSize: "25px" }} />
-                    </Button>
-                    <div onClick={() => navigate(-1)}>
-                      <MdArrowBackIosNew className="flecha" />
-                    </div>
-                  </div> */}
               </Stack>
-              {/* </div> */}
+
               <Typography
                 variant="body2"
                 style={{ width: "98%", margin: "1rem 0rem 1.5rem 0rem" }}
               >
                 {recursoXID.descripción}{" "}
               </Typography>
-              {/* <h3 className="descripcion">{recursoXID.descripción}</h3> */}
             </div>
           </div>
 
-          {/* <div className="galeria-detalleservicios-compra"> */}
           <Stack
             style={{
               display: "flex",
@@ -464,13 +542,11 @@ const Detail = () => {
         {/* </Paper> */}
         <CalendarioXId></CalendarioXId>
 
-        <Puntuacion />
-        <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem />
+        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Comentarios></Comentarios>
-
+        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas></Politicas>
       </Stack>
-      {/* </Container> */}
     </>
   );
 };
