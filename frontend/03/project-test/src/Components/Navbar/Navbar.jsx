@@ -49,10 +49,10 @@ const Navbar = () => {
             <li>
               <Logo />
             </li>
-
+{/* 
             <li>
               <NuevoBuscador></NuevoBuscador>
-            </li>
+            </li> */}
             <div className="botones-header">
               {!usuarioLogueado && (
                 <>

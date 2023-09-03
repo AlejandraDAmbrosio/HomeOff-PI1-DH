@@ -119,27 +119,18 @@ const BuscarXSede = () => {
     }
   };
 
-
   return (
     <div className="input-container">
       <input
+        className="busqueda"
         id="buscarXSede"
         list="paises"
         type="text"
-        placeholder="Encontrá tu espacio aquí"
+        placeholder="Sede o nombre"
         onKeyUp={handleSearch}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         options={filteredSedes.map((sede) => sede.nombre)}
-        style={{
-          background: "none",
-          border: "none",
-          outline: 0,
-          height: "98%",
-          fontSize: "24px",
-          width: "100%",
-          color: "#717171",
-        }}
       ></input>
 
       <datalist id="paises">
@@ -161,9 +152,7 @@ const BuscarXSede = () => {
         <DialogTitle>
           No se encontraron productos asociados a su búsqueda
         </DialogTitle>
-        <DialogContent>
-         
-        </DialogContent>
+        <DialogContent></DialogContent>
         <Button variant="contained" onClick={() => setOpenModal(false)}>
           Cerrar
         </Button>

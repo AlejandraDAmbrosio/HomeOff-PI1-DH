@@ -2,23 +2,22 @@
     position: absolute;
     width: 100%;
    
-}
+}*/
 
 input {
-    outline: none;
-    border: none;
-
-    font-size: 24px;
-    width: inherit;
-    height: inherit;
-    position: absolute;
-    background-color: transparent;
-    color: #717171;
-    z-index: 3;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 22px;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  line-height:38px;
+  color: white;
+  z-index: 3;
 }
 
-
-
+/*
 #suggestion {
     background-color: rgb(255, 255, 255);
  
@@ -33,5 +32,5 @@ input {
     position: absolute;
     z-index: 2;
 
-} */
-
+} 
+*/

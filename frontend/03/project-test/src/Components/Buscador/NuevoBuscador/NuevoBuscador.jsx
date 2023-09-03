@@ -64,10 +64,23 @@ const NuevoBuscador = () => {
   ///////////////////////////
 
   return (
-    <Stack direction="row" spacing={2} style={{ width: "400px", border:"1px solid grey", justifyContent:"space-between", height:"42px", padding:"0 5px 0 10px", borderRadius:"20px" }}>
+    <Stack
+      direction="row"
+      spacing={2}
+      style={{
+        width: "400px",
+        border: "1px solid grey",
+        alignContent: "center",
+        justifyContent: "space-between",
+        height: "42px",
+        padding: "0 5px 0 10px",
+        borderRadius: "20px",
+        borderColor:"white",
+        color:"white",
+      }}
+    >
       <Stack>
         <BuscarXSede></BuscarXSede>
-
       </Stack>
       {/* <datalist id="buscarXSede">
         <option value="Colombia"></option>
