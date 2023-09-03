@@ -41,9 +41,9 @@ const CalendarioXId = () => {
   };
 
   inicioFechas();
-  console.log(
-    "----------------------------- Fechas asignadas en Date Picker -------------------------------------"
-  );
+  // console.log(
+  //   "----------------------------- Fechas asignadas en Date Picker -------------------------------------"
+  // );
 
   const marcas = [
     "2023-09-05",
@@ -64,7 +64,7 @@ const CalendarioXId = () => {
     "2023-11-02",
   ];
 
-  console.log(fechaInicio);
+  // console.log(fechaInicio);
 
   function ServerDay(props) {
     const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;

@@ -7,54 +7,24 @@ import { useNavigate } from "react-router-dom";
 import CardProducto from "./CardProducto";
 import "../ListadoDeProductos/CardProducto.css";
 import "./ListadoProductos.css";
+import obtenerNombreCategoriaPorId from "../utils/obtenerNombreCategoriaPorId";
 
-function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
-  const categoriaEncontrada = listaCategorias.find(
-    (item) => item.categoria_id === idCategoria
-  );
-
-  if (categoriaEncontrada) {
-    return categoriaEncontrada.name;
-  } else {
-    return "Categoría no encontrada";
-  }
-}
 
 const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const {
-    productosBKLista,
-    categoriasLista,
-    idFilteredSedes,
-    setIdFilteredSedes,
-    filteredSedes,
-    setFilteredSedes,
-    filteredName,
-    setfilteredName,
-    idFilteredName,
-    setIdFilteredName,
-    prodFiltrados,
-    setProdFiltrados,
-  } = useContext(ContextGlobal);
+  const { productosBKLista, categoriasLista, prodFiltrados } =
+    useContext(ContextGlobal);
 
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
-  console.log("prodFiltrados en LIstaProd:", prodFiltrados);
+  // console.log("prodFiltrados en LIstaProd:", prodFiltrados);
 
   const productsToRender = shouldUseFilteredProducts
-  ? prodFiltrados
-  : productosBKLista;
+    ? prodFiltrados
+    : productosBKLista;
 
-  // const filteredProducts = shouldFilterProducts
-  //   ? productosBKLista.filter((producto) =>
-  //       idFilteredSedes.includes(producto.idSede)
-  //     )
-  //   : productosBKLista;
-
-    
   useEffect(() => {
-    // Actualiza los productos filtrados cada vez que idFilteredSedes cambie
     const paginatedArray = chunk(productsToRender, CantidadCards);
     setPaginatedProducts(paginatedArray);
   }, [CantidadCards, productsToRender]);
@@ -87,19 +57,6 @@ const ListadoProductos = ({ CantidadCards }) => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
 
-  // const handleSearch = () => {
-  //   const searchText = e.target.value;
-  //   const filteredProducts = shouldFilterProducts
-  //     ? productosBKLista.filter((producto) =>
-  //         idFilteredSedes.includes(producto.idSede) &&
-  //         producto.nombre.toLowerCase().includes(searchText.toLowerCase())
-  //       )
-  //     : productosBKLista.filter((producto) =>
-  //         producto.nombre.toLowerCase().includes(searchText.toLowerCase())
-  //       );
-  //   setPaginatedProducts(filteredProducts);
-  // };
-
   return (
     <div className="segmento-listado-productos">
       <div className="grid-container-listado-home">
@@ -110,7 +67,7 @@ const ListadoProductos = ({ CantidadCards }) => {
               key={producto.idRecurso}
               title={producto.nombre}
               descripcion={producto.descripción}
-              url={producto.imagenURL} // Aquí usamos la URL de la foto
+              url={producto.imagenURL}
               precio={producto.precioUnitario}
               sede={buscadorSedeXIDSede(producto.idSede)}
               categoria={obtenerNombreCategoriaPorId(

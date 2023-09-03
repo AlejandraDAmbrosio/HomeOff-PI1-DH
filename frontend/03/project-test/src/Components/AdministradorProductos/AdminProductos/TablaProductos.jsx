@@ -123,11 +123,9 @@ const TablaProductos = () => {
         sx={{ width: "100%", overflow: "hidden" }}
         style={{ margin: "0 20px 0 0" }}
       >
-        <TableContainer sx={{ maxHeight: 400 }}>
+        <TableContainer sx={{ maxHeight: 500,   width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
-            {/* <div className="encabezado-tabla"> */}
             <TableHead>
-              {/* <thead> */}
 
               <TableRow
                 style={{
@@ -147,12 +145,8 @@ const TablaProductos = () => {
                 <TableCell>Editar</TableCell>
                 <TableCell>Eliminar</TableCell>
               </TableRow>
-
-              {/* </thead> */}
             </TableHead>
-            {/* </div> */}
             <TableBody>
-              {/* <tbody> */}
 
               {productosBKLista.map((recurso, IdRecurso) => (
                 <TableRow key={IdRecurso} style={{ height: "30px" }}>

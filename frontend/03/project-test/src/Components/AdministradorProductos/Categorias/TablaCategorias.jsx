@@ -36,7 +36,6 @@ const TablaCategorias = () => {
   useEffect(() => {
     getCategoriasLista();
   }, []);
-  //////////////
 
   /////////// Asigna valor lista a una 2da para comparar sin afectar
   const jsonData = categoriasLista;
@@ -50,8 +49,6 @@ const TablaCategorias = () => {
     icono_Categoria: "",
   });
   const [selectedImage, setSelectedImage] = useState(null);
-  //// State Para Validaciones
-  // const [nombreYaExiste, setNombreYaExiste] = useState(false);
 
   const validarNombreCategoria = (n) => {
     const regex = /^[A-Za-z\s]{4,40}$/;
@@ -62,7 +59,6 @@ const TablaCategorias = () => {
 
   const onChangeNombre = (e) => {
     setNuevaCategoria({ ...nuevaCategoria, name: e.target.value });
-    // setNombreYaExiste(false);
     setNombreCategoriaValida(true);
   };
 
@@ -85,10 +81,6 @@ const TablaCategorias = () => {
     setOpen(false);
   };
 
-  /////////////////////////////////////////
-
-  ////////////////////////////////////////////
-
   const handleSubmitCrearCategoria = async (e) => {
     e.preventDefault();
 
@@ -98,8 +90,6 @@ const TablaCategorias = () => {
     if (nombreCategoriaValida && !categoriaExisteEnData) {
       setForm(true);
       setNombreCategoriaValida(true);
-      // setShowPreview(true);
-      // console.log(form);
 
       const nuevaCategoriaData = {
         categoria_id: 0,
@@ -223,23 +213,18 @@ const TablaCategorias = () => {
         style={{ margin: "0 20px 0 0" }}
       >
         <TableContainer
-          sx={{ maxHeight: 400 }}
+          sx={{maxHeight: 500,   width: "100%"}}
           style={{
             borderRadius: ":var(--bRadiusButton)",
-            padding: "10px",
-            width: "1400px",
           }}
         >
           <Table stickyHeader aria-label="sticky table">
-            {/* <div className="encabezado-tabla"> */}
             <TableHead>
-              {/* <thead> */}
 
               <TableRow
                 style={{
                   backgroundColor: "lightgray",
                   borderRadius: ":var(--bRadiusButton)",
-                  // padding: "10px",
                   width: "100%",
                 }}
               >
@@ -247,15 +232,11 @@ const TablaCategorias = () => {
                 <TableCell>Id categoría</TableCell>
                 <TableCell>Nombre categoría</TableCell>
                 <TableCell>Descripción</TableCell>
-                {/* <TableCell>Editar</TableCell> */}
                 <TableCell>Eliminar</TableCell>
               </TableRow>
 
-              {/* </thead> */}
             </TableHead>
-            {/* </div> */}
             <TableBody>
-              {/* <tbody> */}
 
               {categoriasLista.map((categoria, categoria_id) => (
                 <TableRow key={categoria_id} style={{ height: "30px" }}>

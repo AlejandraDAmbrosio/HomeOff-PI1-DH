@@ -17,8 +17,6 @@ import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
 import { Stack } from "@mui/material";
 
 
-
-
 const CardProducto = ({
   title,
   url,
@@ -33,12 +31,11 @@ const CardProducto = ({
   servicio3,
 }) => {
   return (
-    // <div className="card-body-producto">
     <Link to={"/producto/" + id}>
       <Card
         sx={{
           width: 315,
-          /* height: 440, */ borderRadius: " 11px 11px 11px 11px",
+          borderRadius: " 11px 11px 11px 11px",
           boxShadow: "1px 1px 6px #979797",
         }}
       >
@@ -77,10 +74,11 @@ const CardProducto = ({
               fontWeight: "600",
               color: "#383B58",
               alignItems: "center",
+              lineHeight:"15px" 
             }}
           >
             <LocationOnIcon
-              style={{ width: 17, height: 17, marginRight: "10px" }}
+              style={{ width: 17, height: 16, marginRight: "10px", lineHeight:"15px" }}
             />
             {sede}
           </Typography>
@@ -94,10 +92,11 @@ const CardProducto = ({
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "-webkit-box",
-              WebkitLineClamp: 2, // Mostrar hasta 2 líneas
+              WebkitLineClamp: 2, 
               WebkitBoxOrient: "vertical",
-              paddingBottom: "5px",
-              marginBottom: "5px",
+              paddingBottom: "1px",
+              marginBottom: "1px",
+              lineHeight:"15px" 
             }}
           >
             {descripcion}
@@ -107,10 +106,6 @@ const CardProducto = ({
           sx={{
             display: "flex",
             flexDirection: "row",
-            alignContent: "right",
-            // justifyContent: "",
-            vertical: "bottom",
-            horizontal: "right",
           }}
         >
           {/* <Button size="small">Share</Button> */}

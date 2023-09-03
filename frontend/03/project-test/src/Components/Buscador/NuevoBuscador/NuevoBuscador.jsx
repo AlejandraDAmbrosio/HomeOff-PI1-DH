@@ -7,6 +7,7 @@ import {
   Box,
   Stack,
   Typography,
+  Portal,
 } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
@@ -72,6 +73,7 @@ const NuevoBuscador = () => {
         border: "1px solid grey",
         alignContent: "center",
         justifyContent: "space-between",
+        
         height: "42px",
         padding: "0 5px 0 10px",
         borderRadius: "20px",
@@ -88,7 +90,7 @@ const NuevoBuscador = () => {
         <option value="Chile"></option>
       </datalist> */}
 
-      <Stack direction="row" spacing={2} style={{ marginBottom: "2rem" }}>
+      <Stack direction="row" spacing={2} style={{ marginBottom: "1rem", height:"40px" }}>
         <div
           onClick={handleDateDropdownOpen}
           style={{ placeItems: "center", width: "100%" }}
@@ -114,6 +116,7 @@ const NuevoBuscador = () => {
             <CalendarMonthIcon style={{ fontSize: "40px" }} />
           )}
         </div>
+        <Portal>
         <Popover
           open={isDateDropdownOpen}
           onClose={handleDateDropdownClose}
@@ -140,6 +143,7 @@ const NuevoBuscador = () => {
             />
           </Box>
         </Popover>
+        </Portal>
       </Stack>
     </Stack>
   );

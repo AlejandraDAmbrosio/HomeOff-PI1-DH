@@ -91,12 +91,14 @@ const Calendario = () => {
     <Stack
       direction="row"
       divider={<Divider orientation="vertical" flexItem />}
-      spacing={2}
+      spacing={1}
+      style={{height:"70px"}}
     >
-      <div style={{ width: "200px" }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker"]}>
+      <div style={{ width: "200px"}}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} style={{height:"70px"}}>
+          <DemoContainer components={["DatePicker"]} >
             <DatePicker
+             
               label="Inicio"
               value={fechaInicio}
               onChange={(newValue) => setFechaInicio(newValue)}
@@ -122,7 +124,7 @@ const Calendario = () => {
       <div style={{ width: "200px" }}>
         <LocalizationProvider
           dateAdapter={AdapterDayjs}
-          style={{ height: "20px" }}
+          style={{ height: "70px" }}
         >
           <DemoContainer components={["DatePicker"]} style={{ height: "20px" }}>
             <DatePicker

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import "../Components/AdministradorProductos/AdminProductos/AdministradorProductos.css";
+import "../Components/AdministradorProductos.css";
 import PanelAdminUser from "../Components/AdministradorProductos/AdminUsers/PanelAdminUser";
 import TablaProductos from "../Components/AdministradorProductos/AdminProductos/TablaProductos";
+import { Stack } from "@mui/material";
 
 const AdministradorProductos = () => {
   useEffect(() => {
@@ -13,11 +14,11 @@ const AdministradorProductos = () => {
       }
     }
 
-    detectMobileDevice(); // Ejecuta la detección inicial
+    detectMobileDevice(); // Ejecuta la detección del ancho de pantalla
 
-    window.addEventListener("resize", detectMobileDevice); // Agrega el event listener
+    window.addEventListener("resize", detectMobileDevice); 
     return () => {
-      window.removeEventListener("resize", detectMobileDevice); // Limpia el event listener al desmontar
+      window.removeEventListener("resize", detectMobileDevice);
     };
   }, []);
   return (
@@ -28,6 +29,7 @@ const AdministradorProductos = () => {
         <TablaProductos />
       </div>
     </div>
+    
   );
 };
 

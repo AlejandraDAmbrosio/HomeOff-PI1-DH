@@ -25,26 +25,23 @@ function App() {
 
   /////////////////
 
-// const[isDark, setIsDark] = useState(false);
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: "rgb(144, 123,100)",
-//     },
-//     secondary: {
-//       main: "rgb(234, 12,234)",
-//     },
-//     type:isDark? "dark":"light",
-//   },
+  // const[isDark, setIsDark] = useState(false);
+  // const theme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: "rgb(144, 123,100)",
+  //     },
+  //     secondary: {
+  //       main: "rgb(234, 12,234)",
+  //     },
+  //     type:isDark? "dark":"light",
+  //   },
 
-
-
-// });
-
+  // });
 
   return (
     <>
-    {/* <ThemeProvider theme={theme}> */}
+      {/* <ThemeProvider theme={theme}> */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -83,7 +80,6 @@ function App() {
         <Route path="/favoritos/" element={<Favoritos />}>
           <Route path="/favoritos/:id" element={<Favoritos />} />
         </Route>
-        
       </Routes>
 
       <Footer />

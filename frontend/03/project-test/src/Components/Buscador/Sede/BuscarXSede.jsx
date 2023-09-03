@@ -51,8 +51,8 @@ const BuscarXSede = () => {
     return [...sedeNames, ...productoNames];
   };
 
-  console.log("Nombres en combineNames");
-  console.log(combineNames());
+  // console.log("Nombres en combineNames");
+  // console.log(combineNames());
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
