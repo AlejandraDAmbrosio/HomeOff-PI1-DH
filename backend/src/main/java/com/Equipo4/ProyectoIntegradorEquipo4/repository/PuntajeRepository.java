@@ -42,7 +42,6 @@ public class PuntajeRepository implements IPuntajeRepository {
     public int save(Puntaje puntaje) {
         String SQL = "INSERT INTO offi_Puntuaciones (idUsuario, idRecurso, puntuacion, comentario, fecha_valoracion) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-
         // Configura la zona horaria a UTC
         ZoneId zoneId = ZoneId.of("UTC");
         Instant instant = puntaje.getFecha_valoracion().toInstant();
@@ -58,7 +57,6 @@ public class PuntajeRepository implements IPuntajeRepository {
             ps.setDate(5, sqlDate);
             return ps;
         }, keyHolder);
-
         return  Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
     /*public int save(Puntaje puntaje) {
