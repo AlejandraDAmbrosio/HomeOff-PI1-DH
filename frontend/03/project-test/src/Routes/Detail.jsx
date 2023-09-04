@@ -164,9 +164,7 @@ const Detail = () => {
               }}
             >
               {" "}
-              <CloseIcon  sx={{
-
-              }}/>
+              <CloseIcon sx={{}} />
             </IconButton>
             <CardProductoSimulado
               id={id}
@@ -225,7 +223,8 @@ const Detail = () => {
             direction="row"
             spacing={5}
             flexItem
-            alignContent="center"
+            alignItems="center"
+           
           >
             <FacebookShareButton
               url={`"${currentURL}"`}
@@ -281,7 +280,12 @@ const Detail = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <BsInstagram style={{ fontSize: "50px" }} />
+              <img
+                className="Instagram"
+                src="/images/instagram.png"
+                alt="Instagram"
+                width={"42px"}
+              />
             </a>
 
             <a
