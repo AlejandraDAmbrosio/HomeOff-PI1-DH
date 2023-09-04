@@ -1,8 +1,7 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
-
-import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuarios;
-import com.Equipo4.ProyectoIntegradorEquipo4.repository.IUsuariosRepository;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Categorias_x_Recurso;
+import com.Equipo4.ProyectoIntegradorEquipo4.repository.ICategorias_x_RecursosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuariosService implements IUsuariosService{
+public class Categorias_x_RecursosService implements ICategorias_x_RecursosService {
 
     @Autowired
-    private IUsuariosRepository iUsuariosRepository;
+    private ICategorias_x_RecursosRepository iCategorias_x_recursosRepository;
     @Override
-    public List<Usuarios> findAll() {
-        List<Usuarios> list;
+    public List<Categorias_x_Recurso> findAll() {
+        List<Categorias_x_Recurso> list;
         try {
-            list = iUsuariosRepository.findAll();
+            list = iCategorias_x_recursosRepository.findAll();
         }catch (Exception ex){
             throw ex;
         }
@@ -26,10 +25,10 @@ public class UsuariosService implements IUsuariosService{
     }
 
     @Override
-    public int save(Usuarios usuarios) {
+    public int save(Categorias_x_Recurso categoriasXRecurso) {
         int row;
         try {
-            row = iUsuariosRepository.save(usuarios);
+            row = iCategorias_x_recursosRepository.save(categoriasXRecurso);
         }catch (Exception ex){
             throw ex;
         }
@@ -37,10 +36,10 @@ public class UsuariosService implements IUsuariosService{
     }
 
     @Override
-    public int update(Usuarios usuarios) {
+    public int update(Categorias_x_Recurso categoriasXRecurso) {
         int row;
         try {
-            row = iUsuariosRepository.update(usuarios);
+            row = iCategorias_x_recursosRepository.update(categoriasXRecurso);
         }catch (Exception ex){
             throw ex;
         }
@@ -51,7 +50,7 @@ public class UsuariosService implements IUsuariosService{
     public int deleteById(int id) {
         int row;
         try {
-            row = iUsuariosRepository.deleteById(id);
+            row = iCategorias_x_recursosRepository.deleteById(id);
         }catch (Exception ex){
             throw ex;
         }
@@ -59,8 +58,8 @@ public class UsuariosService implements IUsuariosService{
     }
 
     @Override
-    public Optional<Usuarios> findById(int id) {
-        Optional<Usuarios> buscarPorID= iUsuariosRepository.findById(id);
+    public Optional<Categorias_x_Recurso> findById(int id) {
+        Optional<Categorias_x_Recurso> buscarPorID= iCategorias_x_recursosRepository.findById(id);
         try {
             if (buscarPorID.isPresent()){
                 return buscarPorID;
@@ -70,8 +69,4 @@ public class UsuariosService implements IUsuariosService{
         }
         return buscarPorID;
     }
-
-
-
-
 }

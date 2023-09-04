@@ -26,7 +26,7 @@ public class CaracteristicasController {
         var result=iCaracteristicasService.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @GetMapping("/unico/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Caracteristicas> list(@PathVariable int id){
         Optional<Caracteristicas> buscarPorId = iCaracteristicasService.findById(id);
         if (buscarPorId.isPresent()) {
