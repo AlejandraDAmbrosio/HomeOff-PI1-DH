@@ -104,16 +104,12 @@ const CalendarioII = () => {
   return (
     <Stack
       direction="row"
-      divider={<Divider orientation="vertical" flexItem />}
       spacing={1}
       margin={"auto"}
-      
     >
-
-    
       <Stack
         direction={{ xs: "row", sm: "column", md:"row" }}
-        width={"fit-content"}
+        width={{ xs: "650px", sm: "320px", md:"650px" }}
         useFlexGap flexWrap="wrap"
         spacing={1}
       >
@@ -170,7 +166,7 @@ const CalendarioII = () => {
           </DemoContainer>
         </LocalizationProvider>
       </Stack>
-      <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem />
+    
     </Stack>
   );
 };

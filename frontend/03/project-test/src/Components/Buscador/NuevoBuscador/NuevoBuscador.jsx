@@ -75,7 +75,6 @@ const NuevoBuscador = () => {
         border: "1px solid grey",
         alignContent: "center",
         justifyContent: "space-between",
-
         height: "42px",
         padding: "0 5px 0 10px",
         borderRadius: "20px",
@@ -86,11 +85,7 @@ const NuevoBuscador = () => {
       <Stack>
         <BuscarXSede></BuscarXSede>
       </Stack>
-      {/* <datalist id="buscarXSede">
-        <option value="Colombia"></option>
-        <option value="Argentina"></option>
-        <option value="Chile"></option>
-      </datalist> */}
+    
 
       <Stack
         direction="row"
@@ -115,7 +110,7 @@ const NuevoBuscador = () => {
               </div>
             </div>
           ) : (
-            <CalendarMonthIcon />
+            <CalendarMonthIcon  style={{fontSize:"38px"}}/>
           )}
         </div>
 
@@ -144,58 +139,6 @@ const NuevoBuscador = () => {
           </Box>
         </Popover>
 
-        {/* <div
-          onClick={handleDateDropdownOpen}
-          style={{ placeItems: "center", width: "100%" }}
-        >
-          {" "}
-          {fechasBusqueda[0] && fechasBusqueda[1] ? (
-            <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-              <div>
-                {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
-                  month: "numeric",
-                  day: "numeric",
-                })}{" "}
-              </div>
-              <Divider orientation="vertical" flexItem />
-              <div>
-                {fechasBusqueda[1].$d.toLocaleDateString("en-US", {
-                  month: "numeric",
-                  day: "numeric",
-                })}{" "}
-              </div>
-            </div>
-          ) : (
-            <CalendarMonthIcon style={{ fontSize: "40px" }} />
-          )}
-        </div> */}
-        {/*         
-        <Popover
-          open={isDateDropdownOpen}
-          onClose={handleDateDropdownClose}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <Box p={2}>
-            <Calendario
-              value={fechasBusqueda}
-              onChange={(newValue) => {
-                if (Array.isArray(newValue) && newValue.length === 2) {
-                  setFechasBusqueda(newValue.map((date) => date || null));
-                } else {
-                  setFechasBusqueda([null, null]);
-                }
-              }}
-            />
-          </Box>
-        </Popover> */}
       </Stack>
     </Stack>
   );
