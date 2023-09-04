@@ -16,6 +16,7 @@ import obtenerIniciales from "../utils/iniciales";
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { BsHeart } from "react-icons/bs";
 
 export default function AccountMenu() {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
@@ -96,6 +97,15 @@ export default function AccountMenu() {
         <MenuItem onClick={handleClose}>
           <Avatar /> Cuenta
         </MenuItem>
+
+        <Link to="/favoritos/">
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <BsHeart fontSize="medium" />
+              </ListItemIcon>
+              Favoritos
+            </MenuItem>
+          </Link>
 
         <Divider />
 

@@ -1,35 +1,100 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  useNavigate,
+  useParams,
+  useLocation,
+  Link,
+  useResolvedPath,
+} from "react-router-dom";
 import { ContextGlobal } from "../Components/utils/global.context";
-import { Container, Box, Paper, Modal } from "@mui/material";
+import {
+  Container,
+  Box,
+  Paper,
+  Modal,
+  Button,
+  Stack,
+  Typography,
+  Alert,
+  Snackbar,
+  IconButton,
+} from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
-import { MdArrowBackIosNew } from "react-icons/md";
+import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
+import Compartir from "../Components/CompartirEnRedes/Compartir";
+import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
+import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
+import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
+import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
+import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
+import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
+import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
+import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
+import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { FacebookIcon, TwitterIcon } from "react-share";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: "40%",
+  Width: "320px",
   bgcolor: "background.paper",
-  border: "2px solid grey",
+  border: "12px solid white",
   boxShadow: 24,
   p: 1,
 };
 
 const Detail = () => {
+  const [copied, setCopied] = useState(false);
+  const [openSnack, setOpenSnack] = React.useState(false);
+
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
   const navigate = useNavigate();
+  const resolvedPath = useResolvedPath();
+  const [publicacionRedes, setPublicacionRedes] = useState("");
+
+  const currentURL = window.location.href;
+
+  const onChangeCopy = (event) => {
+    setPublicacionRedes(event.target.value);
+  };
+
+  const { id } = useParams();
+  const location = useLocation();
   const {
     recursoXID,
     getRecursoXID,
     caracteristicasLista,
+    productosBKLista,
+    categoriasLista,
     getCaracteristicasLista,
   } = useContext(ContextGlobal);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -50,8 +115,6 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-  const { id } = useParams();
-
   useEffect(() => {
     getRecursoXID(id);
   }, [id]);
@@ -60,27 +123,262 @@ const Detail = () => {
     return <div>Producto no encontrado</div>;
   }
 
+  /////////////////////////
+
+  const handleCopyClick = (e) => {
+    e.preventDefault();
+    navigator.clipboard
+      .writeText(currentURL)
+      .then(() => {
+        setCopied(true);
+        handleClickSnack();
+      })
+      .catch((error) => {
+        console.error("Error al copiar la URL: ", error);
+      });
+  };
+  ///////////////
+  console.log(
+    " resolvedPath.pathname --------------------",
+    resolvedPath.pathname
+  );
+  console.log("URL completa:", currentURL);
+
   return (
     <>
-      <Container
+      <Modal
+        open={openShareModal}
+        onClose={handleCloseShareModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div>
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseShareModal}
+              sx={{
+                position: "relative",
+                marginBottom: "0.2rem",
+                float: "right",
+              }}
+            >
+              {" "}
+              <CloseIcon  sx={{
+
+              }}/>
+            </IconButton>
+            <CardProductoSimulado
+              id={id}
+              className="card-simulada"
+              title={recursoXID.nombre}
+              descripcion={recursoXID.descripción}
+              url={recursoXID.imagenURL}
+              precio={recursoXID.precioUnitario}
+              sede={buscadorSedeXIDSede(recursoXID.idSede)}
+              categoria={obtenerNombreCategoriaPorId(
+                recursoXID.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}
+            />
+            <TextField
+              id="copy"
+              label="Editá tu comentario"
+              multiline
+              rows={1}
+              defaultValue="Mirá el espacio que encontré!"
+              variant="standard"
+              value={
+                publicacionRedes.length === 0
+                  ? "Mirá el espacio que encontré!"
+                  : publicacionRedes
+              }
+              onChange={onChangeCopy}
+              required
+              style={{
+                fontSize: "10px",
+                width: "280px",
+                margin: "1.5rem 0rem 1rem 0rem",
+                maxHeight: "40px",
+                paddingBottom: "2rem",
+              }}
+            />
+          </div>
+
+          <Divider
+            orientation="horizontal"
+            style={{ margin: "1.5rem 0rem" }}
+          ></Divider>
+
+          <Typography
+            margin="1rem"
+            justifyContent="center"
+            textAlign="center"
+            flexItem
+            alignContent="center"
+          >
+            Comparti esta publicación en
+          </Typography>
+          <Stack
+            justifyContent="center"
+            direction="row"
+            spacing={5}
+            flexItem
+            alignContent="center"
+          >
+            <FacebookShareButton
+              url={`"${currentURL}"`}
+              quote={`"${recursoXID.nombre}"`}
+              hashtag={`#${obtenerNombreCategoriaPorId(
+                recursoXID.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}`}
+              description={`${publicacionRedes} `}
+              className=""
+            >
+              <FacebookIcon size={40} round />
+            </FacebookShareButton>
+            {/* <a
+              href={`https://www.facebook.com/sharer.php?u=${currentURL}&quote=${encodeURIComponent(
+                publicacionRedes
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MdFacebook style={{ fontSize: "50px" }} />
+            </a> */}
+
+            <TwitterShareButton
+              title={`"${recursoXID.nombre}"`}
+              url={`"${currentURL}"`}
+              hashtags={[
+                `${obtenerNombreCategoriaPorId(
+                  recursoXID.categoria_id,
+                  productosBKLista,
+                  categoriasLista
+                )}`,
+              ]}
+            >
+              <TwitterIcon size={40} round />
+            </TwitterShareButton>
+
+            {/* <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                publicacionRedes
+              )}&url=${currentURL}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsTwitter style={{ fontSize: "50px" }} />
+            </a> */}
+
+            <a
+              href={`https://www.instagram.com/sharer.php?u=${currentURL}&caption=${encodeURIComponent(
+                publicacionRedes
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsInstagram style={{ fontSize: "50px" }} />
+            </a>
+
+            <a
+              href={currentURL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleCopyClick}
+            >
+              <BsLink45Deg style={{ fontSize: "50px" }} />
+            </a>
+          </Stack>
+
+          {/* <hr /> */}
+        </Box>
+      </Modal>
+
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={handleCloseSnack}
+      >
+        <Alert
+          onClose={handleCloseSnack}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Link copiado en portapapeles!
+        </Alert>
+      </Snackbar>
+
+      <Stack
         style={{
-          paddingTop: "3rem",
+          paddingTop: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          placeItems: "center",
+          paddingLeft: "0",
+          paddingRight: "0",
         }}
       >
+        {/* <Paper> */}
         <div className="segmento-producto">
           <div className="encabezado-descripcion">
             <div className="contenido-encabezado">
-              <div className="encabezado">
-                <h1 className="titulo-nombre-detalle">{recursoXID.nombre}</h1>
-                <div onClick={() => navigate(-1)}>
-                  <MdArrowBackIosNew className="flecha" />
-                </div>
-              </div>
-              <h3 className="descripcion">{recursoXID.descripción}</h3>
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                useFlexGap
+                flexWrap="wrap"
+                spacing={2}
+                justifyContent="space-between"
+              >
+                <div className="titulo-detail">{recursoXID.nombre}</div>
+                <Stack
+                  direction="row"
+                  spacing={3}
+                  style={{
+                    marginLeft: "auto",
+                    display: "flex",
+                    alignSelf: "center",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <Button
+                    variant="text"
+                    onClick={handleOpenShare}
+                    style={{ display: "flex", gap: "1rem" }}
+                  >
+                    Compartí <MdShare style={{ fontSize: "25px" }} />
+                  </Button>
+                  <div onClick={() => navigate(-1)}>
+                    <MdArrowBackIosNew className="flecha" />
+                  </div>
+                </Stack>
+              </Stack>
+
+              <Typography
+                variant="body2"
+                style={{ width: "98%", margin: "1rem 0rem 1.5rem 0rem" }}
+              >
+                {recursoXID.descripción}{" "}
+              </Typography>
             </div>
           </div>
 
-          <div className="galeria-detalleservicios-compra">
+          <Stack
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "center",
+              placeItems: "center",
+              paddingLeft: "0",
+              paddingRight: "0",
+            }}
+          >
             <div className="grid-container-galeria">
               <div className="item-grid-fotos1" onClick={handleOpenImage1}>
                 <img
@@ -144,7 +442,6 @@ const Detail = () => {
                   src={recursoXID.imagenUrl01}
                 />
               </Box>
-
             </Modal>
 
             <Modal
@@ -192,10 +489,13 @@ const Detail = () => {
             <div className="contenedor-detalle-producto">
               <h2 className="titulo-caracteristicas">Características</h2>
             </div>
-            
+
             <div className="segmento-icon-detalle">
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
-                <div className="container-icono-caracteristica-texto">
+                <div
+                  key={idCaracteristica}
+                  className="container-icono-caracteristica-texto"
+                >
                   <div className="icono-caracteristica-texto">
                     {" "}
                     {caracteristica.logoCaracteristica != "" ? (
@@ -203,7 +503,8 @@ const Detail = () => {
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          padding: "3px 10px",
+                          width: "250px",
+                          padding: "7px 5px",
                           justifyContent: "center",
                           gap: "15px",
                           borderRadius: " 11px 11px 11px 11px",
@@ -235,9 +536,17 @@ const Detail = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </Stack>
+          {/* </div> */}
         </div>
-      </Container>
+        {/* </Paper> */}
+        <CalendarioXId></CalendarioXId>
+
+        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
+        <Comentarios></Comentarios>
+        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
+        <Politicas></Politicas>
+      </Stack>
     </>
   );
 };

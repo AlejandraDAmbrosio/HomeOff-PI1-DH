@@ -33,8 +33,12 @@
   
 @media (max-width: 550px) {
     .logo-footer {
-      margin-left: 140%;
+      margin-left: 27vw;
     }
+    
+.logo{
+  margin-right: 0rem;
+}
     .registrado {
         display: none;
       }

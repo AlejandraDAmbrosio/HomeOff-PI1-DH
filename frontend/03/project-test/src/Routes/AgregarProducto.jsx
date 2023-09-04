@@ -14,11 +14,9 @@ import {
   TextField,
   FormGroup,
   Checkbox,
-  Button
+  Button,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-
-
 
 const AgregarProducto = () => {
   const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
@@ -54,7 +52,6 @@ const AgregarProducto = () => {
   // const [showPreview, setShowPreview] = useState(false);
   // const [selectedServiceIds, setSelectedServiceIds] = useState([]);
   // const MAX_SELECTED_SERVICES = 5;
-
 
   /////// Preparar obbjeto para enviar al servidor    ///////
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -340,13 +337,8 @@ const AgregarProducto = () => {
   };
 
   return (
-    <div className="administracion-agre" style={{ padding: "2rem 0rem" }}>
-      <div
-        className="administracion-agre-titulo"
-        style={{ padding: "0rem 0rem" }}
-      >
-        Agregar productos
-      </div>
+    <div className="administracion-agre">
+      <div className="administracion-agre-titulo">Agregar productos</div>
       <div className="paneles-agregar">
         <PanelAdminUser />
         <div

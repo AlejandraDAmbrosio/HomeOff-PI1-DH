@@ -23,12 +23,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import nombreExiste from "../../utils/nombreExiste.js";
 
-
-
 const TablaCategorias = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const [idCategoriaXBorrar, setIdCategoriaXBorrar] = useState(null);
+  const [nombreCategoriaXBorrar, setNombreCategoriaXBorrar] = useState(null);
 
   const { categoriasLista, setCategoriasLista, getCategoriasLista } =
     useContext(ContextGlobal);
@@ -37,7 +36,6 @@ const TablaCategorias = () => {
   useEffect(() => {
     getCategoriasLista();
   }, []);
-  //////////////
 
   /////////// Asigna valor lista a una 2da para comparar sin afectar
   const jsonData = categoriasLista;
@@ -51,8 +49,6 @@ const TablaCategorias = () => {
     icono_Categoria: "",
   });
   const [selectedImage, setSelectedImage] = useState(null);
-  //// State Para Validaciones
-  // const [nombreYaExiste, setNombreYaExiste] = useState(false);
 
   const validarNombreCategoria = (n) => {
     const regex = /^[A-Za-z\s]{4,40}$/;
@@ -61,9 +57,10 @@ const TablaCategorias = () => {
 
   const [nombreCategoriaValida, setNombreCategoriaValida] = useState(true);
 
+    ////// OnChanges
+
   const onChangeNombre = (e) => {
     setNuevaCategoria({ ...nuevaCategoria, name: e.target.value });
-    // setNombreYaExiste(false);
     setNombreCategoriaValida(true);
   };
 
@@ -86,10 +83,6 @@ const TablaCategorias = () => {
     setOpen(false);
   };
 
-  /////////////////////////////////////////
-
-  ////////////////////////////////////////////
-
   const handleSubmitCrearCategoria = async (e) => {
     e.preventDefault();
 
@@ -99,8 +92,6 @@ const TablaCategorias = () => {
     if (nombreCategoriaValida && !categoriaExisteEnData) {
       setForm(true);
       setNombreCategoriaValida(true);
-      // setShowPreview(true);
-      // console.log(form);
 
       const nuevaCategoriaData = {
         categoria_id: 0,
@@ -169,7 +160,6 @@ const TablaCategorias = () => {
         }
       );
 
-      
       const updatedCategorias = categoriasLista.filter(
         (categoriasListaXId) => categoriasListaXId.categoria_id !== categoria_id
       );
@@ -179,8 +169,10 @@ const TablaCategorias = () => {
     }
   };
 
-  const handleClickEliminar = (e, categoria_id) => {
+  const handleClickEliminar = (e, categoria_id, categoria) => {
     setIdCategoriaXBorrar(categoria_id);
+    setNombreCategoriaXBorrar(`${categoria.name}`);
+    console.log(nombreCategoriaXBorrar);
     setOpenDialog(true);
   };
 
@@ -194,14 +186,12 @@ const TablaCategorias = () => {
           flexDirection: "column",
           alignItems: "center",
         }}
-      >
-      
-      </div>
+      ></div>
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Estás seguro que deseas eliminar esta categoría?
+            ¿Estás seguro que deseas eliminar esta categoría ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -225,23 +215,18 @@ const TablaCategorias = () => {
         style={{ margin: "0 20px 0 0" }}
       >
         <TableContainer
-          sx={{ maxHeight: 400 }}
+          sx={{maxHeight: 500,   width: "100%"}}
           style={{
             borderRadius: ":var(--bRadiusButton)",
-            padding: "10px",
-            width: "1400px",
           }}
         >
           <Table stickyHeader aria-label="sticky table">
-            {/* <div className="encabezado-tabla"> */}
             <TableHead>
-              {/* <thead> */}
 
               <TableRow
                 style={{
                   backgroundColor: "lightgray",
                   borderRadius: ":var(--bRadiusButton)",
-                  // padding: "10px",
                   width: "100%",
                 }}
               >
@@ -249,15 +234,11 @@ const TablaCategorias = () => {
                 <TableCell>Id categoría</TableCell>
                 <TableCell>Nombre categoría</TableCell>
                 <TableCell>Descripción</TableCell>
-                {/* <TableCell>Editar</TableCell> */}
                 <TableCell>Eliminar</TableCell>
               </TableRow>
 
-              {/* </thead> */}
             </TableHead>
-            {/* </div> */}
             <TableBody>
-              {/* <tbody> */}
 
               {categoriasLista.map((categoria, categoria_id) => (
                 <TableRow key={categoria_id} style={{ height: "30px" }}>
@@ -288,9 +269,10 @@ const TablaCategorias = () => {
                       size="lg"
                       variant="solid"
                       startDecorator={<DeleteForeverIcon />}
-                      onClick={(e) =>
-                        {handleClickEliminar(e, categoria.categoria_id)
-                        console.log(categoria.categoria_id)}}
+                      onClick={(e) => {
+                        handleClickEliminar(e, categoria.categoria_id, categoria);
+                        console.log(categoria.categoria_id);
+                      }}
                     ></Chip>
                   </TableCell>
                 </TableRow>
@@ -317,14 +299,15 @@ const TablaCategorias = () => {
             onChange={onChangeNombre}
             fullWidth
             variant="standard"
+            required
           />
-   {!nombreCategoriaValida ? (
-                  <p className="error-form-inicio">
-                    Por favor, ingrese un nombre válido.
-                  </p>
-                ) : (
-                  ""
-                )}
+          {!nombreCategoriaValida ? (
+            <p className="error-form-inicio">
+              Por favor, ingrese un nombre válido.
+            </p>
+          ) : (
+            ""
+          )}
 
           <TextField
             autoFocus
@@ -344,8 +327,8 @@ const TablaCategorias = () => {
         </DialogActions>
       </Dialog>
       <Button variant="outlined" onClick={handleClickOpen}>
-          Crear Categoría
-        </Button>
+        Crear Categoría
+      </Button>
     </div>
   );
 };

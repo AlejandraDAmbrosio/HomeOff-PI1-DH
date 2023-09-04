@@ -17,13 +17,31 @@ import AdministradorProductos from "./Routes/AdministradorProductos";
 import { useEffect, useState } from "react";
 import PaginaFiltrado from "./Routes/PaginaFiltrado";
 import EditarProducto from "./Routes/EditarProducto";
+import Favoritos from "./Routes/Favoritos";
+// import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
   ////////////////// Segmento Logueo
 
   /////////////////
+
+  // const[isDark, setIsDark] = useState(false);
+  // const theme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: "rgb(144, 123,100)",
+  //     },
+  //     secondary: {
+  //       main: "rgb(234, 12,234)",
+  //     },
+  //     type:isDark? "dark":"light",
+  //   },
+
+  // });
+
   return (
     <>
+      {/* <ThemeProvider theme={theme}> */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -58,9 +76,14 @@ function App() {
         <Route path="/editarproducto/" element={<EditarProducto />}>
           <Route path="/editarproducto/:id" element={<EditarProducto />} />
         </Route>
+
+        <Route path="/favoritos/" element={<Favoritos />}>
+          <Route path="/favoritos/:id" element={<Favoritos />} />
+        </Route>
       </Routes>
 
       <Footer />
+      {/* </ThemeProvider> */}
     </>
   );
 }

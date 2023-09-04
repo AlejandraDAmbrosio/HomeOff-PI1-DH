@@ -1,17 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Boton } from "../Genericos/Boton";
+import "../Genericos/Boton.css";
 import { useEffect, useState, useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
 import FormIngreso from "../../Routes/FormIngreso";
 import Modal from "@mui/material/Modal";
+
 import { Button } from "@mui/material";
+
+
 
 const BotonInicio = () => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
   const [open, setOpen] = useState(false);
-  const textoBoton = "Iniciar sesion";
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -44,13 +45,23 @@ const BotonInicio = () => {
   };
   //////////////////////
 
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <div>
-      <Button onClick={handleOpen}>Iniciar Cuenta</Button>
+      <Button
+        className="boton-generico"
+        onClick={handleOpen}
+       
+        sx={{ color: "#424242", padding:"1.2rem 0.5rem",  width:"400px", borderRadius:"20px" }}
+      >
+        Iniciar Cuenta
+      </Button>
 
-      <Modal open={open} onClose={handleClose}>
-        {/* Contenido del modal */}
-        <div>
+      <Modal open={open} onClose={handleClose} BackdropClick={true}>
+        <div onClick={handleModalClick} onMouseDown={handleModalClick}>
           <FormIngreso />
         </div>
       </Modal>
