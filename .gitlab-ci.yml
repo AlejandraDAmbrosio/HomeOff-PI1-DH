@@ -22,10 +22,6 @@ build_homeoff-fe:
     - cd project-test
     - npm run build
     - ls
-    - cd project-test/dist
-    - ls
-    - cd ..
-    - ls
   artifacts:
     paths:
       - frontend/03/project-test/dist/
