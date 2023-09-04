@@ -1,16 +1,21 @@
 import React, { useState, useContext } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import DatePicker from "react-datepicker"
+
 import { ContextGlobal } from "../../utils/global.context";
-import { TextField } from "@mui/material";
+
+
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Badge from "@mui/material/Badge";
+// import DatePicker from '@mui/lab/DatePicker';
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
-import { borderBottom } from "@mui/system";
+// import AdapterDateFns from '@date-io/date-fns';
+// import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import dayjs from "dayjs";
+// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+
 
 const renderDay = (day) => {
   const marcasDia = marcas[day.toDateString()];
@@ -22,6 +27,7 @@ const renderDay = (day) => {
 };
 
 const Calendario = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 30]);
 
@@ -56,7 +62,6 @@ const Calendario = () => {
   //   dayjs().add(dayIndex, "days").toDate()
   // );
 
-
   function ServerDay(props) {
     const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
@@ -68,15 +73,15 @@ const Calendario = () => {
       <Badge
         key={props.day.toString()}
         overlap="circular"
-        vertical='bottom'
-        horizontal='center'
+        vertical="bottom"
+        horizontal="center"
         badgeContent={isSelected ? "X" : undefined}
       >
         <PickersDay
           {...other}
           outsideCurrentMonth={outsideCurrentMonth}
           day={day}
-          disabled= {isSelected &&( true)}
+          disabled={isSelected && true}
           disableNavigation={true}
           style={{
             textDecorationLine: isSelected ? "1px solid red" : undefined,
@@ -91,14 +96,16 @@ const Calendario = () => {
     <Stack
       direction="row"
       divider={<Divider orientation="vertical" flexItem />}
-      spacing={1}
-      style={{height:"70px"}}
+      spacing={3}
     >
-      <div style={{ width: "200px"}}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} style={{height:"70px"}}>
-          <DemoContainer components={["DatePicker"]} >
+      <div style={{ width: "310px" }}>
+     
+      <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+
+
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DatePicker"]}>
             <DatePicker
-             
               label="Inicio"
               value={fechaInicio}
               onChange={(newValue) => setFechaInicio(newValue)}
@@ -106,7 +113,7 @@ const Calendario = () => {
               minDate={dayjs()}
               maxDate={dayjs().add(60, "days")}
               disableNavigation={true}
-               disablePast={true}
+              disablePast={true}
               format="DD-MM-YY"
               slotProps={{
                 textField: { size: "small" },
@@ -124,7 +131,7 @@ const Calendario = () => {
       <div style={{ width: "200px" }}>
         <LocalizationProvider
           dateAdapter={AdapterDayjs}
-          style={{ height: "70px" }}
+          style={{ height: "20px" }}
         >
           <DemoContainer components={["DatePicker"]} style={{ height: "20px" }}>
             <DatePicker
@@ -144,13 +151,103 @@ const Calendario = () => {
               s
             />
           </DemoContainer>
-        </LocalizationProvider>
+        </LocalizationProvider> */}
       </div>
     </Stack>
   );
 };
 
 export default Calendario;
+
+//   return (
+//     <Badge
+//       key={props.day.toString()}
+//       overlap="circular"
+//       vertical='bottom'
+//       horizontal='center'
+//       badgeContent={isSelected ? "X" : undefined}
+//     >
+//       <PickersDay
+//         {...other}
+//         outsideCurrentMonth={outsideCurrentMonth}
+//         day={day}
+//         disabled= {isSelected &&( true)}
+//         disableNavigation={true}
+//         style={{
+//           textDecorationLine: isSelected ? "1px solid red" : undefined,
+//           // color: isSelected ? "red" : undefined,
+//         }}
+//       />
+//     </Badge>
+//   );
+// }
+
+//   return (
+//     <Stack
+//       direction="row"
+//       divider={<Divider orientation="vertical" flexItem />}
+//       sx={{height:"70px"}}
+//       // spacing={1}
+//       // style={{height:"70px"}}
+//     >
+//       <div style={{ width: "200px",height:"70px"}}>
+//         <LocalizationProvider dateAdapter={AdapterDayjs} sx={{height:"100px"}}>
+//           <DemoContainer components={["DatePicker"]} style={{height:"70px"}}>
+//             <DatePicker
+//              style={{height:"70px"}}
+//               label="Inicio"
+//               value={fechaInicio}
+//               onChange={(newValue) => setFechaInicio(newValue)}
+//               showDaysOutsideCurrentMonth={false}
+//               minDate={dayjs()}
+//               maxDate={dayjs().add(60, "days")}
+//               disableNavigation={true}
+//                disablePast={true}
+//               format="DD-MM-YY"
+//               slotProps={{
+//                 textField: { size: "small" },
+//                 day: {
+//                   highlightedDays,
+//                 },
+//               }}
+//               slots={{
+//                 day: ServerDay,
+//               }}
+//             />
+//           </DemoContainer>
+//         </LocalizationProvider>
+//       </div>
+//       <div style={{ width: "200px" }}>
+//         <LocalizationProvider
+//           dateAdapter={AdapterDayjs}
+//           sx={{height:"100px"}}
+//         >
+//           <DemoContainer components={["DatePicker"]} style={{ height: "100px" }}>
+//             <DatePicker
+//             style={{height:"70px"}}
+//               label="Fin"
+//               value={fechaInicio}
+//               onChange={(newValue) => setFechaFin(newValue)}
+//               showDaysOutsideCurrentMonth={false}
+//               minDate={dayjs()}
+//               maxDate={dayjs().add(60, "days")}
+//               disableNavigation={true}
+//               format="DD-MM-YY"
+//               disablePast={true}
+//               slotProps={{ textField: { size: "small" } }}
+//               slots={{
+//                 day: ServerDay,
+//               }}
+//               s
+//             />
+//           </DemoContainer>
+//         </LocalizationProvider>
+//       </div>
+//     </Stack>
+//   );
+// };
+
+// export default Calendario;
 
 // import React, { useState, useContext } from "react";
 // import { Box, TextField } from "@mui/material";

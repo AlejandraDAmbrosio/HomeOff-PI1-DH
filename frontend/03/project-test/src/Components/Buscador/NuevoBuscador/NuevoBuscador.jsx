@@ -14,6 +14,8 @@ import React, { useEffect, useState, useContext } from "react";
 import Calendario from "../Fecha/Calendario";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BuscarXSede from "../Sede/BuscarXSede";
+import CalendarioXId from "../../Genericos/Fecha/CalendarioXId";
+import CalendarioII from "../Fecha/CalendarioII";
 
 const NuevoBuscador = () => {
   const { fechasBusqueda, productosBKLista } = useContext(ContextGlobal);
@@ -73,12 +75,12 @@ const NuevoBuscador = () => {
         border: "1px solid grey",
         alignContent: "center",
         justifyContent: "space-between",
-        
+
         height: "42px",
         padding: "0 5px 0 10px",
         borderRadius: "20px",
-        borderColor:"white",
-        color:"white",
+        borderColor: "white",
+        color: "white",
       }}
     >
       <Stack>
@@ -90,8 +92,59 @@ const NuevoBuscador = () => {
         <option value="Chile"></option>
       </datalist> */}
 
-      <Stack direction="row" spacing={2} style={{ marginBottom: "1rem", height:"40px" }}>
-        <div
+      <Stack
+        direction="row"
+        spacing={2}
+        style={{ marginBottom: "1rem" /*, height:"40px"*/ }}
+      >
+        <div onClick={handleDateDropdownOpen}>
+          {fechasBusqueda[0] && fechasBusqueda[1] ? (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <div>
+                {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                })}{" "}
+              </div>
+              <Divider orientation="vertical" flexItem />
+              <div>
+                {fechasBusqueda[1].$d.toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                })}{" "}
+              </div>
+            </div>
+          ) : (
+            <CalendarMonthIcon />
+          )}
+        </div>
+
+        <Popover
+          open={isDateDropdownOpen}
+          onClose={handleDateDropdownClose}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
+          <Box p={2}>
+            <CalendarioII   value={fechasBusqueda}
+              onChange={(newValue) => {
+                if (Array.isArray(newValue) && newValue.length === 2) {
+                  setFechasBusqueda(newValue.map((date) => date || null));
+                } else {
+                  setFechasBusqueda([null, null]);
+                }
+              }}/>
+          </Box>
+        </Popover>
+
+        {/* <div
           onClick={handleDateDropdownOpen}
           style={{ placeItems: "center", width: "100%" }}
         >
@@ -115,8 +168,8 @@ const NuevoBuscador = () => {
           ) : (
             <CalendarMonthIcon style={{ fontSize: "40px" }} />
           )}
-        </div>
-        <Portal>
+        </div> */}
+        {/*         
         <Popover
           open={isDateDropdownOpen}
           onClose={handleDateDropdownClose}
@@ -142,8 +195,7 @@ const NuevoBuscador = () => {
               }}
             />
           </Box>
-        </Popover>
-        </Portal>
+        </Popover> */}
       </Stack>
     </Stack>
   );

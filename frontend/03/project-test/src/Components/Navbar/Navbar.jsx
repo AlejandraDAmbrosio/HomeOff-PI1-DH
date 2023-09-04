@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import AccountMenu from "../MenuDropDown/AccountMenu";
 
 import { useParams } from "react-router-dom";
+import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
 
 const Navbar = () => {
   const { id } = useParams();
@@ -40,7 +41,9 @@ const Navbar = () => {
             <li>
               <Logo />
             </li>
-
+            <li>
+              <NuevoBuscador />
+            </li>
             <div className="botones-header">
               {!usuarioLogueado && (
                 <>

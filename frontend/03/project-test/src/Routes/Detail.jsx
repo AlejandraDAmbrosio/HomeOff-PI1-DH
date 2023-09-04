@@ -239,6 +239,8 @@ const Detail = () => {
             >
               <FacebookIcon size={40} round />
             </FacebookShareButton>
+
+            {/* Alternativa comentada */}
             {/* <a
               href={`https://www.facebook.com/sharer.php?u=${currentURL}&quote=${encodeURIComponent(
                 publicacionRedes
@@ -263,6 +265,7 @@ const Detail = () => {
               <TwitterIcon size={40} round />
             </TwitterShareButton>
 
+            {/* Alternativa comentada */}
             {/* <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 publicacionRedes
