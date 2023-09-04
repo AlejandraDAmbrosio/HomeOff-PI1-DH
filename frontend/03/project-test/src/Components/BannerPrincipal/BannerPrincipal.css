@@ -1,0 +1,151 @@
+.flexing {
+  display: flex;
+  flex-direction: row;
+  height: 50vh;
+  gap: 0.5rem;
+  margin: 1rem 2%;
+  transition: height 0.5s ease;
+}
+
+.flexing.scrolled {
+  height: 18vh;
+}
+
+@media (max-width: 1260px) {
+  .flexing {
+    height: 30vh;
+    margin: 2rem 2rem 2% 2rem;
+  }
+}
+
+.section {
+  flex: 1;
+  position: relative;
+  transition: 1.6s ease;
+  border-radius: 11px 11px 11px 11px;
+  -webkit-border-radius: 11px 11px 11px 11px;
+  -moz-border-radius: 11px 11px 11px 11px;
+  box-shadow: var(--BShadow);
+  border-radius: var(--bRadiusButton);
+}
+
+.section--yellow {
+  background-image: url("/images/240_F_610971454_DBLcfDXBVOeIJQMGBNbE0r5Szfx3e9OL.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(80%);
+}
+.section--pink {
+  background-image: url("/images/Domicilio Fiscal y Jurídic.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: fill;
+  filter: grayscale(80%);
+}
+
+.section--green {
+  background-image: url("/images/Oficina de planta completa.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(80%);
+}
+
+.section:hover,
+.section:active,
+.section.focus {
+  flex: 6;
+  background-size: cover;
+  filter: grayscale(0%) saturate(1.2);
+}
+
+.section:hover .title,
+.section:active .title,
+.section.focus .title {
+  text-align: center;
+  transform: translate(-50%, -60%) rotate(0);
+  filter: grayscale(0%);
+  font-size: calc(2vw + 1.2rem);
+}
+.section:hover .precio,
+.section:active .precio,
+.section.focus .precio {
+  transform: translate(-50%, -20%) rotate(0);
+  filter: grayscale(0%);
+  color: var(--green);
+  font-size: calc(2.5vw + 2rem);
+}
+
+@media screen and( min-width: 1000px) {
+  .section:hover .title,
+  .section:active .title,
+  .section.focus .title {
+    transform: translate(-50%, -50%) scale(1.25);
+    color: var(--green);
+  }
+  .section .title {
+    font-size: calc(2vw + 3rem);
+  }
+}
+
+@media (max-width: 1000px) {
+  .flexing {
+    flex-direction: column;
+    height: 50vh;
+  }
+
+  .flexing.scrolled{
+    height: 40vh;
+  }
+
+  .section .title {
+    font-size: calc(2vw + 3rem);
+  }
+}
+
+.section .title {
+  text-align: center;
+  white-space: nowrap;
+  font-size: calc(1vw + 1rem);
+  text-shadow: 2px 2px 20px var(--color), 1px 1px 2px var(--colorGrey1);
+  color: white;
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -40%);
+  transition: 1.5s ease;
+}
+
+@media screen and( min-width: 1000px) {
+  .section .title {
+    transform: translate(-50%, -40%) rotate(90deg);
+  }
+}
+
+.section .precio {
+  font-size: calc(1vw + 2rem);
+  font-weight: var(--fweightXL);
+  color: white;
+  text-shadow: 2px 2px 20px var(--color), 1px 1px 2px var(--colorGrey1);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -20%);
+  transition: 1.5s ease;
+}
+
+.flexing.scrolled .title {
+  transform: translate(-50%, -40%) scale(0.9); /* Reducir el tamaño del texto */
+  top: 30%; /* Mover los elementos hacia arriba */
+  transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.flexing.scrolled .precio {
+  transform: translate(-50%, -15%) scale(0.9); /* Reducir el tamaño del texto */
+  top: 30%; /* Mover los elementos hacia arriba */
+  transition: transform 0.3s ease, top 0.3s ease;
+}
