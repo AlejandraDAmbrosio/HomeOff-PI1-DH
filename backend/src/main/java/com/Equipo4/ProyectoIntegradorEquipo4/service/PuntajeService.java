@@ -1,6 +1,7 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Puntaje;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.PuntajeRespuesta;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuarios;
 import com.Equipo4.ProyectoIntegradorEquipo4.repository.IPuntajeRepository;
@@ -31,35 +32,58 @@ public class PuntajeService implements IPuntajeService {
     public Puntaje guardarPuntaje(Puntaje puntaje) throws Exception {
         validarPuntaje(puntaje);
 
-        Recursos recursos = recursosRepository.findById(puntaje.getIdRecurso())
+        Recursos recurso = recursosRepository.findById(puntaje.getIdRecurso())
                 .orElseThrow(() -> new Exception("El recurso no existe"));
 
-        Usuarios usuarios = usuariosRepository.findById(puntaje.getIdUsuario())
+        Usuarios usuario = usuariosRepository.findById(puntaje.getIdUsuario())
                 .orElseThrow(() -> new Exception("El usuario no existe"));
 
         Puntaje nuevoPuntaje = new Puntaje();
-        nuevoPuntaje.setIdUsuario(usuarios.getIdUsuario());
-        nuevoPuntaje.setIdRecurso(recursos.getIdRecurso());
+        nuevoPuntaje.setIdUsuario(usuario.getIdUsuario());
+        nuevoPuntaje.setIdRecurso(recurso.getIdRecurso());
         nuevoPuntaje.setPuntuacion(puntaje.getPuntuacion());
         nuevoPuntaje.setComentario(puntaje.getComentario());
-        nuevoPuntaje.setFecha_valoracion(new Date());
+        nuevoPuntaje.setFecha_valoracion(puntaje.getFecha_valoracion());
 
-        puntajeRepository.save(puntaje);
+        int resultKey = puntajeRepository.save(nuevoPuntaje);
+        nuevoPuntaje.setIdPuntuacion(resultKey);
+        System.out.println("INFO:" + nuevoPuntaje.toString());
+        System.out.println("INFO:" + nuevoPuntaje.getIdPuntuacion());
 
-        return puntaje;
+        return nuevoPuntaje;
     }
 
-    public List<Puntaje> devolverPuntajesPorRecurso(Integer idRecurso) throws Exception {
+    public List<PuntajeRespuesta> devolverPuntajesPorRecurso(Integer idRecurso) throws Exception {
         Recursos recurso = recursosRepository.findById(idRecurso)
                 .orElseThrow(() -> new Exception("El recurso no existe"));
 
-        List<Puntaje> puntajes = puntajeRepository.findAllByRecurso(idRecurso);
+        List<PuntajeRespuesta> puntajes = puntajeRepository.findAllByRecurso(idRecurso);
+
 
         if (puntajes.isEmpty()) {
             throw new Exception("El recurso no tiene valoraciones");
         }
 
            return puntajes;
+    }
+
+    public Double calculateAverageByRecurso(Integer idRecurso) throws Exception {
+
+        Recursos recurso = recursosRepository.findById(idRecurso)
+                .orElseThrow(() -> new Exception("El recurso no existe"));
+        /*List<PuntajeRespuesta> puntajes = puntajeRepository.findAllByRecurso(idRecurso);
+
+        if (puntajes.isEmpty()) {
+            throw new Exception("El recurso no tiene valoraciones");
+        }
+
+        double sumaPuntuaciones = 0;
+        for (Puntaje puntaje : puntajes) {
+            sumaPuntuaciones += puntaje.getPuntuacion();
+        }
+        return sumaPuntuaciones / puntajes.size();*/
+        Double promedio = puntajeRepository.calculateAverageByRecurso(idRecurso);
+        return promedio;
     }
 
     private void validarPuntaje(Puntaje puntaje) throws Exception {

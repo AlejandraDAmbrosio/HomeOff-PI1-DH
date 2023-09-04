@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class Puntaje implements Serializable {
 
-    private Integer Id_Puntuaciones;
+    private Integer idPuntuacion;
     private Integer idUsuario;
     private Integer idRecurso;
     private Integer puntuacion;
