@@ -29,7 +29,7 @@ build_homeoff-fe:
     - main
 
 
-deploy_web-fe_2_aws-homeoff-lab-fe:
+deploy_homeoff-prod-fe:
   stage: deploy
   needs: [build_homeoff-fe]
   image: python:3
