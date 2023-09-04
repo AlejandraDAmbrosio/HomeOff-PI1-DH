@@ -6,16 +6,26 @@ build_homeoff-fe:
   stage: build
   image: node:16.14.0
   script:
+    - ls
     - npm install -g vite
+    - ls
     - cd frontend/03
+    - ls
     - npm i react-router-dom
     - npm install react-icons --save
     - npm install axios
     - npm install @mui/material @emotion/react @emotion/styled @mui/joy @mui/icons-material @mui/x-date-pickers-pro @mui/x-date-pickers
     - npm install @fontsource/roboto
     - npm install dayjs
+    - npm install react-share --save
+    - ls
     - cd project-test
     - npm run build
+    - ls
+    - cd project-test/dist
+    - ls
+    - cd ..
+    - ls
   artifacts:
     paths:
       - frontend/03/project-test/dist/
