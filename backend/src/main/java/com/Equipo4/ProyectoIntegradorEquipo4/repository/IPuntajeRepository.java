@@ -1,15 +1,16 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.repository;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Puntaje;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.PuntajeRespuesta;
 
 import java.util.List;
 import java.util.Optional;
 
 
 public interface IPuntajeRepository {
-    List<Puntaje> findAllByRecurso(int idRecurso);
+    List<PuntajeRespuesta> findAllByRecurso(int idRecurso);
 
     int save(Puntaje puntaje);
-    Double CalculateAverageByRecurso(int idRecurso);
+    Double calculateAverageByRecurso(int idRecurso);
 
     /**
      * Devuelve un puntaje dado su Id
