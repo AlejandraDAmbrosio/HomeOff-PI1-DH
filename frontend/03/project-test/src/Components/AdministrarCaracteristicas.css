@@ -1,0 +1,29 @@
+.administracion-car {
+  margin-top: 7rem;
+  margin-bottom: 2rem;
+  min-height: 690px;
+}
+
+.administracion-car-titulo {
+  font-size: var(--fsizeTL);
+  margin: 0 1rem;
+  padding: 1.5rem 0;
+  background-repeat: no-repeat;
+  background-size: csover;
+  height: 100px;
+  width: 90%;
+  color: var(--bgrey);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.paneles-car {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 0;
+  width: 100%;
+  padding: 0 1rem;
+}
