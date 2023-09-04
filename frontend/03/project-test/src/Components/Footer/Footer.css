@@ -57,3 +57,24 @@
     display: none;
   }
 }
+.encontranos {
+  margin-left: 0rem;
+
+  margin-right: 0rem;
+}
+
+.footer-HO {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  padding: 0 2rem;
+  background-color: #ffffff;
+  color: var(--colorGrey2);
+
+
+
+  padding-top: 1rem;
+}

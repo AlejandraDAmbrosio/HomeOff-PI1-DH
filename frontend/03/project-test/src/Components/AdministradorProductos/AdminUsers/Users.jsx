@@ -91,17 +91,13 @@ const Users = () => {
       style={{ margin: "0 20px 0 0" }}
     >
       <TableContainer
-        sx={{ maxHeight: 400 }}
+        sx={{maxHeight: 500,  width: "100%" }}
         style={{
           borderRadius: ":var(--bRadiusButton)",
-          padding: "10px",
         }}
       >
         <Table stickyHeader aria-label="sticky table">
-          {/* <div className="encabezado-tabla"> */}
           <TableHead>
-            {/* <thead> */}
-
             <TableRow
               style={{
                 backgroundColor: "lightgray",
@@ -117,11 +113,8 @@ const Users = () => {
               <TableCell>Rol</TableCell>
             </TableRow>
 
-            {/* </thead> */}
           </TableHead>
-          {/* </div> */}
           <TableBody>
-            {/* <tbody> */}
 
             {usersLista.map((user, idUsuario) => (
               <TableRow
@@ -133,23 +126,6 @@ const Users = () => {
                 }}
               >
                 <TableCell>
-                  {/* <Button
-                  style={{
-                    backgroundColor: "#9dd6b3",
-                    fontSize: "20px",
-                    borderRadius: "50%",
-                    margin: "0",
-                    display: "flex",
-                    justifyContent: "center",
-                    aligItems: "center",
-                    textAlign: "center",
-                    padding: "30px",
-                    width: "60px",
-                    height: "60px",
-                  }}
-                >
-                  {obtenerIniciales(user.nombreCompleto)}
-                </Button> */}
                   <Avatar
                     variant="solid"
                     size="lg"

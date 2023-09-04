@@ -5,11 +5,11 @@ import Error from "../Components/Error";
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import { useEffect, useContext } from "react";
-
+import { Container, Stack, Typography } from "@mui/material";
 
 const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
-  useContext(ContextGlobal);
+    useContext(ContextGlobal);
   const textoBotonGuardarForm = "Crear Cuenta";
   const urlBase = "http://52.32.210.155:8080/api/v1/usuarios/save";
 
@@ -187,7 +187,7 @@ const FormAltaUser = () => {
 
         console.log("Respuesta:", response.data);
         getDatosUsers();
-        console.log(usersLista)
+        console.log(usersLista);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -196,11 +196,6 @@ const FormAltaUser = () => {
           getDatosUsers(); // Actualiza el estado jsonData después de enviar la petición POST
         }
       }, [form]);
-
-
-
-
-
 
       ///////////////////////////////////////////
 
@@ -228,141 +223,150 @@ const FormAltaUser = () => {
   };
 
   return (
-    <div className="pagina-formulario-alta">
-      <div className="encabezado-formulario">
-        <div className="titulo-form-alta-user">Crea tu cuenta</div>
-      </div>
+    <Container style={{ marginTop: "7rem", minHeight: "730px", width: "auto" }}>
+      <Stack
+        style={{ placeItems: "center", gap: "1rem", paddingBottom: "2rem" }}
+      >
+        <Typography variant="h4" style={{ color: "#9dd6b3" }}>
+         
+          Crea tu cuenta
+        </Typography>
+       
 
-      <form onSubmit={handleSubmitCrearCuenta}>
-        <div className="formularioAltaUser">
-          <div className="form-control">
-            <label for="nombre">Nombre *</label>
-            <input
-              type="text"
-              placeholder="Ingresa tu nombre"
-              value={usuario.nombre}
-              onChange={onChangeNombre}
-              id="nombre"
-              style={{ borderColor: nombreValido ? "" : "red" }}
-            />
-            {!nombreValido ? (
-              <p className="error-form">
-                Ingrese entre 3 y 30 caracteres y solo contener letras.
-              </p>
-            ) : (
-              ""
-            )}
+        <form onSubmit={handleSubmitCrearCuenta}>
+          <div className="formularioAltaUser">
+            <div className="form-control">
+              <label for="nombre">Nombre *</label>
+              <input
+                type="text"
+                placeholder="Ingresa tu nombre"
+                value={usuario.nombre}
+                onChange={onChangeNombre}
+                id="nombre"
+                style={{ borderColor: nombreValido ? "" : "red" }}
+              />
+              {!nombreValido ? (
+                <p className="error-form">
+                  Ingrese entre 3 y 30 caracteres y solo contener letras.
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className="form-control">
+              <label for="apellido">Apellido *</label>
+              <input
+                type="text"
+                placeholder="Ingresa tu apellido"
+                value={usuario.apellido}
+                onChange={onChangeApellido}
+                id="apellido"
+                style={{ borderColor: apellidoValido ? "" : "red" }}
+              />
+              {!apellidoValido ? (
+                <p className="error-form">
+                  Ingrese entre 3 y 30 caracteres y solo contener letras.
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className="form-control">
+              <label for="email">Email *</label>
+              <input
+                type="email"
+                placeholder="ejemplo@gmail.com"
+                value={usuario.email}
+                onChange={onChangeEmail}
+                id="email"
+                style={{ borderColor: emailValido ? "" : "red" }}
+              />
+              {!emailValido ? (
+                <p className="error-form">
+                  Ingresar al menos 3 caracteres antes del @ y tener un formato
+                  válido.
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className="form-control">
+              <label for="confirmaremail">Confirma Email *</label>
+              <input
+                type="email"
+                placeholder="Confirmar Email"
+                value={usuario.confirmacionEmail}
+                onChange={onChangeConfirmacionEmail}
+                id="confirmaremail"
+                style={{ borderColor: confirmacionEmailValido ? "" : "red" }}
+              />
+              {!confirmacionEmailValido ? (
+                <p className="error-form">Los emails no coinciden.</p>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className="form-control">
+              <label for="Password">Password *</label>
+              <input
+                type="password"
+                placeholder="********"
+                value={usuario.password}
+                onChange={onChangePassword}
+                id="password"
+                style={{ borderColor: passwordValido ? "" : "red" }}
+              />
+              {!passwordValido ? (
+                <p className="error-form">
+                  La contraseña debe tener al menos 8 caracteres, incluir una
+                  letra mayúscula y un carácter no alfanumérico.
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className="form-control">
+              <label for="confirmarpassword">Confirma Password *</label>
+              <input
+                type="password"
+                placeholder="********"
+                value={usuario.confirmarPassword}
+                id="confirmarpassword"
+                style={{ borderColor: confirmacionPasswordValido ? "" : "red" }}
+                onChange={onChangeConfirmacionPassword}
+              />
+              {!confirmacionPasswordValido ? (
+                <p className="error-form">Los passwords no coinciden.</p>
+              ) : (
+                ""
+              )}
+            </div>
+
+            {/* //////////////-----------------------------////////////// */}
+            <button className="boton-alta-user" type="submit" value="Acceso">
+              Crear Cuenta
+            </button>
           </div>
-
-          <div className="form-control">
-            <label for="apellido">Apellido *</label>
-            <input
-              type="text"
-              placeholder="Ingresa tu apellido"
-              value={usuario.apellido}
-              onChange={onChangeApellido}
-              id="apellido"
-              style={{ borderColor: apellidoValido ? "" : "red" }}
-            />
-            {!apellidoValido ? (
-              <p className="error-form">
-                Ingrese entre 3 y 30 caracteres y solo contener letras.
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-
-          <div className="form-control">
-            <label for="email">Email *</label>
-            <input
-              type="email"
-              placeholder="ejemplo@gmail.com"
-              value={usuario.email}
-              onChange={onChangeEmail}
-              id="email"
-              style={{ borderColor: emailValido ? "" : "red" }}
-            />
-            {!emailValido ? (
-              <p className="error-form">
-                Ingresar al menos 3 caracteres antes del @ y tener un formato
-                válido.
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-
-          <div className="form-control">
-            <label for="confirmaremail">Confirma Email *</label>
-            <input
-              type="email"
-              placeholder="Confirmar Email"
-              value={usuario.confirmacionEmail}
-              onChange={onChangeConfirmacionEmail}
-              id="confirmaremail"
-              style={{ borderColor: confirmacionEmailValido ? "" : "red" }}
-            />
-            {!confirmacionEmailValido ? (
-              <p className="error-form">Los emails no coinciden.</p>
-            ) : (
-              ""
-            )}
-          </div>
-
-          <div className="form-control">
-            <label for="Password">Password *</label>
-            <input
-              type="password"
-              placeholder="********"
-              value={usuario.password}
-              onChange={onChangePassword}
-              id="password"
-              style={{ borderColor: passwordValido ? "" : "red" }}
-            />
-            {!passwordValido ? (
-              <p className="error-form">
-                La contraseña debe tener al menos 8 caracteres, incluir una
-                letra mayúscula y un carácter no alfanumérico.
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-
-          <div className="form-control">
-            <label for="confirmarpassword">Confirma Password *</label>
-            <input
-              type="password"
-              placeholder="********"
-              value={usuario.confirmarPassword}
-              id="confirmarpassword"
-              style={{ borderColor: confirmacionPasswordValido ? "" : "red" }}
-              onChange={onChangeConfirmacionPassword}
-            />
-            {!confirmacionPasswordValido ? (
-              <p className="error-form">Los passwords no coinciden.</p>
-            ) : (
-              ""
-            )}
-          </div>
-
-          {/* //////////////-----------------------------////////////// */}
-          <button className="boton-alta-user" type="submit" value="Acceso">
-            Crear Cuenta
-          </button>
-        </div>
-        {form && (
-          <h5 className="msj-form-guardado">
-            Gracias !! Te has registrado como usuario de HomeOFF!!
-          </h5>
-        )}
-      </form>
-      <div className="acceso-cuenta-o-usuarionuevo-alta">
-        <p>¿No tenés cuenta?</p>
-        <p>¿Se te olvidó tu contraseña?</p>
-      </div>
-    </div>
+          {form && (
+            <h5 className="msj-form-guardado">
+              Gracias !! Te has registrado como usuario de HomeOFF!!
+            </h5>
+          )}
+        </form>
+        <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
+          {/* <div className="acceso-cuenta-o-usuarionuevo-alta"> */}
+          <p>¿No tenés cuenta?</p>
+          <p>¿Se te olvidó tu contraseña?</p>
+          {/* </div> */}
+        </Stack>
+      </Stack>
+    </Container>
+   
   );
 };
 

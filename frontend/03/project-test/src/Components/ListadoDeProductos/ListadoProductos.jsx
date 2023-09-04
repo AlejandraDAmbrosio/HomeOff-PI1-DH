@@ -1,5 +1,5 @@
 import React from "react";
-import buscadorSedeXIDSede from "../utils/buscadorSedeXIDSede"
+import buscadorSedeXIDSede from "../utils/buscadorSedeXIDSede";
 import { useState, useEffect, useContext } from "react";
 import { ContextGlobal } from "../utils/global.context";
 import { useNavigate } from "react-router-dom";
@@ -7,27 +7,28 @@ import { useNavigate } from "react-router-dom";
 import CardProducto from "./CardProducto";
 import "../ListadoDeProductos/CardProducto.css";
 import "./ListadoProductos.css";
+import obtenerNombreCategoriaPorId from "../utils/obtenerNombreCategoriaPorId";
 
-function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
-  const categoriaEncontrada = listaCategorias.find(
-    (item) => item.categoria_id === idCategoria
-  );
-
-  if (categoriaEncontrada) {
-    return categoriaEncontrada.name;
-  } else {
-    return "Categoría no encontrada";
-  }
-}
 
 const ListadoProductos = ({ CantidadCards }) => {
-
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const { productosBKLista, categoriasLista } = useContext(ContextGlobal);
+  const { productosBKLista, categoriasLista, prodFiltrados } =
+    useContext(ContextGlobal);
 
- 
+  const shouldUseFilteredProducts = prodFiltrados.length > 0;
+  // console.log("prodFiltrados en LIstaProd:", prodFiltrados);
+
+  const productsToRender = shouldUseFilteredProducts
+    ? prodFiltrados
+    : productosBKLista;
+
+  useEffect(() => {
+    const paginatedArray = chunk(productsToRender, CantidadCards);
+    setPaginatedProducts(paginatedArray);
+  }, [CantidadCards, productsToRender]);
+
   const chunk = (arr, size) => {
     const chunkedArray = [];
     for (let i = 0; i < arr.length; i += size) {
@@ -56,13 +57,8 @@ const ListadoProductos = ({ CantidadCards }) => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
 
-
-  
-
   return (
     <div className="segmento-listado-productos">
-   
-
       <div className="grid-container-listado-home">
         {paginatedProducts.length ? (
           paginatedProducts[currentPage].map((producto, idRecurso) => (
@@ -71,7 +67,7 @@ const ListadoProductos = ({ CantidadCards }) => {
               key={producto.idRecurso}
               title={producto.nombre}
               descripcion={producto.descripción}
-              url={producto.imagenURL} // Aquí usamos la URL de la foto
+              url={producto.imagenURL}
               precio={producto.precioUnitario}
               sede={buscadorSedeXIDSede(producto.idSede)}
               categoria={obtenerNombreCategoriaPorId(
@@ -89,7 +85,6 @@ const ListadoProductos = ({ CantidadCards }) => {
           </>
         )}
       </div>
-  
 
       <div className="paginacion">
         {currentPage > 0 ? (
@@ -97,19 +92,15 @@ const ListadoProductos = ({ CantidadCards }) => {
             {irAPaginaAnterior}
           </button>
         ) : (
-          <button className="boton-no-paginacion" >
-            {irAPaginaAnterior}
-          </button>
+          <button className="boton-no-paginacion">{irAPaginaAnterior}</button>
         )}
         {currentPage < paginatedProducts.length - 1 ? (
           <button className="boton-paginacion" onClick={handleNextPage}>
             {pasaPaginaSiguiente}
           </button>
-        ) : ( <button className="boton-no-paginacion" >
-        {pasaPaginaSiguiente}
-      </button>)}
-
-     
+        ) : (
+          <button className="boton-no-paginacion">{pasaPaginaSiguiente}</button>
+        )}
       </div>
     </div>
   );

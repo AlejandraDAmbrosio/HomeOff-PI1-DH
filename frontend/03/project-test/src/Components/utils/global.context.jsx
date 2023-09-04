@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 export const ContextGlobal = createContext();
 import axios from "axios";
 
-
 export const ContextProvider = ({ children }) => {
   ///Modal Fotos ////
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +14,7 @@ export const ContextProvider = ({ children }) => {
     setShowModal(false);
   };
 
-  ///////////////////////GetDatosLista 
+  ///////////////////////GetDatosLista
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
@@ -23,7 +22,6 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setProductosBKLista(data);
-   
   };
 
   useEffect(() => {
@@ -40,11 +38,10 @@ export const ContextProvider = ({ children }) => {
     const data = response.data;
 
     setRecursoXID(data);
- 
   };
-  useEffect(() => {
-    getRecursoXID();
-  }, []);
+  // useEffect(() => {
+  //   getRecursoXID();
+  // }, []);
 
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
@@ -77,7 +74,7 @@ export const ContextProvider = ({ children }) => {
 
   ///////////////// Get Caracteristicas
   const [caracteristicasLista, setCaracteristicasLista] = useState([]);
-  
+
   const getCaracteristicasLista = async () => {
     const res = await fetch(
       "http://52.32.210.155:8080/api/v1/caracteristicas/list"
@@ -85,7 +82,6 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setCaracteristicasLista(data);
-   
   };
 
   useEffect(() => {
@@ -95,67 +91,135 @@ export const ContextProvider = ({ children }) => {
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
-  useEffect(() => {
-    fetchUsuarios();
-  }, []);
+  const [userLogIn, setUserLogIn] = useState({
+    username: "",
+    password: "",
+  });
+  const [errorLogueo, setErrorLogueo] = useState("");
 
-  const fetchUsuarios = async () => {
+  const realizarLogIn = async (userLogIn) => {
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+
     try {
-      const response = await axios.get(
-        "http://52.32.210.155:8080/api/v1/usuarios/list"
-      );
+      const response = await axios.post(urlBaseGuardar, userLogIn, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = response.data;
+      console.log("Respuesta:", data);
+
       setUsuarios(response.data);
+      setUsuarioLogueado();
+      if (data.jwt) {
+        localStorage.setItem("jwt", data.jwt);
+        console.log("Respuesta jwt:", data.jwt);
+        window.location.replace("/");
+      } else {
+        setErrorLogueo("Credenciales inválidas");
+      }
     } catch (error) {
-      console.error("Error al cargar usuarios:", error);
+      console.error("Error al iniciar sesión:", error);
+      setErrorLogueo("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
     }
   };
 
-  //   console.log("Usuarios antes de validaciones");
-  // console.log(usuarios);
-  const iniciarSesion = (nombre, email, password) => {
-    const usuarioEncontrado = usuarios.find(
-      (usuario) =>
-        usuario.nombreCompleto === nombre &&
-        usuario.correo === email &&
-        usuario.contraseña === password
-    );
-
-    if (usuarioEncontrado) {
-      setUsuarioLogueado(usuarioEncontrado);
-      localStorage.setItem(
-        "usuarioLogueado",
-        JSON.stringify(usuarioEncontrado)
-      );
-    } else {
-      console.log("Credenciales incorrectas");
-    }
-  };
-
-  useEffect(() => {
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
-    if (usuarioGuardado) {
-      setUsuarioLogueado(usuarioGuardado);
-    }
-  }, []);
-  // const history = useHistory();
   const cerrarSesion = () => {
     localStorage.removeItem("usuarioLogueado");
     setUsuarioLogueado(null);
     console.log("----------Cerrando sesión. en Context .---------");
-    // history.push("/");
   };
+
+  // useEffect(() => {
+  //   fetchUsuarios();
+  // }, []);
+
+  // const realizarLogIn = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://52.32.210.155:8080/api/v1/usuarios/list"
+  //     );
+  //     setUsuarios(response.data);
+  //   } catch (error) {
+  //     console.error("Error al cargar usuarios:", error);
+  //   }
+  // };
+
+  ///////////////////////////////////////////////////////////
+  // const iniciarSesion = (nombre, email, password) => {
+  //   const usuarioEncontrado = usuarios.find(
+  //     (usuario) =>
+  //       usuario.nombreCompleto === nombre &&
+  //       usuario.correo === email &&
+  //       usuario.contraseña === password
+  //   );
+
+  /////////////////////////////////////
+
+  //   if (usuarioEncontrado) {
+  //     setUsuarioLogueado(usuarioEncontrado);
+  //     localStorage.setItem(
+  //       "usuarioLogueado",
+  //       JSON.stringify(usuarioEncontrado)
+  //     );
+  //   } else {
+  //     console.log("Credenciales incorrectas");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  //   if (usuarioGuardado) {
+  //     setUsuarioLogueado(usuarioGuardado);
+  //   }
+  // }, []);
 
   //////////////////////////////////////////// FECHAS
   const [fechasBusqueda, setFechasBusqueda] = useState([null, null]);
 
+  //////////////////////////Buscar por sede   /////////////////////////////////
+  const [idFilteredSedes, setIdFilteredSedes] = useState([]);
+  const [filteredSedes, setFilteredSedes] = useState([]);
+
+  //////////////////////////Buscar por nombre   /////////////////////////////////
+  const [idFilteredName, setIdFilteredName] = useState([]);
+  const [filteredName, setfilteredName] = useState([]);
+
+  ///////////////////////////////////Paginado
+
+  /////////////////////////////////////////
+
+  ////////////////////////////// Buscar por nombre
+
+  const [filteredNombre, setFilteredNombre] = useState([]);
+
+  /////////////////////////////
+  const [prodFiltrados, setProdFiltrados] = useState([]);
 
   return (
     <ContextGlobal.Provider
       value={{
+        errorLogueo,
+        userLogIn,
+        setUserLogIn,
+        realizarLogIn,
+        prodFiltrados,
+        setProdFiltrados,
+        filteredNombre,
+        setFilteredNombre,
+        idFilteredName,
+        setIdFilteredName,
+        filteredName,
+        setfilteredName,
+        filteredSedes,
+        setFilteredSedes,
+        idFilteredSedes,
+        setIdFilteredSedes,
         fechasBusqueda,
         setFechasBusqueda,
         usuarioLogueado,
-        iniciarSesion,
+
         cerrarSesion,
         categoriasLista,
         setCategoriasLista,

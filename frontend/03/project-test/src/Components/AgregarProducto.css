@@ -1,30 +1,21 @@
-.paneles-agregar {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 1rem;
-  margin: 0 1rem 0 1rem;
-  width: 100%;
-}
-
 .administracion-agre {
-  margin-top: 4rem;
+  margin-top: 7rem;
   margin-bottom: 2rem;
+  min-height: 690px;
 }
 
 .administracion-agre-titulo {
   font-size: var(--fsizeTL);
-  margin: 0 0 1rem 1rem;
-
-  /* background-image: url("/images/pexels-photo-1097930.jpeg"); */
+  margin: 0 1rem;
+  padding: 1.5rem 0;
   background-repeat: no-repeat;
   background-size: cover;
-  /* filter: grayscale(100%); */
   height: 100px;
-  width: 100%;
+  width: 90%;
   color: var(--bgrey);
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .titulo-form-carga-prod {
@@ -32,9 +23,16 @@
   height: 60px;
   width: 100%;
   color: var(--bgrey);
- 
 }
-
+.paneles-agregar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 0;
+  width: 98%;
+  padding: 0 1rem;
+}
 
 .division-form-preview {
   display: flex;
@@ -49,10 +47,6 @@
   gap: 1rem;
   border: 1px solid rgb(184, 184, 184);
 }
-
-/* .card-simulada {
-    width: 600px;
-} */
 
 .segmento-preview {
   width: 40%;
@@ -76,23 +70,8 @@
   align-items: center;
   width: 50%;
   height: auto;
-  /* padding-top: 12rem; */
   padding-bottom: 2rem;
   margin: auto auto;
-}
-.administracion-agre-titulo {
-  font-size: var(--fsizeTL);
-  margin: 0 0 1rem 1rem;
-  
-  /* background-image: url("/images/pexels-photo-1097930.jpeg"); */
-  background-repeat: no-repeat;
-  background-size: cover;
-  /* filter: grayscale(100%); */
-  height: 100px;
-  width: 100%;
-  color: var(--bgrey);
-  display: flex;
-  align-items: center;
 }
 
 .formularioAgregarProducto {
@@ -100,6 +79,7 @@
   flex-direction: column;
   gap: 1rem;
 }
+
 .container-check-boxs {
   display: flex;
   flex-direction: row;
@@ -110,10 +90,7 @@
   width: 700px;
   height: 100px;
   margin: 0.5rem 0rem 1rem 0rem;
-  /* padding-bottom: 3rem; */
- 
 }
-
 
 .formgroup-check-boxs {
   border: 1px solid grey;
@@ -136,13 +113,6 @@
 }
 
 .boton-acceso-agregar-producto {
-  /* text-align: center; */
-  /* line-height: 30px; */
-  /* background-color:  rgb(3, 141, 165); */
-  /* width: 340px;
-      height: 30px; */
-  /* border-radius: 10px 10px 10px 10px;
-      color: white; */
   justify-content: space-around;
   display: flex;
 }

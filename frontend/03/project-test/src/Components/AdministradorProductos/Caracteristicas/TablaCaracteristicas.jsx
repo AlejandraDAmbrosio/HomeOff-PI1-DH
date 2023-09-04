@@ -212,17 +212,13 @@ const TablaCaracteristicas = () => {
         style={{ margin: "0 20px 0 0" }}
       >
         <TableContainer
-          sx={{ maxHeight: 400 }}
+          sx={{maxHeight: 500,   width: "100%"}}
           style={{
             borderRadius: ":var(--bRadiusButton)",
-            padding: "10px",
-            width: "1200px",
           }}
         >
           <Table stickyHeader aria-label="sticky table">
-            {/* <div className="encabezado-tabla"> */}
             <TableHead>
-              {/* <thead> */}
 
               <TableRow
                 style={{
@@ -235,15 +231,11 @@ const TablaCaracteristicas = () => {
                 <TableCell>Imagen</TableCell>
                 <TableCell>Id Caracteristica</TableCell>
                 <TableCell>Nombre</TableCell>
-                {/* <TableCell>Editar</TableCell> */}
                 <TableCell>Eliminar</TableCell>
               </TableRow>
 
-              {/* </thead> */}
             </TableHead>
-            {/* </div> */}
             <TableBody>
-              {/* <tbody> */}
 
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
                 <TableRow key={idCaracteristica} style={{ height: "30px" }}>
@@ -259,10 +251,10 @@ const TablaCaracteristicas = () => {
                       }}
                     />
                   </TableCell>
-                  <TableCell style={{ width: "200px" }}>
+                  <TableCell style={{ width: "400px" }}>
                     {caracteristica.idCaracteristica}
                   </TableCell>
-                  <TableCell style={{ width: "600px" }}>
+                  <TableCell style={{ width: "800px" }}>
                     {caracteristica.nombre}
                   </TableCell>
 

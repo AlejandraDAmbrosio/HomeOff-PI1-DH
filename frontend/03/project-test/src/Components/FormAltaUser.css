@@ -1,14 +1,4 @@
-.pagina-formulario-alta {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 350px;
-  /* height: auto; */
-  padding-top: 15rem;
-  padding-bottom: 2rem;
-  margin: auto auto;
-}
+
 .formularioAltaUser {
   display: flex;
   flex-direction: column;
@@ -38,11 +28,6 @@
   background-color: white;
 }
 
-.titulo-form-alta-user {
-  font-size: 30px;
-  color: rgb(3, 141, 165);
-}
-
 .formularioAltaUser {
   display: flex;
   flex-direction: column;
@@ -50,9 +35,6 @@
   align-items: center;
 }
 
-/* .campo-anotacion {
-    margin: 1rem 0rem;
-  } */
 .form-control label {
   display: inline-block;
   margin-bottom: 5px;
@@ -67,29 +49,6 @@
   width: 350px;
 }
 
-/* .anotacion {
-    color: #717171;
-  } */
-/* 
-  .campo-formulario {
-    border-radius: 10px 10px 10px 10px;
-    width: 340px;
-    height: 30px;
-    background-color: #dfdfdf;
-   
-  } */
-/* 
-  .boton-acceso {
-
-    text-align: center;
-    line-height: 30px;
-    background-color:  rgb(3, 141, 165);
-    width: 340px;
-    height: 30px;
-    border-radius: 10px 10px 10px 10px;
-    color: white;
-  } */
-
 .acceso-cuenta-o-usuarionuevo-alta {
   color: rgb(3, 141, 165);
   font-weight: 700;
@@ -102,7 +61,6 @@
 }
 
 /* ---------------------------- */
- @import url("https://fonts.googleapis.com/css?family=Roboto:100"); 
 
 .boton-alta-user {
   background-color: white;

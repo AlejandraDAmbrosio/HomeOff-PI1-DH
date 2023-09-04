@@ -1,22 +1,13 @@
 import React, { useState, useContext } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/FormIngreso.css";
-import {
-  Button,
-  FormControl,
-  IconButton,
-  Modal,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button,  FormControl, IconButton,Modal,  Paper,TextField,
+  Typography,Backdrop} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-
 const FormIngreso = () => {
-  const { usuarioLogueado, iniciarSesion } = useContext(ContextGlobal);
+  const { usuarioLogueado,realizarLogIn, iniciarSesion, userLogIn, errorLogueo, setUserLogIn } = useContext(ContextGlobal);
 
-  //////////////////////////////////////
   // Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
   const [emailValido, setEmailValido] = useState(true);
@@ -30,11 +21,10 @@ const FormIngreso = () => {
 
   const handleClose = () => {
     setOpen(false);
-    // Cambia "/"" por la ruta correcta hacia la página de inicio
+    window.location.replace("/");
   };
 
-  //////////////////////
-  // / Definicion de User/Objeto
+  /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
     nombre: "",
     email: "",
@@ -112,19 +102,27 @@ const FormIngreso = () => {
   ///////handleSubmit //////
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (validarFormulario()) {
       setForm(true);
       console.log("Datos Enviados");
       console.log(usuario);
 
+
+      setUserLogIn({
+        username: usuario.nombre,
+        password: usuario.password,
+      });
+
+
       //ENVIAR DATOS
-      iniciarSesion(usuario.nombre, usuario.email, usuario.password);
 
       setUsuario({
-        nombre: "",
-        email: "",
-        password: "",
+        username: usuario.email,
+        password:usuario.password,
       });
+      realizarLogIn(userLogIn);
+
     } else {
       setForm(false);
       console.log("Datos No Enviados");
@@ -143,7 +141,7 @@ const FormIngreso = () => {
       <Modal open={open} onClose={handleClose}>
         <Paper
           sx={{
-            width: "315px",
+            width: "320px",
             overflow: "hidden",
             position: "relative", 
           }}
@@ -169,6 +167,7 @@ const FormIngreso = () => {
           </IconButton>
 
           <div>
+          {errorLogueo && <p>{errorLogueo}</p>}
             {form && usuarioLogueado ? (
               <h5 className="msj-form-guardado">
                 Gracias!! Has ingresado como usuario{" "}
@@ -186,20 +185,24 @@ const FormIngreso = () => {
       {!usuarioLogueado ? (
         <Paper
           sx={{
-            width: "315px",
+            width: "auto",
+            maxWidth:"400px",
+            margin:"auto",
             overflow: "hidden",
             height: "fitContent",
-            justifyContent: "spaceAround",
+             justifyContent: "spaceAround",
+            padding:"1rem"
           }}
           style={{
             margin: "auto",
             justifyContent: "spaceBetween",
             marginTop: "5rem",
             height: "fitContent",
+            alignContent:"center"
           }}
         >
           <div className="pagina-formulario-Ingreso">
-            <Typography variant="h4"> Inicia sesión ahora</Typography>
+            <Typography style={{fontSize:"30px"}}> Inicia sesión ahora</Typography>
 
             <FormControl
               onSubmit={handleSubmit}
