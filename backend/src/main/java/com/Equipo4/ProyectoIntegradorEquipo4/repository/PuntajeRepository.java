@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,6 +42,28 @@ public class PuntajeRepository implements IPuntajeRepository {
     public int save(Puntaje puntaje) {
         String SQL = "INSERT INTO offi_Puntuaciones (idUsuario, idRecurso, puntuacion, comentario, fecha_valoracion) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        // Configura la zona horaria a UTC
+        ZoneId zoneId = ZoneId.of("UTC");
+        Instant instant = puntaje.getFecha_valoracion().toInstant();
+        ZonedDateTime zonedDateTime = instant.atZone(zoneId);
+        java.sql.Date sqlDate = java.sql.Date.valueOf(zonedDateTime.toLocalDate());
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, puntaje.getIdUsuario());
+            ps.setInt(2, puntaje.getIdRecurso());
+            ps.setInt(3, puntaje.getPuntuacion());
+            ps.setString(4, puntaje.getComentario());
+            ps.setDate(5, sqlDate);
+            return ps;
+        }, keyHolder);
+
+        return  Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+    /*public int save(Puntaje puntaje) {
+        String SQL = "INSERT INTO offi_Puntuaciones (idUsuario, idRecurso, puntuacion, comentario, fecha_valoracion) VALUES (?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, puntaje.getIdUsuario());
@@ -49,7 +74,7 @@ public class PuntajeRepository implements IPuntajeRepository {
             return ps;
         }, keyHolder);
         return  Objects.requireNonNull(keyHolder.getKey()).intValue();
-    }
+    }*/
 
     @Override
     public Double calculateAverageByRecurso(int idRecurso) {
