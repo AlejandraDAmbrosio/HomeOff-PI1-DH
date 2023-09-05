@@ -55,7 +55,7 @@ const Navbar = () => {
                   </li>
                 </>
               )}
-              <li>
+              <li className="account-menu">
                 <AccountMenu />
               </li>
             </div>

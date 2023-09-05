@@ -85,11 +85,11 @@ z-index: 1;
 
 
 @media (max-width: 770px) {
-  .icono-persona {
-    display: inline;
-    font-size: 45px;
-    color: var(--colorGrey2);
+  .account-menu {
+    top: 10px;
+    right: 10px;
   }
+  
 
 }
 @media (max-width: 700px) {
@@ -99,5 +99,18 @@ z-index: 1;
     overflow: hidden;
     
   }
+
+  .account-menu {
+    top: 10px;
+    right: 10px;
+  }
   
+}
+
+.account-menu {
+  position: relative;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  z-index: 1000; /* Ajusta el valor z-index según sea necesario para evitar solapamientos con otros elementos */
 }

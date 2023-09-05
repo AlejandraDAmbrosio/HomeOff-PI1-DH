@@ -200,7 +200,7 @@ const FormAltaUser = () => {
           console.log("Datos Enviados");
           console.log(nuevoUserData);
           console.log(urlBase);
-          console.log("Respuesta:", response.data, response.status);
+          console.log("Respuesta:", response.data);
         } else {
           console.error("La solicitud POST falló con el código de estado:", response.status);
           console.error("Respuesta del servidor:", response.data);
@@ -214,7 +214,7 @@ const FormAltaUser = () => {
 //   method: 'POST',
 //   url: urlBase,
 //   headers: {"Content-Type": "application/json"},
-//   body:nuevoUserData,
+//   data:nuevoUserData,
 // }
 
 // try {

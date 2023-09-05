@@ -14,6 +14,25 @@ export const ContextProvider = ({ children }) => {
     setShowModal(false);
   };
 
+/////////////////////// Escuchar el ancho de pantalla
+const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+const handleResize = () => {
+  setWindowWidth(window.innerWidth);
+};
+
+useEffect(() => {
+  // Agrega un evento para escuchar los cambios en el tamaño de la ventana
+  window.addEventListener("resize", handleResize);
+
+  // Limpia el evento al desmontar el componente
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
+
+
   ///////////////////////GetDatosLista
   const [productosBKLista, setProductosBKLista] = useState([]);
 
