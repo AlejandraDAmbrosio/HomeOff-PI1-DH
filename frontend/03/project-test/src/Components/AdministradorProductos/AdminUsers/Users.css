@@ -1,0 +1,86 @@
+/* .tabla {
+  width: 80%;
+  border-collapse: collapse;
+  margin: auto;
+  align-items: center;
+
+} */
+
+/* .tabla th,
+.tabla td {
+  border: none; 
+  padding: 10px;
+  text-align: center;
+} */
+
+img {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+  
+/* img:hover::after {
+    transform: translate(0, 0);
+  } */
+  /* img:hover {
+    border: 1px solid var(--BGrey);
+    transform: scale(1.01);
+    transform: scale(1.05); 
+    box-shadow: var(--BShadow);
+  }
+   */
+
+/* .imagen-eliminar {
+  width: 20px;
+  height: 20px;
+  /* Otros estilos para la imagen */
+ */
+
+/* .tabla thead {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+} */
+
+.user-initials {
+  width: 40px; /* Ancho y alto del círculo */
+  height: 40px;
+  border-radius: 50%; /* Hacerlo un círculo */
+  background-color: #9dd6b3; /* Color de fondo verde */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Color de texto blanco */
+  font-weight: bold;
+  font-size: 18px;
+  margin: auto;
+}
+
+.celda-compartida{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+
+/* .table-header {
+    background-color: lightgray;
+    height: 3rem;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: var(--bRadiusButton:15px;);
+} */
+
+.encabezado-tabla {
+    /* width: 1900px; */
+    background-color:var(--BGrey) ;
+    border-radius: var(--bRadiusButton);
+    padding: 2rem 0 2rem 0;
+}
+
+
+.info-item {
+    display: flex;
+    align-items: center;
+}
