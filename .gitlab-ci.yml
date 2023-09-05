@@ -18,6 +18,7 @@ build_homeoff-fe:
     - npm install @fontsource/roboto
     - npm install dayjs
     - npm install react-share --save
+    - npm i react-datepicker
     - ls
     - cd project-test
     - npm run build
