@@ -177,28 +177,52 @@ const FormAltaUser = () => {
       console.log(nuevoUserData);
 
       /////////////////////////////ENVIO DE DATOS
-      const jsonData = JSON.stringify(nuevoUserData);
 
-      try {
-        const response = await fetch(urlBase, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: jsonData,
-        });
-        console.log("Datos Enviados");
-        console.log(nuevoUserData);
-        console.log(urlBase);
-        console.log("Respuesta:", response.data);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+const options = {
+  method: 'POST',
+  url: urlBase,
+  headers: {"Content-Type": "application/json"},
+  body:nuevoUserData,
+}
 
-      } catch (error) {
-        console.error("Error al realizar la solicitud:", error);
-      }
+try {
+	const response = await axios.request(options);
+	console.log(response.data);
+  console.log(response);
+} catch (error) {
+	console.error(error);
+}
+
+
+      // const jsonData = JSON.stringify(nuevoUserData);
+
+
+
+
+
+      // try {
+      //   const response = await fetch(urlBase, {
+      //     method: "POST",
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: jsonData,
+      //   });
+    
+      //   if (!response.ok) {
+      //     throw new Error(`HTTP error! Status: ${response.status}`);
+      //   }
+
+      // } catch (error) {
+      //   console.error("Error al realizar la solicitud:", error);
+      // }
+
+      console.log("Datos Enviados");
+      console.log(nuevoUserData);
+      console.log(urlBase);
+      console.log("Respuesta:", response.data);
+
 
       // try {
       //   const jsonData = JSON.stringify(nuevoUserData);
