@@ -38,8 +38,8 @@ public class AuthService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .celular(request.getCelular())
-                .dirección(request.getDirección())
-                .permisoedición(request.getPermisoedición())
+                .direccion(request.getDireccion())
+                .permisoedicion(request.getPermisoedicion())
                 .rol(Rol.CLIENTE)
                 .build();
 

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/categorias")
+@RequestMapping("api/v1/inter")
 //@CrossOrigin("*")
 @CrossOrigin(origins="*")
 public class Categorias_x_RecursosController {

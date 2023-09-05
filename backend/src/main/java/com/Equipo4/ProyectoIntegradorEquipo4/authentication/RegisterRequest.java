@@ -18,8 +18,8 @@ public class RegisterRequest {
     private String username;
     private String password;
     private String celular;
-    private String dirección;
-    private String permisoedición;
+    private String direccion;
+    private String permisoedicion;
 
 
 }

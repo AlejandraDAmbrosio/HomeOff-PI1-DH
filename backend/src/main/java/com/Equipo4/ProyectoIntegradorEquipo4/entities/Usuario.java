@@ -32,8 +32,8 @@ public class Usuario implements UserDetails {
     private String username;
     private String password;
     private String celular;
-    private String dirección;
-    private String permisoedición;
+    private String direccion;
+    private String permisoedicion;
     @Enumerated(EnumType.STRING)
     Rol rol;
 
