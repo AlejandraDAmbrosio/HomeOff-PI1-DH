@@ -10,6 +10,8 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AvatarNav from "../Navbar/AvatarNav";
 import { ContextGlobal } from "../utils/global.context";
 import obtenerIniciales from "../utils/iniciales";
@@ -17,10 +19,26 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
+import FormIngreso from "../../Routes/FormIngreso";
+import Modal from "@mui/material/Modal";
 
 export default function AccountMenu() {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
+
+  const [openLogIn, setOpenLogIn] = useState(false);
+
+  const handleOpenLogIn = () => {
+    setOpenLogIn(true);
+  };
+
+  const handleCloseLogIn = () => {
+    setOpenLogIn(false);
+  };
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -70,9 +88,9 @@ export default function AccountMenu() {
               display: "block",
               position: "absolute",
               top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
+              right: 5,
+              width: 20,
+              height: 15,
               bgcolor: "background.paper",
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
@@ -80,32 +98,59 @@ export default function AccountMenu() {
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
       >
-        <MenuItem
-          onClick={() => {
-            cerrarSesion(); // Cierra la sesión
-            handleClose(); // Cierra el menú
-          }}
-        >
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Cerrar sesión
-        </MenuItem>
+        {!usuarioLogueado && (
+          <MenuItem
+            onClick={() => {
+              handleOpenLogIn(); // Cierra el menú
+            }}
+          >
+            <ListItemIcon>
+              <LoginIcon />
+            </ListItemIcon>
+            Iniciar sesión
+          </MenuItem>
+        )}
 
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Cuenta
-        </MenuItem>
+        {!usuarioLogueado && (
+          <MenuItem
+            onClick={() => {
+              cerrarSesion(); // Cierra la sesión
+              handleClose(); // Cierra el menú
+            }}
+          >
+            <ListItemIcon>
+              <Logout />
+            </ListItemIcon>
+            Cerrar sesión
+          </MenuItem>
+        )}
+
+        {!usuarioLogueado && (
+          <MenuItem
+          >
+            <ListItemIcon>
+              <PersonAddIcon/>
+            </ListItemIcon>
+            <Link to="/formaltauser/">Crear Cuenta</Link>
+          </MenuItem>
+        )}
+
+        {!usuarioLogueado && (
+          <MenuItem onClick={handleClose}>
+            <Avatar /> Cuenta
+          </MenuItem>
+        )}
 
         <Link to="/favoritos/">
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <BsHeart fontSize="medium" />
-              </ListItemIcon>
-              Favoritos
-            </MenuItem>
-          </Link>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <BsHeart fontSize="25" />
+            </ListItemIcon>
+            Favoritos
+          </MenuItem>
+        </Link>
 
         <Divider />
 
@@ -120,6 +165,12 @@ export default function AccountMenu() {
           </Link>
         )}
       </Menu>
+
+      <Modal open={openLogIn} onClose={handleCloseLogIn} BackdropClick={true}>
+        <div onClick={handleModalClick} onMouseDown={handleModalClick}>
+          <FormIngreso />
+        </div>
+      </Modal>
     </div>
   );
 }
