@@ -59,9 +59,10 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/categorias/list");
+    const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
     const data = await res.json();
 
+    console.log(data)
     setCategoriasLista(data);
     // console.log(data);
   };
@@ -75,7 +76,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasLista = async () => {
     const res = await fetch(
-      "http://52.32.210.155:8080/api/v1/caracteristicas/list"
+      "http://52.32.210.155:8080/auth/caracteristicas/list"
     );
     const data = await res.json();
 
@@ -86,6 +87,27 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getCaracteristicasLista();
   }, []);
+
+/////////////////////// Get Caracteristicas por ID
+const [caracteristicasXID, setCaracteristicasXID] = useState([]);
+
+const getCaracteristicasXID = async (id) => {
+  const res = await fetch(
+    `http://52.32.210.155:8080/auth/caracteristicas/${id}`
+  );
+  const data = await res.json();
+
+  setCaracteristicasXID(data);
+  console.log(caracteristicasLista)
+};
+
+useEffect(() => {
+  getCaracteristicasLista();
+}, []);
+
+
+
+
 
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
