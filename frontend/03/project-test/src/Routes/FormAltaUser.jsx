@@ -181,8 +181,8 @@ const FormAltaUser = () => {
         username: "PadreNuestroHrdgmail.com",
         password: "123*frt",
         celular: "256321548",
-        dirección: "siempre viva",
-        permisoedición: "EDITAR"
+        direccion: "siempre viva",
+        permisoedicion: "EDITAR"
       }
 
       console.log("Datos Enviados");
