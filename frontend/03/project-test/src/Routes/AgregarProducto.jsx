@@ -78,14 +78,21 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: 1,
   });
 
-  const [servicios, setServicios] = useState({
-    tieneCafetería: false,
-    tieneWifi: false,
-    tieneLokker: false,
-    tieneFotocopiadoraImpresion: false,
-    tieneEspacioDescanso: false,
-    tieneEstaciónCafeAguaAromatica: false,
-  });
+  // const [servicios, setServicios] = useState({
+  //   tieneCafetería: false,
+  //   tieneWifi: false,
+  //   tieneLokker: false,
+  //   tieneFotocopiadoraImpresion: false,
+  //   tieneEspacioDescanso: false,
+  //   tieneEstaciónCafeAguaAromatica: false,
+  // });
+
+const [ caracteristica, setCaracteristicas] = useState({
+  nombre:"",
+  logoCaracteristica:"",
+  idCaracteristica:"",
+})
+
 
   ///////////////Envio de datos
 
@@ -192,9 +199,9 @@ const AgregarProducto = () => {
   };
 
   const handleOptionChange = (servicio) => {
-    setServicios((prevServicios) => ({
-      ...prevServicios,
-      [servicio]: !prevServicios[servicio],
+    setCaracteristicas((prevCaracteristica) => ({
+      ...prevCaracteristica,
+      [caracteristica]: !prevCaracteristica[caracteristica],
     }));
   };
 
@@ -493,16 +500,16 @@ const AgregarProducto = () => {
                 >
                   <FormLabel component="legend">Label placement</FormLabel>
                   <div className="container-check-boxs">
-                    {Object.keys(servicios).map((servicio) => (
-                      <li key={servicio} style={{ listStyle: "none" }}>
+                    {Object.keys(caracteristicasLista).map((caracteristica) => (
+                      <li key={caracteristica} style={{ listStyle: "none" }}>
                         <label>
                           <Checkbox
                             type="checkbox"
                             className="item-grid-check"
-                            checked={servicios[servicio]}
-                            onChange={() => handleOptionChange(servicio)}
+                            checked={caracteristicasLista[caracteristica]}
+                            onChange={() => handleOptionChange(caracteristica)}
                           />
-                          {servicio}
+                          {caracteristica}
                         </label>
                       </li>
                     ))}

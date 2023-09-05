@@ -163,42 +163,95 @@ const FormAltaUser = () => {
 
       // Paquete de datos a enviar
 
+      // const nuevoUserData = {
+      //   nombrecompleto: usuario.nombre,
+      //   nombre: usuario.nombre,
+      //   apellido: usuario.apellido,
+      //   username: usuario.email,
+      //   password: usuario.password,
+      //   celular: "0000000",
+      //   direccion: "Falsa",
+      //   permisoedicion: "EDITAR",
+      // };
+
       const nuevoUserData = {
-        nombrecompleto: usuario.nombre,
-        nombre: usuario.nombre,
-        apellido: usuario.apellido,
-        username: usuario.email,
-        password: usuario.password,
-        celular: "0000000",
-        direccion: "Falsa",
-        permisoedicion: "EDITAR",
-      };
+        nombrecompleto: "PadreNuestroHard",
+        nombre: "PadreNuestroHard",
+        apellido: "PadreNuestroHard",
+        username: "PadreNuestroHrdgmail.com",
+        password: "123*frt",
+        celular: "256321548",
+        dirección: "siempre viva",
+        permisoedición: "EDITAR"
+      }
+
       console.log("Datos Enviados");
       console.log(nuevoUserData);
 
+
       /////////////////////////////ENVIO DE DATOS
-      const jsonData = JSON.stringify(nuevoUserData);
+
 
       try {
-        const response = await fetch(urlBase, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: jsonData,
-        });
-        console.log("Datos Enviados");
-        console.log(nuevoUserData);
-        console.log(urlBase);
-        console.log("Respuesta:", response.data);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        const response = await axios.post("http://localhost:8080/auth/register", nuevoUserData);
+  
+        if (response.status === 200) {
+          console.log("Solicitud POST exitosa");
+          console.log("Datos Enviados");
+          console.log(nuevoUserData);
+          console.log(urlBase);
+          console.log("Respuesta:", response.data);
+        } else {
+          console.error("La solicitud POST falló con el código de estado:", response.status);
+          console.error("Respuesta del servidor:", response.data);
         }
-
       } catch (error) {
-        console.error("Error al realizar la solicitud:", error);
+        console.error("Error al realizar la solicitud POST:", error);
       }
+
+
+// const options = {
+//   method: 'POST',
+//   url: urlBase,
+//   headers: {"Content-Type": "application/json"},
+//   body:nuevoUserData,
+// }
+
+// try {
+// 	const response = await axios.request(options);
+// 	console.log(response.data);
+//   console.log(response);
+// } catch (error) {
+// 	console.error(error);
+// }
+
+
+      // const jsonData = JSON.stringify(nuevoUserData);
+
+
+
+
+
+      // try {
+      //   const response = await fetch(urlBase, {
+      //     method: "POST",
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: jsonData,
+      //   });
+    
+      //   if (!response.ok) {
+      //     throw new Error(`HTTP error! Status: ${response.status}`);
+      //   }
+
+      // } catch (error) {
+      //   console.error("Error al realizar la solicitud:", error);
+      // }
+
+   
+
 
       // try {
       //   const jsonData = JSON.stringify(nuevoUserData);
