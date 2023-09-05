@@ -5,7 +5,7 @@ import "./SegmentoBuscador.css"
 export const SegmentoBuscador = () => {
   return (
     <section className='segmento-buscador'>
-    <Typography variant="h5" style={{textAlign:"center"}} > Encontrá lo que buscas aquí</Typography>
+    <Typography style={{textAlign:"center", color:"white", fontSize:"38px", fontWeight:"300"}} >Encontrá tu mejor opción</Typography>
      <NuevoBuscador></NuevoBuscador>
    </section>
   )

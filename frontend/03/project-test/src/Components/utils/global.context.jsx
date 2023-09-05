@@ -18,7 +18,7 @@ export const ContextProvider = ({ children }) => {
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/recursos/list");
+    const res = await fetch("http://52.32.210.155:8080/auth/recursos/list");
     const data = await res.json();
 
     setProductosBKLista(data);
@@ -33,7 +33,7 @@ export const ContextProvider = ({ children }) => {
 
   const getRecursoXID = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/api/v1/recursos/unico/${id}`
+      `http://52.32.210.155:8080/auth/recursos/${id}`
     );
     const data = response.data;
 
@@ -48,9 +48,7 @@ export const ContextProvider = ({ children }) => {
   const getDatosUsers = async () => {
     const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
     const data = await res.json();
-
     setUsersLista(data);
-    // console.log(data);
   };
 
   useEffect(() => {
@@ -61,7 +59,7 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
+    const res = await fetch("http://52.32.210.155:8080/auth/categorias/list");
     const data = await res.json();
 
     setCategoriasLista(data);
@@ -82,6 +80,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setCaracteristicasLista(data);
+    console.log(caracteristicasLista)
   };
 
   useEffect(() => {

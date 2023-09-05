@@ -1,3 +1,8 @@
+.inputC {
+  color:black;
+
+}
+
 
 .formularioAltaUser {
   display: flex;
@@ -5,9 +10,11 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  min-height: 750px;
 }
 
 .form-control {
+
   margin-bottom: 10px;
   padding-bottom: 10px;
   position: relative;
@@ -47,6 +54,7 @@
   font-size: var(--fsizeCat);
   padding: 10px;
   width: 350px;
+  color: black;
 }
 
 .acceso-cuenta-o-usuarionuevo-alta {

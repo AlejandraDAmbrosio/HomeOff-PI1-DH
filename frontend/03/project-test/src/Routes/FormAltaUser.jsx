@@ -11,7 +11,7 @@ const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
     useContext(ContextGlobal);
   const textoBotonGuardarForm = "Crear Cuenta";
-  const urlBase = "http://52.32.210.155:8080/api/v1/usuarios/save";
+  const urlBase = "http://52.32.210.155:8080/auth/register";
 
   //Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
@@ -160,42 +160,63 @@ const FormAltaUser = () => {
     e.preventDefault();
     if (validarFormulario()) {
       setForm(true);
-      console.log("Datos Enviados");
-      console.log(usuario);
+
       // Paquete de datos a enviar
 
       const nuevoUserData = {
-        nombreCompleto: usuario.nombre,
-        correo: usuario.email,
-        contraseña: usuario.password,
-        celular: "",
-        rol: "ADMINISTRADOR",
-        dirección: "Falsa",
-        permisoEdición: "EDITAR",
-        id_Rol: 2,
-        idUsuario: 0,
+        nombrecompleto: usuario.nombre,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        username: usuario.email,
+        password: usuario.password,
+        celular: "0000000",
+        direccion: "Falsa",
+        permisoedicion: "EDITAR",
       };
+      console.log("Datos Enviados");
+      console.log(nuevoUserData);
 
       /////////////////////////////ENVIO DE DATOS
-      try {
-        const jsonData = JSON.stringify(nuevoUserData);
-        const response = await axios.post(urlBase, jsonData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      const jsonData = JSON.stringify(nuevoUserData);
 
+      try {
+        const response = await fetch(urlBase, {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: jsonData,
+        });
+        console.log("Datos Enviados");
+        console.log(nuevoUserData);
+        console.log(urlBase);
         console.log("Respuesta:", response.data);
-        getDatosUsers();
-        console.log(usersLista);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-      useEffect(() => {
-        if (form) {
-          getDatosUsers(); // Actualiza el estado jsonData después de enviar la petición POST
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      }, [form]);
+
+      } catch (error) {
+        console.error("Error al realizar la solicitud:", error);
+      }
+
+      // try {
+      //   const jsonData = JSON.stringify(nuevoUserData);
+      //   const response = await axios.post(urlBase, jsonData, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      //   console.log("Datos Enviados");
+      //   console.log(nuevoUserData);
+      //   console.log(urlBase);
+      //   console.log("Respuesta:", response.data);
+
+      //   getDatosUsers();
+      //   console.log(usersLista);
+      // } catch (error) {
+      //   console.error("Error:", error);
+      // }
 
       ///////////////////////////////////////////
 
@@ -223,15 +244,20 @@ const FormAltaUser = () => {
   };
 
   return (
-    <Container style={{ marginTop: "7rem", minHeight: "730px", width: "auto" }}>
+    <Container
+      style={{ marginTop: "7rem", minHeight: "1000px", width: "auto" }}
+    >
       <Stack
-        style={{ placeItems: "center", gap: "1rem", paddingBottom: "2rem" }}
+        style={{
+          placeItems: "center",
+          gap: "1rem",
+          paddingBottom: "2rem",
+          minHeight: "1000px",
+        }}
       >
         <Typography variant="h4" style={{ color: "#9dd6b3" }}>
-         
           Crea tu cuenta
         </Typography>
-       
 
         <form onSubmit={handleSubmitCrearCuenta}>
           <div className="formularioAltaUser">
@@ -257,12 +283,14 @@ const FormAltaUser = () => {
             <div className="form-control">
               <label for="apellido">Apellido *</label>
               <input
+                className="inputC"
                 type="text"
                 placeholder="Ingresa tu apellido"
                 value={usuario.apellido}
                 onChange={onChangeApellido}
                 id="apellido"
                 style={{ borderColor: apellidoValido ? "" : "red" }}
+                sx={{ color: "black" }}
               />
               {!apellidoValido ? (
                 <p className="error-form">
@@ -366,7 +394,6 @@ const FormAltaUser = () => {
         </Stack>
       </Stack>
     </Container>
-   
   );
 };
 
