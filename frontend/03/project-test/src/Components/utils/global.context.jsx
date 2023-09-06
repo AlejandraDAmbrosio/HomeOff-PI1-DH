@@ -178,6 +178,7 @@ const getPuntosPromedioXIDRecurso = async (id) => {
 };
 
 
+
 ///////////////////////////////// Puntajes y comentarios por IdRecurso
 
 
@@ -191,10 +192,6 @@ const getPuntosComentXIDRecurso = async (id) => {
   console.log("puntosComentXIDRecurso");
  console.log(puntosComentXIDRecurso);
 };
-
-
-
-
 
 
 
@@ -238,15 +235,16 @@ const getPuntosComentXIDRecurso = async (id) => {
         const data = await response.json();
     
         // Si la respuesta es exitosa, guardar el token JWT en el almacenamiento local
-        if (data.jwt) {
-          localStorage.setItem("jwt", data.jwt);
-          console.log("Respuesta jwt:", data.jwt);
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          console.log("Respuesta token:", data.token);
           setUsuarios(data);
-          setUsuarioLogueado(data.jwt);
+          console.log("Datos guardados de la respuesta en DATA");
+          console.log(data);
+          setUsuarioLogueado(data.token);
           setErrorLogueo("");
-        } else {
-          setErrorLogueo("Credenciales inválidas");
-        }
+        } 
+
       } else {
         console.error("Error al iniciar sesión:", response);
         setErrorLogueo("Error al iniciar sesión");
