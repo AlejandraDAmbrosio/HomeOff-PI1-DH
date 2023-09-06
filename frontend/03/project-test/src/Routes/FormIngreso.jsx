@@ -26,8 +26,8 @@ const FormIngreso = () => {
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
-    nombre: "",
-    email: "",
+    // nombre: "",
+    username: "",
     password: "",
   });
 
@@ -36,36 +36,41 @@ const FormIngreso = () => {
 
   ////////////////OnChanges///////////////
 
-  const onChangeNombre = (e) => {
-    const newValue = e.target.value;
-    setUsuario({ ...usuario, nombre: newValue });
-    validarNombre(newValue);
-  };
+  // const onChangeNombre = (e) => {
+  //   const newValue = e.target.value;
+  //   setUsuario({ ...usuario, nombre: newValue });
+
+  //   validarNombre(newValue);
+  // };
+
+
 
   const onChangeEmail = (e) => {
     const newValue = e.target.value;
-    setUsuario({ ...usuario, email: newValue });
+    setUsuario({ ...usuario, username: newValue });
+    setUserLogIn({ ...usuario, username: newValue });
     validarEmail(newValue);
   };
 
   const onChangePass = (e) => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
+    setUserLogIn({ ...usuario, password: newValue });
     validarPassword(newValue);
   };
 
   //////////Validaciones ///////////////////
 
-  const validarNombre = (n) => {
-    const regex = /^[A-Za-z\s]{3,30}$/;
-    if (regex.test(n)) {
-      setNombreValido(true);
-      return true;
-    } else {
-      setNombreValido(false);
-      return false;
-    }
-  };
+  // const validarNombre = (n) => {
+  //   const regex = /^[A-Za-z\s]{3,30}$/;
+  //   if (regex.test(n)) {
+  //     setNombreValido(true);
+  //     return true;
+  //   } else {
+  //     setNombreValido(false);
+  //     return false;
+  //   }
+  // };
 
   const validarEmail = (e) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
@@ -93,8 +98,8 @@ const FormIngreso = () => {
 
   const validarFormulario = () => {
     return (
-      validarNombre(usuario.nombre) &&
-      validarEmail(usuario.email) &&
+      // validarNombre(usuario.nombre) &&
+      validarEmail(usuario.username) &&
       validarPassword(usuario.password)
     );
   };
@@ -110,17 +115,19 @@ const FormIngreso = () => {
 
 
       setUserLogIn({
-        username: usuario.nombre,
+        username: usuario.username,
         password: usuario.password,
       });
-
+      console.log("realizarLogIn(userLogIn)")
+      console.log(userLogIn)
 
       //ENVIAR DATOS
 
       setUsuario({
-        username: usuario.email,
+        username: usuario.username,
         password:usuario.password,
       });
+    
       realizarLogIn(userLogIn);
 
     } else {
@@ -129,7 +136,7 @@ const FormIngreso = () => {
       console.log(usuario);
       setUsuario({
         nombre: "",
-        email: "",
+        username: "",
         password: "",
       });
     }
@@ -213,7 +220,7 @@ const FormIngreso = () => {
               }}
             >
               <div className="formulario-inicio">
-                <TextField
+                {/* <TextField
                   id="nombre"
                   label="Nombre"
                   variant="standard"
@@ -233,7 +240,7 @@ const FormIngreso = () => {
                   </p>
                 ) : (
                   ""
-                )}
+                )} */}
 
                 <TextField
                   id="email"
@@ -242,7 +249,7 @@ const FormIngreso = () => {
                   className="campo-formulario"
                   type="email"
                   placeholder="Ingresa tu email"
-                  value={usuario.email}
+                  value={usuario.username}
                   onChange={onChangeEmail}
                   required
                   margin="normal"

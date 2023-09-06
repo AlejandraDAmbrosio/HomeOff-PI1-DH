@@ -14,24 +14,22 @@ export const ContextProvider = ({ children }) => {
     setShowModal(false);
   };
 
-/////////////////////// Escuchar el ancho de pantalla
-const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  /////////////////////// Escuchar el ancho de pantalla
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-const handleResize = () => {
-  setWindowWidth(window.innerWidth);
-};
-
-useEffect(() => {
-  // Agrega un evento para escuchar los cambios en el tamaño de la ventana
-  window.addEventListener("resize", handleResize);
-
-  // Limpia el evento al desmontar el componente
-  return () => {
-    window.removeEventListener("resize", handleResize);
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
   };
-}, []);
 
+  useEffect(() => {
+    // Agrega un evento para escuchar los cambios en el tamaño de la ventana
+    window.addEventListener("resize", handleResize);
 
+    // Limpia el evento al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   ///////////////////////GetDatosLista
   const [productosBKLista, setProductosBKLista] = useState([]);
@@ -81,7 +79,7 @@ useEffect(() => {
     const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
     const data = await res.json();
 
-    console.log(data)
+    console.log(data);
     setCategoriasLista(data);
     // console.log(data);
   };
@@ -100,33 +98,29 @@ useEffect(() => {
     const data = await res.json();
 
     setCaracteristicasLista(data);
-    console.log(caracteristicasLista)
+    console.log(caracteristicasLista);
   };
 
   useEffect(() => {
     getCaracteristicasLista();
   }, []);
 
-/////////////////////// Get Caracteristicas por ID
-const [caracteristicasXID, setCaracteristicasXID] = useState([]);
+  /////////////////////// Get Caracteristicas por ID
+  const [caracteristicasXID, setCaracteristicasXID] = useState([]);
 
-const getCaracteristicasXID = async (id) => {
-  const res = await fetch(
-    `http://52.32.210.155:8080/auth/caracteristicas/${id}`
-  );
-  const data = await res.json();
+  const getCaracteristicasXID = async (id) => {
+    const res = await fetch(
+      `http://52.32.210.155:8080/auth/caracteristicas/${id}`
+    );
+    const data = await res.json();
 
-  setCaracteristicasXID(data);
-  console.log(caracteristicasLista)
-};
+    setCaracteristicasXID(data);
+    console.log(caracteristicasLista);
+  };
 
-useEffect(() => {
-  getCaracteristicasLista();
-}, []);
-
-
-
-
+  useEffect(() => {
+    getCaracteristicasLista();
+  }, []);
 
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
@@ -139,7 +133,7 @@ useEffect(() => {
 
   const realizarLogIn = async (userLogIn) => {
     const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
-
+    console.log("en global context", userLogIn);
     try {
       const response = await axios.post(urlBaseGuardar, userLogIn, {
         headers: {
