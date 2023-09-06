@@ -118,17 +118,20 @@ const FormIngreso = () => {
         username: usuario.username,
         password: usuario.password,
       });
-      console.log("realizarLogIn(userLogIn)")
+      console.log("Que datos enviamos del user? ")
       console.log(userLogIn)
 
       //ENVIAR DATOS
-
-      setUsuario({
-        username: usuario.username,
-        password:usuario.password,
-      });
-    
       realizarLogIn(userLogIn);
+
+
+
+      // setUsuario({
+      //   username: usuario.username,
+      //   password:usuario.password,
+      // });
+    
+ 
 
     } else {
       setForm(false);

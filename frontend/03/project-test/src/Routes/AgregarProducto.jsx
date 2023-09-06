@@ -26,6 +26,7 @@ const AgregarProducto = () => {
     setProductosBKLista,
     getDatosBKLista,
     categoriasLista,
+    caracteristicasLista,
     setCategoriasLista,
     getCategoriasLista,
   } = useContext(ContextGlobal);
@@ -87,12 +88,11 @@ const AgregarProducto = () => {
   //   tieneEstaciónCafeAguaAromatica: false,
   // });
 
-const [ caracteristica, setCaracteristicas] = useState({
-  nombre:"",
-  logoCaracteristica:"",
-  idCaracteristica:"",
-})
-
+  const [caracteristica, setCaracteristicas] = useState({
+    nombre: "",
+    logoCaracteristica: "",
+    idCaracteristica: "",
+  });
 
   ///////////////Envio de datos
 
@@ -498,18 +498,22 @@ const [ caracteristica, setCaracteristicas] = useState({
                   label="Elija las caracteristicas"
                   component="fieldset"
                 >
-                  <FormLabel component="legend">Label placement</FormLabel>
+                  <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                    {Object.keys(caracteristicasLista).map((caracteristica) => (
-                      <li key={caracteristica} style={{ listStyle: "none" }}>
+                    {caracteristicasLista.map((caracteristica) => (
+                      <li
+                        key={caracteristica.idCaracteristica}
+                        style={{ listStyle: "none" }}
+                        className="item-grid-check"
+                      >
                         <label>
                           <Checkbox
                             type="checkbox"
-                            className="item-grid-check"
-                            checked={caracteristicasLista[caracteristica]}
+                            // className="item-grid-check"
+                            checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
                             onChange={() => handleOptionChange(caracteristica)}
                           />
-                          {caracteristica}
+                          {caracteristica.nombre}
                         </label>
                       </li>
                     ))}
@@ -667,7 +671,7 @@ const [ caracteristica, setCaracteristicas] = useState({
             <div className="acceso-cuenta-o-usuarionuevo-agregar-prod"></div>
           </div>
           <div className="segmento-preview">
-            <h1 className="titulo-preview">Preview</h1>
+            <h1 className="titulo-preview">Previsualiza tu producto</h1>
             <CardProductoSimulado
               className="card-simulada"
               title={nuevoProducto.nombre}

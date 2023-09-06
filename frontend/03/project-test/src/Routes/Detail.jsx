@@ -36,6 +36,8 @@ import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
+import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+
 
 const style = {
   position: "absolute",
@@ -83,6 +85,8 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     categoriasLista,
+    caracteristicasXID,
+    getCaracteristicasXID,
     getCaracteristicasLista,
   } = useContext(ContextGlobal);
 
@@ -117,11 +121,15 @@ const Detail = () => {
 
   useEffect(() => {
     getRecursoXID(id);
+    getCaracteristicasXID(id);
   }, [id]);
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
+
+
+
 
   /////////////////////////
 
@@ -498,7 +506,7 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-              {caracteristicasLista.map((caracteristica, idCaracteristica) => (
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
                 <div
                   key={idCaracteristica}
                   className="container-icono-caracteristica-texto"
@@ -520,10 +528,10 @@ const Detail = () => {
                       >
                         <img
                           className="icono-caracteristica"
-                          src={caracteristica.logoCaracteristica}
+                          src={ logoXIDCaracteristica(caracteristica.idCaracteristica, caracteristicasLista)}
                           style={{ width: "25px", height: "25px" }}
                         />
-                        <div>{caracteristica.nombre}</div>
+                        <div>{caracteristica.nombreCaracteristica}</div>
                       </Paper>
                     ) : (
                       <Paper
@@ -552,7 +560,7 @@ const Detail = () => {
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Comentarios></Comentarios>
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        <Politicas></Politicas>
+        <Politicas id={id}></Politicas>
       </Stack>
     </>
   );

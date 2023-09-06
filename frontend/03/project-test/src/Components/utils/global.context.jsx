@@ -98,7 +98,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setCaracteristicasLista(data);
-    console.log(caracteristicasLista);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasXID = async (id) => {
     const res = await fetch(
-      `http://52.32.210.155:8080/auth/caracteristicas/${id}`
+      `http://52.32.210.155:8080/auth/inter/${id}`
     );
     const data = await res.json();
 
@@ -121,6 +121,21 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getCaracteristicasLista();
   }, []);
+
+ /////////////////////////////// Politicas por ID Recurso
+
+
+ const [politicasXID, setPoliticasXID] = useState([]);
+
+ const getPoliticasXID = async (id) => {
+   const res = await fetch(
+    `http://52.32.210.155:8080/auth/politicas/${id}`
+   );
+   const data = await res.json();
+
+   setPoliticasXID(data);
+   console.log(politicasXID);
+ };
 
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
@@ -145,7 +160,7 @@ export const ContextProvider = ({ children }) => {
       console.log("Respuesta:", data);
 
       setUsuarios(response.data);
-      setUsuarioLogueado();
+      setUsuarioLogueado(data.jwt);
       if (data.jwt) {
         localStorage.setItem("jwt", data.jwt);
         console.log("Respuesta jwt:", data.jwt);
@@ -234,6 +249,10 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
+        politicasXID, 
+        setPoliticasXID,
+        getPoliticasXID,
+
         errorLogueo,
         userLogIn,
         setUserLogIn,
@@ -253,7 +272,8 @@ export const ContextProvider = ({ children }) => {
         fechasBusqueda,
         setFechasBusqueda,
         usuarioLogueado,
-
+        caracteristicasXID,
+        getCaracteristicasXID,
         cerrarSesion,
         categoriasLista,
         setCategoriasLista,

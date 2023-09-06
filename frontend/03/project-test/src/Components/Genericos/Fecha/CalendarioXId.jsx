@@ -28,8 +28,8 @@ const CalendarioXId = () => {
   const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 30]);
 
-  console.log({ fechasBusqueda });
-  console.log(fechasBusqueda[0]);
+  // console.log({ fechasBusqueda });
+  // console.log(fechasBusqueda[0]);
 
   const [fechaInicio, setFechaInicio] = useState(null);
   const [fechaFin, setFechaFin] = useState(null);
