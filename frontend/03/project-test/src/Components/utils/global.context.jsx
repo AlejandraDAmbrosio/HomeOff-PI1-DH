@@ -35,7 +35,7 @@ export const ContextProvider = ({ children }) => {
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/recursos/list");
+    const res = await fetch("http://52.88.220.184:8080/auth/recursos/list");
     const data = await res.json();
 
     setProductosBKLista(data);
@@ -50,7 +50,7 @@ export const ContextProvider = ({ children }) => {
 
   const getRecursoXID = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/auth/recursos/${id}`
+      `http://52.88.220.184:8080/auth/recursos/${id}`
     );
     const data = response.data;
 
@@ -63,7 +63,7 @@ export const ContextProvider = ({ children }) => {
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
   const getDatosUsers = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
+    const res = await fetch("http://52.88.220.184:8080/api/v1/usuarios/list");
     const data = await res.json();
     setUsersLista(data);
   };
@@ -76,7 +76,7 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
+    const res = await fetch("http://52.88.220.184:8080/auth/categoria/list");
     const data = await res.json();
 
     console.log(data);
@@ -93,7 +93,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasLista = async () => {
     const res = await fetch(
-      "http://52.32.210.155:8080/auth/caracteristicas/list"
+      "http://52.88.220.184:8080/auth/caracteristicas/list"
     );
     const data = await res.json();
 
@@ -110,7 +110,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasXID = async (id) => {
     const res = await fetch(
-      `http://52.32.210.155:8080/auth/caracteristicas/${id}`
+      `http://52.88.220.184:8080/auth/caracteristicas/${id}`
     );
     const data = await res.json();
 
@@ -132,7 +132,7 @@ export const ContextProvider = ({ children }) => {
   const [errorLogueo, setErrorLogueo] = useState("");
 
   const realizarLogIn = async (userLogIn) => {
-    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+    const urlBaseGuardar = "http://52.88.220.184:8080/auth/login";
     console.log("en global context", userLogIn);
     try {
       const response = await axios.post(urlBaseGuardar, userLogIn, {

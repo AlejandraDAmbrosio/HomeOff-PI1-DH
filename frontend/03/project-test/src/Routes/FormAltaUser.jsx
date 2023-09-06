@@ -11,7 +11,7 @@ const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
     useContext(ContextGlobal);
   const textoBotonGuardarForm = "Crear Cuenta";
-  const urlBase = "http://52.32.210.155:8080/auth/register";
+  const urlBase = "http://52.88.220.184:8080/auth/register";
 
   //Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
@@ -193,7 +193,7 @@ const FormAltaUser = () => {
 
 
       try {
-        const response = await axios.post("http://localhost:8080/auth/register", nuevoUserData);
+        const response = await axios.post("http://52.88.220.184:8080/auth/register", nuevoUserData);
   
         if (response.status === 200) {
           console.log("Solicitud POST exitosa");

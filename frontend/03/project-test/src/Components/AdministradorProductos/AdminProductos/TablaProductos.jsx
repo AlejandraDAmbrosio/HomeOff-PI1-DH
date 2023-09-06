@@ -56,7 +56,7 @@ const TablaProductos = () => {
   const eliminarRecurso = async (idRecurso) => {
     try {
       const response = await axios.get(
-        `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`,
+        `http://52.88.220.184:8080/api/v1/recursos/delete/${idRecurso}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*", // O reemplaza '*' con tu dominio permitido
