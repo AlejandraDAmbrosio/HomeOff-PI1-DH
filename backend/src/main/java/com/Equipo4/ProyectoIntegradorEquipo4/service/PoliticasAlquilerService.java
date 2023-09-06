@@ -1,7 +1,7 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
-import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
-import com.Equipo4.ProyectoIntegradorEquipo4.repository.IRecursosRepository;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.PoliticasAlquiler;
+import com.Equipo4.ProyectoIntegradorEquipo4.repository.IPoliticasAlquilerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+public class PoliticasAlquilerService implements IPoliticasAlquilerService {
 
-public class RecursosService implements IRecursosService {
 
     @Autowired
-    private IRecursosRepository iRecursosRepository;
+    private IPoliticasAlquilerRepository iPoliticasAlquilerRepository;
+
+
     @Override
-    public List<Recursos> findAll() {
-        List<Recursos> list;
+    public List<PoliticasAlquiler> findAll() {
+        List<PoliticasAlquiler> list;
         try {
-            list = iRecursosRepository.findAll();
+            list = iPoliticasAlquilerRepository.findAll();
         }catch (Exception ex){
             throw ex;
         }
@@ -26,10 +28,10 @@ public class RecursosService implements IRecursosService {
     }
 
     @Override
-    public int save(Recursos recursos) {
+    public int save(PoliticasAlquiler politicasAlquiler) {
         int row;
         try {
-            row = iRecursosRepository.save(recursos);
+            row = iPoliticasAlquilerRepository.save(politicasAlquiler);
         }catch (Exception ex){
             throw ex;
         }
@@ -37,10 +39,10 @@ public class RecursosService implements IRecursosService {
     }
 
     @Override
-    public int update(Recursos recursos) {
+    public int update(PoliticasAlquiler politicasAlquiler) {
         int row;
         try {
-            row = iRecursosRepository.update(recursos);
+            row = iPoliticasAlquilerRepository.update(politicasAlquiler);
         }catch (Exception ex){
             throw ex;
         }
@@ -51,7 +53,7 @@ public class RecursosService implements IRecursosService {
     public int deleteById(int id) {
         int row;
         try {
-            row = iRecursosRepository.deleteById(id);
+            row = iPoliticasAlquilerRepository.deleteById(id);
         }catch (Exception ex){
             throw ex;
         }
@@ -59,8 +61,8 @@ public class RecursosService implements IRecursosService {
     }
 
     @Override
-    public Optional<Recursos> findById(int id) {
-        Optional<Recursos> buscarPorID= iRecursosRepository.findById(id);
+    public Optional<PoliticasAlquiler> findById(int id) {
+        Optional<PoliticasAlquiler> buscarPorID= iPoliticasAlquilerRepository.findById(id);
         try {
             if (buscarPorID.isPresent()){
                 return buscarPorID;
@@ -70,6 +72,4 @@ public class RecursosService implements IRecursosService {
         }
         return buscarPorID;
     }
-
-
 }

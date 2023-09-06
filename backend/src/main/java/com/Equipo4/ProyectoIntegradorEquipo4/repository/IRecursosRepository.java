@@ -1,7 +1,6 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.repository;
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
-import com.Equipo4.ProyectoIntegradorEquipo4.entities.Rol;
 
 import java.util.List;
 import java.util.Optional;
