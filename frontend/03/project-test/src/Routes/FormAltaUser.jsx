@@ -193,7 +193,7 @@ const FormAltaUser = () => {
 
 
       try {
-        const response = await axios.post("http://localhost:8080/auth/register", nuevoUserData);
+        const response = await axios.post("http://52.32.210.155:8080/auth/register", nuevoUserData);
   
         if (response.status === 200) {
           console.log("Solicitud POST exitosa");
