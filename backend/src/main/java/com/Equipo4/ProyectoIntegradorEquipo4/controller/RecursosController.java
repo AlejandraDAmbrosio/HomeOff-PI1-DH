@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/recursos")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="http://homeoff-dev-fe.s3-website-us-west-2.amazonaws.com/", allowedHeaders = "*")
 public class RecursosController {
     @Autowired
     private IRecursosService iRecursosService;

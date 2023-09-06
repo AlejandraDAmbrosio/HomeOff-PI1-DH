@@ -14,8 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/politicas")
-//@CrossOrigin("*")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="http://homeoff-dev-fe.s3-website-us-west-2.amazonaws.com/", allowedHeaders = "*")
 public class PoliticasAlquilerController {
 
     @Autowired

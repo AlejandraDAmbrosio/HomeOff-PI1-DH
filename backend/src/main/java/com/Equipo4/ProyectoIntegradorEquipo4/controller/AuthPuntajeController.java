@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("auth")
-@CrossOrigin
+@CrossOrigin(origins="http://homeoff-dev-fe.s3-website-us-west-2.amazonaws.com/", allowedHeaders = "*")
 public class AuthPuntajeController {
     @Autowired
     private IPuntajeService puntajeService;
