@@ -42,8 +42,7 @@ public class RecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    //@PostMapping("/update")
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<ServiceResponse> update(@RequestBody Recursos recursos){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRecursosService.update(recursos);
