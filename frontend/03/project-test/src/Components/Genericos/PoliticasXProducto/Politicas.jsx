@@ -1,11 +1,28 @@
-import { Divider, Grid, Stack, Typography } from "@mui/material";
-import { width } from "@mui/system";
-import React from "react";
+import { Grid, Stack, Typography } from "@mui/material";
+import { ContextGlobal } from "../../utils/global.context";
+// const { id } = useParams();
 
-const Politicas = () => {
+
+import React, { useContext, useEffect } from "react";
+
+
+const Politicas = ({ id }) => {
+ 
+  const { politicasXID, setPoliticasXID, getPoliticasXID } =
+    useContext(ContextGlobal);
+
+  useEffect(() => {
+    getPoliticasXID(id);
+  }, [id]);
+
   return (
-    <Stack direction="column" spacing={1} style={{ width: "90%", display: "flex", marginBottom: "2rem" }}>
+    <Stack
+      direction="column"
+      spacing={1}
+      style={{ width: "90%", display: "flex", marginBottom: "2rem" }}
+    >
       <Typography variant="h4">Leer antes de reservar</Typography>
+
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={2}
@@ -13,10 +30,32 @@ const Politicas = () => {
         flexItem
         // divider={<Divider orientation="vertical" flexItem />}
       >
-        <Grid container spacing={4} justifyContent={"space-between"} direction={{ xs: "column", sm: "row" }}>
+        {Object.keys(politicasXID).map((key) => {
+        if (key.startsWith("politica_")) {
+          return (
+            <Grid container spacing={1} justifyContent={"space-between"} key={key}>
+              <Grid item xs={10}>
+                <Typography variant="h6">{key}</Typography>
+                <Typography variant="body2" style={{ padding: "0 15px 0 0" }}>
+                  {politicasXID[key]}
+                </Typography>
+              </Grid>
+            </Grid>
+          );
+        } else {
+          return null;
+        }
+      })}
+      
+        {/* <Grid
+          container
+          spacing={4}
+          justifyContent={"space-between"}
+          direction={{ xs: "column", sm: "row" }}
+        >
           <Grid item xs={4}>
             <Typography variant="h6">Titulo Politica</Typography>
-            <Typography variant="body2" style={{padding:"0 15px 0 0"}}>
+            <Typography variant="body2" style={{ padding: "0 15px 0 0" }}>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -30,7 +69,7 @@ const Politicas = () => {
 
           <Grid item xs={4}>
             <Typography variant="h6">Titulo Politica</Typography>
-            <Typography variant="body2"  style={{padding:"0 15px 0 0"}}>
+            <Typography variant="body2" style={{ padding: "0 15px 0 0" }}>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -43,7 +82,7 @@ const Politicas = () => {
           </Grid>
           <Grid item xs={4}>
             <Typography variant="h6">Titulo Politica</Typography>
-            <Typography variant="body2"  style={{padding:"0 15px 0 0"}}>
+            <Typography variant="body2" style={{ padding: "0 15px 0 0" }}>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -54,7 +93,7 @@ const Politicas = () => {
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Typography>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Stack>
     </Stack>
   );

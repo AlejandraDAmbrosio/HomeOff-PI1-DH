@@ -88,9 +88,14 @@
   gap: 1rem;
   align-items: center;
   width: 700px;
-  height: 100px;
+  height: 260px;
   margin: 0.5rem 0rem 1rem 0rem;
 }
+
+.item-grid-check {
+  width:220px;
+}
+
 
 .formgroup-check-boxs {
   border: 1px solid grey;

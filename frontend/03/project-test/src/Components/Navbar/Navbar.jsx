@@ -64,7 +64,7 @@ const Navbar = () => {
         {isPanelSinCategorias ? (
           ""
         ) : (
-          <div className="buscador-cat">
+          <div className="banda-categorias">
             <Categorias />
           </div>
         )}
