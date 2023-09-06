@@ -98,7 +98,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setCaracteristicasLista(data);
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -113,7 +113,7 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setCaracteristicasXID(data);
-    console.log(caracteristicasLista);
+    // console.log(caracteristicasLista);
   };
 
   useEffect(() => {
@@ -129,8 +129,74 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setPoliticasXID(data);
-    console.log(politicasXID);
+    // console.log(politicasXID);
   };
+
+///////////////////////////// Comentarios por Recurso 
+
+// const [comentariosXIDRecurso, setComentariosXIDRecurso] = useState([]);
+
+// const getComentariosXIDRecurso = async (id) => {
+//   const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
+//   const data = await res.json();
+
+//   setPoliticasXID(data);
+//   console.log(politicasXID);
+// };
+
+
+
+
+/////////////////////////////////// Puntaje promedio por IDRecurso
+
+const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
+
+// const getPuntosPromedioXIDRecurso = async (id) => {
+//   const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}/promedio`);
+//   // const data = await res.json();
+//   const puntos = !isNaN(res) ? Number(res) : 0;
+//   setPuntosPromedioXIDRecurso(puntos);
+//   console.log("puntosPromedioXIDRecurso");
+//  console.log(puntosPromedioXIDRecurso);
+// };
+
+const getPuntosPromedioXIDRecurso = async (id) => {
+  try {
+    const response = await axios.get(`http://52.32.210.155:8080/auth/puntaje/${id}/promedio`);
+    
+    // Verificar si response.data es un número
+    const puntos = !isNaN(response.data) ? Number(response.data) : 0;
+
+    // Asignar puntos a setPuntosPromedioXIDRecurso
+    setPuntosPromedioXIDRecurso(puntos);
+
+    console.log("puntosPromedioXIDRecurso");
+    console.log(puntosPromedioXIDRecurso);
+  } catch (error) {
+    console.error("Error al obtener puntos promedio:", error);
+  }
+};
+
+
+///////////////////////////////// Puntajes y comentarios por IdRecurso
+
+
+const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
+
+const getPuntosComentXIDRecurso = async (id) => {
+  const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
+ const data = await res.json();
+
+  setPuntosComentXIDRecurso(data);
+  console.log("puntosComentXIDRecurso");
+ console.log(puntosComentXIDRecurso);
+};
+
+
+
+
+
+
 
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
@@ -156,14 +222,16 @@ export const ContextProvider = ({ children }) => {
         username,
         password,
       });
-    
-      const response = await fetch(urlBaseGuardar, {
-        method: "POST",
+      console.log("Body ", body);
+      const options = {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
-        body,
-      });
+        body: body,
+      };
+
+      const response = await fetch(urlBaseGuardar, options);
     
       // Manejar la respuesta de la API
       if (response.ok) {
@@ -302,6 +370,12 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
+        puntosComentXIDRecurso, 
+        setPuntosComentXIDRecurso, 
+        getPuntosComentXIDRecurso,
+        puntosPromedioXIDRecurso, 
+        setPuntosPromedioXIDRecurso,
+        getPuntosPromedioXIDRecurso,
         politicasXID,
         setPoliticasXID,
         getPoliticasXID,

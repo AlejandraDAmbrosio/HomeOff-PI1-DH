@@ -84,6 +84,8 @@ const Detail = () => {
     getRecursoXID,
     caracteristicasLista,
     productosBKLista,
+    getPuntosComentXIDRecurso,
+    puntosComentXIDRecurso, 
     categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
@@ -122,6 +124,7 @@ const Detail = () => {
   useEffect(() => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
+    getPuntosComentXIDRecurso(id)
   }, [id]);
 
   if (!recursoXID) {
@@ -558,7 +561,7 @@ const Detail = () => {
         <CalendarioXId></CalendarioXId>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        <Comentarios></Comentarios>
+        <Comentarios id={id}></Comentarios>
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
       </Stack>

@@ -15,7 +15,8 @@ import PropTypes from "prop-types";
 import Puntuacion from "../Genericos/Puntuaciones/Puntuacion";
 import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
 import { Stack } from "@mui/material";
-
+import { useContext } from "react";
+import { ContextGlobal } from "../utils/global.context";
 
 const CardProducto = ({
   title,
@@ -29,7 +30,13 @@ const CardProducto = ({
   servicio1,
   servicio2,
   servicio3,
+  estrellas
 }) => {
+  
+  const { productosBKLista, categoriasLista, prodFiltrados, puntosPromedioXIDRecurso, getPuntosPromedioXIDRecurso } =
+  useContext(ContextGlobal);
+  
+  
   return (
     <Link to={"/producto/" + id}>
       <Card
@@ -55,7 +62,7 @@ const CardProducto = ({
             {categoria}
           </Typography>
 
-          <EstrellaValor puntuacion={id}/>
+          <EstrellaValor puntuacion={estrellas}/>
           </Stack>
           
           <Typography

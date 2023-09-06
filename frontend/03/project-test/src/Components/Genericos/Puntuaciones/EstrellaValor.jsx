@@ -39,7 +39,7 @@ const EstrellaValor = ({puntuacion}) => {
           {" "}
           <AiFillStar style={{ fontSize: "25px", color: "#F2C84B" }} />{" "}
           <Typography  style={{ marginBottom: "2rem", fontSize:"18px" }}>
-            {puntuacion.toFixed(1)}
+            {puntuacion}
           </Typography>
         </Stack>
       ) : (
