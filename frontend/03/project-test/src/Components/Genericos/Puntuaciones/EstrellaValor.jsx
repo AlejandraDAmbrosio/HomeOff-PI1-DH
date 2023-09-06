@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+
+import { ContextGlobal } from "../../utils/global.context";
 import {
   Container,
   Box,
@@ -13,6 +15,8 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Puntuacion from "./Puntuacion";
 
 const EstrellaValor = ({puntuacion}) => {
+  const { getPuntosPromedioXIDRecurso } =
+  useContext(ContextGlobal);
 //   const [valorEstrellas, setValorEstrellas] = useState(null);
 
 // setValorEstrellas(puntuacion);
@@ -27,7 +31,7 @@ const EstrellaValor = ({puntuacion}) => {
       height="32px"
     >
       {" "}
-      {puntuacion > 0 ? (
+      {((puntuacion > 0) ||( puntuacion !== null))? (
         <Stack
           direction="row"
           spacing={0.5}
@@ -39,7 +43,7 @@ const EstrellaValor = ({puntuacion}) => {
           {" "}
           <AiFillStar style={{ fontSize: "25px", color: "#F2C84B" }} />{" "}
           <Typography  style={{ marginBottom: "2rem", fontSize:"18px" }}>
-            {puntuacion.toFixed(1)}
+            {puntuacion}
           </Typography>
         </Stack>
       ) : (

@@ -14,7 +14,7 @@ const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
   const pasaPaginaSiguiente = ">";
   const irAPaginaAnterior = "<";
-  const { productosBKLista, categoriasLista, prodFiltrados } =
+  const { productosBKLista, categoriasLista, prodFiltrados, puntosPromedioXIDRecurso, getPuntosPromedioXIDRecurso } =
     useContext(ContextGlobal);
 
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
@@ -69,13 +69,16 @@ const ListadoProductos = ({ CantidadCards }) => {
               descripcion={producto.descripción}
               url={producto.imagenURL}
               precio={producto.precioUnitario}
+              estrellas={getPuntosPromedioXIDRecurso(producto.idRecurso)}
               sede={buscadorSedeXIDSede(producto.idSede)}
               categoria={obtenerNombreCategoriaPorId(
                 producto.categoria_id,
                 productosBKLista,
                 categoriasLista
+                
               )}
-              id={producto.idRecurso}
+              // id={puntosPromedioXIDRecurso}
+             
             />
           ))
         ) : (

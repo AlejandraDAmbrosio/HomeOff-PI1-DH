@@ -132,6 +132,38 @@ export const ContextProvider = ({ children }) => {
     console.log(politicasXID);
   };
 
+///////////////////////////// Comentarios por Recurso 
+
+// const [comentariosXIDRecurso, setComentariosXIDRecurso] = useState([]);
+
+// const getComentariosXIDRecurso = async (id) => {
+//   const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
+//   const data = await res.json();
+
+//   setPoliticasXID(data);
+//   console.log(politicasXID);
+// };
+
+
+
+
+/////////////////////////////////// Puntaje promedio por IDRecurso
+
+const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
+
+const getPuntosPromedioXIDRecurso = async (id) => {
+  const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}/promedio`);
+  const data = await res.json();
+
+  setPuntosPromedioXIDRecurso(data);
+  console.log("puntosPromedioXIDRecurso");
+ console.log(puntosPromedioXIDRecurso);
+};
+
+
+
+
+
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
@@ -156,14 +188,16 @@ export const ContextProvider = ({ children }) => {
         username,
         password,
       });
-    
-      const response = await fetch(urlBaseGuardar, {
-        method: "POST",
+      console.log("Body ", body);
+      const options = {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
-        body,
-      });
+        body: body,
+      };
+
+      const response = await fetch(urlBaseGuardar, options);
     
       // Manejar la respuesta de la API
       if (response.ok) {
@@ -302,6 +336,9 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
+        puntosPromedioXIDRecurso, 
+        setPuntosPromedioXIDRecurso,
+        getPuntosPromedioXIDRecurso,
         politicasXID,
         setPoliticasXID,
         getPoliticasXID,
