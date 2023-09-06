@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("auth")
-@CrossOrigin
+@CrossOrigin(origins="http://homeoff-dev-fe.s3-website-us-west-2.amazonaws.com/", allowedHeaders="*")
 public class AuthPuntajeController {
     @Autowired
     private IPuntajeService puntajeService;
@@ -36,12 +36,12 @@ public class AuthPuntajeController {
         try {
             Double promedio = puntajeService.calculateAverageByRecurso(IdRecurso);
             if (promedio == null) {
-                String mensaje = "No se encontraron puntajes para el producto con ID: " + IdRecurso;
+                String mensaje = "0";
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
             }
             return ResponseEntity.ok(promedio);
         } catch (Exception e) {
-            String mensaje = "Error al calcular el promedio de puntajes: " + e.getMessage();
+            String mensaje = "0";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }

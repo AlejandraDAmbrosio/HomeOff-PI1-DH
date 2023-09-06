@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/inter")
 //@CrossOrigin("*")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="http://homeoff-dev-fe.s3-website-us-west-2.amazonaws.com/", allowedHeaders="*")
 public class Categorias_x_RecursosController {
 
     @Autowired

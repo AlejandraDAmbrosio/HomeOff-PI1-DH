@@ -48,12 +48,12 @@ public class PuntajeController {
         try {
             Double promedio = puntajeService.calculateAverageByRecurso(IdRecurso);
             if (promedio == null) {
-                String mensaje = "No se encontraron puntajes para el producto con ID: " + IdRecurso;
+                String mensaje = "0";
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
             }
             return ResponseEntity.ok(promedio);
         } catch (Exception e) {
-            String mensaje = "Error al calcular el promedio de puntajes: " + e.getMessage();
+            String mensaje = "0";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }
