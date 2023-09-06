@@ -109,9 +109,7 @@ export const ContextProvider = ({ children }) => {
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
 
   const getCaracteristicasXID = async (id) => {
-    const res = await fetch(
-      `http://52.32.210.155:8080/auth/inter/${id}`
-    );
+    const res = await fetch(`http://52.32.210.155:8080/auth/inter/${id}`);
     const data = await res.json();
 
     setCaracteristicasXID(data);
@@ -122,20 +120,17 @@ export const ContextProvider = ({ children }) => {
     getCaracteristicasLista();
   }, []);
 
- /////////////////////////////// Politicas por ID Recurso
+  /////////////////////////////// Politicas por ID Recurso
 
+  const [politicasXID, setPoliticasXID] = useState([]);
 
- const [politicasXID, setPoliticasXID] = useState([]);
+  const getPoliticasXID = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
+    const data = await res.json();
 
- const getPoliticasXID = async (id) => {
-   const res = await fetch(
-    `http://52.32.210.155:8080/auth/politicas/${id}`
-   );
-   const data = await res.json();
-
-   setPoliticasXID(data);
-   console.log(politicasXID);
- };
+    setPoliticasXID(data);
+    console.log(politicasXID);
+  };
 
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
@@ -146,43 +141,105 @@ export const ContextProvider = ({ children }) => {
   });
   const [errorLogueo, setErrorLogueo] = useState("");
 
-  const realizarLogIn = async (userLogIn) => {
-    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
-    console.log("en global context", userLogIn);
-    try {
-      const response = await axios.post(urlBaseGuardar, userLogIn, {
+  const realizarLogIn = async () => {
+      const { username, password } = userLogIn;
+    
+      // Validar los datos
+      if (!username || !password) {
+        setErrorLogueo("Ingrese un nombre de usuario y una contraseña");
+        return;
+      }
+    
+      // Realizar la solicitud POST a la API
+      const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+      const body = JSON.stringify({
+        username,
+        password,
+      });
+    
+      const response = await fetch(urlBaseGuardar, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body,
       });
-
-      const data = response.data;
-      console.log("Respuesta:", data);
-
-      setUsuarios(response.data);
-      setUsuarioLogueado(data.jwt);
-      if (data.jwt) {
-        localStorage.setItem("jwt", data.jwt);
-        console.log("Respuesta jwt:", data.jwt);
-        window.location.replace("/");
+    
+      // Manejar la respuesta de la API
+      if (response.ok) {
+        const data = await response.json();
+    
+        // Si la respuesta es exitosa, guardar el token JWT en el almacenamiento local
+        if (data.jwt) {
+          localStorage.setItem("jwt", data.jwt);
+          console.log("Respuesta jwt:", data.jwt);
+          setUsuarios(data);
+          setUsuarioLogueado(data.jwt);
+          setErrorLogueo("");
+        } else {
+          setErrorLogueo("Credenciales inválidas");
+        }
       } else {
-        setErrorLogueo("Credenciales inválidas");
+        console.error("Error al iniciar sesión:", response);
+        setErrorLogueo("Error al iniciar sesión");
       }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      setErrorLogueo("Error al iniciar sesión. Inténtalo de nuevo más tarde.");
-    }
-  };
+    };
+    
+    const cerrarSesion = () => {
+      localStorage.removeItem("usuarioLogueado");
+      setUsuarioLogueado(null);
+      console.log("----------Cerrando sesión. en Context .---------");
+    };
 
-  const cerrarSesion = () => {
-    localStorage.removeItem("usuarioLogueado");
-    setUsuarioLogueado(null);
-    console.log("----------Cerrando sesión. en Context .---------");
-  };
+////////////////////////////////Prueba 2 Axios /////////////////////////////////
+
+//     const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+//     const { username, password } = userLogIn;
+//     console.log("en global context", userLogIn);
+
+//     const options = {
+//       method: "POST",
+//       url: urlBaseGuardar,
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       data: {
+//         username,
+//         password,
+//       },
+//     };
+//     console.log("options", options);
+//    try {
+//     const response = await axios.post(urlBaseGuardar, userLogIn);
+// console.log("response", response);
+//     if (response.data.jwt) {
+//       localStorage.setItem("jwt", response.data.jwt);
+//       console.log("Respuesta jwt:", response.data.jwt);
+//       setUsuarios(response.data);
+//       setUsuarioLogueado(response.data.jwt);
+//       setErrorLogueo("");
+//     } else {
+//       setErrorLogueo("Credenciales inválidas");
+//     }
+//   } catch (error) {
+//     console.error("Error al iniciar sesión:", error);
+//     setErrorLogueo("Error al iniciar sesión");
+//   }
+// }
+
+  // const cerrarSesion = () => {
+  //   localStorage.removeItem("usuarioLogueado");
+  //   setUsuarioLogueado(null);
+  //   console.log("----------Cerrando sesión. en Context .---------");
+  // };
+  
 
   // useEffect(() => {
   //   fetchUsuarios();
   // }, []);
+
+
+  ///////////////////////////Log in anterior sin autenticar //////////////////////
 
   // const realizarLogIn = async () => {
   //   try {
@@ -224,32 +281,28 @@ export const ContextProvider = ({ children }) => {
   //   }
   // }, []);
 
-  //////////////////////////////////////////// FECHAS
+  //////////////////////////////////////////// FECHAS ////////////////////////
   const [fechasBusqueda, setFechasBusqueda] = useState([null, null]);
 
   //////////////////////////Buscar por sede   /////////////////////////////////
   const [idFilteredSedes, setIdFilteredSedes] = useState([]);
   const [filteredSedes, setFilteredSedes] = useState([]);
 
-  //////////////////////////Buscar por nombre   /////////////////////////////////
+  //////////////////////////Buscar por nombre  en Sede ///////////////////////
   const [idFilteredName, setIdFilteredName] = useState([]);
   const [filteredName, setfilteredName] = useState([]);
 
-  ///////////////////////////////////Paginado
-
-  /////////////////////////////////////////
-
-  ////////////////////////////// Buscar por nombre
+  ////////////////////////////// Buscar por nombre //////////////////////////
 
   const [filteredNombre, setFilteredNombre] = useState([]);
 
-  /////////////////////////////
+  /////////////////////////////  Productos a mostrar en busqueda ////////////
   const [prodFiltrados, setProdFiltrados] = useState([]);
 
   return (
     <ContextGlobal.Provider
       value={{
-        politicasXID, 
+        politicasXID,
         setPoliticasXID,
         getPoliticasXID,
 
