@@ -558,10 +558,13 @@ const Detail = () => {
           {/* </div> */}
         </div>
         {/* </Paper> */}
+        <Stack direction={{xl:"row", lg:"row", md:"row", xs: "column", sm: "column" }}>
         <CalendarioXId></CalendarioXId>
-
-        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Comentarios id={id}></Comentarios>
+
+        </Stack>
+        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
+        
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
       </Stack>
