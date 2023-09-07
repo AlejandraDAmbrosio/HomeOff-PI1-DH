@@ -2,6 +2,10 @@ import { Grid, Stack, Typography } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useContext, useEffect } from "react";
 
+function nombrePoliticas(nombreBase, base) {
+  return base[nombreBase] || nombreBase; // Devuelve el valor correspondiente o la clave si no se encuentra
+}
+
 const Politicas = ({ id }) => {
  
   const { politicasXID, setPoliticasXID, getPoliticasXID } =
@@ -10,6 +14,13 @@ const Politicas = ({ id }) => {
   useEffect(() => {
     getPoliticasXID(id);
   }, [id]);
+
+
+  const politicasNombres = {
+    politica_uso_conducta: "Política de uso y conducta",
+    politica_cambio_fecha: "Política por cambio de fecha",
+    politica_cancelacion: "Política de cancelación",
+  };
 
   return (
     <Stack
@@ -22,8 +33,9 @@ const Politicas = ({ id }) => {
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={2}
-        alignItems={"center"}
+        
         flexItem
+        alignItems={"flex-start"}
         // divider={<Divider orientation="vertical" flexItem />}
       >
         {Object.keys(politicasXID).map((key) => {
@@ -31,7 +43,7 @@ const Politicas = ({ id }) => {
           return (
             <Grid container spacing={1} justifyContent={"space-between"} key={key}>
               <Grid item xs={10}>
-                <Typography variant="h6">{key}</Typography>
+                <Typography variant="h6"> {nombrePoliticas(key, politicasNombres)}</Typography>
                 <Typography variant="body2" style={{ padding: "0 15px 0 0" }}>
                   {politicasXID[key]}
                 </Typography>

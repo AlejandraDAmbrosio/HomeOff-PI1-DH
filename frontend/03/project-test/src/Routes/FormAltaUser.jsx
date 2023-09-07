@@ -336,7 +336,7 @@ const FormAltaUser = () => {
           <div className="formularioAltaUser">
             <TextField
               id="nombre"
-              label="Nombre *"
+              label="Nombre"
               variant="standard"
               className="campo-formulario"
               type="text"
@@ -357,7 +357,7 @@ const FormAltaUser = () => {
 
             <TextField
               id="apellido"
-              label="Apellido *"
+              label="Apellido"
               variant="standard"
               className="campo-formulario"
               type="text"
@@ -379,7 +379,7 @@ const FormAltaUser = () => {
 
             <TextField
               id="email"
-              label="Email *"
+              label="Email"
               variant="standard"
               className="campo-formulario"
               type="email"
@@ -401,7 +401,7 @@ const FormAltaUser = () => {
 
             <TextField
               id="confirmaremail"
-              label="Confirma Email *"
+              label="Confirma Email"
               variant="standard"
               className="campo-formulario"
               type="email"
@@ -420,7 +420,7 @@ const FormAltaUser = () => {
 
             <TextField
               id="password"
-              label="Password *"
+              label="Password"
               variant="standard"
               className="campo-formulario"
               type={showPassword ? "text" : "password"}
@@ -453,7 +453,7 @@ const FormAltaUser = () => {
 
             <TextField
               id="password"
-              label="Password *"
+              label="Confirmar password"
               variant="standard"
               className="campo-formulario"
               type={showConfirmarPassword ? "text" : "password"}
