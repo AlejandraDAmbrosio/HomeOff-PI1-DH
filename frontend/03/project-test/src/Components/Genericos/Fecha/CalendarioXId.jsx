@@ -107,6 +107,7 @@ const CalendarioXId = () => {
       divider={<Divider orientation="vertical" flexItem />}
       spacing={1}
       margin={"auto"}
+      alignItems={"flex-start"}
       
     >
       <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem />
