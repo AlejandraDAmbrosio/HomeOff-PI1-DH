@@ -22,6 +22,8 @@ const Comentarios = ({ id }) => {
 
   return (
     <Stack
+    direction={{xl:"column", lg:"column", md:"column", xs: "row", sm: "row" }}
+    width={{xl:"400px", lg:"400px", md:"400px"}}
       style={{
         width: "95%",
         display: "flex",
@@ -30,6 +32,7 @@ const Comentarios = ({ id }) => {
         alignContent: "center",
         flexWrap: "wrap",
         marginBottom: "2rem",
+        
       }}
     >
       <Paper
