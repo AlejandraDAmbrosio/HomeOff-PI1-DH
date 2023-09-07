@@ -110,7 +110,7 @@ const CalendarioXId = () => {
       alignItems={"flex-start"}
       
     >
-      <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem />
+      {/* <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem /> */}
 
       <Typography variant="h4">Fechas disponibles</Typography>
       <Stack
@@ -172,7 +172,7 @@ const CalendarioXId = () => {
           </DemoContainer>
         </LocalizationProvider>
       </Stack>
-      <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem />
+      {/* <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem /> */}
     </Stack>
   );
 };

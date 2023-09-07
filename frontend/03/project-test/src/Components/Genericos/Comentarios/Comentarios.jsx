@@ -79,7 +79,7 @@ const Comentarios = ({ id }) => {
             <Box
               key={idPuntuacion}
               sx={{
-                maxHeight: "250px",
+                // maxHeight: "250px",
                 width:"300px",
                 overflow: "auto",
                 padding: "2rem 30px 2rem 2rem",

@@ -38,7 +38,6 @@ import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -85,7 +84,7 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
-    puntosComentXIDRecurso, 
+    puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
@@ -124,15 +123,12 @@ const Detail = () => {
   useEffect(() => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
-    getPuntosComentXIDRecurso(id)
+    getPuntosComentXIDRecurso(id);
   }, [id]);
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
-
-
-
 
   /////////////////////////
 
@@ -235,7 +231,6 @@ const Detail = () => {
             spacing={5}
             flexItem
             alignItems="center"
-           
           >
             <FacebookShareButton
               url={`"${currentURL}"`}
@@ -531,7 +526,10 @@ const Detail = () => {
                       >
                         <img
                           className="icono-caracteristica"
-                          src={ logoXIDCaracteristica(caracteristica.idCaracteristica, caracteristicasLista)}
+                          src={logoXIDCaracteristica(
+                            caracteristica.idCaracteristica,
+                            caracteristicasLista
+                          )}
                           style={{ width: "25px", height: "25px" }}
                         />
                         <div>{caracteristica.nombreCaracteristica}</div>
@@ -558,13 +556,30 @@ const Detail = () => {
           {/* </div> */}
         </div>
         {/* </Paper> */}
-        <Stack gap={2}  alignItems="flex-start" direction={{xl:"row", lg:"row", md:"row", xs: "column", sm: "column" }}>
-        <CalendarioXId></CalendarioXId>
-        <Comentarios id={id}></Comentarios>
-
+        <Stack
+          gap={4}
+          alignItems="flex-start"
+          direction={{
+            xl: "row",
+            lg: "row",
+            md: "row",
+            xs: "column",
+            sm: "column",
+          }}
+        >
+          <CalendarioXId></CalendarioXId>
+          <Divider
+            orientation={{
+              xl: "vertical",
+              lg: "vertical",
+              md: "vertical",
+              xs: "horizontal",
+              sm: "horizontal",
+            }}
+          />
+          <Comentarios id={id}></Comentarios>
         </Stack>
-        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        
+
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
       </Stack>
