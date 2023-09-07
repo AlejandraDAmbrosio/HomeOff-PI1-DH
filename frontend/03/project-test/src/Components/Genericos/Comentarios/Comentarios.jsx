@@ -82,7 +82,7 @@ const Comentarios = ({ id }) => {
                 // maxHeight: "250px",
                 width:"98%",
                 height:"200px",
-                overflow: "auto",
+                overflow: "hidden",
                 padding: "2rem 30px 2rem 2rem",
                 "&::-webkit-scrollbar": {
                   width: "40px",
