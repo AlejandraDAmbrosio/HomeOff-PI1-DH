@@ -197,7 +197,7 @@ const FormIngreso = () => {
         <Paper
           sx={{
             width: "auto",
-            maxWidth:"400px",
+            maxWidth:"320px",
             margin:"auto",
             overflow: "hidden",
             height: "fitContent",
@@ -273,7 +273,7 @@ const FormIngreso = () => {
                   label="Password *"
                   variant="standard"
                   className="campo-formulario"
-                  type="email"
+                  type="password"
                   placeholder="Ingresa tu password"
                   value={usuario.password}
                   onChange={onChangePass}
