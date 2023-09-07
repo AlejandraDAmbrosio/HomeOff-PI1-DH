@@ -19,28 +19,28 @@ public class FavoritoController {
     @Autowired
     private IFavoritoService iFavoritoService;
 
-    @GetMapping("/{IdRecurso}")
-    public ResponseEntity<?> buscarPuntajeProducto(@PathVariable Integer IdRecurso) {
+    @GetMapping("/{IdUsuario}")
+    public ResponseEntity<?> buscarPuntajeProducto(@PathVariable Integer IdUsuario) {
         try {
-            List<FavoritoRespuesta> puntajes = iFavoritoService.devolverPuntajesPorRecurso(IdRecurso);
+            List<FavoritoRespuesta> puntajes = iFavoritoService.devolverFavoritoPorUsuario(IdUsuario);
             if (puntajes.isEmpty()) {
-                String mensaje = "No se encontraron puntajes para el producto con ID: " + IdRecurso;
+                String mensaje = "No se encontraron favoritos para el usuario con ID: " + IdUsuario;
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
             }
             return ResponseEntity.ok(puntajes);
         } catch (Exception e) {
-            String mensaje = "Error al buscar los puntajes: " + e.getMessage();
+            String mensaje = "Error al buscar los favoritos: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> guardarPuntaje(@RequestBody Favorito favorito) {
+    public ResponseEntity<?> guardarFavorito(@RequestBody Favorito favorito) {
         try {
-            Favorito resultado = iFavoritoService.guardarPuntaje(favorito);
+            Favorito resultado = iFavoritoService.guardarFavorito(favorito);
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
-            String mensaje = "Error al guardar el puntaje: " + e.getMessage();
+            String mensaje = "Error al guardar el favorito: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }

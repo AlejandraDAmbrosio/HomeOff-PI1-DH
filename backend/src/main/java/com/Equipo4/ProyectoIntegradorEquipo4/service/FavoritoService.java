@@ -25,7 +25,7 @@ public class FavoritoService implements IFavoritoService {
     }
 
     @Override
-    public Favorito guardarPuntaje(Favorito favorito) throws Exception {
+    public Favorito guardarFavorito(Favorito favorito) throws Exception {
         validarFavorito(favorito);
 
         Recursos recurso = recursosRepository.findById(favorito.getIdRecurso())
@@ -41,7 +41,7 @@ public class FavoritoService implements IFavoritoService {
         nuevoFavorito.setFavorito(favorito.getVigente());
         nuevoFavorito.setFecha_MarcacionFavorito(favorito.getFecha_MarcacionFavorito());
 
-        int resultKey = iFavoritoRepository.save(nuevoFavorito);
+        int resultKey = iFavoritoRepository.guardarFavorito(nuevoFavorito);
         nuevoFavorito.setId(resultKey);
         System.out.println("INFO:" + nuevoFavorito.toString());
         System.out.println("INFO:" + nuevoFavorito.getId());
@@ -50,15 +50,15 @@ public class FavoritoService implements IFavoritoService {
     }
 
     @Override
-    public List<FavoritoRespuesta> devolverPuntajesPorRecurso(Integer idRecurso) throws Exception {
-        Favorito favorito = iFavoritoRepository.findById(idRecurso)
+    public List<FavoritoRespuesta> devolverFavoritoPorUsuario(Integer IdUsuario) throws Exception {
+        Favorito favorito = iFavoritoRepository.findById(IdUsuario)
                 .orElseThrow(() -> new Exception("El recurso no existe"));
 
-        List<FavoritoRespuesta> favoritos = iFavoritoRepository.findAllByRecurso(idRecurso);
+        List<FavoritoRespuesta> favoritos = iFavoritoRepository.findAllByUsuario(IdUsuario);
 
 
         if (favoritos.isEmpty()) {
-            throw new Exception("El recurso no tiene valoraciones");
+            throw new Exception("El usuario no tiene favoritos");
         }
 
         return favoritos;

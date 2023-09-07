@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface IFavoritoRepository {
 
 
-    List<FavoritoRespuesta> findAllByRecurso(int idRecurso);
+    public List<FavoritoRespuesta> findAllByUsuario(int idRecurso);
 
-    int save(Favorito favorito);
+    public int guardarFavorito(Favorito favorito);
 
-    Optional<Favorito> findById(int id);
+    public Optional<Favorito> findById(int id);
 }

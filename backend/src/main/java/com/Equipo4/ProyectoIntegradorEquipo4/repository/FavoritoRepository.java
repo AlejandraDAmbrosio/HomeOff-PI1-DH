@@ -30,17 +30,17 @@ public class FavoritoRepository implements IFavoritoRepository {
     }
 
     @Override
-    public List<FavoritoRespuesta> findAllByRecurso(int idRecurso) {
+    public List<FavoritoRespuesta> findAllByUsuario(int IdUsuario) {
         String SQL = "SELECT p.id, p.IdUsuario, p.IdRecurso, p.favorito, p.vigente, p.fecha_MarcacionFavorito, u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
                 "FROM offi_Favoritos p " +
                 "INNER JOIN offi_usuarios u ON p.idUsuario = u.idUsuario " +
                 "INNER JOIN offi_recursos r ON p.idRecurso = r.idRecurso " +
-                "WHERE p.idRecurso = ?";
-        return jdbcTemplate.query(SQL, new Object[]{idRecurso}, BeanPropertyRowMapper.newInstance(FavoritoRespuesta.class));
+                "WHERE p.IdUsuario = ?";
+        return jdbcTemplate.query(SQL, new Object[]{IdUsuario}, BeanPropertyRowMapper.newInstance(FavoritoRespuesta.class));
     }
 
     @Override
-    public int save(Favorito favorito) {
+    public int guardarFavorito(Favorito favorito) {
         String SQL = "INSERT INTO offi_Favoritos (idUsuario, idRecurso, favorito, vigente, fecha_MarcacionFavorito) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         // Configura la zona horaria a UTC

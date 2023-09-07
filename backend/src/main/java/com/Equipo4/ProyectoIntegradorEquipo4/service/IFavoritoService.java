@@ -8,9 +8,9 @@ import java.util.List;
 public interface IFavoritoService {
 
 
-    public Favorito guardarPuntaje(Favorito favorito) throws Exception;
+    public Favorito guardarFavorito(Favorito favorito) throws Exception;
 
-    public List<FavoritoRespuesta> devolverPuntajesPorRecurso(Integer idRecurso) throws Exception;
+    public List<FavoritoRespuesta> devolverFavoritoPorUsuario(Integer idRecurso) throws Exception;
 
 
 }

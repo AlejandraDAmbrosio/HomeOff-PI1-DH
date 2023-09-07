@@ -18,17 +18,17 @@ public class AuthFavoritoController {
     @Autowired
     private IFavoritoService iFavoritoService;
 
-    @GetMapping("/favoritos/{IdRecurso}")
-    public ResponseEntity<?> buscarPuntajeProducto(@PathVariable Integer IdRecurso) {
+    @GetMapping("/favoritos/{IdUsuario}")
+    public ResponseEntity<?> buscarPuntajeProducto(@PathVariable Integer IdUsuario) {
         try {
-            List<FavoritoRespuesta> puntajes = iFavoritoService.devolverPuntajesPorRecurso(IdRecurso);
+            List<FavoritoRespuesta> puntajes = iFavoritoService.devolverFavoritoPorUsuario(IdUsuario);
             if (puntajes.isEmpty()) {
-                String mensaje = "No se encontraron puntajes para el producto con ID: " + IdRecurso;
+                String mensaje = "No se encontraron favoritos para el usuario con ID: " + IdUsuario;
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
             }
             return ResponseEntity.ok(puntajes);
         } catch (Exception e) {
-            String mensaje = "Error al buscar los puntajes: " + e.getMessage();
+            String mensaje = "Error al buscar los favoritos: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }
