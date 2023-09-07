@@ -18,6 +18,7 @@ import {
   Alert,
   Snackbar,
   IconButton,
+  Grid,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
@@ -556,7 +557,7 @@ const Detail = () => {
           {/* </div> */}
         </div>
         {/* </Paper> */}
-        <Stack
+        {/* <Stack
         flexWrap={"wrap"}
           gap={4}
           alignItems={{ xl:"center", lg:"center", md: "center",  xs: "center" }}
@@ -572,6 +573,7 @@ const Detail = () => {
             xs: "column",
             sm: "column",
           }}
+          style={{display:"flex", justifyContent:"center", border: "1px solid red",}}
         >
           <CalendarioXId></CalendarioXId>
           <Divider
@@ -584,7 +586,23 @@ const Detail = () => {
             }}
           />
           <Comentarios id={id}></Comentarios>
-        </Stack>
+        </Stack> */}
+
+<Grid
+  container
+  spacing={2}
+  // margin={"auto"}
+
+  style={{ border: "1px solid red", justifyContent:"center", alignItems:"flex-start", justifyItems:"center" }}
+>
+  <Grid item xs={12} md={5} lg={5} xl={5} style={{ placeItems: 'center', margin:"auto" }}>
+    <CalendarioXId style={{ placeItems: 'center' }}/>
+  </Grid>
+
+  <Grid item xs={12} md={5} lg={5} xl={5} style={{ placeItems: 'center', margin:"auto"  }}>
+    <Comentarios id={id}  style={{ placeItems: 'center' }}/>
+  </Grid>
+</Grid>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

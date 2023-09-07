@@ -105,7 +105,7 @@ const Comentarios = ({ id }) => {
                   // border: "1px solid blue",
                   height: "300px",
                   overflow: "hidden",
-                  padding: "0.5rem 0.5px 1rem 0.5rem",
+                  padding: "0.5rem 5px 1rem 5px",
                   "&::-webkit-scrollbar": {
                     width: "40px",
                   },
@@ -125,6 +125,7 @@ const Comentarios = ({ id }) => {
                     marginBottom: "2rem",
                     overflowY: "auto", // Agrega una barra de desplazamiento vertical cuando sea necesario
                     width: "100%",
+                    padding:"5px",
                     // border: "1px solid green",
                     maxHeight: "400px",
                   }}
