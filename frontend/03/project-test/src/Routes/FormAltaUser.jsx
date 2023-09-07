@@ -315,12 +315,15 @@ const FormAltaUser = () => {
 
   return (
     <Container
+      
       style={{ marginTop: "7rem", minHeight: "1000px", maxWidth: "330px" }}
     >
+ 
       <Stack
+      marginTop={{ xs: "18rem", sm: "18rem"}}
         style={{
           placeItems: "center",
-          gap: "1rem",
+          gap: "0rem",
           paddingBottom: "2rem",
           minHeight: "1000px",
         }}
@@ -331,9 +334,9 @@ const FormAltaUser = () => {
 
         <form onSubmit={handleSubmitCrearCuenta}>
           <div className="formularioAltaUser">
-            <Input
+            <TextField
               id="nombre"
-              label="Nombre *"
+              label="Nombre"
               variant="standard"
               className="campo-formulario"
               type="text"
@@ -352,10 +355,9 @@ const FormAltaUser = () => {
               ""
             )}
 
-            {/* <div className="form-control"> */}
-            <Input
+            <TextField
               id="apellido"
-              label="Apellido *"
+              label="Apellido"
               variant="standard"
               className="campo-formulario"
               type="text"
@@ -375,56 +377,50 @@ const FormAltaUser = () => {
               ""
             )}
 
-          
-              <Input
-                id="email"
-                label="Email *"
-                variant="standard"
-                className="campo-formulario"
-                type="email"
-                placeholder="ejemplo@gmail.com"
-                value={usuario.email}
-                onChange={onChangeEmail}
-                required
-                margin="normal"
-                style={{ borderColor: emailValido ? "" : "red" }}
-                />
-                {!emailValido ? (
-                  <p className="error-form">
-                    Ingresar al menos 3 caracteres antes del @ y tener un formato
-                    válido.
-                  </p>
-                ) : (
-                  ""
-                )}
+            <TextField
+              id="email"
+              label="Email"
+              variant="standard"
+              className="campo-formulario"
+              type="email"
+              placeholder="ejemplo@gmail.com"
+              value={usuario.email}
+              onChange={onChangeEmail}
+              required
+              margin="normal"
+              style={{ borderColor: emailValido ? "" : "red" }}
+            />
+            {!emailValido ? (
+              <p className="error-form">
+                Ingresar al menos 3 caracteres antes del @ y tener un formato
+                válido.
+              </p>
+            ) : (
+              ""
+            )}
 
+            <TextField
+              id="confirmaremail"
+              label="Confirma Email"
+              variant="standard"
+              className="campo-formulario"
+              type="email"
+              placeholder="Confirmar Email"
+              value={usuario.confirmacionEmail}
+              onChange={onChangeConfirmacionEmail}
+              required
+              margin="normal"
+              style={{ borderColor: confirmacionEmailValido ? "" : "red" }}
+            />
+            {!confirmacionEmailValido ? (
+              <p className="error-form">Los emails no coinciden.</p>
+            ) : (
+              ""
+            )}
 
-            <Input
-                id="confirmaremail"
-                label="Confirma Email *"
-                variant="standard"
-                className="campo-formulario"
-                type="email"
-                placeholder="Confirmar Email"
-                value={usuario.confirmacionEmail}
-                onChange={onChangeConfirmacionEmail}
-                required
-                margin="normal"
-                style={{ borderColor: confirmacionEmailValido ? "" : "red" }}
-              />
-              {!confirmacionEmailValido ? (
-                <p className="error-form">Los emails no coinciden.</p>
-              ) : (
-                ""
-              )}
-
-
-
-
-           
-            <Input
+            <TextField
               id="password"
-              label="Password *"
+              label="Password"
               variant="standard"
               className="campo-formulario"
               type={showPassword ? "text" : "password"}
@@ -454,13 +450,10 @@ const FormAltaUser = () => {
             ) : (
               ""
             )}
-{/* 
-            <InputLabel htmlFor="standard-adornment-password">
-              Confirmar password
-            </InputLabel> */}
-            <Input
+
+            <TextField
               id="password"
-              label="Password *"
+              label="Confirmar password"
               variant="standard"
               className="campo-formulario"
               type={showConfirmarPassword ? "text" : "password"}
@@ -491,46 +484,6 @@ const FormAltaUser = () => {
               ""
             )}
 
-            {/* 
-            <TextField
-              id="password"
-              label="Password *"
-              variant="standard"
-              className="campo-formulario"
-              type="password"
-              placeholder="Ingresa tu password"
-              value={usuario.confirmarPassword}
-              onChange={onChangeConfirmacionPassword}
-              required
-              margin="normal"
-              style={{ borderColor: confirmacionPasswordValido ? "" : "red" }}
-            />
-            {!confirmacionPasswordValido ? (
-              <p className="error-form-inicio">
-                La contraseña debe tener al menos 8 caracteres, incluir una
-                letra mayúscula y un carácter no alfanumérico.
-              </p>
-            ) : (
-              ""
-            )} */}
-
-            {/* <div className="form-control">
-              <label for="confirmarpassword">Confirma Password *</label>
-              <input
-                type="password"
-                placeholder="********"
-                value={usuario.confirmarPassword}
-                id="confirmarpassword"
-                style={{ borderColor: confirmacionPasswordValido ? "" : "red" }}
-                onChange={onChangeConfirmacionPassword}
-              />
-              {!confirmacionPasswordValido ? (
-                <p className="error-form">Los passwords no coinciden.</p>
-              ) : (
-                ""
-              )}
-            </div> */}
-
             {/* //////////////-----------------------------////////////// */}
             <button className="boton-alta-user" type="submit" value="Acceso">
               Crear Cuenta
@@ -543,10 +496,9 @@ const FormAltaUser = () => {
           )}
         </form>
         <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
-          {/* <div className="acceso-cuenta-o-usuarionuevo-alta"> */}
-          <p>¿No tenés cuenta?</p>
+ 
           <p>¿Se te olvidó tu contraseña?</p>
-          {/* </div> */}
+      
         </Stack>
       </Stack>
     </Container>
