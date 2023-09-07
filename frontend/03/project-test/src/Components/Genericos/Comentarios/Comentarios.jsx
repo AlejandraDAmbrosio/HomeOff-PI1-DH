@@ -70,7 +70,7 @@ const Comentarios = ({ id }) => {
 
       <Paper
         sx={{ /*width: "80%",*/ overflow: "hidden" }}
-        style={{ margin: "0", display: "flex", maxWidth: "600px", flexDirection:"column", alignItems:"flex-start" }}
+        style={{ margin: "0", display: "flex", maxWidth: "500px", flexDirection:"column", alignItems:"flex-start" }}
       >
         {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
         {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
@@ -78,7 +78,8 @@ const Comentarios = ({ id }) => {
             <Box
               key={idPuntuacion}
               sx={{
-                maxHeight: "320px",
+                maxHeight: "250px",
+                width:"300px",
                 overflow: "auto",
                 padding: "2rem 30px 2rem 2rem",
                 "&::-webkit-scrollbar": {
