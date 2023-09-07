@@ -7,15 +7,18 @@ import { alignProperty } from "@mui/material/styles/cssUtils";
 import EstrellaValor from "../../Genericos/Puntuaciones/EstrellaValor";
 import formatearFecha from "../../utils/formatearFechaParaVisualizar";
 
-
-const Comentarios = ({id}) => {
-  const {puntosComentXIDRecurso, getPuntosComentXIDRecurso} =
-  useContext(ContextGlobal);
+const Comentarios = ({ id }) => {
+  const {
+    puntosPromedioXIDRecurso,
+    puntosComentXIDRecurso,
+    getPuntosComentXIDRecurso,
+    getPuntosPromedioXIDRecurso,
+  } = useContext(ContextGlobal);
 
   useEffect(() => {
     getPuntosComentXIDRecurso(id);
+    getPuntosPromedioXIDRecurso(id);
   }, [id]);
-
 
   return (
     <Stack
@@ -44,11 +47,19 @@ const Comentarios = ({id}) => {
         }}
       >
         <Typography variant="h4">Opiniones</Typography>
-
-        <Puntuacion />
+        {puntosPromedioXIDRecurso ? (
+          <Puntuacion puntaje={puntosPromedioXIDRecurso} />
+        ) : (
+          <Puntuacion />
+        )}
         <Button
           className="boton-generico"
-          sx={{ color: "#47a169", padding: "1.2rem 0.5rem", width: "150px", borderRadius: "20px" }}
+          sx={{
+            color: "#47a169",
+            padding: "1.2rem 0.5rem",
+            width: "150px",
+            borderRadius: "20px",
+          }}
         >
           Comentar
         </Button>
@@ -96,21 +107,25 @@ const Comentarios = ({id}) => {
                   <Stack direction="row" spacing={1}>
                     <AvatarNav Iniciales={comentario.nombreUsuario}></AvatarNav>
                     <Stack direction="column" spacing={0.4}>
-                      <Typography variant="h6">{comentario.nombreUsuario}</Typography>
-                      <Typography variant="body2">{formatearFecha(new Date(comentario.fecha_valoracion))}</Typography>
+                      <Typography variant="h6">
+                        {comentario.nombreUsuario}
+                      </Typography>
+                      <Typography variant="body2">
+                        {formatearFecha(new Date(comentario.fecha_valoracion))}
+                      </Typography>
                     </Stack>
                   </Stack>
                   {/* <Puntuacion></Puntuacion> */}
                   <EstrellaValor puntuacion={comentario.puntuacion} />
                 </Stack>
-                <Typography variant="body2">
-                  {comentario.comentario}
-                </Typography>
+                <Typography variant="body2">{comentario.comentario}</Typography>
               </Stack>
             </Box>
           ))
         ) : (
-          <Typography variant="body2">No hay comentarios disponibles.</Typography>
+          <Typography variant="body2">
+            No hay comentarios disponibles.
+          </Typography>
         )}
       </Paper>
       <Divider orientation="horizontal" flexItem spacing={2} />
