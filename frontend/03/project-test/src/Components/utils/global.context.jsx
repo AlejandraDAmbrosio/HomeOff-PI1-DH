@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 export const ContextGlobal = createContext();
 import axios from "axios";
-
-
-
+import buscadorNombresEnLogIn from "./buscadorNombresEnLogIn";
 
 export const ContextProvider = ({ children }) => {
   ///Modal Fotos ////
@@ -16,7 +14,7 @@ export const ContextProvider = ({ children }) => {
   const closeModal = () => {
     setShowModal(false);
   };
-  
+
   /////////////////////// Escuchar el ancho de pantalla
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -59,9 +57,6 @@ export const ContextProvider = ({ children }) => {
 
     setRecursoXID(data);
   };
-  // useEffect(() => {
-  //   getRecursoXID();
-  // }, []);
 
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
@@ -70,11 +65,9 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
     setUsersLista(data);
   };
-
-  // useEffect(() => {
-  //   getDatosUsers();
-  // }, []);
-
+  useEffect(() => {
+    getDatosUsers();
+  }, []);
   /////////////////////////////////GetCategorias
   const [categoriasLista, setCategoriasLista] = useState([]);
 
@@ -84,14 +77,8 @@ export const ContextProvider = ({ children }) => {
 
     console.log(data);
     setCategoriasLista(data);
-    // console.log(data);
   };
 
-  // useEffect(() => {
-  //   getCategoriasLista();
-  // }, []);
-
-  ///////////////// Get Caracteristicas
   const [caracteristicasLista, setCaracteristicasLista] = useState([]);
 
   const getCaracteristicasLista = async () => {
@@ -99,14 +86,12 @@ export const ContextProvider = ({ children }) => {
       "http://52.32.210.155:8080/auth/caracteristicas/list"
     );
     const data = await res.json();
-
     setCaracteristicasLista(data);
-    // console.log(data);
   };
 
-  useEffect(() => {
-    getCaracteristicasLista();
-  }, []);
+  // useEffect(() => {
+  //   getCaracteristicasLista();
+  // }, []);
 
   /////////////////////// Get Caracteristicas por ID
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
@@ -114,14 +99,12 @@ export const ContextProvider = ({ children }) => {
   const getCaracteristicasXID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/inter/${id}`);
     const data = await res.json();
-
     setCaracteristicasXID(data);
-    // console.log(caracteristicasLista);
   };
 
-  useEffect(() => {
-    getCaracteristicasLista();
-  }, []);
+  // useEffect(() => {
+  //   getCaracteristicasLista();
+  // }, []);
 
   /////////////////////////////// Politicas por ID Recurso
 
@@ -132,78 +115,72 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setPoliticasXID(data);
-    // console.log(politicasXID);
   };
 
-///////////////////////////// Comentarios por Recurso 
+  /////////////////////////////////// Puntaje promedio por IDRecurso
 
-// const [comentariosXIDRecurso, setComentariosXIDRecurso] = useState([]);
+  const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
 
-// const getComentariosXIDRecurso = async (id) => {
-//   const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
-//   const data = await res.json();
+  const getPuntosPromedioXIDRecurso = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://52.32.210.155:8080/auth/puntaje/${id}/promedio`
+      );
 
-//   setPoliticasXID(data);
-//   console.log(politicasXID);
-// };
-
-
-
-
-/////////////////////////////////// Puntaje promedio por IDRecurso
-
-const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
-
-const getPuntosPromedioXIDRecurso = async (id) => {
-  try {
-    const response = await axios.get(`http://52.32.210.155:8080/auth/puntaje/${id}/promedio`);
-
-    if (response.status === 404 || isNaN(response.data)) {
-      setPuntosPromedioXIDRecurso(0)
-      return 0; // Devuelve 0 si la respuesta es 404 o no es un número válido
+      if (response.status === 404 || isNaN(response.data)) {
+        setPuntosPromedioXIDRecurso(0);
+        return 0; // Devuelve 0 si la respuesta es 404 o no es un número válido
+      }
+      setPuntosPromedioXIDRecurso(Number(response.data));
+      return Number(response.data);
+    } catch (error) {
+      console.error("Error al obtener puntos promedio:", error);
+      return 0; // Devuelve 0 en caso de error
     }
-    setPuntosPromedioXIDRecurso(Number(response.data));
-    return Number(response.data);
-  } catch (error) {
-    console.error("Error al obtener puntos promedio:", error);
-    return 0; // Devuelve 0 en caso de error
-  }
-};
+  };
+
+  //////////////////////////////////////Favoritos X ID
+
+  const [favoritosXID, setFavoritosXID] = useState([]);
+const [ isFav, setIsFav] = useState(false);
 
 
-//////////////////////////////////////Favoritos X ID
+  const getFavoritosXID = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const data = await res.json();
+    console.log("Data antes de inyectarse", data);
+    const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
+    console.log("newArray", newArray);
+    setFavoritosXID(newArray);
+  };
 
-const [favoritosXID, setFavoritosXID] =  useState([]);
-
-const getFavoritosXID = async (id) => {
-  const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
-  const data = await res.json();
-console.log("Data antes de inyectarse" ,data)
-const newArray = data.map(item => ({ "idRecurso": item.idRecurso }));
-console.log("newArray" ,newArray)  
-setFavoritosXID(newArray);
-
-};
+  const getIsFav  = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const data = await res.json();
+    console.log("Data antes de inyectarse", data);
+    const esFav = data.some((item) => item.idUsuario === userIdLogIn);
+    
+    console.log("esFav", esFav);
+    setIsFav(esFav);
+  };
 
 
 
+  ///////////////////////////////// Puntajes y comentarios por IdRecurso
+  const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 
+  const getPuntosComentXIDRecurso = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
+    const data = await res.json();
 
-
-
-///////////////////////////////// Puntajes y comentarios por IdRecurso
-const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
-
-const getPuntosComentXIDRecurso = async (id) => {
-  const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
- const data = await res.json();
-
-  setPuntosComentXIDRecurso(data);
-  console.log("puntosComentXIDRecurso");
- console.log(puntosComentXIDRecurso);
-};
+    setPuntosComentXIDRecurso(data);
+    console.log("puntosComentXIDRecurso");
+    console.log(puntosComentXIDRecurso);
+  };
 
   //////////////////////////LOGUEO //////////////////Autenticacion
+
+  const [userIdLogIn, setUserIdLogIn] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
   const [userLogIn, setUserLogIn] = useState({
@@ -213,153 +190,65 @@ const getPuntosComentXIDRecurso = async (id) => {
   const [errorLogueo, setErrorLogueo] = useState("");
 
   const realizarLogIn = async () => {
+    const { username, password } = userLogIn;
 
-      const { username, password } = userLogIn;
-    
-      // Validar los datos
-      if (!username || !password) {
-        setErrorLogueo("Ingrese un nombre de usuario y una contraseña");
-        return;
-      }
-    
-      // solicitud POST a la API
-      const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
-      const body = JSON.stringify({
-        username,
-        password,
-      });
-      console.log("Body ", body);
-      const options = {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: body,
-      };
+    // Validar los datos
+    if (!username || !password) {
+      setErrorLogueo("Ingrese un nombre de usuario y una contraseña");
+      return;
+    }
 
-      const response = await fetch(urlBaseGuardar, options);
-    
-      // Manejar la respuesta de la API
-      if (response.ok) {
-        const data = await response.json();
-        
-        // Si la respuesta es exitosa, guardar el token JWT en el almacenamiento local
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          console.log("Respuesta token:", data.token);
-          localStorage.setItem("username", username);
-          setUsuarios(data);
-          console.log("Datos guardados de la respuesta en DATA");
-          console.log(data);
-          setUsuarioLogueado(username);
-          // Asegúrate de tener esta línea en tu función
-          window.location.replace('/');
-          setErrorLogueo("");
-        } 
-
-      } else {
-        console.error("Error al iniciar sesión:", response);
-        setErrorLogueo("Error al iniciar sesión");
-      }
-    };
-    
-    const cerrarSesion = () => {
-      localStorage.removeItem("usuarioLogueado");
-      localStorage.removeItem("token");
-      setUsuarioLogueado(null);
-      window.location.replace('/');
-      console.log("----------Cerrando sesión. en Context .---------");
+    // solicitud POST a la API
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+    const body = JSON.stringify({
+      username,
+      password,
+    });
+    console.log("Body ", body);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
     };
 
-////////////////////////////////Prueba 2 Axios /////////////////////////////////
+    const response = await fetch(urlBaseGuardar, options);
 
-//     const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
-//     const { username, password } = userLogIn;
-//     console.log("en global context", userLogIn);
+    if (response.ok) {
+      const data = await response.json();
 
-//     const options = {
-//       method: "POST",
-//       url: urlBaseGuardar,
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       data: {
-//         username,
-//         password,
-//       },
-//     };
-//     console.log("options", options);
-//    try {
-//     const response = await axios.post(urlBaseGuardar, userLogIn);
-// console.log("response", response);
-//     if (response.data.jwt) {
-//       localStorage.setItem("jwt", response.data.jwt);
-//       console.log("Respuesta jwt:", response.data.jwt);
-//       setUsuarios(response.data);
-//       setUsuarioLogueado(response.data.jwt);
-//       setErrorLogueo("");
-//     } else {
-//       setErrorLogueo("Credenciales inválidas");
-//     }
-//   } catch (error) {
-//     console.error("Error al iniciar sesión:", error);
-//     setErrorLogueo("Error al iniciar sesión");
-//   }
-// }
+      if (data.token) {
+        setErrorLogueo("");
+        localStorage.setItem("token", data.token);
+        console.log("Respuesta token:", data.token);
+        localStorage.setItem("username", username);
+        setUsuarios(data);
+        console.log("Datos guardados de la respuesta en DATA");
+        console.log(data);
+        setUsuarioLogueado(username);
+        console.log("username en Global" , username)
+        const idUser = buscadorNombresEnLogIn(username, usersLista);
+        setUserIdLogIn(idUser);
+        console.log("userIdLogIn en Global" , userIdLogIn)
+        localStorage.setItem("userId", userIdLogIn);
+        window.location.replace("/");
+      }
+    } else {
+      console.error("Error al iniciar sesión:", response);
+      setErrorLogueo("Error al iniciar sesión");
+    }
+  };
 
-  // const cerrarSesion = () => {
-  //   localStorage.removeItem("usuarioLogueado");
-  //   setUsuarioLogueado(null);
-  //   console.log("----------Cerrando sesión. en Context .---------");
-  // };
-  
+  const cerrarSesion = () => {
+    localStorage.removeItem("usuarioLogueado");
+    localStorage.removeItem("token");
+    setUsuarioLogueado(null);
+    window.location.replace("/");
+    console.log("----------Cerrando sesión. en Context .---------");
+  };
 
-  // useEffect(() => {
-  //   fetchUsuarios();
-  // }, []);
-
-
-  ///////////////////////////Log in anterior sin autenticar //////////////////////
-
-  // const realizarLogIn = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://52.32.210.155:8080/api/v1/usuarios/list"
-  //     );
-  //     setUsuarios(response.data);
-  //   } catch (error) {
-  //     console.error("Error al cargar usuarios:", error);
-  //   }
-  // };
-
-  ///////////////////////////////////////////////////////////
-  // const iniciarSesion = (nombre, email, password) => {
-  //   const usuarioEncontrado = usuarios.find(
-  //     (usuario) =>
-  //       usuario.nombreCompleto === nombre &&
-  //       usuario.correo === email &&
-  //       usuario.contraseña === password
-  //   );
-
-  /////////////////////////////////////
-
-  //   if (usuarioEncontrado) {
-  //     setUsuarioLogueado(usuarioEncontrado);
-  //     localStorage.setItem(
-  //       "usuarioLogueado",
-  //       JSON.stringify(usuarioEncontrado)
-  //     );
-  //   } else {
-  //     console.log("Credenciales incorrectas");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const usuarioGuardado = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  //   if (usuarioGuardado) {
-  //     setUsuarioLogueado(usuarioGuardado);
-  //   }
-  // }, []);
+  //// chequear el idUsuario del username buscando en la lista de users
 
   //////////////////////////////////////////// FECHAS ////////////////////////
   const [fechasBusqueda, setFechasBusqueda] = useState([null, null]);
@@ -382,19 +271,22 @@ const getPuntosComentXIDRecurso = async (id) => {
   return (
     <ContextGlobal.Provider
       value={{
+        getIsFav,
+        isFav, setIsFav,
         favoritosXID,
-        setFavoritosXID, 
+        setFavoritosXID,
         getFavoritosXID,
-        puntosComentXIDRecurso, 
-        setPuntosComentXIDRecurso, 
+        puntosComentXIDRecurso,
+        setPuntosComentXIDRecurso,
         getPuntosComentXIDRecurso,
-        puntosPromedioXIDRecurso, 
+        puntosPromedioXIDRecurso,
         setPuntosPromedioXIDRecurso,
         getPuntosPromedioXIDRecurso,
         politicasXID,
         setPoliticasXID,
         getPoliticasXID,
-
+        userIdLogIn,
+        setUserIdLogIn,
         errorLogueo,
         userLogIn,
         setUserLogIn,

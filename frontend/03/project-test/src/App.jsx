@@ -27,7 +27,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
   ////////////////// Segmento Logueo
-  const { setUsuarioLogueado, usuarioLogueado } = useContext(ContextGlobal);
+  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn } = useContext(ContextGlobal);
   /////////////////
   useEffect(() => {
     // Verificar si hay un token en el almacenamiento local
@@ -37,8 +37,12 @@ function App() {
     console.log(token);
 
     if (token) {
+      const token = localStorage.getItem("token")
       const user = localStorage.getItem("username");
-      console.log(user);
+      const userId = localStorage.getItem("userId");
+      console.log("token en Local Storage", token);
+      console.log("user en Local Storage", user);
+      console.log("userId en Local Storage",userId);
       setUsuarioLogueado(user);
       // El usuario está autenticado, puedes realizar las acciones necesarias
       // como cargar datos de usuario, redirigir, etc.

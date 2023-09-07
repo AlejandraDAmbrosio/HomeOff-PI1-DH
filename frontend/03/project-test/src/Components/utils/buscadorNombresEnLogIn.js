@@ -1,14 +1,16 @@
-buscadorNombresEnLogIn
 
-function buscadorNombresEnLogIn(username, data) {
-    const userEncontrado = data.find(
-      (item) => item.categoria_id == idCategoria
-    );
+
+function buscadorNombresEnLogIn(username, base) {
+  const userEncontrado = base.find(item => item.username  === username);
   
-    if (categoriaEncontrada) {
-      return categoriaEncontrada.name;
-    } else {
-      return "Categoría no encontrada";
-    }
+  if (userEncontrado) {
+      console.log("Usuario encontrado" , userEncontrado);
+      console.log("idUsuario encontrado" , userEncontrado.idUsuario);
+    return userEncontrado.idUsuario;
+  } else {
+    console.log("Usuario no encontrado");
+    return "User no encontrado";
   }
-  export default buscadorNombresEnLogIn;
+}
+export default buscadorNombresEnLogIn;
+
