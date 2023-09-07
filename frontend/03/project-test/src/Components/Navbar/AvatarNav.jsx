@@ -14,7 +14,7 @@ const AvatarNav = ({Iniciales}) => {
 
   return (
     <div>
-      {usuarioLogueado ? (
+      {(Iniciales != null) || usuarioLogueado ? (
         <Avatar
           variant="solid"
           size="lg"
