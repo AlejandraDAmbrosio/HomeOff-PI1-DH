@@ -81,6 +81,7 @@ const Comentarios = ({ id }) => {
               sx={{
                 // maxHeight: "250px",
                 width:"300px",
+                height:"200px",
                 overflow: "auto",
                 padding: "2rem 30px 2rem 2rem",
                 "&::-webkit-scrollbar": {
