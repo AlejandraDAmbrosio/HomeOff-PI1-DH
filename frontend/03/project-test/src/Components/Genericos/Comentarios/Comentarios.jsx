@@ -80,7 +80,7 @@ const Comentarios = ({ id }) => {
               key={idPuntuacion}
               sx={{
                 // maxHeight: "250px",
-                width:"300px",
+                width:"98%",
                 height:"200px",
                 overflow: "auto",
                 padding: "2rem 30px 2rem 2rem",
