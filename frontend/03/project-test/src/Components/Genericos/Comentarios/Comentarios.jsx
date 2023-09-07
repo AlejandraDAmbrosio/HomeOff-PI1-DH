@@ -97,7 +97,7 @@ const Comentarios = ({id}) => {
                     <AvatarNav></AvatarNav>
                     <Stack direction="column" spacing={0.4}>
                       <Typography variant="h6">{comentario.nombreUsuario}</Typography>
-                      <Typography variant="body2">formatearFecha(new Date({comentario.fecha_valoracion}))</Typography>
+                      <Typography variant="body2">{formatearFecha(new Date(comentario.fecha_valoracion))}</Typography>
                     </Stack>
                   </Stack>
                   {/* <Puntuacion></Puntuacion> */}
