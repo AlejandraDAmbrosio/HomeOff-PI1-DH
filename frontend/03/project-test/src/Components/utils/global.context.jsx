@@ -66,7 +66,7 @@ export const ContextProvider = ({ children }) => {
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
   const getDatosUsers = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
+    const res = await fetch("http://52.32.210.155:8080/auth/usuario/list");
     const data = await res.json();
     setUsersLista(data);
   };

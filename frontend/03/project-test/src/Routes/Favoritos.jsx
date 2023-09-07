@@ -69,7 +69,7 @@ const Favoritos = () => {
     // <Container style={{marginTop:"16rem"}}>
     <Stack style={{ marginTop: "7rem", marginBottom:"2rem", minHeight: "730px", maxWidth:"1900px" }}>
       <div className="administracion-fav-titulo">
-        <div className="fil-titulo">Tus espacios favoritos:</div>
+        <div className="fil-titulo">Tus espacios favoritos</div>
 
         {/* <Stack
           style={{
