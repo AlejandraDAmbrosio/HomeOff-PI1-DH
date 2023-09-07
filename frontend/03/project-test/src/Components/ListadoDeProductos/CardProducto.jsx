@@ -42,6 +42,7 @@ const CardProducto = ({
     getFavoritos,
     favoritos,
     setFavoritos,
+    usersLista,
   } = useContext(ContextGlobal);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const CardProducto = ({
     getIsFav(id);
   }, [id]);
 
-  const esFav = data.some((item) => item.idUsuario === userIdLogIn);
+  const esFav = usersLista.some((item) => item.idUsuario === userIdLogIn);
 
   const estrellas = puntosPromedioXIDRecurso;
 
@@ -63,7 +64,7 @@ const CardProducto = ({
         }}
       >
         <CardMedia sx={{ height: 240 }} image={url} title="imagen">
-         {isFav?( <FavoriteIcon
+         {esFav?( <FavoriteIcon
             style={{
               position: "relative",
               fontSize: "30px",
