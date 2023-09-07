@@ -557,12 +557,18 @@ const Detail = () => {
         </div>
         {/* </Paper> */}
         <Stack
+        flexWrap={"wrap"}
           gap={4}
-          alignItems="flex-start"
+          alignItems={{ xl:"center", lg:"center", md: "center",  xs: "center" }}
+          margin={"auto"}
+          width={{
+            xl: "98%",
+            lg: "fit-content",
+          }}
           direction={{
             xl: "row",
             lg: "row",
-            md: "row",
+            md: "column",
             xs: "column",
             sm: "column",
           }}
@@ -573,7 +579,7 @@ const Detail = () => {
               xl: "vertical",
               lg: "vertical",
               md: "vertical",
-              xs: "horizontal",
+              xs: "vertical",
               sm: "horizontal",
             }}
           />

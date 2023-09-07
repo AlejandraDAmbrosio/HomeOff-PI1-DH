@@ -29,7 +29,7 @@ const CardProducto = ({
   servicio1,
   servicio2,
   servicio3,
-  
+  puntuacion
 }) => {
   const { puntosPromedioXIDRecurso, getPuntosPromedioXIDRecurso } = useContext(ContextGlobal);
 
@@ -71,8 +71,8 @@ const CardProducto = ({
               >
                 {categoria}
               </Typography>
-
-              <EstrellaValor puntuacion={estrellas} />
+              <EstrellaValor puntuacion={puntuacion} />
+              {/* <EstrellaValor puntuacion={estrellas} /> */}
             </Stack>
 
             <Typography

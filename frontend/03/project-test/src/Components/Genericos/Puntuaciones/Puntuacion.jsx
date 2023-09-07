@@ -45,7 +45,7 @@ const Puntuacion = ({puntaje}) => {
           );
         })}
       </Stack>
-      <Typography style={{ fontSize: "22px", marginLeft: "1rem" }}>Puntuación</Typography>
+      <Typography style={{ fontSize: "22px", marginLeft: "1rem" }}>{puntaje}</Typography>
     </Stack>
   );
 };

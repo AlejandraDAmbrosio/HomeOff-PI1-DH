@@ -1,7 +1,25 @@
 import { Container, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { ContextGlobal } from "../Components/utils/global.context";
+import { useParams } from "react-router-dom";
 
 const Favoritos = () => {
+  const { id } = useParams();
+  const {
+    favoritosXID,
+    setFavoritosXID, 
+    getFavoritosXID,
+
+  } = useContext(ContextGlobal);
+
+
+  useEffect(() => {
+    getFavoritosXID(id);
+  }, [id]);
+
+  console.log(favoritosXID)
+
+
   return (
     // <Container style={{marginTop:"16rem"}}>
     <Stack style={{ marginTop: "7rem", minHeight: "730px" }}>
@@ -22,6 +40,33 @@ const Favoritos = () => {
           </Typography>
         </Stack>
       </div>
+
+      <Stack> {favoritosXID.lenght? (favoritosXID.map((favorito)=>{
+
+return (
+  <CardProducto
+    className=".item-grid-listado"
+    key={producto.idRecurso}
+    title={producto.nombre}
+    descripcion={producto.descripción}
+    url={producto.imagenURL}
+    precio={producto.precioUnitario}
+    estrellas={producto.idRecurso}
+    sede={buscadorSedeXIDSede(producto.idSede)}
+    id={producto.idRecurso}
+    categoria={obtenerNombreCategoriaPorId(
+      producto.categoria_id,
+      productosBKLista,
+      categoriasLista
+    )}
+  />
+);
+
+
+      }) ) : (
+        <div>No encontramos favoritos </div>
+      )}  
+      </Stack>
     </Stack>
     // </Container>
   );
