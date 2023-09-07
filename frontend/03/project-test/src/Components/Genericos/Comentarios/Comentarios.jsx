@@ -90,6 +90,7 @@ const Comentarios = ({ id }) => {
           style={{
             overflowY: "auto",
             width: "100%",
+            height: "230px",
             // border: "1px solid violet",
           }}
         >
@@ -99,13 +100,11 @@ const Comentarios = ({ id }) => {
               <Box
                 key={idPuntuacion}
                 sx={{
-                   maxHeight: "250px",
-                  overflowY: "auto", // Agrega una barra de desplazamiento vertical cuando sea necesario
                   width: "100%",
                   // border: "1px solid blue",
-                  height: "300px",
-                  overflow: "hidden",
-                  padding: "0.5rem 5px 1rem 5px",
+                  height: "200px",
+
+                  padding: "0.1rem 5px 0.1rem 5px",
                   "&::-webkit-scrollbar": {
                     width: "40px",
                   },
@@ -122,12 +121,12 @@ const Comentarios = ({ id }) => {
                   direction="column"
                   spacing={1}
                   style={{
-                    marginBottom: "2rem",
-                    overflowY: "auto", // Agrega una barra de desplazamiento vertical cuando sea necesario
+                    marginBottom: "1rem",
+                    overflowY: "auto",
                     width: "100%",
-                    padding:"5px",
+                    padding: "1px",
                     // border: "1px solid green",
-                    maxHeight: "400px",
+                    maxHeight: "300px",
                   }}
                 >
                   <Stack
@@ -139,7 +138,7 @@ const Comentarios = ({ id }) => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       width: "100%",
-                      // border: "1px solid red",
+                      height: "70px",
                     }}
                   >
                     <Stack direction="row" spacing={2}>
