@@ -157,7 +157,7 @@ export default function AccountMenu() {
         )}
 
         {usuarioLogueado && (
-          <Link to="/favoritos/">
+          <Link to="/favoritos/1">
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <BsHeart fontSize="25" />

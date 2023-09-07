@@ -21,121 +21,139 @@ const Comentarios = ({ id }) => {
   }, [id]);
 
   return (
-    <Stack
-    direction={{xl:"column", lg:"column", md:"column", xs: "row", sm: "row" }}
-    width={{xl:"400px", lg:"400px", md:"400px"}}
+    <Paper
       style={{
-        // width: "95%",
-        // display: "flex",
-        // flexDirection: "row",
-        // justifyContent: "space-between",
-        // alignContent: "center",
-        flexWrap: "wrap",
         marginBottom: "2rem",
-        
+        padding: "1rem 1rem 1rem 1rem",
       }}
     >
-      <Paper
+      <Stack
         style={{
+          overflowY: "auto",
+          maxHeight: "330px",
+          margin: "0",
           display: "flex",
+          width: "370px",
+          maxWidth: "370px",
           flexDirection: "column",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1rem",
-          gap: "1rem",
-          padding: "15px",
-          // width: "250px",
-          maxHeight: "320px",
-          maxWidth: "500px",
+          alignItems: "flex-start",
+          gap: "1.5rem",
+          padding: "1rem 1rem 1rem 1rem",
         }}
       >
-        <Typography variant="h4">Opiniones</Typography>
-        {puntosPromedioXIDRecurso ? (
-          <Puntuacion puntaje={puntosPromedioXIDRecurso} />
-        ) : (
-          <Puntuacion />
-        )}
-        <Button
-          className="boton-generico"
-          sx={{
-            color: "#47a169",
-            padding: "1.2rem 0.5rem",
-            width: "150px",
-            borderRadius: "20px",
+        <Stack
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+            padding: "1rem 1rem 1rem 1rem",
+            width: "320px",
+            alignItems: "center",
           }}
         >
-          Comentar
-        </Button>
-      </Paper>
+          <Stack
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "1.5rem",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h4">Opiniones</Typography>
 
-      <Paper
-        sx={{ /*width: "80%",*/ }}
-        style={{overflowY: "auto", maxHeight:"226px", margin: "0", display: "flex", maxWidth: "500px", flexDirection:"column", alignItems:"flex-start" }}
-      >
-        {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
-        {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
-          puntosComentXIDRecurso.map((comentario, idPuntuacion) => (
-            <Box
-              key={idPuntuacion}
-              sx={{
-                // maxHeight: "250px",
-                width:"98%",
-                height:"200px",
-                overflow: "hidden",
-                padding: "2rem 30px 2rem 2rem",
-                "&::-webkit-scrollbar": {
-                  width: "40px",
-                },
-                "&::-webkit-scrollbar-track": {
-                  background: "black",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  background: "#888",
-                  borderRadius: "30px",
-                },
-              }}
-            >
-              <Stack
-                direction="column"
-                spacing={2}
-                style={{ marginBottom: "2rem" }}
+            {puntosPromedioXIDRecurso ? (
+              <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
+            ) : (
+              <EstrellaValor />
+            )}
+          </Stack>
+
+          <Button
+            className="boton-generico"
+            sx={{
+              color: "#47a169",
+              padding: "1.2rem 0.5rem",
+              width: "300px",
+              borderRadius: "20px",
+            }}
+          >
+            Comentar
+          </Button>
+        </Stack>
+        <Stack style={{ overflowY: "auto", width: "320px" }}>
+          {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
+          {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
+            puntosComentXIDRecurso.map((comentario, idPuntuacion) => (
+              <Box
+                key={idPuntuacion}
+                sx={{
+                  // maxHeight: "250px",
+                  width: "100%",
+                  height: "200px",
+                  overflow: "hidden",
+                  padding: "0.5rem 0.5px 1rem 0.5rem",
+                  "&::-webkit-scrollbar": {
+                    width: "40px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    background: "black",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "#888",
+                    borderRadius: "30px",
+                  },
+                }}
               >
-                <Stack
-                  direction="row"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
+                <Paper
+                  direction="column"
+                  spacing={1}
+                  style={{ marginBottom: "2rem", height: "200px" }}
                 >
-                  <Stack direction="row" spacing={1}>
-                    <AvatarNav Iniciales={comentario.nombreUsuario}></AvatarNav>
-                    <Stack direction="column" spacing={0.4}>
-                      <Typography variant="h6">
-                        {comentario.nombreUsuario}
-                      </Typography>
-                      <Typography variant="body2">
-                        {formatearFecha(new Date(comentario.fecha_valoracion))}
-                      </Typography>
+                  <Stack
+                    direction="row"
+                    spacing={3}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      width: "285px",
+                    }}
+                  >
+                    <Stack direction="row" spacing={2}>
+                      <AvatarNav
+                        Iniciales={comentario.nombreUsuario}
+                      ></AvatarNav>
+                      <Stack direction="column" spacing={0.4}>
+                        <Typography variant="h6">
+                          {comentario.nombreUsuario}
+                        </Typography>
+                        <Typography variant="body2">
+                          {formatearFecha(
+                            new Date(comentario.fecha_valoracion)
+                          )}
+                        </Typography>
+                      </Stack>
                     </Stack>
+                    {/* <Puntuacion></Puntuacion> */}
+                    <EstrellaValor puntuacion={comentario.puntuacion} />
                   </Stack>
-                  {/* <Puntuacion></Puntuacion> */}
-                  <EstrellaValor puntuacion={comentario.puntuacion} />
-                </Stack>
-                <Typography variant="body2">{comentario.comentario}</Typography>
-              </Stack>
-            </Box>
-          ))
-        ) : (
-          <Typography variant="body2">
-            No hay comentarios disponibles.
-          </Typography>
-        )}
-      </Paper>
+                  <Typography variant="body2">
+                    {comentario.comentario}
+                  </Typography>
+                </Paper>
+              </Box>
+            ))
+          ) : (
+            <Typography variant="body2">
+              No hay comentarios disponibles.
+            </Typography>
+          )}
+        </Stack>
+      </Stack>
       <Divider orientation="horizontal" flexItem spacing={2} />
-    </Stack>
+    </Paper>
   );
 };
 

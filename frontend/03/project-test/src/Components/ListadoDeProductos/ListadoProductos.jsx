@@ -21,12 +21,29 @@ const ListadoProductos = ({ CantidadCards }) => {
     getPuntosPromedioXIDRecurso,
   } = useContext(ContextGlobal);
 
+  const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
+
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
   // console.log("prodFiltrados en LIstaProd:", prodFiltrados);
 
   const productsToRender = shouldUseFilteredProducts
     ? prodFiltrados
     : productosBKLista;
+
+    useEffect(() => {
+      const obtenerPuntuacionesPromedio = async () => {
+        const puntuaciones = {};
+        for (const producto of productsToRender) {
+          const puntuacion = await getPuntosPromedioXIDRecurso(producto.idRecurso);
+          puntuaciones[producto.idRecurso] = puntuacion;
+        }
+        setPuntuacionesPromedio(puntuaciones);
+      };
+  
+      obtenerPuntuacionesPromedio();
+    }, [productsToRender]);
+  
+  
 
   useEffect(() => {
     const paginatedArray = chunk(productsToRender, CantidadCards);
@@ -80,6 +97,7 @@ const ListadoProductos = ({ CantidadCards }) => {
               descripcion={producto.descripción}
               url={producto.imagenURL}
               precio={producto.precioUnitario}
+              puntuacion={puntuacionesPromedio[producto.idRecurso] || 0}
               estrellas={producto.idRecurso}
               sede={buscadorSedeXIDSede(producto.idSede)}
               id={producto.idRecurso}

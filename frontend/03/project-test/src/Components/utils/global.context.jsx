@@ -171,6 +171,20 @@ const getPuntosPromedioXIDRecurso = async (id) => {
 };
 
 
+//////////////////////////////////////Favoritos X ID
+
+const [favoritosXID, setFavoritosXID] =  useState([]);
+
+const getFavoritosXID = async (id) => {
+  const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+  const data = await res.json();
+
+  setFavoritosXID(data);
+
+};
+
+
+
 
 ///////////////////////////////// Puntajes y comentarios por IdRecurso
 const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
@@ -363,6 +377,9 @@ const getPuntosComentXIDRecurso = async (id) => {
   return (
     <ContextGlobal.Provider
       value={{
+        favoritosXID,
+        setFavoritosXID, 
+        getFavoritosXID,
         puntosComentXIDRecurso, 
         setPuntosComentXIDRecurso, 
         getPuntosComentXIDRecurso,
