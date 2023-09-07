@@ -70,8 +70,8 @@ const Comentarios = ({ id }) => {
       </Paper>
 
       <Paper
-        sx={{ /*width: "80%",*/ overflow: "hidden" }}
-        style={{ margin: "0", display: "flex", maxWidth: "500px", flexDirection:"column", alignItems:"flex-start" }}
+        sx={{ /*width: "80%",*/ }}
+        style={{overflowY: "auto", maxHeight:"226px", margin: "0", display: "flex", maxWidth: "500px", flexDirection:"column", alignItems:"flex-start" }}
       >
         {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
         {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
