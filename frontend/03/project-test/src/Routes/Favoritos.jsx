@@ -19,11 +19,14 @@ const Favoritos = () => {
     productosBKLista,
     categoriasLista,
     setRecursoXID,
-    getPuntosPromedioXIDRecurso
+    getPuntosPromedioXIDRecurso,
+    userIdLogIn,
   } = useContext(ContextGlobal);
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
   const [recursosFavoritos, setRecursosFavoritos] = useState([]);
+
+
 
   useEffect(() => {
     getFavoritosXID(id);

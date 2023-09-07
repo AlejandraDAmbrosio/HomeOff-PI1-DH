@@ -29,13 +29,28 @@ const CardProducto = ({
   servicio1,
   servicio2,
   servicio3,
-  puntuacion
+  puntuacion,
 }) => {
-  const { puntosPromedioXIDRecurso, getPuntosPromedioXIDRecurso } = useContext(ContextGlobal);
+  const {
+    isFav,
+    setIsFav,
+    getIsFav,
+    favoritosXID,
+    puntosPromedioXIDRecurso,
+    getPuntosPromedioXIDRecurso,
+    userIdLogIn,
+    getFavoritos,
+    favoritos,
+    setFavoritos,
+    usersLista,
+  } = useContext(ContextGlobal);
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
+    getIsFav(id);
   }, [id]);
+
+  const esFav = usersLista.some((item) => item.idUsuario === userIdLogIn);
 
   const estrellas = puntosPromedioXIDRecurso;
 
@@ -49,7 +64,7 @@ const CardProducto = ({
         }}
       >
         <CardMedia sx={{ height: 240 }} image={url} title="imagen">
-          <FavoriteIcon
+         {esFav?( <FavoriteIcon
             style={{
               position: "relative",
               fontSize: "30px",
@@ -57,7 +72,15 @@ const CardProducto = ({
               top: "5%",
               left: "88%",
             }}
-          />
+          />) :(<FavoriteIcon
+            style={{
+              position: "relative",
+              fontSize: "30px",
+              color: "grey",
+              top: "5%",
+              left: "88%",
+            }}
+          />)}
         </CardMedia>
 
         <div className="caja-texto-card">
