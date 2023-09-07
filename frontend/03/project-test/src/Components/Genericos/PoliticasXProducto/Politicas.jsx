@@ -1,10 +1,6 @@
 import { Grid, Stack, Typography } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
-// const { id } = useParams();
-
-
 import React, { useContext, useEffect } from "react";
-
 
 const Politicas = ({ id }) => {
  

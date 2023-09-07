@@ -2,6 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 export const ContextGlobal = createContext();
 import axios from "axios";
 
+
+
+
 export const ContextProvider = ({ children }) => {
   ///Modal Fotos ////
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +16,7 @@ export const ContextProvider = ({ children }) => {
   const closeModal = () => {
     setShowModal(false);
   };
-
+  
   /////////////////////// Escuchar el ancho de pantalla
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -68,9 +71,9 @@ export const ContextProvider = ({ children }) => {
     setUsersLista(data);
   };
 
-  useEffect(() => {
-    getDatosUsers();
-  }, []);
+  // useEffect(() => {
+  //   getDatosUsers();
+  // }, []);
 
   /////////////////////////////////GetCategorias
   const [categoriasLista, setCategoriasLista] = useState([]);
@@ -84,9 +87,9 @@ export const ContextProvider = ({ children }) => {
     // console.log(data);
   };
 
-  useEffect(() => {
-    getCategoriasLista();
-  }, []);
+  // useEffect(() => {
+  //   getCategoriasLista();
+  // }, []);
 
   ///////////////// Get Caracteristicas
   const [caracteristicasLista, setCaracteristicasLista] = useState([]);
@@ -151,37 +154,25 @@ export const ContextProvider = ({ children }) => {
 
 const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
 
-// const getPuntosPromedioXIDRecurso = async (id) => {
-//   const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}/promedio`);
-//   // const data = await res.json();
-//   const puntos = !isNaN(res) ? Number(res) : 0;
-//   setPuntosPromedioXIDRecurso(puntos);
-//   console.log("puntosPromedioXIDRecurso");
-//  console.log(puntosPromedioXIDRecurso);
-// };
-
 const getPuntosPromedioXIDRecurso = async (id) => {
   try {
     const response = await axios.get(`http://52.32.210.155:8080/auth/puntaje/${id}/promedio`);
-    
-    // Verificar si response.data es un número
-    const puntos = !isNaN(response.data) ? Number(response.data) : 0;
 
-    // Asignar puntos a setPuntosPromedioXIDRecurso
-    setPuntosPromedioXIDRecurso(puntos);
-
-    console.log("puntosPromedioXIDRecurso");
-    console.log(puntosPromedioXIDRecurso);
+    if (response.status === 404 || isNaN(response.data)) {
+      setPuntosPromedioXIDRecurso(0)
+      return 0; // Devuelve 0 si la respuesta es 404 o no es un número válido
+    }
+    setPuntosPromedioXIDRecurso(Number(response.data));
+    return Number(response.data);
   } catch (error) {
     console.error("Error al obtener puntos promedio:", error);
+    return 0; // Devuelve 0 en caso de error
   }
 };
 
 
 
 ///////////////////////////////// Puntajes y comentarios por IdRecurso
-
-
 const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 
 const getPuntosComentXIDRecurso = async (id) => {
@@ -193,8 +184,6 @@ const getPuntosComentXIDRecurso = async (id) => {
  console.log(puntosComentXIDRecurso);
 };
 
-
-
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
@@ -205,6 +194,7 @@ const getPuntosComentXIDRecurso = async (id) => {
   const [errorLogueo, setErrorLogueo] = useState("");
 
   const realizarLogIn = async () => {
+
       const { username, password } = userLogIn;
     
       // Validar los datos
@@ -213,7 +203,7 @@ const getPuntosComentXIDRecurso = async (id) => {
         return;
       }
     
-      // Realizar la solicitud POST a la API
+      // solicitud POST a la API
       const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
       const body = JSON.stringify({
         username,
@@ -233,15 +223,18 @@ const getPuntosComentXIDRecurso = async (id) => {
       // Manejar la respuesta de la API
       if (response.ok) {
         const data = await response.json();
-    
+        
         // Si la respuesta es exitosa, guardar el token JWT en el almacenamiento local
         if (data.token) {
           localStorage.setItem("token", data.token);
           console.log("Respuesta token:", data.token);
+          localStorage.setItem("username", username);
           setUsuarios(data);
           console.log("Datos guardados de la respuesta en DATA");
           console.log(data);
-          setUsuarioLogueado(data.token);
+          setUsuarioLogueado(username);
+          // Asegúrate de tener esta línea en tu función
+          window.location.replace('/');
           setErrorLogueo("");
         } 
 
@@ -253,7 +246,9 @@ const getPuntosComentXIDRecurso = async (id) => {
     
     const cerrarSesion = () => {
       localStorage.removeItem("usuarioLogueado");
+      localStorage.removeItem("token");
       setUsuarioLogueado(null);
+      window.location.replace('/');
       console.log("----------Cerrando sesión. en Context .---------");
     };
 
@@ -397,6 +392,7 @@ const getPuntosComentXIDRecurso = async (id) => {
         fechasBusqueda,
         setFechasBusqueda,
         usuarioLogueado,
+        setUsuarioLogueado,
         caracteristicasXID,
         getCaracteristicasXID,
         cerrarSesion,

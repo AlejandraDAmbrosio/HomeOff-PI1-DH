@@ -54,7 +54,7 @@ const EstrellaValor = ({puntuacion}) => {
         {" "}
         <AiOutlineStar style={{ fontSize: "30px", color: "#717171" }} />{" "}
         <Typography variant="body2" style={{ marginBottom: "2rem" }}>
-        {puntuacion.toFixed(1)}
+        {puntuacion}
         </Typography>
       </Stack>
       )}

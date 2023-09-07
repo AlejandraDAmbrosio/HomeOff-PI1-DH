@@ -11,7 +11,7 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import AvatarNav from "../Navbar/AvatarNav";
 import { ContextGlobal } from "../utils/global.context";
 import obtenerIniciales from "../utils/iniciales";
@@ -22,9 +22,24 @@ import { BsHeart } from "react-icons/bs";
 import FormIngreso from "../../Routes/FormIngreso";
 import Modal from "@mui/material/Modal";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+
 export default function AccountMenu() {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   const [openLogIn, setOpenLogIn] = useState(false);
 
@@ -113,11 +128,10 @@ export default function AccountMenu() {
           </MenuItem>
         )}
 
-        {!usuarioLogueado && (
+        {usuarioLogueado && (
           <MenuItem
             onClick={() => {
-              cerrarSesion(); // Cierra la sesión
-              handleClose(); // Cierra el menú
+              handleOpenDialog(); // Abre el diálogo de confirmación
             }}
           >
             <ListItemIcon>
@@ -128,34 +142,34 @@ export default function AccountMenu() {
         )}
 
         {!usuarioLogueado && (
-          <MenuItem
-          >
+          <MenuItem>
             <ListItemIcon>
-              <PersonAddIcon/>
+              <PersonAddIcon />
             </ListItemIcon>
             <Link to="/formaltauser/">Crear Cuenta</Link>
           </MenuItem>
         )}
 
-        {!usuarioLogueado && (
+        {usuarioLogueado && (
           <MenuItem onClick={handleClose}>
             <Avatar /> Cuenta
           </MenuItem>
         )}
 
-        <Link to="/favoritos/">
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <BsHeart fontSize="25" />
-            </ListItemIcon>
-            Favoritos
-          </MenuItem>
-        </Link>
-
+        {usuarioLogueado && (
+          <Link to="/favoritos/">
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <BsHeart fontSize="25" />
+              </ListItemIcon>
+              Favoritos
+            </MenuItem>
+          </Link>
+        )}
         <Divider />
 
-        {usuarioLogueado && usuarioLogueado.rol == "ADMINISTRADOR" && (
-          <Link to="/administradorproductos/">
+        {usuarioLogueado && (
+          /*usuarioLogueado.rol == "ADMINISTRADOR" &&*/ <Link to="/administradorproductos/">
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <Settings fontSize="small" />
@@ -171,6 +185,37 @@ export default function AccountMenu() {
           <FormIngreso />
         </div>
       </Modal>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Confirmar cierre de sesión"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Desea cerrar la sesión actual?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancelar
+          </Button>
+          <Button
+            onClick={() => {
+              cerrarSesion(); // Cierra la sesión
+              handleCloseDialog(); // Cierra el diálogo
+            }}
+            color="primary"
+            autoFocus
+          >
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
