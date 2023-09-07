@@ -143,7 +143,7 @@ export const ContextProvider = ({ children }) => {
 
   const [favoritosXID, setFavoritosXID] = useState([]);
 const [ isFav, setIsFav] = useState(false);
-
+const [ favoritos, setFavoritos] = useState([]);
 
   const getFavoritosXID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
@@ -164,6 +164,14 @@ const [ isFav, setIsFav] = useState(false);
     setIsFav(esFav);
   };
 
+
+  const getFavoritos  = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const data = await res.json();
+    console.log("Data antes de inyectarse", data);
+    
+    setFavoritos(data);
+  };
 
 
   ///////////////////////////////// Puntajes y comentarios por IdRecurso
@@ -272,6 +280,7 @@ const [ isFav, setIsFav] = useState(false);
     <ContextGlobal.Provider
       value={{
         getIsFav,
+        getFavoritos,
         isFav, setIsFav,
         favoritosXID,
         setFavoritosXID,

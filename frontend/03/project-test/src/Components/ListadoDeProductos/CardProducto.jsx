@@ -34,16 +34,22 @@ const CardProducto = ({
   const {
     isFav,
     setIsFav,
+    getIsFav,
     favoritosXID,
     puntosPromedioXIDRecurso,
     getPuntosPromedioXIDRecurso,
     userIdLogIn,
+    getFavoritos,
+    favoritos,
+    setFavoritos,
   } = useContext(ContextGlobal);
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
     getIsFav(id);
   }, [id]);
+
+  const esFav = data.some((item) => item.idUsuario === userIdLogIn);
 
   const estrellas = puntosPromedioXIDRecurso;
 
