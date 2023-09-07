@@ -5,7 +5,12 @@ import Error from "../Components/Error";
 import axios from "axios";
 import { ContextGlobal } from "../Components/utils/global.context";
 import { useEffect, useContext } from "react";
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, Input, Stack, TextField, Typography } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import InputLabel from "@mui/material/InputLabel";
+import IconButton from "@mui/material/IconButton";
 
 const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
@@ -21,6 +26,23 @@ const FormAltaUser = () => {
   const [passwordValido, setPasswordValido] = useState(true);
   const [confirmacionPasswordValido, setConfirmacionPasswordValido] =
     useState(true);
+
+  ////// Visualizacion Password
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmarPassword, setShowConfirmarPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleClickShowConfirmarPassword = () =>
+    setShowConfirmarPassword((show) => !show);
+
+  const handleMouseDownConfirmarPassword = (event) => {
+    event.preventDefault();
+  };
 
   /// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -188,13 +210,14 @@ const FormAltaUser = () => {
       console.log("Datos Enviados");
       console.log(nuevoUserData);
 
-
       /////////////////////////////ENVIO DE DATOS
 
-
       try {
-        const response = await axios.post("http://52.32.210.155:8080/auth/register", nuevoUserData);
-  
+        const response = await axios.post(
+          "http://52.32.210.155:8080/auth/register",
+          nuevoUserData
+        );
+
         if (response.status === 200) {
           console.log("Solicitud POST exitosa");
           console.log("Datos Enviados");
@@ -202,35 +225,32 @@ const FormAltaUser = () => {
           console.log(urlBase);
           console.log("Respuesta:", response.data);
         } else {
-          console.error("La solicitud POST falló con el código de estado:", response.status);
+          console.error(
+            "La solicitud POST falló con el código de estado:",
+            response.status
+          );
           console.error("Respuesta del servidor:", response.data);
         }
       } catch (error) {
         console.error("Error al realizar la solicitud POST:", error);
       }
 
+      // const options = {
+      //   method: 'POST',
+      //   url: urlBase,
+      //   headers: {"Content-Type": "application/json"},
+      //   data:nuevoUserData,
+      // }
 
-// const options = {
-//   method: 'POST',
-//   url: urlBase,
-//   headers: {"Content-Type": "application/json"},
-//   data:nuevoUserData,
-// }
-
-// try {
-// 	const response = await axios.request(options);
-// 	console.log(response.data);
-//   console.log(response);
-// } catch (error) {
-// 	console.error(error);
-// }
-
+      // try {
+      // 	const response = await axios.request(options);
+      // 	console.log(response.data);
+      //   console.log(response);
+      // } catch (error) {
+      // 	console.error(error);
+      // }
 
       // const jsonData = JSON.stringify(nuevoUserData);
-
-
-
-
 
       // try {
       //   const response = await fetch(urlBase, {
@@ -241,7 +261,7 @@ const FormAltaUser = () => {
       //     },
       //     body: jsonData,
       //   });
-    
+
       //   if (!response.ok) {
       //     throw new Error(`HTTP error! Status: ${response.status}`);
       //   }
@@ -249,9 +269,6 @@ const FormAltaUser = () => {
       // } catch (error) {
       //   console.error("Error al realizar la solicitud:", error);
       // }
-
-   
-
 
       // try {
       //   const jsonData = JSON.stringify(nuevoUserData);
@@ -298,7 +315,7 @@ const FormAltaUser = () => {
 
   return (
     <Container
-      style={{ marginTop: "7rem", minHeight: "1000px", width: "auto" }}
+      style={{ marginTop: "7rem", minHeight: "1000px", maxWidth: "330px" }}
     >
       <Stack
         style={{
@@ -314,74 +331,85 @@ const FormAltaUser = () => {
 
         <form onSubmit={handleSubmitCrearCuenta}>
           <div className="formularioAltaUser">
-            <div className="form-control">
-              <label for="nombre">Nombre *</label>
-              <input
-                type="text"
-                placeholder="Ingresa tu nombre"
-                value={usuario.nombre}
-                onChange={onChangeNombre}
-                id="nombre"
-                style={{ borderColor: nombreValido ? "" : "red" }}
-              />
-              {!nombreValido ? (
-                <p className="error-form">
-                  Ingrese entre 3 y 30 caracteres y solo contener letras.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
+            <Input
+              id="nombre"
+              label="Nombre *"
+              variant="standard"
+              className="campo-formulario"
+              type="text"
+              placeholder="Ingresa tu nombre"
+              value={usuario.nombre}
+              onChange={onChangeNombre}
+              required
+              margin="normal"
+              style={{ borderColor: nombreValido ? "" : "red" }}
+            />
+            {!nombreValido ? (
+              <p className="error-form">
+                Ingrese entre 3 y 30 caracteres y solo contener letras.
+              </p>
+            ) : (
+              ""
+            )}
 
-            <div className="form-control">
-              <label for="apellido">Apellido *</label>
-              <input
-                className="inputC"
-                type="text"
-                placeholder="Ingresa tu apellido"
-                value={usuario.apellido}
-                onChange={onChangeApellido}
-                id="apellido"
-                style={{ borderColor: apellidoValido ? "" : "red" }}
-                sx={{ color: "black" }}
-              />
-              {!apellidoValido ? (
-                <p className="error-form">
-                  Ingrese entre 3 y 30 caracteres y solo contener letras.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
+            {/* <div className="form-control"> */}
+            <Input
+              id="apellido"
+              label="Apellido *"
+              variant="standard"
+              className="campo-formulario"
+              type="text"
+              placeholder="Ingresa tu apellido"
+              value={usuario.apellido}
+              onChange={onChangeApellido}
+              required
+              margin="normal"
+              style={{ borderColor: apellidoValido ? "" : "red" }}
+              sx={{ color: "black" }}
+            />
+            {!apellidoValido ? (
+              <p className="error-form">
+                Ingrese entre 3 y 30 caracteres y solo contener letras.
+              </p>
+            ) : (
+              ""
+            )}
 
-            <div className="form-control">
-              <label for="email">Email *</label>
-              <input
+          
+              <Input
+                id="email"
+                label="Email *"
+                variant="standard"
+                className="campo-formulario"
                 type="email"
                 placeholder="ejemplo@gmail.com"
                 value={usuario.email}
                 onChange={onChangeEmail}
-                id="email"
+                required
+                margin="normal"
                 style={{ borderColor: emailValido ? "" : "red" }}
-              />
-              {!emailValido ? (
-                <p className="error-form">
-                  Ingresar al menos 3 caracteres antes del @ y tener un formato
-                  válido.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
+                />
+                {!emailValido ? (
+                  <p className="error-form">
+                    Ingresar al menos 3 caracteres antes del @ y tener un formato
+                    válido.
+                  </p>
+                ) : (
+                  ""
+                )}
 
-            <div className="form-control">
-              <label for="confirmaremail">Confirma Email *</label>
-              <input
+
+            <Input
+                id="confirmaremail"
+                label="Confirma Email *"
+                variant="standard"
+                className="campo-formulario"
                 type="email"
                 placeholder="Confirmar Email"
                 value={usuario.confirmacionEmail}
                 onChange={onChangeConfirmacionEmail}
-                id="confirmaremail"
+                required
+                margin="normal"
                 style={{ borderColor: confirmacionEmailValido ? "" : "red" }}
               />
               {!confirmacionEmailValido ? (
@@ -389,29 +417,104 @@ const FormAltaUser = () => {
               ) : (
                 ""
               )}
-            </div>
 
-            <div className="form-control">
-              <label for="Password">Password *</label>
-              <input
-                type="password"
-                placeholder="********"
-                value={usuario.password}
-                onChange={onChangePassword}
-                id="password"
-                style={{ borderColor: passwordValido ? "" : "red" }}
-              />
-              {!passwordValido ? (
-                <p className="error-form">
-                  La contraseña debe tener al menos 8 caracteres, incluir una
-                  letra mayúscula y un carácter no alfanumérico.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
 
-            <div className="form-control">
+
+
+           
+            <Input
+              id="password"
+              label="Password *"
+              variant="standard"
+              className="campo-formulario"
+              type={showPassword ? "text" : "password"}
+              placeholder="Ingresa tu password"
+              value={usuario.password}
+              onChange={onChangePassword}
+              required
+              margin="normal"
+              style={{ borderColor: passwordValido ? "" : "red" }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {!passwordValido ? (
+              <p className="error-form-inicio">
+                La contraseña debe tener al menos 8 caracteres, incluir una
+                letra mayúscula y un carácter no alfanumérico.
+              </p>
+            ) : (
+              ""
+            )}
+{/* 
+            <InputLabel htmlFor="standard-adornment-password">
+              Confirmar password
+            </InputLabel> */}
+            <Input
+              id="password"
+              label="Password *"
+              variant="standard"
+              className="campo-formulario"
+              type={showConfirmarPassword ? "text" : "password"}
+              placeholder="Confirma tu password"
+              value={usuario.confirmarPassword}
+              onChange={onChangeConfirmacionPassword}
+              required
+              margin="normal"
+              style={{ borderColor: passwordValido ? "" : "red" }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirmarPassword}
+                    onMouseDown={handleMouseDownConfirmarPassword}
+                  >
+                    {showConfirmarPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {!confirmacionPasswordValido ? (
+              <p className="error-form-inicio">
+                La contraseña debe tener al menos 8 caracteres, incluir una
+                letra mayúscula y un carácter no alfanumérico.
+              </p>
+            ) : (
+              ""
+            )}
+
+            {/* 
+            <TextField
+              id="password"
+              label="Password *"
+              variant="standard"
+              className="campo-formulario"
+              type="password"
+              placeholder="Ingresa tu password"
+              value={usuario.confirmarPassword}
+              onChange={onChangeConfirmacionPassword}
+              required
+              margin="normal"
+              style={{ borderColor: confirmacionPasswordValido ? "" : "red" }}
+            />
+            {!confirmacionPasswordValido ? (
+              <p className="error-form-inicio">
+                La contraseña debe tener al menos 8 caracteres, incluir una
+                letra mayúscula y un carácter no alfanumérico.
+              </p>
+            ) : (
+              ""
+            )} */}
+
+            {/* <div className="form-control">
               <label for="confirmarpassword">Confirma Password *</label>
               <input
                 type="password"
@@ -426,7 +529,7 @@ const FormAltaUser = () => {
               ) : (
                 ""
               )}
-            </div>
+            </div> */}
 
             {/* //////////////-----------------------------////////////// */}
             <button className="boton-alta-user" type="submit" value="Acceso">

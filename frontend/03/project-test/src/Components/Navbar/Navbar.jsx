@@ -41,9 +41,9 @@ const Navbar = () => {
             <li>
               <Logo />
             </li>
-            <li>
+            {/* <li>
               <NuevoBuscador />
-            </li>
+            </li> */}
             <div className="botones-header">
               {!usuarioLogueado && (
                 <>
