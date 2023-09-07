@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class FavoritoRespuesta {
 
-    private String nombreUsuario;
-    private String nombreRecurso;
+    private int IdUsuario;
+    private int IdRecurso;
 }
