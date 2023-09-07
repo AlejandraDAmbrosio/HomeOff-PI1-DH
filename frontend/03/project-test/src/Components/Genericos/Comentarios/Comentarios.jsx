@@ -25,11 +25,11 @@ const Comentarios = ({ id }) => {
     direction={{xl:"column", lg:"column", md:"column", xs: "row", sm: "row" }}
     width={{xl:"400px", lg:"400px", md:"400px"}}
       style={{
-        width: "95%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignContent: "center",
+        // width: "95%",
+        // display: "flex",
+        // flexDirection: "row",
+        // justifyContent: "space-between",
+        // alignContent: "center",
         flexWrap: "wrap",
         marginBottom: "2rem",
         
