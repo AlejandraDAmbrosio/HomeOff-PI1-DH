@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ContextGlobal } from "../../utils/global.context";
-import { TextField, Typography } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Badge from "@mui/material/Badge";
@@ -102,12 +102,14 @@ const CalendarioXId = () => {
   }
 
   return (
+    <Paper>
     <Stack
       direction="column"
       divider={<Divider orientation="vertical" flexItem />}
       spacing={1}
       margin={"auto"}
       alignItems={"flex-start"}
+      // style={{border: "1px solid yellow"}}
       
     >
       {/* <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem /> */}
@@ -174,6 +176,7 @@ const CalendarioXId = () => {
       </Stack>
       {/* <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem /> */}
     </Stack>
+    </Paper>
   );
 };
 

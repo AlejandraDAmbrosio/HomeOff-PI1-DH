@@ -178,10 +178,15 @@ const [favoritosXID, setFavoritosXID] =  useState([]);
 const getFavoritosXID = async (id) => {
   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
   const data = await res.json();
-
-  setFavoritosXID(data);
+console.log("Data antes de inyectarse" ,data)
+const newArray = data.map(item => ({ "idRecurso": item.idRecurso }));
+console.log("newArray" ,newArray)  
+setFavoritosXID(newArray);
 
 };
+
+
+
 
 
 

@@ -23,22 +23,27 @@ const Comentarios = ({ id }) => {
   return (
     <Paper
       style={{
-        marginBottom: "2rem",
-        padding: "1rem 1rem 1rem 1rem",
+        // overflowY: "auto",
+        maxHeight: "400px",
+        margin: "0",
+        display: "flex",
+        width: "100%",
+        maxWidth: "370px",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: "1rem",
+        // border: "1px solid green",
       }}
     >
       <Stack
         style={{
           overflowY: "auto",
-          maxHeight: "330px",
-          margin: "0",
+          maxHeight: "400px",
           display: "flex",
-          width: "370px",
-          maxWidth: "370px",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: "1.5rem",
-          padding: "1rem 1rem 1rem 1rem",
+          width: "100%",
+          alignItems: "center",
+          padding: "1rem 0.2rem 1rem 0.2rem",
+          // border: "1px solid yellow",
         }}
       >
         <Stack
@@ -47,7 +52,7 @@ const Comentarios = ({ id }) => {
             flexDirection: "column",
             gap: "1.5rem",
             padding: "1rem 1rem 1rem 1rem",
-            width: "320px",
+            width: "100%",
             alignItems: "center",
           }}
         >
@@ -74,25 +79,32 @@ const Comentarios = ({ id }) => {
             sx={{
               color: "#47a169",
               padding: "1.2rem 0.5rem",
-              width: "300px",
+              width: "100%",
               borderRadius: "20px",
             }}
           >
             Comentar
           </Button>
         </Stack>
-        <Stack style={{ overflowY: "auto", width: "320px" }}>
+        <Stack
+          style={{
+            overflowY: "auto",
+            width: "100%",
+            height: "230px",
+            // border: "1px solid violet",
+          }}
+        >
           {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
           {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
             puntosComentXIDRecurso.map((comentario, idPuntuacion) => (
               <Box
                 key={idPuntuacion}
                 sx={{
-                  // maxHeight: "250px",
                   width: "100%",
+                  // border: "1px solid blue",
                   height: "200px",
-                  overflow: "hidden",
-                  padding: "0.5rem 0.5px 1rem 0.5rem",
+
+                  padding: "0.1rem 5px 0.1rem 5px",
                   "&::-webkit-scrollbar": {
                     width: "40px",
                   },
@@ -108,7 +120,14 @@ const Comentarios = ({ id }) => {
                 <Paper
                   direction="column"
                   spacing={1}
-                  style={{ marginBottom: "2rem", height: "200px" }}
+                  style={{
+                    marginBottom: "1rem",
+                    overflowY: "auto",
+                    width: "100%",
+                    padding: "1px",
+                    // border: "1px solid green",
+                    maxHeight: "300px",
+                  }}
                 >
                   <Stack
                     direction="row"
@@ -118,7 +137,8 @@ const Comentarios = ({ id }) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      width: "285px",
+                      width: "100%",
+                      height: "70px",
                     }}
                   >
                     <Stack direction="row" spacing={2}>
@@ -152,7 +172,6 @@ const Comentarios = ({ id }) => {
           )}
         </Stack>
       </Stack>
-      <Divider orientation="horizontal" flexItem spacing={2} />
     </Paper>
   );
 };
