@@ -22,7 +22,7 @@ const Users = () => {
   const [usuarioXEliminar, setUsuarioXEliminar] = useState(null);
 
   const [usuarioXEditar, setUsuarioXEditar] = useState({
-    nombreCompleto: "",
+    nombrecompleto: "",
     correo: "",
     contraseña: "",
     celular: "",
@@ -54,7 +54,7 @@ const Users = () => {
     console.log(usuarioXEditar.idUsuario);
     if (usuarioXEditar.idUsuario) {
       const updatedUser = {
-        nombreCompleto: usuarioXEditar.nombreCompleto,
+        nombrecompleto: usuarioXEditar.nombrecompleto,
         correo: usuarioXEditar.correo,
         contraseña: usuarioXEditar.contraseña,
         celular: usuarioXEditar.celular,
@@ -134,7 +134,7 @@ const Users = () => {
                       color: "black",
                     }}
                   >
-                    {obtenerIniciales(user.nombreCompleto)}
+                    {obtenerIniciales(user.nombrecompleto)}
                   </Avatar>
                 </TableCell>
                 <TableCell>
@@ -145,7 +145,7 @@ const Users = () => {
                     width: "600px",
                   }}
                 >
-                  <div className="info-item">{user.nombreCompleto}</div>
+                  <div className="info-item">{user.nombrecompleto}</div>
                 </TableCell>
                 <TableCell
                   style={{
