@@ -22,7 +22,7 @@ const AvatarNav = ({Iniciales}) => {
             backgroundColor: "#9dd6b3",
             color: "black",
           }}
-        > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(usuarioLogueado.nombreCompleto)) }
+        > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(usuarioLogueado)) }
           
         </Avatar>
       ) : (

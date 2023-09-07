@@ -64,40 +64,40 @@ const ListadoProductos = ({ CantidadCards }) => {
   return (
     <div className="segmento-listado-productos">
       <div className="grid-container-listado-home">
-        {paginatedProducts.length ? (
-          paginatedProducts[currentPage].map((producto, idRecurso) => {
-            // Obtener el valor de getPuntosPromedioXIDRecurso
-            const puntos = getPuntosPromedioXIDRecurso(producto.idRecurso);
+      {paginatedProducts.length ? (
+        paginatedProducts[currentPage].map((producto, idRecurso) => {
+          // const puntos = getPuntosPromedioXIDRecurso(idRecurso);
+          // console.log("PUNTOS EN RENDERIZADO")
+          // console.log(puntos)
 
-            // Ajustar el valor para que esté entre 1 y 5 o sea 0 en otro caso
-            const estrellas = puntos >= 1 && puntos <= 5 ? puntos : 0;
+          // const estrellas = puntos >= 1 && puntos <= 5 ? puntos : 0;
 
-            return (
-              <CardProducto
-                className=".item-grid-listado"
-                key={producto.idRecurso}
-                title={producto.nombre}
-                descripcion={producto.descripción}
-                url={producto.imagenURL}
-                precio={producto.precioUnitario}
-                estrellas={estrellas} // Pasar el valor ajustado como prop
-                sede={buscadorSedeXIDSede(producto.idSede)}
-                categoria={obtenerNombreCategoriaPorId(
-                  producto.categoria_id,
-                  productosBKLista,
-                  categoriasLista
-                )}
-                id={producto.idRecurso}
-              />
-            );
-          })
-        ) : (
-          <>
-            <h3> No encontramos productos para recomendar </h3>
-            <h3>Los datos del carga son {productosBKLista.ListadoProductos}</h3>
-          </>
-        )}
-      </div>
+          return (
+            <CardProducto
+              className=".item-grid-listado"
+              key={producto.idRecurso}
+              title={producto.nombre}
+              descripcion={producto.descripción}
+              url={producto.imagenURL}
+              precio={producto.precioUnitario}
+              estrellas={producto.idRecurso}
+              sede={buscadorSedeXIDSede(producto.idSede)}
+              id={producto.idRecurso}
+              categoria={obtenerNombreCategoriaPorId(
+                producto.categoria_id,
+                productosBKLista,
+                categoriasLista
+              )}
+            />
+          );
+        })
+      ) : (
+        <>
+          <h3> No encontramos productos para recomendar </h3>
+          <h3>Los datos del carga son {productosBKLista.ListadoProductos}</h3>
+        </>
+      )}
+    </div>
 
       <div className="paginacion">
         {currentPage > 0 ? (

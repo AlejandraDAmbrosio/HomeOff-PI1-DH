@@ -106,20 +106,41 @@ const TablaCaracteristicas = () => {
       const urlBaseGuardar =
         "http://52.32.210.155:8080/api/v1/caracteristicas/save";
 
-      try {
-        const jsonData = JSON.stringify(nuevaCaracteristicaData);
-        const response = await axios.put(urlBaseGuardar, jsonData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        try {
+          const response = await fetch(urlBaseGuardar, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(nuevaCaracteristicaData),
+          });
+        
+          if (response.ok) {
+            const responseData = await response.json();
+            console.log('Respuesta:', responseData);
+            getCaracteristicasLista();
+            handleClose();
+          } else {
+            console.error('Error en la respuesta:', response.status, response.statusText);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
 
-        console.log("Respuesta:", response.data);
-        getCaracteristicasLista();
-        handleClose();
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      // try {
+      //   // const jsonData = JSON.stringify(nuevaCaracteristicaData);
+      //   const response = await axios.post(urlBaseGuardar, nuevaCaracteristicaData, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+
+      //   console.log("Respuesta:", response.data);
+      //   getCaracteristicasLista();
+      //   handleClose();
+      // } catch (error) {
+      //   console.error("Error:", error);
+      // }
       useEffect(() => {
         if (form) {
           getCaracteristicasLista(); // Actualiza el estado jsonData después de enviar la petición POST

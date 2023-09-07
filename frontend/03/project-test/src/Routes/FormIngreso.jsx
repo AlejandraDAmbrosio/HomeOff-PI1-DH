@@ -178,10 +178,11 @@ const FormIngreso = () => {
 
           <div>
           {errorLogueo && <p>{errorLogueo}</p>}
-            {form && usuarioLogueado ? (
+
+            {usuarioLogueado ? (
               <h5 className="msj-form-guardado">
                 Gracias!! Has ingresado como usuario{" "}
-                {usuarioLogueado.nombreCompleto} a HomeOFF !
+                {usuarioLogueado} a HomeOFF !
               </h5>
             ) : (
               <h5 className="msj-form-guardado">
