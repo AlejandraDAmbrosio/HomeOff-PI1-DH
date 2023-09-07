@@ -4,6 +4,8 @@ import "../Components/FormIngreso.css";
 import { Button,  FormControl, IconButton,Modal,  Paper,TextField,
   Typography,Backdrop} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import FormAltaUser from "./FormAltaUser";
 
 const FormIngreso = () => {
   const { usuarioLogueado,realizarLogIn, iniciarSesion, userLogIn, errorLogueo, setUserLogIn } = useContext(ContextGlobal);
@@ -304,8 +306,10 @@ const FormIngreso = () => {
                 </Button>
               </div>
             </FormControl>
+            
             <div className="acceso-cuenta-o-usuarionuevo">
-              <div>No tenés cuenta?</div>
+              <div onClick={() => window.location.replace("/formaltauser")}>No tenés cuenta?</div>
+              {/* <div>No tenés cuenta?</div> */}
               <div>Se te olvidó tu contraseña?</div>
             </div>
           </div>
