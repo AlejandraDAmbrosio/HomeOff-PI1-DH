@@ -163,27 +163,27 @@ const FormAltaUser = () => {
 
       // Paquete de datos a enviar
 
-      // const nuevoUserData = {
-      //   nombrecompleto: usuario.nombre,
-      //   nombre: usuario.nombre,
-      //   apellido: usuario.apellido,
-      //   username: usuario.email,
-      //   password: usuario.password,
-      //   celular: "0000000",
-      //   direccion: "Falsa",
-      //   permisoedicion: "EDITAR",
-      // };
-
       const nuevoUserData = {
-        nombrecompleto: "PadreNuestroHard",
-        nombre: "PadreNuestroHard",
-        apellido: "PadreNuestroHard",
-        username: "PadreNuestroHrdgmail.com",
-        password: "123*frt",
-        celular: "256321548",
-        direccion: "siempre viva",
-        permisoedicion: "EDITAR"
-      }
+        nombrecompleto: usuario.nombre,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        username: usuario.email,
+        password: usuario.password,
+        celular: "0000000",
+        direccion: "Falsa",
+        permisoedicion: "EDITAR",
+      };
+
+      // const nuevoUserData = {
+      //   nombrecompleto: "PadreNuestroHard",
+      //   nombre: "PadreNuestroHard",
+      //   apellido: "PadreNuestroHard",
+      //   username: "PadreNuestroHrd@gmail.com",
+      //   password: "Papanatas.1",
+      //   celular: "256321548",
+      //   direccion: "siempre viva",
+      //   permisoedicion: "EDITAR"
+      // }
 
       console.log("Datos Enviados");
       console.log(nuevoUserData);

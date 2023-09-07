@@ -42,7 +42,7 @@ function App() {
       setUsuarioLogueado(user);
       // El usuario está autenticado, puedes realizar las acciones necesarias
       // como cargar datos de usuario, redirigir, etc.
-      // También puedes almacenar el token en el estado si lo deseas.
+      // También puedes almacenar el token en el estado si lso deseas.
       // setUsuarioLogueado(token);
     }
   }, []);
