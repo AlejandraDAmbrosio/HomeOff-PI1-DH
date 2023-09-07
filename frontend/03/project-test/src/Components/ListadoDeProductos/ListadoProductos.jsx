@@ -33,16 +33,20 @@ const ListadoProductos = ({ CantidadCards }) => {
     useEffect(() => {
       const obtenerPuntuacionesPromedio = async () => {
         const puntuaciones = {};
-        for (const producto of productsToRender) {
-          const puntuacion = await getPuntosPromedioXIDRecurso(producto.idRecurso);
-          puntuaciones[producto.idRecurso] = puntuacion;
-        }
+        const idsRecurso = productsToRender.map((producto) => producto.idRecurso);
+        const puntuacionesArray = await Promise.all(
+          idsRecurso.map((idRecurso) => getPuntosPromedioXIDRecurso(idRecurso))
+        );
+    
+        idsRecurso.forEach((idRecurso, index) => {
+          puntuaciones[idRecurso] = puntuacionesArray[index];
+        });
+    
         setPuntuacionesPromedio(puntuaciones);
       };
-  
+    
       obtenerPuntuacionesPromedio();
     }, [productsToRender]);
-  
   
 
   useEffect(() => {
