@@ -45,8 +45,9 @@ const Comentarios = ({ id }) => {
           marginBottom: "1rem",
           gap: "1rem",
           padding: "15px",
-          width: "250px",
+          // width: "250px",
           maxHeight: "320px",
+          maxWidth: "500px",
         }}
       >
         <Typography variant="h4">Opiniones</Typography>
@@ -70,7 +71,7 @@ const Comentarios = ({ id }) => {
 
       <Paper
         sx={{ /*width: "80%",*/ overflow: "hidden" }}
-        style={{ margin: "0", display: "flex", maxWidth: "600px", flexDirection:"column", alignItems:"flex-start" }}
+        style={{ margin: "0", display: "flex", maxWidth: "500px", flexDirection:"column", alignItems:"flex-start" }}
       >
         {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
         {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
@@ -78,7 +79,8 @@ const Comentarios = ({ id }) => {
             <Box
               key={idPuntuacion}
               sx={{
-                maxHeight: "320px",
+                maxHeight: "250px",
+                width:"300px",
                 overflow: "auto",
                 padding: "2rem 30px 2rem 2rem",
                 "&::-webkit-scrollbar": {

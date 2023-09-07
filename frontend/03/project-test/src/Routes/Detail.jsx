@@ -558,7 +558,7 @@ const Detail = () => {
           {/* </div> */}
         </div>
         {/* </Paper> */}
-        <Stack direction={{xl:"row", lg:"row", md:"row", xs: "column", sm: "column" }}>
+        <Stack gap={2}  alignItems="flex-start" direction={{xl:"row", lg:"row", md:"row", xs: "column", sm: "column" }}>
         <CalendarioXId></CalendarioXId>
         <Comentarios id={id}></Comentarios>
 
