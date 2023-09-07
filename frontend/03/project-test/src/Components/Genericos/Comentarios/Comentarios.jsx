@@ -45,8 +45,9 @@ const Comentarios = ({ id }) => {
           marginBottom: "1rem",
           gap: "1rem",
           padding: "15px",
-          width: "250px",
+          // width: "250px",
           maxHeight: "320px",
+          maxWidth: "500px",
         }}
       >
         <Typography variant="h4">Opiniones</Typography>
