@@ -14,8 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/politicas")
-//@CrossOrigin("*")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class PoliticasAlquilerController {
 
     @Autowired

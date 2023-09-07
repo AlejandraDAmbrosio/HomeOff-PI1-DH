@@ -13,8 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/recursos")
-//@CrossOrigin("*")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class RecursosController {
     @Autowired
     private IRecursosService iRecursosService;
