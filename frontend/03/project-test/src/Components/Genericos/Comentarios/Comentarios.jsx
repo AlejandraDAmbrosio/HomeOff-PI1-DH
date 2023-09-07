@@ -67,7 +67,7 @@ const Comentarios = ({ id }) => {
 
       <Paper
         sx={{ /*width: "80%",*/ overflow: "hidden" }}
-        style={{ margin: "0", display: "flex", maxWidth: "600px" }}
+        style={{ margin: "0", display: "flex", maxWidth: "600px", flexDirection:"column", alignItems:"flex-start" }}
       >
         {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
         {puntosComentXIDRecurso && puntosComentXIDRecurso.length > 0 ? (
