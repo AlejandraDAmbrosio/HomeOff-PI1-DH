@@ -36,7 +36,7 @@ export const ContextProvider = ({ children }) => {
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/recursos/list");
+    const res = await fetch("http://54.214.104.150:8080/auth/recursos/list");
     const data = await res.json();
 
     setProductosBKLista(data);
@@ -51,7 +51,7 @@ export const ContextProvider = ({ children }) => {
 
   const getRecursoXID = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/auth/recursos/${id}`
+      `http://54.214.104.150:8080/auth/recursos/${id}`
     );
     const data = response.data;
 
@@ -61,7 +61,7 @@ export const ContextProvider = ({ children }) => {
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
   const getDatosUsers = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/usuario/list");
+    const res = await fetch("http://54.214.104.150:8080/auth/usuario/list");
     const data = await res.json();
     setUsersLista(data);
   };
@@ -72,7 +72,7 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
+    const res = await fetch("http://54.214.104.150:8080/auth/categoria/list");
     const data = await res.json();
 
     console.log(data);
@@ -83,7 +83,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasLista = async () => {
     const res = await fetch(
-      "http://52.32.210.155:8080/auth/caracteristicas/list"
+      "http://54.214.104.150:8080/auth/caracteristicas/list"
     );
     const data = await res.json();
     setCaracteristicasLista(data);
@@ -97,7 +97,7 @@ export const ContextProvider = ({ children }) => {
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
 
   const getCaracteristicasXID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/inter/${id}`);
+    const res = await fetch(`http://54.214.104.150:8080/auth/inter/${id}`);
     const data = await res.json();
     setCaracteristicasXID(data);
   };
@@ -111,7 +111,7 @@ export const ContextProvider = ({ children }) => {
   const [politicasXID, setPoliticasXID] = useState([]);
 
   const getPoliticasXID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
+    const res = await fetch(`http://54.214.104.150:8080/auth/politicas/${id}`);
     const data = await res.json();
 
     setPoliticasXID(data);
@@ -124,7 +124,7 @@ export const ContextProvider = ({ children }) => {
   const getPuntosPromedioXIDRecurso = async (id) => {
     try {
       const response = await axios.get(
-        `http://52.32.210.155:8080/auth/puntaje/${id}/promedio`
+        `http://54.214.104.150:8080/auth/puntaje/${id}/promedio`
       );
 
       if (response.status === 404 || isNaN(response.data)) {
@@ -146,7 +146,7 @@ const [ isFav, setIsFav] = useState(false);
 const [ favoritos, setFavoritos] = useState([]);
 
   const getFavoritosXID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://54.214.104.150:8080/auth/favoritos/${id}`);
     const data = await res.json();
     console.log("Data antes de inyectarse", data);
     const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
@@ -155,7 +155,7 @@ const [ favoritos, setFavoritos] = useState([]);
   };
 
   const getIsFav  = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://54.214.104.150:8080/auth/favoritos/${id}`);
     const data = await res.json();
     console.log("Data antes de inyectarse", data);
     const esFav = data.some((item) => item.idUsuario === userIdLogIn);
@@ -166,7 +166,7 @@ const [ favoritos, setFavoritos] = useState([]);
 
 
   const getFavoritos  = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://54.214.104.150:8080/auth/favoritos/${id}`);
     const data = await res.json();
     console.log("Data antes de inyectarse", data);
     
@@ -178,7 +178,7 @@ const [ favoritos, setFavoritos] = useState([]);
   const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 
   const getPuntosComentXIDRecurso = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
+    const res = await fetch(`http://54.214.104.150:8080/auth/puntaje/${id}`);
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
@@ -207,7 +207,7 @@ const [ favoritos, setFavoritos] = useState([]);
     }
 
     // solicitud POST a la API
-    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+    const urlBaseGuardar = "http://54.214.104.150:8080/auth/login";
     const body = JSON.stringify({
       username,
       password,

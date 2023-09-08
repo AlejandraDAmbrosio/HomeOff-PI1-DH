@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const fetchUsuarios = async () => {
     try {
       const response = await axios.get(
-        "http://52.32.210.155:8080/api/v1/usuarios/list"
+        "http://54.214.104.150:8080/api/v1/usuarios/list"
       );
       setUsuarios(response.data);
     } catch (error) {
