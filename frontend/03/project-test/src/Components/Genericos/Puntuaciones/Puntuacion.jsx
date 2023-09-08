@@ -12,7 +12,7 @@ import {
 import { MdStarRate, MdOutlineStarRate } from "react-icons/md";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-const Puntuacion = (props) => {
+const Puntuacion = ({puntaje}) => {
   const [valorEstrellas, setValorEstrellas] = useState(null);
 
   return (
@@ -38,14 +38,14 @@ const Puntuacion = (props) => {
         }}
       >
         {[...new Array(5)].map((star, index) => {
-          return index < props.valorEstrellas ? (
-            <AiFillStar style={{ fontSize: "35px", color: "#F2C84B" }} />
+          return index < puntaje ? (
+            <AiFillStar key={index} style={{ fontSize: "35px", color: "#F2C84B" }} />
           ) : (
-            <AiOutlineStar style={{ fontSize: "35px", color: "#717171" }} />
+            <AiOutlineStar key={index} style={{ fontSize: "35px", color: "#717171" }} />
           );
         })}
       </Stack>
-      <Typography style={{ fontSize: "22px", marginLeft: "1rem" }}>Puntuación</Typography>
+      <Typography style={{ fontSize: "22px", marginLeft: "1rem" }}>{puntaje}</Typography>
     </Stack>
   );
 };

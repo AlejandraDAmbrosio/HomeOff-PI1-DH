@@ -1,7 +1,7 @@
 
 /* Estilos para pantallas grandes */
 .grid-container-listado-home {
-  margin-top: 0rem;
+
   display: grid;
   grid-template-columns: repeat(5, minmax(300px, 19%));
   grid-auto-rows: minmax(100px, 440px);

@@ -10,38 +10,49 @@ import FormIngreso from "./Routes/FormIngreso";
 import FormAltaUser from "./Routes/FormAltaUser";
 import AgregarProducto from "./Routes/AgregarProducto";
 import AdministracionUsers from "./Routes/AdministracionUsers";
-
+import { ContextGlobal } from "../../project-test/src/Components/utils/global.context";
 import AdministrarCategorias from "./Routes/AdministrarCategorias";
 import AdministracionCaracteristicas from "./Routes/AdministracionCaracteristicas";
 import AdministradorProductos from "./Routes/AdministradorProductos";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PaginaFiltrado from "./Routes/PaginaFiltrado";
 import EditarProducto from "./Routes/EditarProducto";
 import Favoritos from "./Routes/Favoritos";
+import PrivateRoute from "./Components/PrivateRoute";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+
+
 
 function App() {
   ////////////////// Segmento Logueo
-
+  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn } = useContext(ContextGlobal);
   /////////////////
+  useEffect(() => {
+    // Verificar si hay un token en el almacenamiento local
+    const token = localStorage.getItem("token");
+    console.log("token en APP");
 
-  // const[isDark, setIsDark] = useState(false);
-  // const theme = createTheme({
-  //   palette: {
-  //     primary: {
-  //       main: "rgb(144, 123,100)",
-  //     },
-  //     secondary: {
-  //       main: "rgb(234, 12,234)",
-  //     },
-  //     type:isDark? "dark":"light",
-  //   },
+    console.log(token);
 
-  // });
+    if (token) {
+      const token = localStorage.getItem("token")
+      const user = localStorage.getItem("username");
+      const userId = localStorage.getItem("userId");
+      console.log("token en Local Storage", token);
+      console.log("user en Local Storage", user);
+      console.log("userId en Local Storage",userId);
+      setUsuarioLogueado(user);
+      // El usuario está autenticado, puedes realizar las acciones necesarias
+      // como cargar datos de usuario, redirigir, etc.
+      // También puedes almacenar el token en el estado si lso deseas.
+      // setUsuarioLogueado(token);
+    }
+  }, []);
 
   return (
     <>
-      {/* <ThemeProvider theme={theme}> */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -53,8 +64,18 @@ function App() {
         </Route>
         <Route path="/formingreso/" element={<FormIngreso />} />
         <Route path="/formaltauser/" element={<FormAltaUser />} />
-        <Route path="/agregarproducto/" element={<AgregarProducto />} />
-        <Route path="/administracionusers/" element={<AdministracionUsers />} />
+        {/* <Route path="/agregarproducto/" element={<AgregarProducto />} />
+        <Route path="/administracionusers/" element={<AdministracionUsers />} /> */}
+        <Route
+          path="/agregarproducto/"
+          element={<PrivateRoute component={AgregarProducto} token={true} />}
+        />
+        <Route
+          path="/administracionusers/"
+          element={
+            <PrivateRoute component={AdministracionUsers} token={true} />
+          }
+        />
 
         <Route
           path="/administrarcategorias/"
@@ -69,10 +90,6 @@ function App() {
           element={<AdministradorProductos />}
         />
 
-        <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
-          <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
-        </Route>
-
         <Route path="/editarproducto/" element={<EditarProducto />}>
           <Route path="/editarproducto/:id" element={<EditarProducto />} />
         </Route>
@@ -80,10 +97,13 @@ function App() {
         <Route path="/favoritos/" element={<Favoritos />}>
           <Route path="/favoritos/:id" element={<Favoritos />} />
         </Route>
-      </Routes>
+     
 
+      <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
+        <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
+      </Route>
+      </Routes>
       <Footer />
-      {/* </ThemeProvider> */}
     </>
   );
 }

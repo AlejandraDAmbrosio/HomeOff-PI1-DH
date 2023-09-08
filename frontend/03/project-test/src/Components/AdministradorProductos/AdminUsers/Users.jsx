@@ -22,7 +22,7 @@ const Users = () => {
   const [usuarioXEliminar, setUsuarioXEliminar] = useState(null);
 
   const [usuarioXEditar, setUsuarioXEditar] = useState({
-    nombreCompleto: "",
+    nombrecompleto: "",
     correo: "",
     contraseña: "",
     celular: "",
@@ -49,12 +49,12 @@ const Users = () => {
 
   // 2) Traer info de todos los campos del usuario seleccionado y si tiene un valor el rol, cambiarlo
 
-  const urlBaseActualizar = "http://52.32.210.155:8080/api/v1/usuarios/update";
+  const urlBaseActualizar = "http://54.214.104.150:8080/api/v1/usuarios/update";
   const handleUpdateUser = async (usuarioXEditar) => {
     console.log(usuarioXEditar.idUsuario);
     if (usuarioXEditar.idUsuario) {
       const updatedUser = {
-        nombreCompleto: usuarioXEditar.nombreCompleto,
+        nombrecompleto: usuarioXEditar.nombrecompleto,
         correo: usuarioXEditar.correo,
         contraseña: usuarioXEditar.contraseña,
         celular: usuarioXEditar.celular,
@@ -134,7 +134,7 @@ const Users = () => {
                       color: "black",
                     }}
                   >
-                    {obtenerIniciales(user.nombreCompleto)}
+                    {obtenerIniciales(user.nombrecompleto)}
                   </Avatar>
                 </TableCell>
                 <TableCell>
@@ -145,7 +145,7 @@ const Users = () => {
                     width: "600px",
                   }}
                 >
-                  <div className="info-item">{user.nombreCompleto}</div>
+                  <div className="info-item">{user.nombrecompleto}</div>
                 </TableCell>
                 <TableCell
                   style={{

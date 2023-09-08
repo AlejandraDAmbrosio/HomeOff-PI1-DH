@@ -41,9 +41,9 @@ const Navbar = () => {
             <li>
               <Logo />
             </li>
-            <li>
+            {/* <li>
               <NuevoBuscador />
-            </li>
+            </li> */}
             <div className="botones-header">
               {!usuarioLogueado && (
                 <>
@@ -55,7 +55,7 @@ const Navbar = () => {
                   </li>
                 </>
               )}
-              <li>
+              <li className="account-menu">
                 <AccountMenu />
               </li>
             </div>
@@ -64,7 +64,7 @@ const Navbar = () => {
         {isPanelSinCategorias ? (
           ""
         ) : (
-          <div className="buscador-cat">
+          <div className="banda-categorias">
             <Categorias />
           </div>
         )}
