@@ -18,6 +18,7 @@ import {
   Alert,
   Snackbar,
   IconButton,
+  Grid,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
@@ -36,6 +37,7 @@ import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
+import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
 
 const style = {
   position: "absolute",
@@ -82,7 +84,11 @@ const Detail = () => {
     getRecursoXID,
     caracteristicasLista,
     productosBKLista,
+    getPuntosComentXIDRecurso,
+    puntosComentXIDRecurso,
     categoriasLista,
+    caracteristicasXID,
+    getCaracteristicasXID,
     getCaracteristicasLista,
   } = useContext(ContextGlobal);
 
@@ -117,6 +123,8 @@ const Detail = () => {
 
   useEffect(() => {
     getRecursoXID(id);
+    getCaracteristicasXID(id);
+    getPuntosComentXIDRecurso(id);
   }, [id]);
 
   if (!recursoXID) {
@@ -224,7 +232,6 @@ const Detail = () => {
             spacing={5}
             flexItem
             alignItems="center"
-           
           >
             <FacebookShareButton
               url={`"${currentURL}"`}
@@ -498,7 +505,7 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-              {caracteristicasLista.map((caracteristica, idCaracteristica) => (
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
                 <div
                   key={idCaracteristica}
                   className="container-icono-caracteristica-texto"
@@ -520,10 +527,13 @@ const Detail = () => {
                       >
                         <img
                           className="icono-caracteristica"
-                          src={caracteristica.logoCaracteristica}
+                          src={logoXIDCaracteristica(
+                            caracteristica.idCaracteristica,
+                            caracteristicasLista
+                          )}
                           style={{ width: "25px", height: "25px" }}
                         />
-                        <div>{caracteristica.nombre}</div>
+                        <div>{caracteristica.nombreCaracteristica}</div>
                       </Paper>
                     ) : (
                       <Paper
@@ -547,12 +557,77 @@ const Detail = () => {
           {/* </div> */}
         </div>
         {/* </Paper> */}
-        <CalendarioXId></CalendarioXId>
+        {/* <Stack
+        flexWrap={"wrap"}
+          gap={4}
+          alignItems={{ xl:"center", lg:"center", md: "center",  xs: "center" }}
+          margin={"auto"}
+          width={{
+            xl: "98%",
+            lg: "fit-content",
+          }}
+          direction={{
+            xl: "row",
+            lg: "row",
+            md: "column",
+            xs: "column",
+            sm: "column",
+          }}
+          style={{display:"flex", justifyContent:"center", border: "1px solid red",}}
+        >
+          <CalendarioXId></CalendarioXId>
+          <Divider
+            orientation={{
+              xl: "vertical",
+              lg: "vertical",
+              md: "vertical",
+              xs: "vertical",
+              sm: "horizontal",
+            }}
+          />
+          <Comentarios id={id}></Comentarios>
+        </Stack> */}
+
+        <Stack
+          // container
+          spacing={2}
+          // margin={"auto"}
+          flexDirection={{lg:"row"}}
+          style={{
+            display:"flex",
+            // border: "1px solid red",
+            gap:"3rem",
+            flexWrap:"wrap",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            justifyItems: "center",
+          }}
+        >
+          <Stack
+            item
+            xs={12}
+            md={5}
+            lg={5}
+            xl={5}
+            style={{ placeItems: "center", margin: "auto" }}
+          >
+            <CalendarioXId style={{ placeItems: "center" }} />
+          </Stack>
+
+          <Stack
+            item
+            xs={12}
+            md={5}
+            lg={5}
+            xl={5}
+            style={{ placeItems: "center", margin: "auto" }}
+          >
+            <Comentarios id={id} style={{ placeItems: "center" }} />
+          </Stack>
+        </Stack>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        <Comentarios></Comentarios>
-        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        <Politicas></Politicas>
+        <Politicas id={id}></Politicas>
       </Stack>
     </>
   );

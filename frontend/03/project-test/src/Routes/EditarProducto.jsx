@@ -28,7 +28,7 @@ import { useParams } from "react-router-dom";
 const EditarProducto = () => {
   const { id } = useParams();
 
-  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/update";
+  const urlBase = "http://54.214.104.150:8080/api/v1/recursos/update";
   const jwt = localStorage.getItem("jwt");
   const {
     productosBKLista,
@@ -37,6 +37,7 @@ const EditarProducto = () => {
     categoriasLista,
     setCategoriasLista,
     getCategoriasLista,
+    caracteristicasLista,
     recursoXID,
     getRecursoXID,
   } = useContext(ContextGlobal);
@@ -266,7 +267,7 @@ const EditarProducto = () => {
 
   useEffect(() => {
     if (form) {
-      getDatosBKLista(); 
+      getDatosBKLista();
     }
   }, [form]);
   const jsonData = productosBKLista;
@@ -278,10 +279,9 @@ const EditarProducto = () => {
     console.log(e);
 
     const nombreEsValido = validarNombreProducto(nuevoProducto.nombre);
- 
+
     console.log("------------------nombreYaExiste ?????? ------------------");
     console.log(nombreEsValido);
-
 
     if (nombreEsValido) {
       setForm(true);
@@ -531,18 +531,22 @@ const EditarProducto = () => {
                   label="Elija las caracteristicas"
                   component="fieldset"
                 >
-                  <FormLabel component="legend">Label placement</FormLabel>
+                  <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                    {Object.keys(servicios).map((servicio) => (
-                      <li key={servicio} style={{ listStyle: "none" }}>
+                  {caracteristicasLista.map((caracteristica) => (
+                      <li
+                        key={caracteristica.idCaracteristica}
+                        style={{ listStyle: "none" }}
+                        className="item-grid-check"
+                      >
                         <label>
                           <Checkbox
                             type="checkbox"
-                            className="item-grid-check"
-                            checked={servicios[servicio]}
-                            onChange={() => handleOptionChange(servicio)}
+                            // className="item-grid-check"
+                            checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
+                            onChange={() => handleOptionChange(caracteristica)}
                           />
-                          {servicio}
+                          {caracteristica.nombre}
                         </label>
                       </li>
                     ))}
@@ -680,7 +684,7 @@ const EditarProducto = () => {
             <div className="acceso-cuenta-o-usuarionuevo"></div>
           </div>
           <div className="segmento-preview">
-            <h1 className="titulo-preview">Preview Carga de producto</h1>
+            <h1 className="titulo-preview">Previsualiza tu producto</h1>
             <CardProductoSimulado
               className="card-simulada"
               title={nuevoProducto.nombre}

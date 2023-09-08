@@ -19,13 +19,14 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
-  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
+  const urlBase = "http://54.214.104.150:8080/api/v1/recursos/save";
   const jwt = localStorage.getItem("jwt");
   const {
     productosBKLista,
     setProductosBKLista,
     getDatosBKLista,
     categoriasLista,
+    caracteristicasLista,
     setCategoriasLista,
     getCategoriasLista,
   } = useContext(ContextGlobal);
@@ -78,13 +79,19 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: 1,
   });
 
-  const [servicios, setServicios] = useState({
-    tieneCafetería: false,
-    tieneWifi: false,
-    tieneLokker: false,
-    tieneFotocopiadoraImpresion: false,
-    tieneEspacioDescanso: false,
-    tieneEstaciónCafeAguaAromatica: false,
+  // const [servicios, setServicios] = useState({
+  //   tieneCafetería: false,
+  //   tieneWifi: false,
+  //   tieneLokker: false,
+  //   tieneFotocopiadoraImpresion: false,
+  //   tieneEspacioDescanso: false,
+  //   tieneEstaciónCafeAguaAromatica: false,
+  // });
+
+  const [caracteristica, setCaracteristicas] = useState({
+    nombre: "",
+    logoCaracteristica: "",
+    idCaracteristica: "",
   });
 
   ///////////////Envio de datos
@@ -192,9 +199,9 @@ const AgregarProducto = () => {
   };
 
   const handleOptionChange = (servicio) => {
-    setServicios((prevServicios) => ({
-      ...prevServicios,
-      [servicio]: !prevServicios[servicio],
+    setCaracteristicas((prevCaracteristica) => ({
+      ...prevCaracteristica,
+      [caracteristica]: !prevCaracteristica[caracteristica],
     }));
   };
 
@@ -491,18 +498,22 @@ const AgregarProducto = () => {
                   label="Elija las caracteristicas"
                   component="fieldset"
                 >
-                  <FormLabel component="legend">Label placement</FormLabel>
+                  <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                    {Object.keys(servicios).map((servicio) => (
-                      <li key={servicio} style={{ listStyle: "none" }}>
+                    {caracteristicasLista.map((caracteristica) => (
+                      <li
+                        key={caracteristica.idCaracteristica}
+                        style={{ listStyle: "none" }}
+                        className="item-grid-check"
+                      >
                         <label>
                           <Checkbox
                             type="checkbox"
-                            className="item-grid-check"
-                            checked={servicios[servicio]}
-                            onChange={() => handleOptionChange(servicio)}
+                            // className="item-grid-check"
+                            checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
+                            onChange={() => handleOptionChange(caracteristica)}
                           />
-                          {servicio}
+                          {caracteristica.nombre}
                         </label>
                       </li>
                     ))}
@@ -660,7 +671,7 @@ const AgregarProducto = () => {
             <div className="acceso-cuenta-o-usuarionuevo-agregar-prod"></div>
           </div>
           <div className="segmento-preview">
-            <h1 className="titulo-preview">Preview</h1>
+            <h1 className="titulo-preview">Previsualiza tu producto</h1>
             <CardProductoSimulado
               className="card-simulada"
               title={nuevoProducto.nombre}

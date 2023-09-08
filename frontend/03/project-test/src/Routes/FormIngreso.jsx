@@ -4,6 +4,8 @@ import "../Components/FormIngreso.css";
 import { Button,  FormControl, IconButton,Modal,  Paper,TextField,
   Typography,Backdrop} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import FormAltaUser from "./FormAltaUser";
 
 const FormIngreso = () => {
   const { usuarioLogueado,realizarLogIn, iniciarSesion, userLogIn, errorLogueo, setUserLogIn } = useContext(ContextGlobal);
@@ -26,8 +28,8 @@ const FormIngreso = () => {
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
-    nombre: "",
-    email: "",
+    // nombre: "",
+    username: "",
     password: "",
   });
 
@@ -36,36 +38,41 @@ const FormIngreso = () => {
 
   ////////////////OnChanges///////////////
 
-  const onChangeNombre = (e) => {
-    const newValue = e.target.value;
-    setUsuario({ ...usuario, nombre: newValue });
-    validarNombre(newValue);
-  };
+  // const onChangeNombre = (e) => {
+  //   const newValue = e.target.value;
+  //   setUsuario({ ...usuario, nombre: newValue });
+
+  //   validarNombre(newValue);
+  // };
+
+
 
   const onChangeEmail = (e) => {
     const newValue = e.target.value;
-    setUsuario({ ...usuario, email: newValue });
+    setUsuario({ ...usuario, username: newValue });
+    setUserLogIn({ ...usuario, username: newValue });
     validarEmail(newValue);
   };
 
   const onChangePass = (e) => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
+    setUserLogIn({ ...usuario, password: newValue });
     validarPassword(newValue);
   };
 
   //////////Validaciones ///////////////////
 
-  const validarNombre = (n) => {
-    const regex = /^[A-Za-z\s]{3,30}$/;
-    if (regex.test(n)) {
-      setNombreValido(true);
-      return true;
-    } else {
-      setNombreValido(false);
-      return false;
-    }
-  };
+  // const validarNombre = (n) => {
+  //   const regex = /^[A-Za-z\s]{3,30}$/;
+  //   if (regex.test(n)) {
+  //     setNombreValido(true);
+  //     return true;
+  //   } else {
+  //     setNombreValido(false);
+  //     return false;
+  //   }
+  // };
 
   const validarEmail = (e) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
@@ -93,8 +100,8 @@ const FormIngreso = () => {
 
   const validarFormulario = () => {
     return (
-      validarNombre(usuario.nombre) &&
-      validarEmail(usuario.email) &&
+      // validarNombre(usuario.nombre) &&
+      validarEmail(usuario.username) &&
       validarPassword(usuario.password)
     );
   };
@@ -110,18 +117,23 @@ const FormIngreso = () => {
 
 
       setUserLogIn({
-        username: usuario.nombre,
+        username: usuario.username,
         password: usuario.password,
       });
-
+      console.log("Que datos enviamos del user? ")
+      console.log(userLogIn)
 
       //ENVIAR DATOS
-
-      setUsuario({
-        username: usuario.email,
-        password:usuario.password,
-      });
       realizarLogIn(userLogIn);
+
+
+
+      // setUsuario({
+      //   username: usuario.username,
+      //   password:usuario.password,
+      // });
+    
+ 
 
     } else {
       setForm(false);
@@ -129,7 +141,7 @@ const FormIngreso = () => {
       console.log(usuario);
       setUsuario({
         nombre: "",
-        email: "",
+        username: "",
         password: "",
       });
     }
@@ -168,10 +180,11 @@ const FormIngreso = () => {
 
           <div>
           {errorLogueo && <p>{errorLogueo}</p>}
-            {form && usuarioLogueado ? (
+
+            {usuarioLogueado ? (
               <h5 className="msj-form-guardado">
                 Gracias!! Has ingresado como usuario{" "}
-                {usuarioLogueado.nombreCompleto} a HomeOFF !
+                {usuarioLogueado} a HomeOFF !
               </h5>
             ) : (
               <h5 className="msj-form-guardado">
@@ -186,7 +199,7 @@ const FormIngreso = () => {
         <Paper
           sx={{
             width: "auto",
-            maxWidth:"400px",
+            maxWidth:"320px",
             margin:"auto",
             overflow: "hidden",
             height: "fitContent",
@@ -213,7 +226,7 @@ const FormIngreso = () => {
               }}
             >
               <div className="formulario-inicio">
-                <TextField
+                {/* <TextField
                   id="nombre"
                   label="Nombre"
                   variant="standard"
@@ -233,7 +246,7 @@ const FormIngreso = () => {
                   </p>
                 ) : (
                   ""
-                )}
+                )} */}
 
                 <TextField
                   id="email"
@@ -242,7 +255,7 @@ const FormIngreso = () => {
                   className="campo-formulario"
                   type="email"
                   placeholder="Ingresa tu email"
-                  value={usuario.email}
+                  value={usuario.username}
                   onChange={onChangeEmail}
                   required
                   margin="normal"
@@ -262,7 +275,7 @@ const FormIngreso = () => {
                   label="Password *"
                   variant="standard"
                   className="campo-formulario"
-                  type="email"
+                  type="password"
                   placeholder="Ingresa tu password"
                   value={usuario.password}
                   onChange={onChangePass}
@@ -293,8 +306,10 @@ const FormIngreso = () => {
                 </Button>
               </div>
             </FormControl>
+            
             <div className="acceso-cuenta-o-usuarionuevo">
-              <div>No tenés cuenta?</div>
+              <div onClick={() => window.location.replace("/formaltauser")}>No tenés cuenta?</div>
+              {/* <div>No tenés cuenta?</div> */}
               <div>Se te olvidó tu contraseña?</div>
             </div>
           </div>

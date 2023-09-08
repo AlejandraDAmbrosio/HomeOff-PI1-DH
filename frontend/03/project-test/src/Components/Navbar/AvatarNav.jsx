@@ -7,14 +7,14 @@ import Avatar from "@mui/joy/Avatar";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
-const AvatarNav = () => {
+const AvatarNav = ({Iniciales}) => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
 
 
   return (
     <div>
-      {usuarioLogueado ? (
+      {(Iniciales != null) || usuarioLogueado ? (
         <Avatar
           variant="solid"
           size="lg"
@@ -22,8 +22,8 @@ const AvatarNav = () => {
             backgroundColor: "#9dd6b3",
             color: "black",
           }}
-        >
-          {obtenerIniciales(usuarioLogueado.nombreCompleto)}
+        > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(usuarioLogueado)) }
+          
         </Avatar>
       ) : (
         <Avatar
