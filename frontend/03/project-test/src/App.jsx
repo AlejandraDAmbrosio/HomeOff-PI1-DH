@@ -22,13 +22,12 @@ import PrivateRoute from "./Components/PrivateRoute";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
-
-
-
 function App() {
   ////////////////// Segmento Logueo
   const { setUsuarioLogueado, usuarioLogueado, userIdLogIn } = useContext(ContextGlobal);
   /////////////////
+
+
   useEffect(() => {
     // Verificar si hay un token en el almacenamiento local
     const token = localStorage.getItem("token");
@@ -44,10 +43,7 @@ function App() {
       console.log("user en Local Storage", user);
       console.log("userId en Local Storage",userId);
       setUsuarioLogueado(user);
-      // El usuario está autenticado, puedes realizar las acciones necesarias
-      // como cargar datos de usuario, redirigir, etc.
-      // También puedes almacenar el token en el estado si lso deseas.
-      // setUsuarioLogueado(token);
+  
     }
   }, []);
 
@@ -64,8 +60,7 @@ function App() {
         </Route>
         <Route path="/formingreso/" element={<FormIngreso />} />
         <Route path="/formaltauser/" element={<FormAltaUser />} />
-        {/* <Route path="/agregarproducto/" element={<AgregarProducto />} />
-        <Route path="/administracionusers/" element={<AdministracionUsers />} /> */}
+     
         <Route
           path="/agregarproducto/"
           element={<PrivateRoute component={AgregarProducto} token={true} />}

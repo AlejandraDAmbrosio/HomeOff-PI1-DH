@@ -186,7 +186,7 @@ const FormAltaUser = () => {
       // Paquete de datos a enviar
 
       const nuevoUserData = {
-        nombrecompleto: usuario.nombre,
+        nombrecompleto: `${usuario.nombre} ${usuario.apellido}`,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
         username: usuario.email,

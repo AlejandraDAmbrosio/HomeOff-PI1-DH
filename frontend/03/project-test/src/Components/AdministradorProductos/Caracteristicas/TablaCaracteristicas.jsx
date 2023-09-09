@@ -59,7 +59,7 @@ const TablaCaracteristicas = () => {
 
   const onChangeNombre = (e) => {
     setNuevaCaracteristica({ ...nuevaCaracteristica, nombre: e.target.value });
-    // setNombreYaExiste(false);
+
     setNombreCaracteristicaValida(true);
   };
   const onChangeLogoCaracteristica = (e) => {
@@ -67,7 +67,7 @@ const TablaCaracteristicas = () => {
       ...nuevaCaracteristica,
       logoCaracteristica: e.target.value,
     });
-    // setNombreYaExiste(false);
+  
     setNombreCaracteristicaValida(true);
   };
 
@@ -103,16 +103,22 @@ const TablaCaracteristicas = () => {
         idCaracteristica: 0,
       };
 
-      const urlBaseGuardar =
-        "http://52.32.210.155:8080/api/v1/caracteristicas/save";
+      const urlBaseGuardar = "http://52.32.210.155:8080/api/v1/caracteristicas/save";
+
+        const token = localStorage.getItem('token');
+        console.log("token previo a agregar caracteristicas", token)
 
         try {
           const response = await fetch(urlBaseGuardar, {
             method: 'POST',
+            url:urlBaseGuardar,
             headers: {
               'Content-Type': 'application/json',
+              // Puedes agregar tu token de autenticación aquí
+              'Authorization': `Bearer "${token}"`,
             },
             body: JSON.stringify(nuevaCaracteristicaData),
+         
           });
         
           if (response.ok) {

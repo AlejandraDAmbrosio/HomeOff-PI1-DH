@@ -128,6 +128,7 @@ export default function AccountMenu() {
           </MenuItem>
         )}
 
+
         {usuarioLogueado && (
           <MenuItem
             onClick={() => {
@@ -152,7 +153,7 @@ export default function AccountMenu() {
 
         {usuarioLogueado && (
           <MenuItem onClick={handleClose}>
-            <Avatar /> Cuenta
+            <Avatar /> {usuarioLogueado}
           </MenuItem>
         )}
 
