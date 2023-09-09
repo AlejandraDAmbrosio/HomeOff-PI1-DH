@@ -23,6 +23,7 @@ const BuscarXSede = () => {
     setFilteredSedes,
     prodFiltrados,
     setProdFiltrados,
+    busquedaCero, setBusquedaCero,
   } = useContext(ContextGlobal);
 
   const [openModal, setOpenModal] = useState(false);
@@ -111,11 +112,14 @@ const BuscarXSede = () => {
 
     setProdFiltrados(filteredSedesAndProductos);
 
-    if (filteredSedesAndProductos.length === 0) {
-      setOpenModal(true);
-    } else {
-      setOpenModal(false);
-    }
+  if (filteredSedesAndProductos.length === 0) {
+  //  setOpenModal(true);
+   setBusquedaCero("No se encontraron resultados")
+} else {
+      
+//   setBusquedaCero("No se encontraron resultados")
+//   setOpenModal(false);
+ }
 
     if (inputValue.length === 0) {
       setProdFiltrados([]);

@@ -90,6 +90,7 @@ const Detail = () => {
     caracteristicasXID,
     getCaracteristicasXID,
     getCaracteristicasLista,
+    usuarioLogueado
   } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);

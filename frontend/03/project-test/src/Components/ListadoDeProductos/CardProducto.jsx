@@ -49,9 +49,11 @@ const CardProducto = ({
     getPuntosPromedioXIDRecurso(id);
     getIsFav(id);
   }, [id]);
-
-  const esFav = usersLista.some((item) => item.idUsuario === userIdLogIn);
-
+  console.log("usersLista", usersLista);
+  const userId = localStorage.getItem("userId");
+  console.log("userId", userId);
+  const esFav = usersLista.some((item) => item.idUsuario === 4);
+  console.log("esFav", esFav);
   const estrellas = puntosPromedioXIDRecurso;
 
   return (
@@ -64,23 +66,27 @@ const CardProducto = ({
         }}
       >
         <CardMedia sx={{ height: 240 }} image={url} title="imagen">
-         {esFav?( <FavoriteIcon
-            style={{
-              position: "relative",
-              fontSize: "30px",
-              color: "red",
-              top: "5%",
-              left: "88%",
-            }}
-          />) :(<FavoriteIcon
-            style={{
-              position: "relative",
-              fontSize: "30px",
-              color: "grey",
-              top: "5%",
-              left: "88%",
-            }}
-          />)}
+          {esFav ? (
+            <FavoriteIcon
+              style={{
+                position: "relative",
+                fontSize: "30px",
+                color: "red",
+                top: "5%",
+                left: "88%",
+              }}
+            />
+          ) : (
+            <FavoriteIcon
+              style={{
+                position: "relative",
+                fontSize: "30px",
+                color: "grey",
+                top: "5%",
+                left: "88%",
+              }}
+            />
+          )}
         </CardMedia>
 
         <div className="caja-texto-card">

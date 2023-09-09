@@ -142,37 +142,35 @@ export const ContextProvider = ({ children }) => {
   //////////////////////////////////////Favoritos X ID
 
   const [favoritosXID, setFavoritosXID] = useState([]);
-const [ isFav, setIsFav] = useState(false);
-const [ favoritos, setFavoritos] = useState([]);
+  const [isFav, setIsFav] = useState(false);
+  const [favoritos, setFavoritos] = useState([]);
 
   const getFavoritosXID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    console.log("Data antes de inyectarse", data);
+    console.log("Data antes de inyectarse getFavoritosXID", data);
     const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
     console.log("newArray", newArray);
     setFavoritosXID(newArray);
   };
 
-  const getIsFav  = async (id) => {
+  const getIsFav = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    console.log("Data antes de inyectarse", data);
-    const esFav = data.some((item) => item.idUsuario === userIdLogIn);
-    
+    console.log("Data antes de inyectarse ///getIsFav/////////////", data);
+    const esFav = data.find((item) => item.idUsuario === userIdLogIn);
+
     console.log("esFav", esFav);
     setIsFav(esFav);
   };
 
-
-  const getFavoritos  = async (id) => {
+  const getFavoritos = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    console.log("Data antes de inyectarse", data);
-    
+    console.log("Data antes de inyectarse /////////// getFavoritos", data);
+
     setFavoritos(data);
   };
-
 
   ///////////////////////////////// Puntajes y comentarios por IdRecurso
   const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
@@ -187,10 +185,11 @@ const [ favoritos, setFavoritos] = useState([]);
   };
 
   //////////////////////////LOGUEO //////////////////Autenticacion
-
-  const [userIdLogIn, setUserIdLogIn] = useState("");
+  const [cargandoUsuario, setCargandoUsuario] = useState(true);
+  const [userIdLogIn, setUserIdLogIn] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+
   const [userLogIn, setUserLogIn] = useState({
     username: "",
     password: "",
@@ -221,36 +220,46 @@ const [ favoritos, setFavoritos] = useState([]);
       body: body,
     };
 
-    const response = await fetch(urlBaseGuardar, options);
+    try {
+      const response = await fetch(urlBaseGuardar, options);
 
-    if (response.ok) {
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-      if (data.token) {
-        setErrorLogueo("");
-        localStorage.setItem("token", data.token);
-        console.log("Respuesta token:", data.token);
-        localStorage.setItem("username", username);
-        setUsuarios(data);
-        console.log("Datos guardados de la respuesta en DATA");
-        console.log(data);
-        setUsuarioLogueado(username);
-        console.log("username en Global" , username)
-        const idUser = buscadorNombresEnLogIn(username, usersLista);
-        setUserIdLogIn(idUser);
-        console.log("userIdLogIn en Global" , userIdLogIn)
-        localStorage.setItem("userId", userIdLogIn);
-        window.location.replace("/");
+        if (data.token) {
+          handleSuccessfulLogin(data);
+        } else {
+          setErrorLogueo("Error al iniciar sesión: No se recibió un token");
+        }
+      } else if (response.status === 401) {
+        setErrorLogueo("Credenciales incorrectas");
+      } else {
+        setErrorLogueo("Error al iniciar sesión");
       }
-    } else {
-      console.error("Error al iniciar sesión:", response);
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
       setErrorLogueo("Error al iniciar sesión");
     }
   };
 
+  const handleSuccessfulLogin = (data) => {
+    setErrorLogueo("");
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("username", userLogIn.username);
+    setUsuarios(data);
+    setUsuarioLogueado(userLogIn.username);
+    const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
+    localStorage.setItem("userId", idUser);
+    setUserIdLogIn(idUser);
+    window.location.replace("/");
+  };
+
+
   const cerrarSesion = () => {
     localStorage.removeItem("usuarioLogueado");
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
     setUsuarioLogueado(null);
     window.location.replace("/");
     console.log("----------Cerrando sesión. en Context .---------");
@@ -275,13 +284,35 @@ const [ favoritos, setFavoritos] = useState([]);
 
   /////////////////////////////  Productos a mostrar en busqueda ////////////
   const [prodFiltrados, setProdFiltrados] = useState([]);
+const [ busquedaCero, setBusquedaCero]= useState("");
+  const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
+
+ 
+  useEffect(() => {
+    async function actualizarTitulo() {
+      if (prodFiltrados.length > 0) {
+        setTituloListadoProductos(`Resultados de tu búsqueda ${prodFiltrados.length} productos`);
+      } else if (prodFiltrados.length === 0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/) {
+      
+        setTituloListadoProductos("No se encontraron resultados");
+      }
+    }
+
+    actualizarTitulo();
+  }, [prodFiltrados, tituloListadoProductos]);
+
 
   return (
     <ContextGlobal.Provider
       value={{
+        busquedaCero, setBusquedaCero,
+        tituloListadoProductos,
+        favoritos,
+        setFavoritos,
         getIsFav,
         getFavoritos,
-        isFav, setIsFav,
+        isFav,
+        setIsFav,
         favoritosXID,
         setFavoritosXID,
         getFavoritosXID,
