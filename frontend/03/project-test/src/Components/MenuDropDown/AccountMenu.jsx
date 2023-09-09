@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
 import FormIngreso from "../../Routes/FormIngreso";
 import Modal from "@mui/material/Modal";
-
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -168,6 +168,19 @@ export default function AccountMenu() {
           </Link>
         )}
         <Divider />
+
+        {usuarioLogueado && (
+          <Link to="/favoritos/1">
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <LibraryBooksIcon fontSize="25" />
+              </ListItemIcon>
+              Reservas
+            </MenuItem>
+          </Link>
+        )}
+        <Divider />
+
 
         {usuarioLogueado && (
           /*usuarioLogueado.rol == "ADMINISTRADOR" &&*/ <Link to="/administradorproductos/">
