@@ -289,7 +289,7 @@ export const ContextProvider = ({ children }) => {
 
   /////////////////////////////  Productos a mostrar en busqueda ////////////
   const [prodFiltrados, setProdFiltrados] = useState([]);
-const [ busquedaCero, setBusquedaCero]= useState("");
+const [ busquedaCero, setBusquedaCero]= useState(false);
   const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
 
  
@@ -299,7 +299,7 @@ const [ busquedaCero, setBusquedaCero]= useState("");
         setTituloListadoProductos(`Resultados de tu búsqueda ${prodFiltrados.length} productos`);
       } else if (prodFiltrados.length === 0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/) {
       
-        setTituloListadoProductos("No se encontraron resultados");
+        setTituloListadoProductos("Productos");
       }
     }
 

@@ -30,6 +30,7 @@ const BuscarXSede = () => {
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+
   const sedesArray = [
     {
       id: 1,
@@ -115,15 +116,16 @@ const BuscarXSede = () => {
 
     if (filteredSedesAndProductos.length === 0) {
       //  setOpenModal(true);
-      setBusquedaCero("No se encontraron resultados");
-    } else {
-      setBusquedaCero("No se encontraron resultados");
+      setBusquedaCero(true);
+     } /* else {*/
+    //   setBusquedaCero("No se encontraron resultados");
       //   setBusquedaCero("No se encontraron resultados")
       //   setOpenModal(false);
-    }
+    // }
 
     if (inputValue.length === 0) {
       setProdFiltrados([]);
+      setBusquedaCero(false)
     }
   };
 
@@ -137,7 +139,10 @@ const BuscarXSede = () => {
         placeholder="Sede o nombre"
         onKeyUp={handleSearch}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setBusquedaCero(false);
+        }}
         options={filteredSedes.map((sede) => sede.nombre)}
       ></input>
 
