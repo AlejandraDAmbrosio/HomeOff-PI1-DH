@@ -223,11 +223,13 @@ export const ContextProvider = ({ children }) => {
 
     try {
       const response = await fetch(urlBaseGuardar, options);
-
+      setErrorLogueo("Logueando usuario...");
       if (response.ok) {
+        setErrorLogueo(`Gracias por ingresar ${username}`);
         const data = await response.json();
-
+       
         if (data.token) {
+          setErrorLogueo(`Gracias por ingresar ${username}`);
           handleSuccessfulLogin(data);
         } else {
           setErrorLogueo("Error al iniciar sesión: No se recibió un token");
@@ -244,7 +246,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   const handleSuccessfulLogin = (data) => {
-    setErrorLogueo("");
+    // setErrorLogueo(`Gracias por ingresar ${username}`);
     localStorage.setItem("token", data.token);
     localStorage.setItem("username", userLogIn.username);
     setUsuarios(data);

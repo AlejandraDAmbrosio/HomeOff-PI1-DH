@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/FormIngreso.css";
 import {
@@ -24,6 +24,7 @@ const FormIngreso = () => {
     errorLogueo,
     setErrorLogueo,
     setUserLogIn,
+    loginSuccess, setLoginSuccess,
   } = useContext(ContextGlobal);
 
   // Repo de validaciones
@@ -32,14 +33,32 @@ const FormIngreso = () => {
   const [passwordValido, setPasswordValido] = useState(true);
 
   ////////// Segmento modal   //////////
+  const [modalTimeout, setModalTimeout] = useState(null); // Nuevo estado para controlar el cierre del modal por tiempo
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
+    if (modalTimeout) {
+      clearTimeout(modalTimeout);
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleCloseWithTimeout = () => {
+    // Cierra el modal después de 3 segundos
+    if (!loginSuccess) {
+      setModalTimeout(
+        setTimeout(() => {
+          handleClose();
+          // Limpia el temporizador para evitar cierres adicionales si el usuario cierra manualmente el modal
+          clearTimeout(modalTimeout);
+        }, 3000) // 3000 ms = 3 segundos
+      );
+    }
+  };
+
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -64,6 +83,7 @@ const FormIngreso = () => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, username: newValue });
     setUserLogIn({ ...usuario, username: newValue });
+    setErrorLogueo("");
     validarEmail(newValue);
   };
 
@@ -71,6 +91,7 @@ const FormIngreso = () => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
     setUserLogIn({ ...usuario, password: newValue });
+    setErrorLogueo("");
     validarPassword(newValue);
   };
 
@@ -134,39 +155,29 @@ const FormIngreso = () => {
       console.log("Que datos enviamos del user? ");
       console.log(userLogIn);
 
-      setErrorLogueo("Logueando usuario...");
-
-      try {
-        // Realizar la solicitud de inicio de sesión
-        await realizarLogIn(userLogIn);
-
-        // Si la solicitud es exitosa, se actualizará usuarioLogueado
-        // y mostrará el mensaje de agradecimiento
-
-        setErrorLogueo("Logueando usuario...");
-
-        // Espera a que usuarioLogueado se actualice antes de abrir el modal
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        setErrorLogueo(`Gracias por ingresar ${usuario.username}`);
-        handleOpen();
-      } catch (error) {
-        // Si la solicitud falla, se mostrará el mensaje de error
-        setErrorLogueo("Por favor, revise las credenciales.");
-        handleOpen();
-      }
+      realizarLogIn(userLogIn);
+      // setErrorLogueo("Logueando usuario...");
+      handleOpen();
 
       //ENVIAR DATOS
     } else {
       setForm(false);
       console.log("Datos No Enviados");
       console.log(usuario);
+      setErrorLogueo("Por favor, revise sus credenciales");
+      handleOpen();
       setUsuario({
         nombre: "",
         username: "",
         password: "",
       });
     }
-    // handleOpen();
+    // useEffect(() => {
+    // if (usuarioLogueado) {
+    //   setErrorLogueo(`Gracias por ingresar ${usuario.username}`);
+ 
+    //   }
+    // }, [usuarioLogueado]);
   };
 
   return (
