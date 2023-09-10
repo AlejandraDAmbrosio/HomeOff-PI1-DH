@@ -9,7 +9,12 @@ import {
   Paper,
   TextField,
   Typography,
-  Backdrop,
+  // Backdrop,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
@@ -35,32 +40,42 @@ const FormIngreso = () => {
   ////////// Segmento modal   //////////
   const [modalTimeout, setModalTimeout] = useState(null); // Nuevo estado para controlar el cierre del modal por tiempo
   const [open, setOpen] = useState(false);
-  
+
+
+
   const handleOpen = () => {
     setOpen(true);
-    if (modalTimeout) {
-      clearTimeout(modalTimeout);
-    }
   };
 
   const handleClose = () => {
     setOpen(false);
-    // window.location.replace("/");
   };
 
-  const handleCloseWithTimeout = () => {
-    // Cierra el modal después de 3 segundos
-    if (!loginSuccess) {
-      setModalTimeout(
-        setTimeout(() => {
-          handleClose();
-          // Limpia el temporizador para evitar cierres adicionales si el usuario cierra manualmente el modal
-          clearTimeout(modalTimeout);
-        }, 6000) // 3000 ms = 3 segundos
-      );
-    }
+  // const handleOpen = () => {
+  //   setOpen(true);
+  //   if (modalTimeout) {
+  //     console.log("clearTimeout(modalTimeout);")
+  //     clearTimeout(modalTimeout);
+  //   }
+  // };
 
-  };
+  // const handleClose = () => {
+  //   if (!loginSuccess) {
+  //     setOpen(false);
+  //   }
+  // };
+
+  // const handleCloseWithTimeout = () => {
+
+  //     setModalTimeout(
+  //       setTimeout(() => {
+  //         console.log("setTimeout")
+  //         handleClose();
+  //         clearTimeout(modalTimeout);
+  //       }, 10000) 
+  //     );
+
+  // };
 
 
   /////////// Definicion de User/Objeto
@@ -159,7 +174,7 @@ const FormIngreso = () => {
       console.log(userLogIn);
 
       realizarLogIn(userLogIn);
-      // setErrorLogueo("Logueando usuario...");
+       setErrorLogueo("Logueando usuario...");
       handleOpen();
 
       //ENVIAR DATOS
@@ -185,8 +200,20 @@ const FormIngreso = () => {
 
   return (
     <>
-      <Modal open={open} onClose={handleClose}>
-        <Paper
+     <Dialog open={open} onClose={handleClose}>
+     <DialogTitle>Cerrar</DialogTitle>
+     <DialogContent>
+          <DialogContentText>
+            {errorLogueo && <h5 className="msj-form-guardado">{errorLogueo}</h5>}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
+        {/* <Paper
           sx={{
             width: "320px",
             overflow: "hidden",
@@ -200,7 +227,7 @@ const FormIngreso = () => {
             marginTop: "10rem",
           }}
         >
-          {/* Botón de cerrar */}
+       
           <IconButton
             aria-label="cerrar"
             style={{
@@ -219,7 +246,7 @@ const FormIngreso = () => {
             )}
           </div>
         </Paper>
-      </Modal>
+      </Modal> */}
 
       {!usuarioLogueado ? (
         <Paper
