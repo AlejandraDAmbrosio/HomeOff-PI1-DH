@@ -189,6 +189,7 @@ export const ContextProvider = ({ children }) => {
   const [userIdLogIn, setUserIdLogIn] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const [userLogIn, setUserLogIn] = useState({
     username: "",
@@ -237,11 +238,11 @@ export const ContextProvider = ({ children }) => {
       } else if (response.status === 401) {
         setErrorLogueo("Credenciales incorrectas");
       } else {
-        setErrorLogueo("Error al iniciar sesión");
+        setErrorLogueo("Error al iniciar sesión. Por favor, revisa tus credenciales.");
       }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      setErrorLogueo("Error al iniciar sesión");
+      setErrorLogueo("Error al iniciar sesión. Por favor, revisa tus credenciales.");
     }
   };
 
@@ -254,6 +255,7 @@ export const ContextProvider = ({ children }) => {
     const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
     localStorage.setItem("userId", idUser);
     setUserIdLogIn(idUser);
+    setLoginSuccess(true);
     // window.location.replace("/");
   };
 
@@ -308,6 +310,8 @@ const [ busquedaCero, setBusquedaCero]= useState("");
   return (
     <ContextGlobal.Provider
       value={{
+        loginSuccess, setLoginSuccess,
+
         busquedaCero, setBusquedaCero,
         tituloListadoProductos,
         favoritos,

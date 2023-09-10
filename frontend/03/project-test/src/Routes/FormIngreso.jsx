@@ -35,6 +35,7 @@ const FormIngreso = () => {
   ////////// Segmento modal   //////////
   const [modalTimeout, setModalTimeout] = useState(null); // Nuevo estado para controlar el cierre del modal por tiempo
   const [open, setOpen] = useState(false);
+  
   const handleOpen = () => {
     setOpen(true);
     if (modalTimeout) {
@@ -44,6 +45,7 @@ const FormIngreso = () => {
 
   const handleClose = () => {
     setOpen(false);
+    // window.location.replace("/");
   };
 
   const handleCloseWithTimeout = () => {
@@ -54,9 +56,10 @@ const FormIngreso = () => {
           handleClose();
           // Limpia el temporizador para evitar cierres adicionales si el usuario cierra manualmente el modal
           clearTimeout(modalTimeout);
-        }, 3000) // 3000 ms = 3 segundos
+        }, 6000) // 3000 ms = 3 segundos
       );
     }
+
   };
 
 
