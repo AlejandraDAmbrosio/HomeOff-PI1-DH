@@ -1,4 +1,4 @@
-package com.Equipo4.ProyectoIntegradorEquipo4.controller;
+/*package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuario;
@@ -32,4 +32,4 @@ public class AuthUsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
-}
+}*/

@@ -44,7 +44,7 @@ public class UsuarioController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<String> borrarUsuario(@PathVariable Integer id){
         Optional<Usuario> usuarioEliminar=usuarioService.findByID(id);
         if(usuarioEliminar.isPresent()){

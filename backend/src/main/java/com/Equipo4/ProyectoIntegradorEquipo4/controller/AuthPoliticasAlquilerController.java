@@ -4,9 +4,11 @@ package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.PoliticasAlquiler;
 import com.Equipo4.ProyectoIntegradorEquipo4.service.IPoliticasAlquilerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,5 +28,11 @@ public class AuthPoliticasAlquilerController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("politicas/list")
+    public ResponseEntity<List<PoliticasAlquiler>> list(){
+        var result=iPoliticasAlquilerService.findAll();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
 }
