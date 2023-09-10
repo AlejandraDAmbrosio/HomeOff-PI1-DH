@@ -7,8 +7,6 @@ import Modal from "@mui/material/Modal";
 
 import { Button } from "@mui/material";
 
-
-
 const BotonInicio = () => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
     useContext(ContextGlobal);
@@ -36,31 +34,59 @@ const BotonInicio = () => {
 
   ////////// Segmento modal   //////////
 
-  const handleOpen = () => {
-    setOpen(true);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  // //////////////////////
+
+  // const handleModalClick = (e) => {
+  //   e.stopPropagation();
+  // };
+
+
+  const [openLogIn, setOpenLogIn] = useState(false);
+
+  const handleOpenLogIn = () => {
+    setOpenLogIn(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseLogIn = () => {
+    setOpenLogIn(false);
   };
-  //////////////////////
-
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
+
 
   return (
     <div>
       <Button
         className="boton-generico"
-        onClick={handleOpen}
-       
-        sx={{ color: "#424242", padding:"1.2rem 0.5rem",  width:"400px", borderRadius:"20px" }}
+        // onClick={handleOpen}
+        onClick={() => {
+          handleOpenLogIn(); // Cierra el menú
+        }}
+        sx={{
+          color: "#424242",
+          padding: "1.2rem 0.5rem",
+          width: "400px",
+          borderRadius: "20px",
+        }}
       >
         Iniciar Cuenta
       </Button>
 
-      <Modal open={open} onClose={handleClose} BackdropClick={true}>
+      {/* <Modal open={open} onClose={handleClose} BackdropClick={true}>
+        <div onClick={handleModalClick} onMouseDown={handleModalClick}>
+          <FormIngreso />
+        </div>
+      </Modal> */}
+
+      <Modal open={openLogIn} onClose={handleCloseLogIn} BackdropClick={true}>
         <div onClick={handleModalClick} onMouseDown={handleModalClick}>
           <FormIngreso />
         </div>

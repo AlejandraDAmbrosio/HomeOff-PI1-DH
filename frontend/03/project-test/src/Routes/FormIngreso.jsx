@@ -1,14 +1,36 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/FormIngreso.css";
-import { Button,  FormControl, IconButton,Modal,  Paper,TextField,
-  Typography,Backdrop} from "@mui/material";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+  // Backdrop,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import FormAltaUser from "./FormAltaUser";
 
 const FormIngreso = () => {
-  const { usuarioLogueado,realizarLogIn, iniciarSesion, userLogIn, errorLogueo, setUserLogIn } = useContext(ContextGlobal);
+  const {
+    usuarioLogueado,
+    realizarLogIn,
+    iniciarSesion,
+    userLogIn,
+    errorLogueo,
+    setErrorLogueo,
+    setUserLogIn,
+    loginSuccess, setLoginSuccess,
+  } = useContext(ContextGlobal);
 
   // Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
@@ -16,15 +38,45 @@ const FormIngreso = () => {
   const [passwordValido, setPasswordValido] = useState(true);
 
   ////////// Segmento modal   //////////
+  const [modalTimeout, setModalTimeout] = useState(null); // Nuevo estado para controlar el cierre del modal por tiempo
   const [open, setOpen] = useState(false);
+
+
+
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    window.location.replace("/");
   };
+
+  // const handleOpen = () => {
+  //   setOpen(true);
+  //   if (modalTimeout) {
+  //     console.log("clearTimeout(modalTimeout);")
+  //     clearTimeout(modalTimeout);
+  //   }
+  // };
+
+  // const handleClose = () => {
+  //   if (!loginSuccess) {
+  //     setOpen(false);
+  //   }
+  // };
+
+  // const handleCloseWithTimeout = () => {
+
+  //     setModalTimeout(
+  //       setTimeout(() => {
+  //         console.log("setTimeout")
+  //         handleClose();
+  //         clearTimeout(modalTimeout);
+  //       }, 10000) 
+  //     );
+
+  // };
+
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -45,12 +97,11 @@ const FormIngreso = () => {
   //   validarNombre(newValue);
   // };
 
-
-
   const onChangeEmail = (e) => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, username: newValue });
     setUserLogIn({ ...usuario, username: newValue });
+    setErrorLogueo("");
     validarEmail(newValue);
   };
 
@@ -58,6 +109,7 @@ const FormIngreso = () => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
     setUserLogIn({ ...usuario, password: newValue });
+    setErrorLogueo("");
     validarPassword(newValue);
   };
 
@@ -101,13 +153,12 @@ const FormIngreso = () => {
   const validarFormulario = () => {
     return (
       // validarNombre(usuario.nombre) &&
-      validarEmail(usuario.username) &&
-      validarPassword(usuario.password)
+      validarEmail(usuario.username) && validarPassword(usuario.password)
     );
   };
 
   ///////handleSubmit //////
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validarFormulario()) {
@@ -115,47 +166,58 @@ const FormIngreso = () => {
       console.log("Datos Enviados");
       console.log(usuario);
 
-
       setUserLogIn({
         username: usuario.username,
         password: usuario.password,
       });
-      console.log("Que datos enviamos del user? ")
-      console.log(userLogIn)
+      console.log("Que datos enviamos del user? ");
+      console.log(userLogIn);
+
+      realizarLogIn(userLogIn);
+       setErrorLogueo("Logueando usuario...");
+      handleOpen();
 
       //ENVIAR DATOS
-      realizarLogIn(userLogIn);
-
-
-
-      // setUsuario({
-      //   username: usuario.username,
-      //   password:usuario.password,
-      // });
-    
- 
-
     } else {
       setForm(false);
       console.log("Datos No Enviados");
       console.log(usuario);
+      setErrorLogueo("Por favor, revise sus credenciales");
+      handleOpen();
       setUsuario({
         nombre: "",
         username: "",
         password: "",
       });
     }
-    handleOpen();
+    // useEffect(() => {
+    // if (usuarioLogueado) {
+    //   setErrorLogueo(`Gracias por ingresar ${usuario.username}`);
+ 
+    //   }
+    // }, [usuarioLogueado]);
   };
 
   return (
     <>
-      <Modal open={open} onClose={handleClose}>
-        <Paper
+     <Dialog open={open} onClose={handleClose}>
+     <DialogTitle>Cerrar</DialogTitle>
+     <DialogContent>
+          <DialogContentText>
+            {errorLogueo && <h5 className="msj-form-guardado">{errorLogueo}</h5>}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
+        {/* <Paper
           sx={{
             width: "320px",
             overflow: "hidden",
-            position: "relative", 
+            position: "relative",
           }}
           style={{
             placeItems: "center",
@@ -165,7 +227,7 @@ const FormIngreso = () => {
             marginTop: "10rem",
           }}
         >
-          {/* Botón de cerrar */}
+       
           <IconButton
             aria-label="cerrar"
             style={{
@@ -179,43 +241,37 @@ const FormIngreso = () => {
           </IconButton>
 
           <div>
-          {errorLogueo && <p>{errorLogueo}</p>}
-
-            {usuarioLogueado ? (
-              <h5 className="msj-form-guardado">
-                Gracias!! Has ingresado como usuario{" "}
-                {usuarioLogueado} a HomeOFF !
-              </h5>
-            ) : (
-              <h5 className="msj-form-guardado">
-                Por favor, revise las credenciales.
-              </h5>
+            {errorLogueo && (
+              <h5 className="msj-form-guardado">{errorLogueo}</h5>
             )}
           </div>
         </Paper>
-      </Modal>
+      </Modal> */}
 
       {!usuarioLogueado ? (
         <Paper
           sx={{
             width: "auto",
-            maxWidth:"320px",
-            margin:"auto",
+            maxWidth: "320px",
+            margin: "auto",
             overflow: "hidden",
             height: "fitContent",
-             justifyContent: "spaceAround",
-            padding:"1rem"
+            justifyContent: "spaceAround",
+            padding: "1rem",
           }}
           style={{
             margin: "auto",
             justifyContent: "spaceBetween",
             marginTop: "5rem",
             height: "fitContent",
-            alignContent:"center"
+            alignContent: "center",
           }}
         >
           <div className="pagina-formulario-Ingreso">
-            <Typography style={{fontSize:"30px"}}> Inicia sesión ahora</Typography>
+            <Typography style={{ fontSize: "30px" }}>
+              {" "}
+              Inicia sesión ahora
+            </Typography>
 
             <FormControl
               onSubmit={handleSubmit}
@@ -306,9 +362,11 @@ const FormIngreso = () => {
                 </Button>
               </div>
             </FormControl>
-            
+
             <div className="acceso-cuenta-o-usuarionuevo">
-              <div onClick={() => window.location.replace("/formaltauser")}>No tenés cuenta?</div>
+              <div onClick={() => window.location.replace("/formaltauser")}>
+                No tenés cuenta?
+              </div>
               {/* <div>No tenés cuenta?</div> */}
               <div>Se te olvidó tu contraseña?</div>
             </div>

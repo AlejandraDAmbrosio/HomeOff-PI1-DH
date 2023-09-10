@@ -40,20 +40,22 @@
   justify-content: space-around;
   height: auto;
   padding-top: 0rem;
-  margin-right: 5rem;
+  /* margin-right: 5rem; */
   width: 100%;
-  max-width: 1400px;
+  max-width: 900px;
   margin: auto auto;
   gap: 1rem;
+  padding: 0 0.5rem 0rem 0.5rem;
   border: 1px solid rgb(184, 184, 184);
 }
 
 .segmento-preview {
-  width: 40%;
+  width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding-top: 1rem;
   gap: 2rem;
   height: auto;
 }
@@ -68,12 +70,12 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 500px;
   height: auto;
-  padding-bottom: 2rem;
-  margin: auto auto;
+  margin: 0;
 }
 
+/*   CheckBoxs   */
 .formularioAgregarProducto {
   display: flex;
   flex-direction: column;
@@ -87,15 +89,14 @@
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
-  width: 700px;
+  width: 500px;
   height: 260px;
   margin: 0.5rem 0rem 1rem 0rem;
 }
 
 .item-grid-check {
-  width:220px;
+  width: 220px;
 }
-
 
 .formgroup-check-boxs {
   border: 1px solid grey;

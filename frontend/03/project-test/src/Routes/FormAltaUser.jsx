@@ -316,16 +316,16 @@ const FormAltaUser = () => {
   return (
     <Container
       
-      style={{ marginTop: "7rem", minHeight: "1000px", maxWidth: "330px" }}
+      style={{ marginTop: "0rem", minHeight: "760px", maxWidth: "330px" }}
     >
  
       <Stack
-      marginTop={{ xs: "18rem", sm: "18rem"}}
+      marginTop={{ xs: "8rem", sm: "8rem"}}
         style={{
           placeItems: "center",
           gap: "0rem",
           paddingBottom: "2rem",
-          minHeight: "1000px",
+          minHeight: "760px",
         }}
       >
         <Typography variant="h4" style={{ color: "#9dd6b3" }}>
@@ -429,7 +429,7 @@ const FormAltaUser = () => {
               onChange={onChangePassword}
               required
               margin="normal"
-              style={{ borderColor: passwordValido ? "" : "red" }}
+              style={{ borderColor: passwordValido ? "" : "#cc2e2e" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -462,7 +462,7 @@ const FormAltaUser = () => {
               onChange={onChangeConfirmacionPassword}
               required
               margin="normal"
-              style={{ borderColor: passwordValido ? "" : "red" }}
+              style={{ borderColor: passwordValido ? "" : "#cc2e2e" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

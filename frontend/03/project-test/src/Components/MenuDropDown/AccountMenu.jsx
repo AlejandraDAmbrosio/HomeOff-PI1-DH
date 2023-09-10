@@ -21,13 +21,14 @@ import { Link } from "react-router-dom";
 import { BsHeart } from "react-icons/bs";
 import FormIngreso from "../../Routes/FormIngreso";
 import Modal from "@mui/material/Modal";
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
+import { Stack } from "@mui/system";
 
 export default function AccountMenu() {
   const { usuarioLogueado, iniciarSesion, cerrarSesion } =
@@ -74,8 +75,6 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            {/* <Avatar sx={{ width: 50, height: 50 }}>M</Avatar> */}
-
             <AvatarNav></AvatarNav>
           </IconButton>
         </Tooltip>
@@ -90,7 +89,9 @@ export default function AccountMenu() {
           elevation: 0,
           sx: {
             overflow: "visible",
+            maxWidth: "320px",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+
             mt: 1.5,
             "& .MuiAvatar-root": {
               width: 32,
@@ -104,7 +105,7 @@ export default function AccountMenu() {
               position: "absolute",
               top: 0,
               right: 5,
-              width: 20,
+              width: 13,
               height: 15,
               bgcolor: "background.paper",
               transform: "translateY(-50%) rotate(45deg)",
@@ -128,19 +129,48 @@ export default function AccountMenu() {
           </MenuItem>
         )}
 
-
         {usuarioLogueado && (
-          <MenuItem
-            onClick={() => {
-              handleOpenDialog(); // Abre el diálogo de confirmación
-            }}
-          >
-            <ListItemIcon>
-              <Logout />
-            </ListItemIcon>
-            Cerrar sesión
+          <MenuItem onClick={handleClose}>
+            <Stack
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
+                height:"40px",
+              
+               
+              }}
+            >
+              <AvatarNav />
+              <Stack spacing={0.3} alignItems={"flex-start"} justifyContent={"space-between"}>
+                <div
+                  style={{
+                    fontSize: "7px",
+                    lineHeight: "8px",
+                    color: "#424242",
+                  }}
+                >
+                  Conectado como
+                </div>
+                <div
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "20px",
+                    fontWeight: "600",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    maxWidth: "180px",
+                  }}
+                >
+                  {usuarioLogueado}
+                </div>
+              </Stack>
+            </Stack>
           </MenuItem>
         )}
+
+        <Divider />
 
         {!usuarioLogueado && (
           <MenuItem>
@@ -148,12 +178,6 @@ export default function AccountMenu() {
               <PersonAddIcon />
             </ListItemIcon>
             <Link to="/formaltauser/">Crear Cuenta</Link>
-          </MenuItem>
-        )}
-
-        {usuarioLogueado && (
-          <MenuItem onClick={handleClose}>
-            <Avatar /> {usuarioLogueado}
           </MenuItem>
         )}
 
@@ -167,7 +191,6 @@ export default function AccountMenu() {
             </MenuItem>
           </Link>
         )}
-        <Divider />
 
         {usuarioLogueado && (
           <Link to="/favoritos/1">
@@ -179,9 +202,8 @@ export default function AccountMenu() {
             </MenuItem>
           </Link>
         )}
+
         <Divider />
-
-
         {usuarioLogueado && (
           /*usuarioLogueado.rol == "ADMINISTRADOR" &&*/ <Link to="/administradorproductos/">
             <MenuItem onClick={handleClose}>
@@ -191,6 +213,21 @@ export default function AccountMenu() {
               Panel Administrador
             </MenuItem>
           </Link>
+        )}
+
+        <Divider />
+
+        {usuarioLogueado && (
+          <MenuItem
+            onClick={() => {
+              handleOpenDialog(); // Abre el diálogo de confirmación
+            }}
+          >
+            <ListItemIcon>
+              <Logout />
+            </ListItemIcon>
+            Cerrar sesión
+          </MenuItem>
         )}
       </Menu>
 

@@ -189,12 +189,14 @@ export const ContextProvider = ({ children }) => {
   const [userIdLogIn, setUserIdLogIn] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const [userLogIn, setUserLogIn] = useState({
     username: "",
     password: "",
   });
   const [errorLogueo, setErrorLogueo] = useState("");
+  // const [mensajeLog, setMensajeLog] = useState("");
 
   const realizarLogIn = async () => {
     const { username, password } = userLogIn;
@@ -222,11 +224,13 @@ export const ContextProvider = ({ children }) => {
 
     try {
       const response = await fetch(urlBaseGuardar, options);
-
+      setErrorLogueo("Logueando usuario...");
       if (response.ok) {
+        setErrorLogueo(`Gracias por ingresar ${username}`);
         const data = await response.json();
-
+       
         if (data.token) {
+          setErrorLogueo(`Gracias por ingresar ${username}`);
           handleSuccessfulLogin(data);
         } else {
           setErrorLogueo("Error al iniciar sesión: No se recibió un token");
@@ -234,16 +238,16 @@ export const ContextProvider = ({ children }) => {
       } else if (response.status === 401) {
         setErrorLogueo("Credenciales incorrectas");
       } else {
-        setErrorLogueo("Error al iniciar sesión");
+        setErrorLogueo("Error al iniciar sesión. Por favor, revisa tus credenciales.");
       }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      setErrorLogueo("Error al iniciar sesión");
+      setErrorLogueo("Error al iniciar sesión. Por favor, revisa tus credenciales.");
     }
   };
 
   const handleSuccessfulLogin = (data) => {
-    setErrorLogueo("");
+    // setErrorLogueo(`Gracias por ingresar ${username}`);
     localStorage.setItem("token", data.token);
     localStorage.setItem("username", userLogIn.username);
     setUsuarios(data);
@@ -251,7 +255,8 @@ export const ContextProvider = ({ children }) => {
     const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
     localStorage.setItem("userId", idUser);
     setUserIdLogIn(idUser);
-    window.location.replace("/");
+    setLoginSuccess(true);
+    // window.location.replace("/");
   };
 
 
@@ -284,7 +289,7 @@ export const ContextProvider = ({ children }) => {
 
   /////////////////////////////  Productos a mostrar en busqueda ////////////
   const [prodFiltrados, setProdFiltrados] = useState([]);
-const [ busquedaCero, setBusquedaCero]= useState("");
+const [ busquedaCero, setBusquedaCero]= useState(false);
   const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
 
  
@@ -294,7 +299,7 @@ const [ busquedaCero, setBusquedaCero]= useState("");
         setTituloListadoProductos(`Resultados de tu búsqueda ${prodFiltrados.length} productos`);
       } else if (prodFiltrados.length === 0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/) {
       
-        setTituloListadoProductos("No se encontraron resultados");
+        setTituloListadoProductos("Productos");
       }
     }
 
@@ -305,6 +310,8 @@ const [ busquedaCero, setBusquedaCero]= useState("");
   return (
     <ContextGlobal.Provider
       value={{
+        loginSuccess, setLoginSuccess,
+
         busquedaCero, setBusquedaCero,
         tituloListadoProductos,
         favoritos,
@@ -330,6 +337,7 @@ const [ busquedaCero, setBusquedaCero]= useState("");
         errorLogueo,
         userLogIn,
         setUserLogIn,
+        setErrorLogueo,
         realizarLogIn,
         prodFiltrados,
         setProdFiltrados,

@@ -15,6 +15,7 @@ import {
   FormGroup,
   Checkbox,
   Button,
+  Typography,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
@@ -32,7 +33,7 @@ const AgregarProducto = () => {
   } = useContext(ContextGlobal);
 
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
-  const [nombreYaExiste, setNombreYaExiste] = useState(true);
+  const [nombreYaExiste, setNombreYaExiste] = useState(false);
   const [form, setForm] = useState(false);
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
 
@@ -348,46 +349,45 @@ const AgregarProducto = () => {
       <div className="administracion-agre-titulo">Agregar productos</div>
       <div className="paneles-agregar">
         <PanelAdminUser />
-        <div
-          className="division-form-preview"
-          style={{ padding: "0rem 2rem", maxWidth: "1500px" }}
-        >
+        <div className="division-form-preview">
           <div className="pagina-formulario-alta-producto">
             <FormControl
               onSubmit={handleSubmitCrearProducto}
-              style={{ padding: "1rem 2rem", width: "890px" }}
+              style={{ padding: "1rem 0rem", width: "500px" }}
             >
               <h1 className="titulo-form-carga-prod">Carga de producto</h1>
               <div className="formularioAgregarProducto">
-                <TextField
-                  id="nombreProducto"
-                  label="Nombre del producto"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa el nombre del producto "
-                  value={nuevoProducto.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                />
-                {!nombreProductoValido ? (
-                  <p className="error-nombre-existe">
-                    Ingrese un nombre que tenga mas de 3 y menos de 30
-                    caracteres y solo letras.
-                  </p>
-                ) : (
-                  ""
-                )}
-                {nombreYaExiste ? (
-                  <p className="error-nombre-existe">
-                    Ya existe un producto con el mismo nombre. Por favor,
-                    indique un nuevo nombre.
-                  </p>
-                ) : (
-                  ""
-                )}
-
+                <div style={{ width: "400px", display:"flex", flexDirection:"column", gap:"1rem"  }}>
+                  <TextField
+                    id="nombreProducto"
+                    label="Nombre del producto"
+                    variant="standard"
+                    className="campo-formulario"
+                    type="text"
+                    placeholder="Ingresa el nombre del producto "
+                    value={nuevoProducto.nombre}
+                    onChange={onChangeNombre}
+                    required
+                    margin="normal"
+                    // style={{ width: "400px" }}
+                  />
+                  {!nombreProductoValido ? (
+                    <Typography className="error-nombre-existe">
+                      Ingrese un nombre que tenga mas de 3 y menos de 30
+                      caracteres y solo letras.
+                    </Typography>
+                  ) : (
+                    ""
+                  )}
+                  {nombreYaExiste ? (
+                    <p className="error-nombre-existe">
+                      Ya existe un producto con el mismo nombre. Por favor,
+                      indique un nuevo nombre.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 {/* /////////--------------------------------////// */}
 
                 <TextField
@@ -401,7 +401,7 @@ const AgregarProducto = () => {
                   onChange={onChangeDescripcion}
                   required
                   margin="normal"
-                  style={{ width: "700px" }}
+                  style={{ width: "400px" }}
                 />
                 {/* /////////--------------------------------////// */}
                 <div
@@ -409,6 +409,7 @@ const AgregarProducto = () => {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "450px",
                   }}
                 >
                   <TextField
@@ -416,7 +417,7 @@ const AgregarProducto = () => {
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "300px" }}
+                    style={{ width: "220px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -464,39 +465,13 @@ const AgregarProducto = () => {
                   </TextField>
 
                   {/* //////////////////// */}
-                  <TextField
-                    id="capacidad maxima"
-                    select
-                    type="number"
-                    value={nuevoProducto.capacidadMáxima}
-                    onChange={onChangeCapacidadMáxima}
-                    label="Capacidad máxima"
-                    defaultValue="1"
-                    style={{ width: "150px" }}
-                    margin="normal"
-                    SelectProps={{
-                      native: true,
-                    }}
-                    helperText="Elija una capacidad máxima"
-                    variant="standard"
-                    required
-                  >
-                    {capacidadArray.map((cant) => (
-                      <option
-                        key={cant.id}
-                        className="item-grid"
-                        value={cant.cantidad}
-                      >
-                        {cant.cantidad}{" "}
-                      </option>
-                    ))}
-                  </TextField>
                 </div>
                 {/* -/////////////////////////////////////// */}
                 <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
+                  style={{ maxWidth: "600px" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
@@ -525,22 +500,9 @@ const AgregarProducto = () => {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "600px",
                   }}
                 >
-                  <TextField
-                    id="precioProducto"
-                    label="Ingresa el precio del producto"
-                    type="number"
-                    value={nuevoProducto.precioUnitario}
-                    onChange={onChangePreciounitario}
-                    margin="normal"
-                    style={{ width: "150px" }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="standard"
-                  />
-                  {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
                     id="sede"
                     select
@@ -569,6 +531,31 @@ const AgregarProducto = () => {
                     ))}
                   </TextField>
 
+                  <TextField
+                    id="precioProducto"
+                    label="Ingresa el precio del producto"
+                    type="number"
+                    value={nuevoProducto.precioUnitario}
+                    onChange={onChangePreciounitario}
+                    margin="normal"
+                    style={{ width: "150px" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    maxWidth: "600px",
+                  }}
+                >
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
                     id="disponible"
@@ -576,7 +563,7 @@ const AgregarProducto = () => {
                     type="text"
                     label="Esta Disponible?"
                     defaultValue="Argentina"
-                    style={{ width: "200px" }}
+                    style={{ width: "300px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -593,6 +580,35 @@ const AgregarProducto = () => {
                     <option className="item-grid" value="No disponible">
                       No disponible
                     </option>
+                  </TextField>
+
+                  {/* ////////////// */}
+                  <TextField
+                    id="capacidad maxima"
+                    select
+                    type="number"
+                    value={nuevoProducto.capacidadMáxima}
+                    onChange={onChangeCapacidadMáxima}
+                    label="Capacidad máxima"
+                    defaultValue="1"
+                    style={{ width: "120px" }}
+                    margin="normal"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    // helperText="Elija una capacidad máxima"
+                    variant="standard"
+                    required
+                  >
+                    {capacidadArray.map((cant) => (
+                      <option
+                        key={cant.id}
+                        className="item-grid"
+                        value={cant.cantidad}
+                      >
+                        {cant.cantidad}{" "}
+                      </option>
+                    ))}
                   </TextField>
                 </div>
 
