@@ -1,14 +1,30 @@
 import React, { useState, useContext } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
 import "../Components/FormIngreso.css";
-import { Button,  FormControl, IconButton,Modal,  Paper,TextField,
-  Typography,Backdrop} from "@mui/material";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+  Backdrop,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import FormAltaUser from "./FormAltaUser";
 
 const FormIngreso = () => {
-  const { usuarioLogueado,realizarLogIn, iniciarSesion, userLogIn, errorLogueo, setUserLogIn } = useContext(ContextGlobal);
+  const {
+    usuarioLogueado,
+    realizarLogIn,
+    iniciarSesion,
+    userLogIn,
+    errorLogueo,
+    setErrorLogueo,
+    setUserLogIn,
+  } = useContext(ContextGlobal);
 
   // Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
@@ -23,7 +39,6 @@ const FormIngreso = () => {
 
   const handleClose = () => {
     setOpen(false);
-    window.location.replace("/");
   };
 
   /////////// Definicion de User/Objeto
@@ -44,8 +59,6 @@ const FormIngreso = () => {
 
   //   validarNombre(newValue);
   // };
-
-
 
   const onChangeEmail = (e) => {
     const newValue = e.target.value;
@@ -101,13 +114,12 @@ const FormIngreso = () => {
   const validarFormulario = () => {
     return (
       // validarNombre(usuario.nombre) &&
-      validarEmail(usuario.username) &&
-      validarPassword(usuario.password)
+      validarEmail(usuario.username) && validarPassword(usuario.password)
     );
   };
 
   ///////handleSubmit //////
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validarFormulario()) {
@@ -115,26 +127,35 @@ const FormIngreso = () => {
       console.log("Datos Enviados");
       console.log(usuario);
 
-
       setUserLogIn({
         username: usuario.username,
         password: usuario.password,
       });
-      console.log("Que datos enviamos del user? ")
-      console.log(userLogIn)
+      console.log("Que datos enviamos del user? ");
+      console.log(userLogIn);
+
+      setErrorLogueo("Logueando usuario...");
+
+      try {
+        // Realizar la solicitud de inicio de sesión
+        await realizarLogIn(userLogIn);
+
+        // Si la solicitud es exitosa, se actualizará usuarioLogueado
+        // y mostrará el mensaje de agradecimiento
+
+        setErrorLogueo("Logueando usuario...");
+
+        // Espera a que usuarioLogueado se actualice antes de abrir el modal
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        setErrorLogueo(`Gracias por ingresar ${usuario.username}`);
+        handleOpen();
+      } catch (error) {
+        // Si la solicitud falla, se mostrará el mensaje de error
+        setErrorLogueo("Por favor, revise las credenciales.");
+        handleOpen();
+      }
 
       //ENVIAR DATOS
-      realizarLogIn(userLogIn);
-
-
-
-      // setUsuario({
-      //   username: usuario.username,
-      //   password:usuario.password,
-      // });
-    
- 
-
     } else {
       setForm(false);
       console.log("Datos No Enviados");
@@ -145,7 +166,7 @@ const FormIngreso = () => {
         password: "",
       });
     }
-    handleOpen();
+    // handleOpen();
   };
 
   return (
@@ -155,7 +176,7 @@ const FormIngreso = () => {
           sx={{
             width: "320px",
             overflow: "hidden",
-            position: "relative", 
+            position: "relative",
           }}
           style={{
             placeItems: "center",
@@ -179,17 +200,8 @@ const FormIngreso = () => {
           </IconButton>
 
           <div>
-          {errorLogueo && <p>{errorLogueo}</p>}
-
-            {usuarioLogueado ? (
-              <h5 className="msj-form-guardado">
-                Gracias!! Has ingresado como usuario{" "}
-                {usuarioLogueado} a HomeOFF !
-              </h5>
-            ) : (
-              <h5 className="msj-form-guardado">
-                Por favor, revise las credenciales.
-              </h5>
+            {errorLogueo && (
+              <h5 className="msj-form-guardado">{errorLogueo}</h5>
             )}
           </div>
         </Paper>
@@ -199,23 +211,26 @@ const FormIngreso = () => {
         <Paper
           sx={{
             width: "auto",
-            maxWidth:"320px",
-            margin:"auto",
+            maxWidth: "320px",
+            margin: "auto",
             overflow: "hidden",
             height: "fitContent",
-             justifyContent: "spaceAround",
-            padding:"1rem"
+            justifyContent: "spaceAround",
+            padding: "1rem",
           }}
           style={{
             margin: "auto",
             justifyContent: "spaceBetween",
             marginTop: "5rem",
             height: "fitContent",
-            alignContent:"center"
+            alignContent: "center",
           }}
         >
           <div className="pagina-formulario-Ingreso">
-            <Typography style={{fontSize:"30px"}}> Inicia sesión ahora</Typography>
+            <Typography style={{ fontSize: "30px" }}>
+              {" "}
+              Inicia sesión ahora
+            </Typography>
 
             <FormControl
               onSubmit={handleSubmit}
@@ -306,9 +321,11 @@ const FormIngreso = () => {
                 </Button>
               </div>
             </FormControl>
-            
+
             <div className="acceso-cuenta-o-usuarionuevo">
-              <div onClick={() => window.location.replace("/formaltauser")}>No tenés cuenta?</div>
+              <div onClick={() => window.location.replace("/formaltauser")}>
+                No tenés cuenta?
+              </div>
               {/* <div>No tenés cuenta?</div> */}
               <div>Se te olvidó tu contraseña?</div>
             </div>

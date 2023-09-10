@@ -67,7 +67,7 @@ const TablaCaracteristicas = () => {
       ...nuevaCaracteristica,
       logoCaracteristica: e.target.value,
     });
-  
+
     setNombreCaracteristicaValida(true);
   };
 
@@ -103,35 +103,39 @@ const TablaCaracteristicas = () => {
         idCaracteristica: 0,
       };
 
-      const urlBaseGuardar = "http://52.32.210.155:8080/api/v1/caracteristicas/save";
+      const urlBaseGuardar =
+        "http://52.32.210.155:8080/api/v1/caracteristicas/save";
 
-        const token = localStorage.getItem('token');
-        console.log("token previo a agregar caracteristicas", token)
+      const token = localStorage.getItem("token");
+      console.log("token previo a agregar caracteristicas", token);
 
-        try {
-          const response = await fetch(urlBaseGuardar, {
-            method: 'POST',
-            url:urlBaseGuardar,
-            headers: {
-              'Content-Type': 'application/json',
-              // Puedes agregar tu token de autenticación aquí
-              'Authorization': `Bearer "${token}"`,
-            },
-            body: JSON.stringify(nuevaCaracteristicaData),
-         
-          });
-        
-          if (response.ok) {
-            const responseData = await response.json();
-            console.log('Respuesta:', responseData);
-            getCaracteristicasLista();
-            handleClose();
-          } else {
-            console.error('Error en la respuesta:', response.status, response.statusText);
-          }
-        } catch (error) {
-          console.error('Error:', error);
+      try {
+        const response = await fetch(urlBaseGuardar, {
+          method: "POST",
+          url: urlBaseGuardar,
+          headers: {
+            "Content-Type": "application/json",
+
+            Authorization: `Bearer "${token}"`,
+          },
+          body: JSON.stringify(nuevaCaracteristicaData),
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log("Respuesta:", responseData);
+          getCaracteristicasLista();
+          handleClose();
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
         }
+      } catch (error) {
+        console.error("Error:", error);
+      }
 
       // try {
       //   // const jsonData = JSON.stringify(nuevaCaracteristicaData);
@@ -239,14 +243,13 @@ const TablaCaracteristicas = () => {
         style={{ margin: "0 20px 0 0" }}
       >
         <TableContainer
-          sx={{maxHeight: 500,   width: "100%"}}
+          sx={{ maxHeight: 500, width: "100%" }}
           style={{
             borderRadius: ":var(--bRadiusButton)",
           }}
         >
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-
               <TableRow
                 style={{
                   backgroundColor: "lightgray",
@@ -260,10 +263,8 @@ const TablaCaracteristicas = () => {
                 <TableCell>Nombre</TableCell>
                 <TableCell>Eliminar</TableCell>
               </TableRow>
-
             </TableHead>
             <TableBody>
-
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
                 <TableRow key={idCaracteristica} style={{ height: "30px" }}>
                   <TableCell style={{ width: "200px" }}>

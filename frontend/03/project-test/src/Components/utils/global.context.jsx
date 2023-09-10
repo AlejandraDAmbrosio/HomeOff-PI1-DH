@@ -195,6 +195,7 @@ export const ContextProvider = ({ children }) => {
     password: "",
   });
   const [errorLogueo, setErrorLogueo] = useState("");
+  // const [mensajeLog, setMensajeLog] = useState("");
 
   const realizarLogIn = async () => {
     const { username, password } = userLogIn;
@@ -251,7 +252,7 @@ export const ContextProvider = ({ children }) => {
     const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
     localStorage.setItem("userId", idUser);
     setUserIdLogIn(idUser);
-    window.location.replace("/");
+    // window.location.replace("/");
   };
 
 
@@ -330,6 +331,7 @@ const [ busquedaCero, setBusquedaCero]= useState("");
         errorLogueo,
         userLogIn,
         setUserLogIn,
+        setErrorLogueo,
         realizarLogIn,
         prodFiltrados,
         setProdFiltrados,
