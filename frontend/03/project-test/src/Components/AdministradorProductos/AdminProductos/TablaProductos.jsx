@@ -44,6 +44,8 @@ const TablaProductos = () => {
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
+  const tokenUser = localStorage.getItem("token")
+
   useEffect(() => {
     getCategoriasLista();
   }, []);
@@ -51,15 +53,18 @@ const TablaProductos = () => {
   /////////////// Metodo Eliminar Producto
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
+  console.log("-------------- > tokenUser", tokenUser);
 
+  // const headers={}
 
   const eliminarRecurso = async (idRecurso) => {
     try {
-      const response = await axios.get(
+      const response = await axios.delete(
         `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`,
         {
           headers: {
-            "Access-Control-Allow-Origin": "*", // O reemplaza '*' con tu dominio permitido
+            "Authorization": `Bearer ${tokenUser}`,
+            // O reemplaza '*' con tu dominio permitido
             // Otros encabezados si es necesario
           },
         }

@@ -21,7 +21,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
   const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
-  const jwt = localStorage.getItem("jwt");
+  const token = localStorage.getItem("token");
   const {
     productosBKLista,
     setProductosBKLista,
@@ -272,16 +272,12 @@ const AgregarProducto = () => {
         imagenURL: "",
         imagenUrl03: "",
         imagenUrl04: "",
-        tieneCafetería: servicios.tieneCafetería ? 1 : 0,
-        tieneWifi: servicios.tieneWifi ? 1 : 0,
-        tieneLokker: servicios.tieneLokker ? 1 : 0,
-        tieneFotocopiadoraImpresion: servicios.tieneFotocopiadoraImpresion
-          ? 1
-          : 0,
-        tieneEspacioDescanso: servicios.tieneEspacioDescanso ? 1 : 0,
-        tieneEstaciónCafeAguaAromatica: servicios.tieneEstaciónCafeAguaAromatica
-          ? 1
-          : 0,
+        tieneCafetería:  1,
+        tieneWifi: 1,
+        tieneLokker: 1,
+        tieneFotocopiadoraImpresion: 1,
+        tieneEspacioDescanso:1,
+        tieneEstaciónCafeAguaAromatica: 1,
       };
 
       console.log(
@@ -290,12 +286,13 @@ const AgregarProducto = () => {
       console.log(nuevoProductoData);
 
       // enviarDatos();
-
+console.log(" ---------------- > Agregar Producto - token" ,token)
       try {
         const jsonData = JSON.stringify(nuevoProductoData);
-        const response = await axios.post(urlBase, jsonData, {
+        const response = await axios.get(urlBase, jsonData, {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
         });
 
