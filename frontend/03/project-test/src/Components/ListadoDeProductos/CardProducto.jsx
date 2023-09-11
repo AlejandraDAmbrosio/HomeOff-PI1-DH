@@ -30,6 +30,8 @@ const CardProducto = ({
   servicio2,
   servicio3,
   puntuacion,
+ 
+  
 }) => {
   const {
     isFav,
@@ -38,22 +40,34 @@ const CardProducto = ({
     favoritosXID,
     puntosPromedioXIDRecurso,
     getPuntosPromedioXIDRecurso,
-    userIdLogIn,
     getFavoritos,
     favoritos,
     setFavoritos,
     usersLista,
+    getListaFavXUserID,
+    listaFavXUserId,
+    idUser,
+    idUsuario,
+    userIdLogIn
   } = useContext(ContextGlobal);
-
+  const userId = localStorage.getItem("idUsuario");
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
-    getIsFav(id);
   }, [id]);
-  console.log("usersLista", usersLista);
-  const userId = localStorage.getItem("userId");
-  console.log("userId", userId);
-  const esFav = usersLista.some((item) => item.idUsuario === 4);
-  console.log("esFav", esFav);
+
+  useEffect(() => {
+    getListaFavXUserID(userId);
+  }, [userId]);
+
+
+
+
+  console.log("idUsuario", userIdLogIn);
+  console.log("idRecurso", id);
+  console.log("listaFavXUserId", listaFavXUserId);
+
+  const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
+  console.log("esFav", esFav, ". id producto: ",id , ". id User: ", userIdLogIn );
   const estrellas = puntosPromedioXIDRecurso;
 
   return (

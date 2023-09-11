@@ -29,7 +29,8 @@ const EditarProducto = () => {
   const { id } = useParams();
 
   const urlBase = "http://52.32.210.155:8080/api/v1/recursos/update";
-  const jwt = localStorage.getItem("jwt");
+
+  
   const {
     productosBKLista,
     setProductosBKLista,

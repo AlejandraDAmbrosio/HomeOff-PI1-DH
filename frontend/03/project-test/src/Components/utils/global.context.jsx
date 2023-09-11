@@ -6,7 +6,7 @@ import buscadorNombresEnLogIn from "./buscadorNombresEnLogIn";
 export const ContextProvider = ({ children }) => {
   //////////////////////////LOGUEO //////////////////Autenticacion
   const [cargandoUsuario, setCargandoUsuario] = useState(true);
-  const [userIdLogIn, setUserIdLogIn] = useState([]);
+  const [userIdLogIn, setUserIdLogIn] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -202,26 +202,14 @@ export const ContextProvider = ({ children }) => {
 
   const getDatosUsers = async (tokenUserState) => {
     const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
-    // const getTokenUser = localStorage.getItem("token");
     console.log("-------------- > getTokenUser", tokenUserState);
     console.log("-------------- > urlUsers", urlUsers);
 
     try {
-      // const getTokenUser = localStorage.getItem("token");
       const response = await axios.get(
         urlUsers,
         headers
-        //   {
-        //   headers: {
-
-        //     "Authorization": `Bearer ${tokenUserState}`
-        //   },
-        // }
       );
-      // try {
-      //   const response = await axios.get(urlUsers, getTokenUser,
-      //       // Authorization: `Bearer ${getTokenUser}`, // Sin comillas adicionales
-      //     );
 
       if (response.status === 200) {
         const data = response.data;
@@ -329,14 +317,21 @@ export const ContextProvider = ({ children }) => {
     setFavoritosXID(newArray);
   };
 
-  const getIsFav = async (id) => {
+  // const getIsFav = async (id) => {
+  //   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+  //   const data = await res.json();
+  //   console.log("Data antes de inyectarse ///getIsFav/////////////", data);
+  //   const esFav = data.setNombreCompleto((item) => item.idUsuario === userIdLogIn);
+
+  //   console.log("esFav", esFav);
+  //   setIsFav(esFav);
+  // };
+const [listaFavXUserId, setListaFavXUserId] = useState([]);
+
+ const getListaFavXUserID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    console.log("Data antes de inyectarse ///getIsFav/////////////", data);
-    const esFav = data.find((item) => item.idUsuario === userIdLogIn);
-
-    console.log("esFav", esFav);
-    setIsFav(esFav);
+    setListaFavXUserId(data);
   };
 
   const getFavoritos = async (id) => {
@@ -403,6 +398,9 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
+        listaFavXUserId, 
+        setListaFavXUserId, 
+        getListaFavXUserID, 
         tokenUserState,
         setTokenUserState,
         isAdmin,
@@ -419,7 +417,7 @@ export const ContextProvider = ({ children }) => {
         tituloListadoProductos,
         favoritos,
         setFavoritos,
-        getIsFav,
+        // getIsFav,
         getFavoritos,
         isFav,
         setIsFav,

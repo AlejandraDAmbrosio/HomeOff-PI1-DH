@@ -37,7 +37,7 @@ function App() {
     if (token) {
       const token = localStorage.getItem("token");
       const user = localStorage.getItem("nombreCompleto");
-      const userId = localStorage.getItem("userId");
+      const userId = localStorage.getItem("idUsuario");
       const rol = localStorage.getItem("rol");
 
       const nombreCategoria = localStorage.getItem("nombreCategoria");
