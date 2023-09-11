@@ -14,8 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/caracteristicas")
-//@CrossOrigin("*")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class CaracteristicasController {
 
     @Autowired
@@ -26,7 +25,7 @@ public class CaracteristicasController {
         var result=iCaracteristicasService.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @GetMapping("/unico/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Caracteristicas> list(@PathVariable int id){
         Optional<Caracteristicas> buscarPorId = iCaracteristicasService.findById(id);
         if (buscarPorId.isPresent()) {
@@ -36,7 +35,7 @@ public class CaracteristicasController {
         }
     }
 
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody Caracteristicas caracteristicas){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCaracteristicasService.save(caracteristicas);
@@ -54,7 +53,7 @@ public class CaracteristicasController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCaracteristicasService.deleteById(id);

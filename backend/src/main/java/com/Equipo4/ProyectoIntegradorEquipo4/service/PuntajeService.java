@@ -3,6 +3,7 @@ package com.Equipo4.ProyectoIntegradorEquipo4.service;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Puntaje;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.PuntajeRespuesta;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
+<<<<<<< HEAD
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuarios;
 import com.Equipo4.ProyectoIntegradorEquipo4.repository.IPuntajeRepository;
 import com.Equipo4.ProyectoIntegradorEquipo4.repository.IRecursosRepository;
@@ -13,6 +14,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+=======
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuario;
+import com.Equipo4.ProyectoIntegradorEquipo4.repository.IPuntajeRepository;
+import com.Equipo4.ProyectoIntegradorEquipo4.repository.IRecursosRepository;
+import com.Equipo4.ProyectoIntegradorEquipo4.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+>>>>>>> d71557cc5c7f4abd16e71abc1a9769aea84fdf64
 import java.util.List;
 
 @Service
@@ -20,6 +30,7 @@ public class PuntajeService implements IPuntajeService {
 
     private final IPuntajeRepository puntajeRepository;
     private final IRecursosRepository recursosRepository;
+<<<<<<< HEAD
     private final IUsuariosRepository usuariosRepository;
 
     @Autowired
@@ -27,6 +38,15 @@ public class PuntajeService implements IPuntajeService {
         this.puntajeRepository = puntajeRepository;
         this.recursosRepository = recursosRepository;
         this.usuariosRepository = usuariosRepository;
+=======
+    private final UsuarioRepository usuarioRepository;
+
+    @Autowired
+    public PuntajeService(IPuntajeRepository puntajeRepository, IRecursosRepository recursosRepository, UsuarioRepository usuarioRepository) {
+        this.puntajeRepository = puntajeRepository;
+        this.recursosRepository = recursosRepository;
+        this.usuarioRepository = usuarioRepository;
+>>>>>>> d71557cc5c7f4abd16e71abc1a9769aea84fdf64
     }
 
     public Puntaje guardarPuntaje(Puntaje puntaje) throws Exception {
@@ -35,7 +55,11 @@ public class PuntajeService implements IPuntajeService {
         Recursos recurso = recursosRepository.findById(puntaje.getIdRecurso())
                 .orElseThrow(() -> new Exception("El recurso no existe"));
 
+<<<<<<< HEAD
         Usuarios usuario = usuariosRepository.findById(puntaje.getIdUsuario())
+=======
+        Usuario usuario = usuarioRepository.findById(puntaje.getIdUsuario())
+>>>>>>> d71557cc5c7f4abd16e71abc1a9769aea84fdf64
                 .orElseThrow(() -> new Exception("El usuario no existe"));
 
         Puntaje nuevoPuntaje = new Puntaje();
@@ -64,7 +88,11 @@ public class PuntajeService implements IPuntajeService {
             throw new Exception("El recurso no tiene valoraciones");
         }
 
+<<<<<<< HEAD
            return puntajes;
+=======
+        return puntajes;
+>>>>>>> d71557cc5c7f4abd16e71abc1a9769aea84fdf64
     }
 
     public Double calculateAverageByRecurso(Integer idRecurso) throws Exception {

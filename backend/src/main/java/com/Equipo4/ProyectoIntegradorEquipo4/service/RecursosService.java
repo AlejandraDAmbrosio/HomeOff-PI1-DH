@@ -1,7 +1,6 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
-import com.Equipo4.ProyectoIntegradorEquipo4.entities.Rol;
 import com.Equipo4.ProyectoIntegradorEquipo4.repository.IRecursosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

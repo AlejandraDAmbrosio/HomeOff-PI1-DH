@@ -1,7 +1,6 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
-import com.Equipo4.ProyectoIntegradorEquipo4.entities.Rol;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.ServiceResponse;
 import com.Equipo4.ProyectoIntegradorEquipo4.service.IRecursosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +13,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/recursos")
-//@CrossOrigin("*")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class RecursosController {
     @Autowired
     private IRecursosService iRecursosService;
+
     @GetMapping("/list")
     public ResponseEntity<List<Recursos>> list(){
         var result=iRecursosService.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    @GetMapping("/unico/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Recursos> list(@PathVariable int id){
         Optional<Recursos> buscarPorId = iRecursosService.findById(id);
         if (buscarPorId.isPresent()) {
@@ -52,7 +51,7 @@ public class RecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRecursosService.deleteById(id);
