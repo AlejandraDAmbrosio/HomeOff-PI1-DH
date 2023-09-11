@@ -72,40 +72,51 @@ export const ContextProvider = ({ children }) => {
   // }, []);
 
   const [usersLista, setUsersLista] = useState([]);
-  const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
-  const getTokenUser = localStorage.getItem("token");
+  // const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
+  // const getTokenUser = localStorage.getItem("token");
 
   console.log("-------------- > getTokenUser", getTokenUser);
-  const getDatosUsers = async () => {
-    try {
-      const response = await fetch(urlUsers, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${getTokenUser}`, 
-          // Authorization: `Bearer ${getTokenUser}`, // Sin comillas adicionales
-        },
-      });
+ 
+const getDatosUsers = async () => {
+  const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
+  const getTokenUser = localStorage.getItem("token");
+  console.log("-------------- > getTokenUser", getTokenUser);
+  console.log("-------------- > urlUsers", urlUsers);
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Respuesta:", data);
-        setUsersLista(data);
-      } else {
-        console.error(
-          "Error en la respuesta:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
+
+  try {
+    const response = await axios.get(urlUsers, {
+      headers: {
+        // "Content-Type": "application/json",
+        // "Access-Control-Allow-Origin": "*",
+        // Authorization: getTokenUser,
+        "Authorization": "Bearer " + getTokenUser // Sin comillas adicionales
+      },
+    });
+    // try {
+    //   const response = await axios.get(urlUsers, getTokenUser,
+    //       // Authorization: `Bearer ${getTokenUser}`, // Sin comillas adicionales
+    //     );
+
+    if (response.status === 200) {
+      const data = response.data;
+      console.log("Respuesta:", data);
+      setUsersLista(data);
+    } else {
+      console.error(
+        "Error en la respuesta:",
+        response.status,
+        response.statusText
+      );
     }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
-  useEffect(() => {
-    getDatosUsers();
-  }, []);
+useEffect(() => {
+  getDatosUsers();
+}, []);
 
   /////////////////////////////////GetCategorias
   const [categoriasLista, setCategoriasLista] = useState([]);
