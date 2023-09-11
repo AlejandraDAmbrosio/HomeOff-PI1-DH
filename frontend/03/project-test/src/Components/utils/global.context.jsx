@@ -4,6 +4,128 @@ import axios from "axios";
 import buscadorNombresEnLogIn from "./buscadorNombresEnLogIn";
 
 export const ContextProvider = ({ children }) => {
+ //////////////////////////LOGUEO //////////////////Autenticacion
+ const [cargandoUsuario, setCargandoUsuario] = useState(true);
+ const [userIdLogIn, setUserIdLogIn] = useState([]);
+ const [usuarios, setUsuarios] = useState([]);
+ const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+ const [loginSuccess, setLoginSuccess] = useState(false);
+ const [rol, setRol] = useState("");
+ const [nombreCompleto, setNombreCompleto] = useState(null);
+ const [isAdmin, setIsAdmin] = useState(null);
+ const [ tokenUserState ,setTokenUserState] = useState(null);
+ const [userLogIn, setUserLogIn] = useState({
+   username: "",
+   password: "",
+ });
+ const [errorLogueo, setErrorLogueo] = useState("");
+ // const [mensajeLog, setMensajeLog] = useState("");
+
+ const realizarLogIn = async () => {
+   const { username, password } = userLogIn;
+
+   // Validar los datos
+   if (!username || !password) {
+     setErrorLogueo("Ingrese un nombre de usuario y una contraseña");
+     return;
+   }
+
+   // solicitud POST a la API
+   const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+   const body = JSON.stringify({
+     username,
+     password,
+   });
+   console.log("Body ", body);
+   const options = {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: body,
+   };
+
+   try {
+     const response = await fetch(urlBaseGuardar, options);
+     setErrorLogueo("Logueando usuario...");
+     if (response.ok) {
+       setErrorLogueo(`Gracias por ingresar ${username}`);
+       const data = await response.json();
+       console.log(data);
+       if (data.token) {
+         setErrorLogueo(`Gracias por ingresar ${username}`);
+         handleSuccessfulLogin(data);
+       } else {
+         setErrorLogueo("Error al iniciar sesión: No se recibió un token");
+       }
+     } else if (response.status === 401) {
+       setErrorLogueo("Credenciales incorrectas");
+     } else {
+       setErrorLogueo(
+         "Error al iniciar sesión. Por favor, revisa tus credenciales."
+       );
+     }
+   } catch (error) {
+     console.error("Error al realizar la solicitud:", error);
+     setErrorLogueo(
+       "Error al iniciar sesión. Por favor, revisa tus credenciales."
+     );
+   }
+ };
+
+ const handleSuccessfulLogin = (data) => {
+   // setErrorLogueo(`Gracias por ingresar ${username}`);
+   localStorage.setItem("token", data.token);
+   localStorage.setItem("username", data.username);
+   localStorage.setItem("idUsuario", data.idUsuario);
+   localStorage.setItem("username", data.username);
+   localStorage.setItem("rol", data.rol);
+   localStorage.setItem("nombreCompleto", data.nombreCompleto);
+
+   // const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
+   // localStorage.setItem("userId", idUser);
+   const tokenUser = localStorage.getItem("token");
+   const idUsuario = localStorage.getItem("idUsuario");
+   const rol = localStorage.getItem("rol");
+   const nombreCompletoStorage = localStorage.getItem("nombreCompleto");
+   const userNameStorage = localStorage.getItem("username");
+
+   setTokenUserState(tokenUser);
+   setLoginSuccess(true);
+   setUserIdLogIn(idUsuario);
+   setUsuarios(data);
+   setUsuarioLogueado(nombreCompletoStorage);
+   setRol(rol);
+   setNombreCompleto(nombreCompletoStorage);
+   console.log("ROL ----------------------- >", rol);
+   console.log(
+     "nombreCompleto ----------------------- >",
+     nombreCompletoStorage
+   );
+   console.log("username ----------------------- >", userNameStorage);
+   if (rol === "ADMINISTRADOR") {
+     setIsAdmin(true);
+   }
+ };
+
+ const cerrarSesion = () => {
+   localStorage.removeItem("token");
+   localStorage.removeItem("username");
+   localStorage.removeItem("idUsuario");
+   localStorage.removeItem("username");
+   localStorage.removeItem("rol");
+   localStorage.removeItem("nombreCompleto");
+   setIsAdmin(false);
+   setUsuarioLogueado(null);
+   window.location.replace("/");
+   console.log("----------Cerrando sesión. en Context .---------");
+ };
+
+ ////////////////////////////////// Registro User
+
+
+
+
   ///Modal Fotos ////
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -75,25 +197,28 @@ export const ContextProvider = ({ children }) => {
   // const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
   // const getTokenUser = localStorage.getItem("token");
 
-  console.log("-------------- > getTokenUser", getTokenUser);
- 
-const getDatosUsers = async () => {
+  console.log("-------------- > getTokenUser", tokenUserState);
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer "${tokenUserState}"`,
+  };
+const getDatosUsers = async (tokenUserState) => {
   const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
   // const getTokenUser = localStorage.getItem("token");
-  console.log("-------------- > getTokenUser", getTokenUser);
+  console.log("-------------- > getTokenUser", tokenUserState);
   console.log("-------------- > urlUsers", urlUsers);
 
 
   try {
-    const getTokenUser = localStorage.getItem("token");
-    const response = await axios.get(urlUsers, {
-      headers: {
-        // "Content-Type": "application/json",
-        // "Access-Control-Allow-Origin": "*",
-        // Authorization: getTokenUser,
-        "Authorization": `Bearer ${getTokenUser}`// Sin comillas adicionales
-      },
-    });
+    // const getTokenUser = localStorage.getItem("token");
+    const response = await axios.get(urlUsers, headers
+    //   {
+    //   headers: {
+
+    //     "Authorization": `Bearer ${tokenUserState}`
+    //   },
+    // }
+    );
     // try {
     //   const response = await axios.get(urlUsers, getTokenUser,
     //       // Authorization: `Bearer ${getTokenUser}`, // Sin comillas adicionales
@@ -235,121 +360,7 @@ useEffect(() => {
     console.log(puntosComentXIDRecurso);
   };
 
-  //////////////////////////LOGUEO //////////////////Autenticacion
-  const [cargandoUsuario, setCargandoUsuario] = useState(true);
-  const [userIdLogIn, setUserIdLogIn] = useState([]);
-  const [usuarios, setUsuarios] = useState([]);
-  const [usuarioLogueado, setUsuarioLogueado] = useState(null);
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [rol, setRol] = useState("");
-  const [nombreCompleto, setNombreCompleto] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(null);
-  const [userLogIn, setUserLogIn] = useState({
-    username: "",
-    password: "",
-  });
-  const [errorLogueo, setErrorLogueo] = useState("");
-  // const [mensajeLog, setMensajeLog] = useState("");
-
-  const realizarLogIn = async () => {
-    const { username, password } = userLogIn;
-
-    // Validar los datos
-    if (!username || !password) {
-      setErrorLogueo("Ingrese un nombre de usuario y una contraseña");
-      return;
-    }
-
-    // solicitud POST a la API
-    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
-    const body = JSON.stringify({
-      username,
-      password,
-    });
-    console.log("Body ", body);
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: body,
-    };
-
-    try {
-      const response = await fetch(urlBaseGuardar, options);
-      setErrorLogueo("Logueando usuario...");
-      if (response.ok) {
-        setErrorLogueo(`Gracias por ingresar ${username}`);
-        const data = await response.json();
-        console.log(data);
-        if (data.token) {
-          setErrorLogueo(`Gracias por ingresar ${username}`);
-          handleSuccessfulLogin(data);
-        } else {
-          setErrorLogueo("Error al iniciar sesión: No se recibió un token");
-        }
-      } else if (response.status === 401) {
-        setErrorLogueo("Credenciales incorrectas");
-      } else {
-        setErrorLogueo(
-          "Error al iniciar sesión. Por favor, revisa tus credenciales."
-        );
-      }
-    } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
-      setErrorLogueo(
-        "Error al iniciar sesión. Por favor, revisa tus credenciales."
-      );
-    }
-  };
-
-  const handleSuccessfulLogin = (data) => {
-    // setErrorLogueo(`Gracias por ingresar ${username}`);
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("username", data.username);
-    localStorage.setItem("idUsuario", data.idUsuario);
-    localStorage.setItem("username", data.username);
-    localStorage.setItem("rol", data.rol);
-    localStorage.setItem("nombreCompleto", data.nombreCompleto);
-
-    // const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
-    // localStorage.setItem("userId", idUser);
-    const idUsuario = localStorage.getItem("idUsuario");
-    const rol = localStorage.getItem("rol");
-    const nombreCompletoStorage = localStorage.getItem("nombreCompleto");
-    const userNameStorage = localStorage.getItem("username");
-
-    setLoginSuccess(true);
-    setUserIdLogIn(idUsuario);
-    setUsuarios(data);
-    setUsuarioLogueado(nombreCompletoStorage);
-    setRol(rol);
-    setNombreCompleto(nombreCompletoStorage);
-    console.log("ROL ----------------------- >", rol);
-    console.log(
-      "nombreCompleto ----------------------- >",
-      nombreCompletoStorage
-    );
-    console.log("username ----------------------- >", userNameStorage);
-    if (rol === "ADMINISTRADOR") {
-      setIsAdmin(true);
-    }
-  };
-
-  const cerrarSesion = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("idUsuario");
-    localStorage.removeItem("username");
-    localStorage.removeItem("rol");
-    localStorage.removeItem("nombreCompleto");
-    setIsAdmin(false);
-    setUsuarioLogueado(null);
-    window.location.replace("/");
-    console.log("----------Cerrando sesión. en Context .---------");
-  };
-
-  ////////////////////////////////// Registro User
+ //////////////////////////////////////////////////////////////
   const [nuevoUsuario, setNuevoUsuario] = useState([]);
 
   //////////////////////////////////////////// FECHAS ////////////////////////
@@ -393,6 +404,7 @@ useEffect(() => {
   return (
     <ContextGlobal.Provider
       value={{
+        tokenUserState ,setTokenUserState,
         isAdmin,
         setIsAdmin,
         nombreCompleto,

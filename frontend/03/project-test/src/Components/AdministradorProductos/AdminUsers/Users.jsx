@@ -18,6 +18,11 @@ import {
 import axios from "axios";
 
 const Users = () => {
+  const { usersLista, setUsersLista, getDatosUsers, tokenUserState } =
+  useContext(ContextGlobal);
+
+console.log("-------------- > getTokenUser", tokenUserState);
+
   const [open, setOpen] = React.useState(false);
   const [usuarioXEliminar, setUsuarioXEliminar] = useState(null);
 
@@ -33,11 +38,12 @@ const Users = () => {
     idUsuario: 2,
   });
 
-  const { usersLista, setUsersLista, getDatosUsers } =
-    useContext(ContextGlobal);
+
+
+
 
   useEffect(() => {
-    getDatosUsers();
+    getDatosUsers(tokenUserState);
   }, []);
 
   ////////////////////////////// Actualizar Rol //////////////////////////////
