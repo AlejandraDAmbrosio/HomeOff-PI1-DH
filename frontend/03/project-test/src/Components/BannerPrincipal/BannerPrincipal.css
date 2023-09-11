@@ -24,7 +24,7 @@
   transition: 1.6s ease;
   border-radius: 11px 11px 11px 11px;
   -webkit-border-radius: 11px 11px 11px 11px;
-  -moz-border-radius: 11px 11px 11px 11px;
+  /* -moz-border-radius: 11px 11px 11px 11px; */
   box-shadow: var(--BShadow);
   border-radius: var(--bRadiusButton);
 }

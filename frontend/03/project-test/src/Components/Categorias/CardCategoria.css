@@ -9,13 +9,11 @@
   height: 60px;
   border-radius: 11px 11px 11px 11px;
   -webkit-border-radius: 11px 11px 11px 11px;
-  -moz-border-radius: 11px 11px 11px 11px;
+  /* -moz-border-radius: 11px 11px 11px 11px; */
   cursor: pointer;
   transition: color 0.3s, transform 0.3s;
   color:var(--colorGrey2);
-
-  /* overflow: hidden;
-  white-space: nowrap; */
+  /* border: 1px solid salmon; */
 } 
 
 .card-categoria:hover {
@@ -23,56 +21,46 @@
   transform: scale(1.05); 
 }
 
-.ImgCardCategoria {
+/* .ImgCardCategoria {
   height: 60px;
   width: 150px;
-} 
-
+}  */
+/* 
 .texto-card-categoria {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   font-size: 13px;
   color: inherit;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  max-width: 180px; 
+} */
 
-  /* ----------- Borrar despues de poner dinamicas las categorias */
-  white-space: nowrap; /* Evita el salto de línea */
-  overflow: hidden; /* Oculta el contenido que excede el ancho */
-  text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido excede el ancho */
-  max-width: 180px; /* Ajusta este valor según el ancho deseado */
-}
-
-.texto-card-categoria:hover {
+/* .texto-card-categoria:hover {
   color: inherit; 
+} */
 
-}
-
-.icono:hover {
+/* .icono:hover {
   color: inherit; 
-
-}
-
-
+} */
 
 @media (max-width: 1260px) {
   .card-categoria {
     flex-direction: column;
     height: 80%;
     justify-content: center;
-    
   }
+ /*
   .icono{
     font-size: 2rem;
-  }
-  .texto-card-categoria {
-  text-align: center;
-  }
-
-}
-
-@media (max-width: 650px) {
-  /* .ImgCardCategoria {
-    display: none;
   } */
+
+  /* .texto-card-categoria {
+  text-align: center;
+  font-size: 10px;
+  } */
+
 }
 

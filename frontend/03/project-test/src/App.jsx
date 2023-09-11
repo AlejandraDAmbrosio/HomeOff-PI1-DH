@@ -21,12 +21,11 @@ import Favoritos from "./Routes/Favoritos";
 import PrivateRoute from "./Components/PrivateRoute";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-
 function App() {
   ////////////////// Segmento Logueo
-  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn } = useContext(ContextGlobal);
+  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin } =
+    useContext(ContextGlobal);
   /////////////////
-
 
   useEffect(() => {
     // Verificar si hay un token en el almacenamiento local
@@ -36,14 +35,16 @@ function App() {
     console.log(token);
 
     if (token) {
-      const token = localStorage.getItem("token")
-      const user = localStorage.getItem("username");
+      const token = localStorage.getItem("token");
+      const user = localStorage.getItem("nombreCompleto");
       const userId = localStorage.getItem("userId");
+      const rol = localStorage.getItem("rol");
+
+      const nombreCategoria = localStorage.getItem("nombreCategoria");
       console.log("token en Local Storage", token);
       console.log("user en Local Storage", user);
-      console.log("userId en Local Storage",userId);
+      console.log("userId en Local Storage", userId);
       setUsuarioLogueado(user);
-  
     }
   }, []);
 
@@ -60,43 +61,75 @@ function App() {
         </Route>
         <Route path="/formingreso/" element={<FormIngreso />} />
         <Route path="/formaltauser/" element={<FormAltaUser />} />
-     
+
         <Route
           path="/agregarproducto/"
-          element={<PrivateRoute component={AgregarProducto} token={true} />}
+          element={<PrivateRoute component={AgregarProducto} adminOnly={true} />}
         />
         <Route
           path="/administracionusers/"
           element={
-            <PrivateRoute component={AdministracionUsers} token={true} />
+            <PrivateRoute component={AdministracionUsers} adminOnly={true} />
           }
         />
 
         <Route
           path="/administrarcategorias/"
-          element={<AdministrarCategorias />}
+          element={
+            <PrivateRoute component={AdministrarCategorias} adminOnly={true} />
+          }
         />
         <Route
           path="/administracioncaracteristicas/"
-          element={<AdministracionCaracteristicas />}
-        />
-        <Route
-          path="/administradorproductos/"
-          element={<AdministradorProductos />}
+          element={
+            <PrivateRoute
+              component={AdministracionCaracteristicas}
+              adminOnly={true}
+            />
+          }
         />
 
-        <Route path="/editarproducto/" element={<EditarProducto />}>
-          <Route path="/editarproducto/:id" element={<EditarProducto />} />
+        <Route
+          path="/administradorproductos/"
+          element={
+            <PrivateRoute component={AdministradorProductos} adminOnly={true} />
+          }
+        />
+
+        <Route
+          path="/editarproducto/"
+          element={<PrivateRoute component={EditarProducto} adminOnly={true} />}
+        >
+          <Route
+            path="/editarproducto/:id"
+            element={<PrivateRoute component={EditarProducto} adminOnly={true} />}
+          ></Route>
         </Route>
+
+        {/* <Route
+          path="/administrarcategorias/"
+          element={<AdministrarCategorias />}
+        /> */}
+        {/* <Route
+          path="/administracioncaracteristicas/"
+          element={<AdministracionCaracteristicas />}
+        /> */}
+        {/* <Route
+          path="/administradorproductos/"
+          element={<AdministradorProductos />}
+        /> */}
+
+        {/* <Route path="/editarproducto/" element={<EditarProducto />}>
+          <Route path="/editarproducto/:id" element={<EditarProducto />} />
+        </Route> */}
 
         <Route path="/favoritos/" element={<Favoritos />}>
           <Route path="/favoritos/:id" element={<Favoritos />} />
         </Route>
-     
 
-      <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
-        <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
-      </Route>
+        <Route path="/paginafiltrado/" element={<PaginaFiltrado />}>
+          <Route path="/paginafiltrado/:id" element={<PaginaFiltrado />} />
+        </Route>
       </Routes>
       <Footer />
     </>

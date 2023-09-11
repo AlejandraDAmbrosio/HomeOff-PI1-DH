@@ -8,9 +8,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const AvatarNav = ({Iniciales}) => {
-  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+  const { usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto } =
     useContext(ContextGlobal);
-
+// Desde App se modifica el conectado como en donde se define user getitem del local storage
 
   return (
     <div>
