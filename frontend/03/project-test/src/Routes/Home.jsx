@@ -31,6 +31,7 @@ const Home = () => {
           titulo={prodFiltrados? tituloListadoProductos :"Productos"}
 
         />
+        
         <ListadoProductos CantidadCards={10} />
       </section>
     </>

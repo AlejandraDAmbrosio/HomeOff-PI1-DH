@@ -193,19 +193,10 @@ const FormAltaUser = () => {
         password: usuario.password,
         celular: "0000000",
         direccion: "Falsa",
-        permisoedicion: "EDITAR",
+        // permisoedicion: "EDITAR",
       };
 
-      // const nuevoUserData = {
-      //   nombrecompleto: "PadreNuestroHard",
-      //   nombre: "PadreNuestroHard",
-      //   apellido: "PadreNuestroHard",
-      //   username: "PadreNuestroHrd@gmail.com",
-      //   password: "Papanatas.1",
-      //   celular: "256321548",
-      //   direccion: "siempre viva",
-      //   permisoedicion: "EDITAR"
-      // }
+ 
 
       console.log("Datos Enviados");
       console.log(nuevoUserData);

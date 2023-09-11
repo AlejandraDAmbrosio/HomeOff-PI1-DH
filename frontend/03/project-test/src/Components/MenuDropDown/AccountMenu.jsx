@@ -31,7 +31,7 @@ import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 
 export default function AccountMenu() {
-  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+  const { isAdmin, usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto } =
     useContext(ContextGlobal);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -204,7 +204,7 @@ export default function AccountMenu() {
         )}
 
         <Divider />
-        {usuarioLogueado && (
+        {isAdmin && (
           /*usuarioLogueado.rol == "ADMINISTRADOR" &&*/ <Link to="/administradorproductos/">
             <MenuItem onClick={handleClose}>
               <ListItemIcon>

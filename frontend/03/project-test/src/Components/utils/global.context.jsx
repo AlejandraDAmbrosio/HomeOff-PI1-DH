@@ -59,15 +59,54 @@ export const ContextProvider = ({ children }) => {
   };
 
   /////////////////////////////////// GET USERS
+  // const [usersLista, setUsersLista] = useState([]);
+  // const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
+
+  // const getDatosUsers = async () => {
+  //   const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
+  //   const data = await res.json();
+  //   setUsersLista(data);
+  // };
+  // useEffect(() => {
+  //   getDatosUsers();
+  // }, []);
+
   const [usersLista, setUsersLista] = useState([]);
+  const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
+  const getTokenUser = localStorage.getItem("token");
+
+  console.log("-------------- > getTokenUser", getTokenUser);
   const getDatosUsers = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/usuario/list");
-    const data = await res.json();
-    setUsersLista(data);
+    try {
+      const response = await fetch(urlUsers, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${getTokenUser}`, 
+          // Authorization: `Bearer ${getTokenUser}`, // Sin comillas adicionales
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Respuesta:", data);
+        setUsersLista(data);
+      } else {
+        console.error(
+          "Error en la respuesta:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
   useEffect(() => {
     getDatosUsers();
   }, []);
+
   /////////////////////////////////GetCategorias
   const [categoriasLista, setCategoriasLista] = useState([]);
 
@@ -190,7 +229,9 @@ export const ContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
   const [loginSuccess, setLoginSuccess] = useState(false);
-
+  const [rol, setRol] = useState("");
+  const [nombreCompleto, setNombreCompleto] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
   const [userLogIn, setUserLogIn] = useState({
     username: "",
     password: "",
@@ -228,7 +269,7 @@ export const ContextProvider = ({ children }) => {
       if (response.ok) {
         setErrorLogueo(`Gracias por ingresar ${username}`);
         const data = await response.json();
-       
+        console.log(data);
         if (data.token) {
           setErrorLogueo(`Gracias por ingresar ${username}`);
           handleSuccessfulLogin(data);
@@ -238,39 +279,66 @@ export const ContextProvider = ({ children }) => {
       } else if (response.status === 401) {
         setErrorLogueo("Credenciales incorrectas");
       } else {
-        setErrorLogueo("Error al iniciar sesión. Por favor, revisa tus credenciales.");
+        setErrorLogueo(
+          "Error al iniciar sesión. Por favor, revisa tus credenciales."
+        );
       }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      setErrorLogueo("Error al iniciar sesión. Por favor, revisa tus credenciales.");
+      setErrorLogueo(
+        "Error al iniciar sesión. Por favor, revisa tus credenciales."
+      );
     }
   };
 
   const handleSuccessfulLogin = (data) => {
     // setErrorLogueo(`Gracias por ingresar ${username}`);
     localStorage.setItem("token", data.token);
-    localStorage.setItem("username", userLogIn.username);
-    setUsuarios(data);
-    setUsuarioLogueado(userLogIn.username);
-    const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
-    localStorage.setItem("userId", idUser);
-    setUserIdLogIn(idUser);
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("idUsuario", data.idUsuario);
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("rol", data.rol);
+    localStorage.setItem("nombreCompleto", data.nombreCompleto);
+
+    // const idUser = buscadorNombresEnLogIn(userLogIn.username, usersLista);
+    // localStorage.setItem("userId", idUser);
+    const idUsuario = localStorage.getItem("idUsuario");
+    const rol = localStorage.getItem("rol");
+    const nombreCompletoStorage = localStorage.getItem("nombreCompleto");
+    const userNameStorage = localStorage.getItem("username");
+
     setLoginSuccess(true);
-    // window.location.replace("/");
+    setUserIdLogIn(idUsuario);
+    setUsuarios(data);
+    setUsuarioLogueado(nombreCompletoStorage);
+    setRol(rol);
+    setNombreCompleto(nombreCompletoStorage);
+    console.log("ROL ----------------------- >", rol);
+    console.log(
+      "nombreCompleto ----------------------- >",
+      nombreCompletoStorage
+    );
+    console.log("username ----------------------- >", userNameStorage);
+    if (rol === "ADMINISTRADOR") {
+      setIsAdmin(true);
+    }
   };
 
-
   const cerrarSesion = () => {
-    localStorage.removeItem("usuarioLogueado");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("idUsuario");
+    localStorage.removeItem("username");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("nombreCompleto");
+    setIsAdmin(false);
     setUsuarioLogueado(null);
     window.location.replace("/");
     console.log("----------Cerrando sesión. en Context .---------");
   };
 
-  //// chequear el idUsuario del username buscando en la lista de users
+  ////////////////////////////////// Registro User
+  const [nuevoUsuario, setNuevoUsuario] = useState([]);
 
   //////////////////////////////////////////// FECHAS ////////////////////////
   const [fechasBusqueda, setFechasBusqueda] = useState([null, null]);
@@ -289,16 +357,20 @@ export const ContextProvider = ({ children }) => {
 
   /////////////////////////////  Productos a mostrar en busqueda ////////////
   const [prodFiltrados, setProdFiltrados] = useState([]);
-const [ busquedaCero, setBusquedaCero]= useState(false);
-  const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
+  const [busquedaCero, setBusquedaCero] = useState(false);
+  const [tituloListadoProductos, setTituloListadoProductos] =
+    useState("Productos");
 
- 
   useEffect(() => {
     async function actualizarTitulo() {
       if (prodFiltrados.length > 0) {
-        setTituloListadoProductos(`Resultados de tu búsqueda ${prodFiltrados.length} productos`);
-      } else if (prodFiltrados.length === 0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/) {
-      
+        setTituloListadoProductos(
+          `Resultados de tu búsqueda ${prodFiltrados.length} productos`
+        );
+      } else if (
+        prodFiltrados.length ===
+        0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/
+      ) {
         setTituloListadoProductos("Productos");
       }
     }
@@ -306,13 +378,20 @@ const [ busquedaCero, setBusquedaCero]= useState(false);
     actualizarTitulo();
   }, [prodFiltrados, tituloListadoProductos]);
 
-
   return (
     <ContextGlobal.Provider
       value={{
-        loginSuccess, setLoginSuccess,
+        isAdmin,
+        setIsAdmin,
+        nombreCompleto,
+        setNombreCompleto,
+        rol,
+        setRol,
+        loginSuccess,
+        setLoginSuccess,
 
-        busquedaCero, setBusquedaCero,
+        busquedaCero,
+        setBusquedaCero,
         tituloListadoProductos,
         favoritos,
         setFavoritos,

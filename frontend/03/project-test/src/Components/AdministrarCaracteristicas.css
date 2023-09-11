@@ -8,8 +8,8 @@
   font-size: var(--fsizeTL);
   margin: 0 1rem;
   padding: 1.5rem 0;
-  background-repeat: no-repeat;
-  background-size: csover;
+  /* background-repeat: no-repeat; */
+  /* background-size: csover; */
   height: 100px;
   width: 90%;
   color: var(--bgrey);

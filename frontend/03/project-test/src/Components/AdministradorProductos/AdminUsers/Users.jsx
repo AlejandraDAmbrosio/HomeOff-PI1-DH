@@ -49,39 +49,39 @@ const Users = () => {
 
   // 2) Traer info de todos los campos del usuario seleccionado y si tiene un valor el rol, cambiarlo
 
-  const urlBaseActualizar = "http://52.32.210.155:8080/api/v1/usuarios/update";
-  const handleUpdateUser = async (usuarioXEditar) => {
-    console.log(usuarioXEditar.idUsuario);
-    if (usuarioXEditar.idUsuario) {
-      const updatedUser = {
-        nombrecompleto: usuarioXEditar.nombrecompleto,
-        correo: usuarioXEditar.correo,
-        contraseña: usuarioXEditar.contraseña,
-        celular: usuarioXEditar.celular,
-        rol:
-          usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
-        dirección: "Falsa",
-        permisoEdición:
-          usuarioXEditar.permisoEdición === "EDITAR" ? "" : "EDITAR",
-        id_Rol: usuarioXEditar.id_Rol === 1 ? "2" : "1",
-        idUsuario: usuarioXEditar.idUsuario,
-      };
+  // const urlBaseActualizar = "http://52.32.210.155:8080/api/v1/usuarios/update";
+  // const handleUpdateUser = async (usuarioXEditar) => {
+  //   console.log(usuarioXEditar.idUsuario);
+  //   if (usuarioXEditar.idUsuario) {
+  //     const updatedUser = {
+  //       nombrecompleto: usuarioXEditar.nombrecompleto,
+  //       correo: usuarioXEditar.correo,
+  //       contraseña: usuarioXEditar.contraseña,
+  //       celular: usuarioXEditar.celular,
+  //       rol:
+  //         usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
+  //       dirección: "Falsa",
+  //       permisoEdición:
+  //         usuarioXEditar.permisoEdición === "EDITAR" ? "" : "EDITAR",
+  //       id_Rol: usuarioXEditar.id_Rol === 1 ? "2" : "1",
+  //       idUsuario: usuarioXEditar.idUsuario,
+  //     };
 
-      try {
-        const response = await axios.post(urlBaseActualizar, updatedUser, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+  //     try {
+  //       const response = await axios.post(urlBaseActualizar, updatedUser, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
 
-        console.log("Respuesta:", response.data);
-        getDatosUsers(); // Actualizar la lista de usuarios
-        setUsuarioXEditar(null); // Limpiar el usuario seleccionado
-      } catch (error) {
-        console.error("Error al actualizar el usuario:", error);
-      }
-    }
-  };
+  //       console.log("Respuesta:", response.data);
+  //       getDatosUsers(); // Actualizar la lista de usuarios
+  //       setUsuarioXEditar(null); // Limpiar el usuario seleccionado
+  //     } catch (error) {
+  //       console.error("Error al actualizar el usuario:", error);
+  //     }
+  //   }
+  // };
 
   /////////////////////////////////////
 
