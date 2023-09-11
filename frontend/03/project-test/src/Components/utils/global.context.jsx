@@ -79,18 +79,19 @@ export const ContextProvider = ({ children }) => {
  
 const getDatosUsers = async () => {
   const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
-  const getTokenUser = localStorage.getItem("token");
+  // const getTokenUser = localStorage.getItem("token");
   console.log("-------------- > getTokenUser", getTokenUser);
   console.log("-------------- > urlUsers", urlUsers);
 
 
   try {
+    const getTokenUser = localStorage.getItem("token");
     const response = await axios.get(urlUsers, {
       headers: {
         // "Content-Type": "application/json",
         // "Access-Control-Allow-Origin": "*",
         // Authorization: getTokenUser,
-        "Authorization": "Bearer " + getTokenUser // Sin comillas adicionales
+        "Authorization": `Bearer ${getTokenUser}`// Sin comillas adicionales
       },
     });
     // try {
