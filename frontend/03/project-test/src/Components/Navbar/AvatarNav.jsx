@@ -11,6 +11,7 @@ const AvatarNav = ({Iniciales}) => {
   const { usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto } =
     useContext(ContextGlobal);
 // Desde App se modifica el conectado como en donde se define user getitem del local storage
+const user = localStorage.getItem("nombreCompleto");
 
   return (
     <div>
@@ -22,7 +23,7 @@ const AvatarNav = ({Iniciales}) => {
             backgroundColor: "#9dd6b3",
             color: "black",
           }}
-        > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(usuarioLogueado)) }
+        > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(user)) }
           
         </Avatar>
       ) : (
