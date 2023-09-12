@@ -31,7 +31,7 @@ import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 
 export default function AccountMenu() {
-  const { isAdmin, usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto } =
+  const { isAdmin, usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto, userIdLogIn } =
     useContext(ContextGlobal);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -182,7 +182,7 @@ export default function AccountMenu() {
         )}
 
         {usuarioLogueado && (
-          <Link to="/favoritos/1">
+          <Link to={`/favoritos/${userIdLogIn}`}>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <BsHeart fontSize="25" />
@@ -193,7 +193,7 @@ export default function AccountMenu() {
         )}
 
         {usuarioLogueado && (
-          <Link to="/favoritos/1">
+          <Link to={`/favoritos/${userIdLogIn}`}>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <LibraryBooksIcon fontSize="25" />

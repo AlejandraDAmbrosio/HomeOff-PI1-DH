@@ -19,6 +19,8 @@ const ListadoProductos = ({ CantidadCards }) => {
     prodFiltrados,
     puntosPromedioXIDRecurso,
     getPuntosPromedioXIDRecurso,
+    userIdLogIn,
+    getListaFavXUserID,
   } = useContext(ContextGlobal);
 
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
@@ -48,6 +50,10 @@ const ListadoProductos = ({ CantidadCards }) => {
       obtenerPuntuacionesPromedio();
     }, [productsToRender]);
   
+    useEffect(() => {
+      getListaFavXUserID(userIdLogIn)
+    }, [userIdLogIn]);
+
 
   useEffect(() => {
     const paginatedArray = chunk(productsToRender, CantidadCards);
