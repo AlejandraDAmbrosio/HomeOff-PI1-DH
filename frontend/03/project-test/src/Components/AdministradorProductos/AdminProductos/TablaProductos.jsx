@@ -42,6 +42,7 @@ const TablaProductos = () => {
     setProductosBKLista,
     categoriasLista,
     getCategoriasLista,
+    getDatosBKLista,
   } = useContext(ContextGlobal);
 
   const tokenUser = localStorage.getItem("token")
@@ -57,18 +58,15 @@ const TablaProductos = () => {
 
   // const headers={}
 
+ 
   const eliminarRecurso = async (idRecurso) => {
     try {
       const response = await axios.delete(
-        `http://52.32.210.155:8080/api/v1/recursos/delete/${idRecurso}`,
-        {
+        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`, {
           headers: {
-            "Authorization": `Bearer ${tokenUser}`,
-            // O reemplaza '*' con tu dominio permitido
-            // Otros encabezados si es necesario
+            "Content-Type": "application/json",
           },
-        }
-      );
+        });
 
       const updatedRecursos = productosBKLista.filter(
         (productoXId) => productoXId.idRecurso !== idRecurso
@@ -78,6 +76,8 @@ const TablaProductos = () => {
       console.error("Error al eliminar el usuario:", error);
     }
   };
+
+
 
   const handleClick = (e, idRecurso) => {
     setIdRecursoToDelete(idRecurso);

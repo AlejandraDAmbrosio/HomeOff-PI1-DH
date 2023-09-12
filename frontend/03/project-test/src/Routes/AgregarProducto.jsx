@@ -20,8 +20,8 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
-  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
-  const token = localStorage.getItem("token");
+ 
+ 
   const {
     productosBKLista,
     setProductosBKLista,
@@ -250,7 +250,8 @@ const AgregarProducto = () => {
     console.log(
       "------------------validarNombreProducto ??? ------------------"
     );
-    console.log(nombreExisteEnData);
+    console.log( "nombreExisteEnData ----------------> ",nombreExisteEnData);
+    console.log( "nombreEsValido ----------------> ",nombreEsValido);
 
     if (nombreEsValido && !nombreExisteEnData) {
       setForm(true);
@@ -286,28 +287,57 @@ const AgregarProducto = () => {
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
-
+      const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
       // enviarDatos();
-console.log(" ---------------- > Agregar Producto - token" ,token)
       try {
         const jsonData = JSON.stringify(nuevoProductoData);
-        const response = await axios.get(urlBase, jsonData, {
+        const response = await axios.post(urlBase, jsonData, {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
           },
         });
 
-        console.log("Respuesta:", response.data);
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Respuesta:", responseData);
         getDatosBKLista();
-      } catch (error) {
-        console.error("Error:", error);
+      } else {
+        console.error(
+          "Error en la respuesta:",
+          response.status,
+          response.statusText
+        );
       }
-      useEffect(() => {
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    useEffect(() => {
         if (form) {
           getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
         }
       }, [form]);
+
+      // try {
+      //   const jsonData = JSON.stringify(nuevoProductoData);
+      //   const response = await axios.get(urlBase, jsonData, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "Authorization": `Bearer ${token}`,
+      //     },
+      //   });
+
+      //   console.log("Respuesta:", response.data);
+      //   getDatosBKLista();
+      // } catch (error) {
+      //   console.error("Error:", error);
+      // }
+      // useEffect(() => {
+      //   if (form) {
+      //     getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
+      //   }
+      // }, [form]);
 
       console.log("Muestra el valor de toda la Lista ");
       console.log(productosBKLista);
@@ -569,7 +599,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     SelectProps={{
                       native: true,
                     }}
-                    helperText="Esta Disponible?"
+                    helperText="Está disponible?"
                     variant="standard"
                     value={nuevoProducto.estadoRecurso}
                     onChange={onChangeDisponibilidad}
