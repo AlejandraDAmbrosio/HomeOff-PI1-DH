@@ -32,6 +32,8 @@ const AgregarProducto = () => {
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
+ 
+
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
   const [nombreYaExiste, setNombreYaExiste] = useState(false);
   const [form, setForm] = useState(false);
@@ -406,7 +408,9 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    maxWidth: "450px",
+                    maxWidth: "485px",
+                    gap:"0.5rem"
+                    
                   }}
                 >
                   <TextField
@@ -414,7 +418,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "220px" }}
+                    style={{ width: "210px"}}
                     SelectProps={{
                       native: true,
                     }}
@@ -442,6 +446,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     select
                     type="number"
                     label="Tipo de Espacio"
+                    style={{ width: "224px"}}
                     defaultValue="OFICINAS PRIVADAS"
                     SelectProps={{
                       native: true,
@@ -468,11 +473,11 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
-                  style={{ maxWidth: "800px", height:"fit-content" }}
+                  style={{ maxWidth: "480px", height:"fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                    {caracteristicasLista.map((caracteristica) => (
+                  {caracteristicasLista.map((caracteristica) => (
                       <li
                         key={caracteristica.idCaracteristica}
                         style={{ listStyle: "none" }}
@@ -610,7 +615,12 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                 </div>
 
                 {/* ///////////////////////////////////////////////////////////////////// */}
-                <div className="campo-anotacion">
+                <div className="campo-anotacion"
+                  style={{
+                    margin: "35px 0px",
+                    border: "1px solid grey",
+                    padding: "10px 5px",
+                  }}>
                   <label className="anotacion" for="fotos">
                     Ingresa las fotos del producto *
                   </label>

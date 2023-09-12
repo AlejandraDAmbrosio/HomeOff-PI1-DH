@@ -383,16 +383,15 @@ const EditarProducto = () => {
       </div>
       <div className="paneles-agregar">
         <PanelAdminUser />
-        <div
-          className="division-form-preview"
-          style={{ padding: "0rem 2rem", maxWidth: "1500px" }}
-        >
+        <div className="division-form-preview">
           <div className="pagina-formulario-alta-producto">
             <FormControl
               onSubmit={handleSubmitCrearProducto}
-              style={{ padding: "1rem 2rem", width: "890px" }}
+              style={{ padding: "1rem 0rem", width: "500px" }}
             >
               <div className="formularioAgregarProducto">
+              <div style={{ width: "400px", display:"flex", flexDirection:"column", gap:"1rem"  }}>
+
                 <TextField
                   id="nombreProducto"
                   label="Nombre del producto"
@@ -421,6 +420,7 @@ const EditarProducto = () => {
                 ) : (
                   ""
                 )} */}
+                </div>
 
                 {/* /////////--------------------------------////// */}
 
@@ -435,7 +435,7 @@ const EditarProducto = () => {
                   onChange={onChangeDescripcion}
                   required
                   margin="normal"
-                  style={{ width: "700px" }}
+                  style={{ width: "400px" }}
                 />
                 {/* /////////--------------------------------////// */}
                 <div
@@ -443,6 +443,8 @@ const EditarProducto = () => {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "485px",
+                    gap:"0.5rem"
                   }}
                 >
                   <TextField
@@ -450,7 +452,7 @@ const EditarProducto = () => {
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "300px" }}
+                    style={{ width: "210px"}}
                     SelectProps={{
                       native: true,
                     }}
@@ -472,13 +474,13 @@ const EditarProducto = () => {
                     ))}
                   </TextField>
                   {/* /////////--------------------------------////// */}
-
                   <TextField
                     id="tipoEspacio"
                     select
                     type="number"
                     label="Tipo de Espacio"
-                    defaultValue="OFICINAS PRIVADAS"
+                    style={{ width: "224px"}}
+                    defaultValue="OFICINA ESPACIO ABIERTO"
                     SelectProps={{
                       native: true,
                     }}
@@ -496,41 +498,14 @@ const EditarProducto = () => {
                       OFICINA ESPACIO CERRADO
                     </option>
                   </TextField>
+                  </div>
 
-                  {/* //////////////////// */}
-                  <TextField
-                    id="capacidad maxima"
-                    select
-                    type="number"
-                    value={nuevoProducto.capacidadMáxima}
-                    onChange={onChangeCapacidadMáxima}
-                    label="Capacidad máxima"
-                    defaultValue="1"
-                    style={{ width: "150px" }}
-                    margin="normal"
-                    SelectProps={{
-                      native: true,
-                    }}
-                    helperText="Elija una capacidad máxima"
-                    variant="standard"
-                    required
-                  >
-                    {capacidadArray.map((cant) => (
-                      <option
-                        key={cant.id}
-                        className="item-grid"
-                        value={cant.cantidad}
-                      >
-                        {cant.cantidad}{" "}
-                      </option>
-                    ))}
-                  </TextField>
-                </div>
                 {/* -/////////////////////////////////////// */}
                 <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
+                  style={{ maxWidth: "480px", height:"fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
@@ -559,21 +534,10 @@ const EditarProducto = () => {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "600px",
                   }}
                 >
-                  <TextField
-                    id="precioProducto"
-                    label="Ingresa el precio del producto"
-                    type="number"
-                    value={nuevoProducto.precioUnitario}
-                    onChange={onChangePreciounitario}
-                    margin="normal"
-                    style={{ width: "150px" }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="standard"
-                  />
+                
                   {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
@@ -604,14 +568,40 @@ const EditarProducto = () => {
                     ))}
                   </TextField>
 
-                  {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
+                    id="precioProducto"
+                    label="Ingresa el precio del producto"
+                    type="number"
+                    value={nuevoProducto.precioUnitario}
+                    onChange={onChangePreciounitario}
+                    margin="normal"
+                    style={{ width: "150px" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                
+                </div>
+                {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    maxWidth: "600px",
+                  }}
+                >
+               
+                <TextField
                     id="disponible"
                     select
                     type="text"
                     label="Esta Disponible?"
                     defaultValue="Argentina"
-                    style={{ width: "200px" }}
+                    style={{ width: "300px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -629,9 +619,36 @@ const EditarProducto = () => {
                       No disponible
                     </option>
                   </TextField>
-                </div>
-                {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
-
+               
+                <TextField
+                    id="capacidad maxima"
+                    select
+                    type="number"
+                    value={nuevoProducto.capacidadMáxima}
+                    onChange={onChangeCapacidadMáxima}
+                    label="Capacidad máxima"
+                    defaultValue="1"
+                    style={{ width: "120px" }}
+                    margin="normal"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    // helperText="Elija una capacidad máxima"
+                    variant="standard"
+                    required
+                  >
+                    {capacidadArray.map((cant) => (
+                      <option
+                        key={cant.id}
+                        className="item-grid"
+                        value={cant.cantidad}
+                      >
+                        {cant.cantidad}{" "}
+                      </option>
+                    ))}
+                  </TextField>
+                
+                  </div>
                 {/* ///////////////////////////////////////////////////////////////////// */}
                 <div
                   className="campo-anotacion"
