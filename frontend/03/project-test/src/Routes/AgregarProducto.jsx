@@ -468,7 +468,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
-                  style={{ maxWidth: "600px" }}
+                  style={{ maxWidth: "800px", height:"fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
