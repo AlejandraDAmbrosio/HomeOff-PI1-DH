@@ -23,9 +23,9 @@ const TitularSection = ({ titulo, estilo }) => {
               display:"flex",
               flexDirection:"row",
               justifyContent:"flex-start"
-
             }}
           >
+
             <MdClose
               style={{
                 fontSize: "30px",

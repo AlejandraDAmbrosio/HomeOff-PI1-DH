@@ -313,12 +313,6 @@ const AgregarProducto = () => {
       console.error("Error:", error);
     }
 
-    useEffect(() => {
-        if (form) {
-          getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
-        }
-      }, [form]);
-
       // try {
       //   const jsonData = JSON.stringify(nuevoProductoData);
       //   const response = await axios.get(urlBase, jsonData, {
