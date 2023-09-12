@@ -1,6 +1,5 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.authentication;
 
-
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Rol;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuario;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.UsuarioEnvio;

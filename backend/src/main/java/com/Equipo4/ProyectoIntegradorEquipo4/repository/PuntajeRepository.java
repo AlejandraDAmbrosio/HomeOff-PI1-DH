@@ -9,10 +9,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-import java.sql.Date;
-=======
->>>>>>> d71557cc5c7f4abd16e71abc1a9769aea84fdf64
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.Instant;

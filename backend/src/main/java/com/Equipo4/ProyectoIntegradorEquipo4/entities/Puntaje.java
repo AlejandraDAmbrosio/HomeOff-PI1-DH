@@ -1,10 +1,6 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.entities;
 
 import lombok.Data;
-<<<<<<< HEAD
-=======
-
->>>>>>> d71557cc5c7f4abd16e71abc1a9769aea84fdf64
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,3 +15,4 @@ public class Puntaje implements Serializable {
     private Date fecha_valoracion;
 
 }
+
