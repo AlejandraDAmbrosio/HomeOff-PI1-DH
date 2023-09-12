@@ -185,7 +185,7 @@ const TablaCaracteristicas = () => {
 
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
-      const response = await axios.delete(
+      const response = await axios.post(
         `http://52.32.210.155:8080/auth/caracteristicas/delete/${idCaracteristica}`,
         {
           headers: {
