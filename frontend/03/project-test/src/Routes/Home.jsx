@@ -17,10 +17,8 @@ const Home = () => {
   return (
     <>
       <section style={{ marginTop: "12rem" }}>
-        <TitularSection
-          estilo={"titulo-section-banner"}
-          titulo={"Oportunidades Únicas"}
-        />
+        <h2 className="titulo-section-banner">Oportunidades Únicas</h2>
+
         <BannerPrincipal />
       </section>
       <SegmentoBuscador />
