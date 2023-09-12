@@ -34,21 +34,9 @@ const CardProducto = ({
   
 }) => {
   const {
-    isFav,
-    setIsFav,
-    getIsFav,
-    favoritosXID,
-    puntosPromedioXIDRecurso,
     getPuntosPromedioXIDRecurso,
-    getFavoritos,
-    favoritos,
-    setFavoritos,
-    usersLista,
     getListaFavXUserID,
     listaFavXUserId,
-    idUser,
-    idUsuario,
-    userIdLogIn
   } = useContext(ContextGlobal);
   const userId = localStorage.getItem("idUsuario");
   useEffect(() => {
@@ -59,16 +47,15 @@ const CardProducto = ({
     getListaFavXUserID(userId);
   }, [userId]);
 
-
-
-
-  console.log("idUsuario", userIdLogIn);
-  console.log("idRecurso", id);
-  console.log("listaFavXUserId", listaFavXUserId);
-
   const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
-  console.log("esFav", esFav, ". id producto: ",id , ". id User: ", userIdLogIn );
-  const estrellas = puntosPromedioXIDRecurso;
+
+
+  // console.log("idUsuario", userIdLogIn);
+  // console.log("idRecurso", id);
+  // console.log("listaFavXUserId", listaFavXUserId);
+
+  // console.log("esFav", esFav, ". id producto: ",id , ". id User: ", userIdLogIn );
+  // const estrellas = puntosPromedioXIDRecurso;
 
   return (
     <Link to={"/producto/" + id}>

@@ -18,7 +18,7 @@ import obtenerIniciales from "../utils/iniciales";
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { BsHeart } from "react-icons/bs";
+import { BsHeart, BsCalendarEvent } from "react-icons/bs";
 import FormIngreso from "../../Routes/FormIngreso";
 import Modal from "@mui/material/Modal";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
@@ -31,8 +31,14 @@ import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 
 export default function AccountMenu() {
-  const { isAdmin, usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto, userIdLogIn } =
-    useContext(ContextGlobal);
+  const {
+    isAdmin,
+    usuarioLogueado,
+    iniciarSesion,
+    cerrarSesion,
+    nombreCompleto,
+    userIdLogIn,
+  } = useContext(ContextGlobal);
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -136,13 +142,15 @@ export default function AccountMenu() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "flex-end",
-                height:"40px",
-              
-               
+                height: "40px",
               }}
             >
               <AvatarNav />
-              <Stack spacing={0.3} alignItems={"flex-start"} justifyContent={"space-between"}>
+              <Stack
+                spacing={0.3}
+                alignItems={"flex-start"}
+                justifyContent={"space-between"}
+              >
                 <div
                   style={{
                     fontSize: "7px",
@@ -185,7 +193,7 @@ export default function AccountMenu() {
           <Link to={`/favoritos/${userIdLogIn}`}>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
-                <BsHeart fontSize="25" />
+                <BsHeart fontSize="24"  style={{textAlign:"center"}}/>
               </ListItemIcon>
               Favoritos
             </MenuItem>
@@ -196,7 +204,7 @@ export default function AccountMenu() {
           <Link to={`/favoritos/${userIdLogIn}`}>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
-                <LibraryBooksIcon fontSize="25" />
+                <BsCalendarEvent fontSize="21" />
               </ListItemIcon>
               Reservas
             </MenuItem>

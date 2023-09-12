@@ -104,22 +104,32 @@ const TablaCaracteristicas = () => {
       };
 
       const urlBaseGuardar =
-        "http://52.32.210.155:8080/api/v1/caracteristicas/save";
+        "http://52.32.210.155:8080/auth/caracteristicas/save";
 
-      const token = localStorage.getItem("token");
-      console.log("token previo a agregar caracteristicas", token);
+      // const token = localStorage.getItem("token");
+      // console.log("token previo a agregar caracteristicas", token);
 
-      try {
-        const response = await fetch(urlBaseGuardar, {
-          method: "POST",
-          url: urlBaseGuardar,
-          headers: {
-            "Content-Type": "application/json",
+      // try {
+      //   const response = await fetch(urlBaseGuardar, {
+      //     method: "POST",
+      //     url: urlBaseGuardar,
+      //     headers: {
+      //       "Content-Type": "application/json",
 
-            Authorization: `Bearer "${token}"`,
-          },
-          body: JSON.stringify(nuevaCaracteristicaData),
-        });
+      //       Authorization: `Bearer "${token}"`,
+      //     },
+      //     body: JSON.stringify(nuevaCaracteristicaData),
+      //   });
+
+
+        try {
+          const jsonData = JSON.stringify(nuevaCaracteristicaData);
+          const response = await axios.post(urlBaseGuardar, jsonData, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
 
         if (response.ok) {
           const responseData = await response.json();
@@ -176,7 +186,7 @@ const TablaCaracteristicas = () => {
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
       const response = await axios.delete(
-        `http://52.32.210.155:8080/api/v1/caracteristicas/delete/${idCaracteristica}`,
+        `http://52.32.210.155:8080/auth/caracteristicas/delete/${idCaracteristica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
