@@ -17,9 +17,13 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
+  
+  const navigate = useNavigate();
+
   const {
     productosBKLista,
     setProductosBKLista,
@@ -277,6 +281,14 @@ const AgregarProducto = () => {
             "productosBKLista -----dentro de  if (response.status == 200) {--------------> ",
             productosBKLista
           );
+          const ultimoElemento = productosBKLista[productosBKLista.length - 1];
+
+          const idRecursoUltimoElemento = ultimoElemento.idRecurso + 1;
+          
+          console.log(idRecursoUltimoElemento);
+          console.log("idRecursoUltimoElemento -----> ",idRecursoUltimoElemento);
+          navigate(`/agregarCaracteristicas/${idRecursoUltimoElemento}`);
+
         } else {
           console.error(
             "Error en la respuesta:",

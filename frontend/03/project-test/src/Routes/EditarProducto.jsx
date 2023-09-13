@@ -30,7 +30,6 @@ const EditarProducto = () => {
 
   const urlBase = "http://52.32.210.155:8080/auth/recursos/update";
 
-  
   const {
     productosBKLista,
     setProductosBKLista,
@@ -41,6 +40,8 @@ const EditarProducto = () => {
     caracteristicasLista,
     recursoXID,
     getRecursoXID,
+    caracteristicasXID,
+    getCaracteristicasXID,
   } = useContext(ContextGlobal);
 
   const datosRecursoXID = recursoXID;
@@ -64,30 +65,17 @@ const EditarProducto = () => {
   const [form, setForm] = useState(false);
 
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
+  const [caracteristicasSeleccionadas, setCaracteristicasSeleccionadas] =
+    useState({});
+
   /////// Preparar obbjeto para enviar al servidor    ///////
 
-  const [nuevoProducto, setNuevoProducto] = useState({
+  
+
+  const [formCaracteristicas, setFormCaracteristicas] = useState({
+    idCaracteristica: 0,
     idRecurso: 0,
-    nombre: "",
-    descripción: "",
-    capacidadMáxima: 0,
-    precioUnitario: 1.0,
-    idSede: 1,
-    categoria_id: 1,
-    id_Tipo_Espacio: 1,
-    imagenUrl01:
-      "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
-    imagenUrl02: "",
-    imagenURL: "",
-    imagenUrl03: "",
-    imagenUrl04: "",
-    tieneCafetería: 1,
-    tieneWifi: 1,
-    estadoRecurso: "Disponible",
-    tieneLokker: 1,
-    tieneFotocopiadoraImpresion: 1,
-    tieneEspacioDescanso: 1,
-    tieneEstaciónCafeAguaAromatica: 1,
+    idCaracteristicas_x_Recurso: 0,
   });
 
   useEffect(() => {
@@ -181,6 +169,14 @@ const EditarProducto = () => {
 
   //////////////////OnChanges///////////////
 
+  const handleOptionChange = (caracteristica) => {
+    setCaracteristicasSeleccionadas((prevCaracteristicas) => ({
+      ...prevCaracteristicas,
+      [caracteristica.idCaracteristica]:
+        !prevCaracteristicas[caracteristica.idCaracteristica],
+    }));
+  };
+
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
 
@@ -230,12 +226,12 @@ const EditarProducto = () => {
     });
   };
 
-  const handleOptionChange = (servicio) => {
-    setServicios((prevServicios) => ({
-      ...prevServicios,
-      [servicio]: !prevServicios[servicio],
-    }));
-  };
+  // const handleOptionChange = (servicio) => {
+  //   setServicios((prevServicios) => ({
+  //     ...prevServicios,
+  //     [servicio]: !prevServicios[servicio],
+  //   }));
+  // };
 
   const onChangeFoto = (e) => {
     const fotos = e.target.files; // Obtener los archivos seleccionados
@@ -349,6 +345,58 @@ const EditarProducto = () => {
       //   getDatosBKLista();
       // }, []);
 
+      //////// Envio de info a Caracteristicas///////////////////
+
+      const urlCaracteristicasXIdRec =
+        "http://52.32.210.155:8080/auth/inter/save";
+
+      const caracteristicasParaEnviar = Object.keys(
+        caracteristicasSeleccionadas
+      ).map((idCaracteristica) => ({
+        idCaracteristica: parseInt(idCaracteristica),
+        idRecurso: recursoXID.idRecurso,
+        idCaracteristicas_x_Recurso: 0,
+      }));
+      console.log(
+        "----caracteristicasParaEnviar: --->",
+        caracteristicasParaEnviar
+      );
+
+      try {
+        console.log("segundo Try: ------------------------------------------------>");
+
+        // Vuelve a definir jsonData para la segunda llamada a axios.post
+        const jsonData2 = JSON.stringify(caracteristicasParaEnviar);
+        console.log("jsonData2", jsonData2)
+        console.log("caracteristicasParaEnviar", caracteristicasParaEnviar)
+        const response2 = await axios.post(
+          urlCaracteristicasXIdRec,
+          caracteristicasParaEnviar,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+         
+          console.log("caracteristicasParaEnviar-----------------", jsonData2)
+        if (response2.status === 200) {
+          const responseData2 = await response2.json();
+          console.log("Respuesta:", responseData2);
+          cleanForm();
+        } else {
+          console.error(
+            "Error en la segunda llamada a axios.post:",
+            response2.status,
+            response2.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error en la segunda llamada a axios.post:", error);
+      }
+
+      ///////////////////////////////////////////////////////////////
+
       /////ERROR ????////////////////////////
     } else {
       setForm(false);
@@ -390,29 +438,35 @@ const EditarProducto = () => {
               style={{ padding: "1rem 0rem", width: "500px" }}
             >
               <div className="formularioAgregarProducto">
-              <div style={{ width: "400px", display:"flex", flexDirection:"column", gap:"1rem"  }}>
-
-                <TextField
-                  id="nombreProducto"
-                  label="Nombre del producto"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa el nombre del producto "
-                  value={nuevoProducto.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                />
-                {!nombreProductoValido ? (
-                  <p className="error-nombre-existe">
-                    Ingrese un nombre que tenga mas de 3 y menos de 30
-                    caracteres y solo letras.
-                  </p>
-                ) : (
-                  ""
-                )}
-                {/* {nombreYaExiste ? (
+                <div
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
+                  <TextField
+                    id="nombreProducto"
+                    label="Nombre del producto"
+                    variant="standard"
+                    className="campo-formulario"
+                    type="text"
+                    placeholder="Ingresa el nombre del producto "
+                    value={nuevoProducto.nombre}
+                    onChange={onChangeNombre}
+                    required
+                    margin="normal"
+                  />
+                  {!nombreProductoValido ? (
+                    <p className="error-nombre-existe">
+                      Ingrese un nombre que tenga mas de 3 y menos de 30
+                      caracteres y solo letras.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {/* {nombreYaExiste ? (
                   <p className="error-nombre-existe">
                     Ya existe un producto con el mismo nombre. Por favor,
                     indique un nuevo nombre.
@@ -444,7 +498,7 @@ const EditarProducto = () => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     maxWidth: "485px",
-                    gap:"0.5rem"
+                    gap: "0.5rem",
                   }}
                 >
                   <TextField
@@ -452,7 +506,7 @@ const EditarProducto = () => {
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "210px"}}
+                    style={{ width: "210px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -479,7 +533,7 @@ const EditarProducto = () => {
                     select
                     type="number"
                     label="Tipo de Espacio"
-                    style={{ width: "224px"}}
+                    style={{ width: "224px" }}
                     defaultValue="OFICINA ESPACIO ABIERTO"
                     SelectProps={{
                       native: true,
@@ -498,18 +552,18 @@ const EditarProducto = () => {
                       OFICINA ESPACIO CERRADO
                     </option>
                   </TextField>
-                  </div>
+                </div>
 
                 {/* -/////////////////////////////////////// */}
                 <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
-                  style={{ maxWidth: "480px", height:"fit-content" }}
+                  style={{ maxWidth: "480px", height: "fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                  {caracteristicasLista.map((caracteristica) => (
+                    {caracteristicasLista.map((caracteristica) => (
                       <li
                         key={caracteristica.idCaracteristica}
                         style={{ listStyle: "none" }}
@@ -537,7 +591,6 @@ const EditarProducto = () => {
                     maxWidth: "600px",
                   }}
                 >
-                
                   {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
@@ -583,7 +636,6 @@ const EditarProducto = () => {
                   />
 
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
-                
                 </div>
                 {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
                 <div
@@ -594,8 +646,7 @@ const EditarProducto = () => {
                     maxWidth: "600px",
                   }}
                 >
-               
-                <TextField
+                  <TextField
                     id="disponible"
                     select
                     type="text"
@@ -619,8 +670,8 @@ const EditarProducto = () => {
                       No disponible
                     </option>
                   </TextField>
-               
-                <TextField
+
+                  <TextField
                     id="capacidad maxima"
                     select
                     type="number"
@@ -647,8 +698,7 @@ const EditarProducto = () => {
                       </option>
                     ))}
                   </TextField>
-                
-                  </div>
+                </div>
                 {/* ///////////////////////////////////////////////////////////////////// */}
                 <div
                   className="campo-anotacion"
