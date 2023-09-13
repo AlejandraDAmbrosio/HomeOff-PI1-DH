@@ -2,6 +2,7 @@ package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Caracteristicas;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.ServiceResponse;
 import com.Equipo4.ProyectoIntegradorEquipo4.service.ICaracteristicasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,4 +34,33 @@ public class AuthCaracteristicasController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("caracteristicas/save")
+    public ResponseEntity<ServiceResponse> save(@RequestBody Caracteristicas caracteristicas){
+        ServiceResponse serviceResponse = new ServiceResponse();
+        int result = iCaracteristicasService.save(caracteristicas);
+        if(result ==1){
+            serviceResponse.setMessage("Registro salvado con exito");
+        }
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
+    }
+    @PostMapping("caracteristicas/update")
+    public ResponseEntity<ServiceResponse> update(@RequestBody Caracteristicas caracteristicas){
+        ServiceResponse serviceResponse = new ServiceResponse();
+        int result = iCaracteristicasService.update(caracteristicas);
+        if(result ==1){
+            serviceResponse.setMessage("Registro actualizado con exito");
+        }
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
+    }
+    @PostMapping("caracteristicas/delete/{id}")
+    public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+        ServiceResponse serviceResponse = new ServiceResponse();
+        int result = iCaracteristicasService.deleteById(id);
+        if(result ==1){
+            serviceResponse.setMessage("Registro Borrado con exito");
+        }
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
+    }
+
+
 }
