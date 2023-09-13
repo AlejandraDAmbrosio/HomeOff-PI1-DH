@@ -1,0 +1,60 @@
+.div-boton-filtro {
+  z-index: 3;
+}
+
+.boton-filtro {
+  background-color: white;
+  border: 1px solid var(--colorGrey4);
+  box-shadow: var(--BShadow1);
+
+  border-radius: var(--bRadiusButton);
+  color: var(--colorGrey1);
+  /* font-family: "Roboto", sans-serif; */
+  font-size: 1rem;
+  font-weight: var(--fweightM);
+  max-height: 1.5rem;
+  max-width: 150px;
+  overflow: hidden;
+  line-height: 2rem;
+  padding: 1.5rem 1.5rem;
+  position: relative;
+  transition: 0.3s transform ease;
+  will-change: transform;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.2rem;
+}
+
+.icono-filtro {
+  font-size: 1rem;
+  font-weight: var(--fweightM);
+}
+
+.boton-filtro::after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-shadow: none;
+  transform: translate(-100%, 0) rotate(1deg);
+  transform-origin: top;
+  transition: 0.15s transform ease;
+  will-change: transform;
+  z-index: -1;
+}
+
+.boton-filtro:hover::after {
+  transform: translate(0, 0);
+}
+
+.boton-filtro:hover {
+  border: 1px solid var(--BGrey);
+
+  transform: scale(1.01);
+  box-shadow: var(--BShadow);
+}

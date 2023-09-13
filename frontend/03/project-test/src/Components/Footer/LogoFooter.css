@@ -1,0 +1,46 @@
+.logo-copy {
+    display: flex;
+    flex-direction: row;
+    
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    margin-right: 3rem;
+}
+
+.logo-footer {
+    width: 150px;
+}
+
+.registrado {
+    width: 150px;
+    margin-left: 1rem;
+    height: 30px;
+}
+
+@media (max-width: 800px) {
+    .registrado {
+      font-size: 10px;
+    }
+    .logo-footer {
+        width: 100px;
+    }
+  }
+  
+
+  
+@media (max-width: 550px) {
+    .logo-footer {
+      margin-left: 27vw;
+    }
+    
+.logo{
+  margin-right: 0rem;
+}
+    .registrado {
+        display: none;
+      }
+  }
+  

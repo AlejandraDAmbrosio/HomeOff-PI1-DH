@@ -1,0 +1,80 @@
+.footer-HO {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  padding: 0 2rem;
+  background-color: #ffffff;
+  color: var(--colorGrey2);
+  margin-top: auto;
+  position: relative;
+  bottom: 0px;
+  border-top: 1px solid var(--colorGrey4);
+  padding-top: 1rem;
+}
+
+.logo-redes {
+  font-size: 25px;
+  margin: 0rem 1rem;
+}
+
+.encontranos {
+  margin-left: 3rem;
+  width: 120px;
+  margin-right: 1rem;
+}
+
+.f-derecho {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .encontranos {
+    font-size: 10px;
+  }
+
+  .logo-redes {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 720px) {
+  .encontranos {
+    display: none;
+  }
+
+  .logo-redes {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .logo-redes {
+    display: none;
+  }
+}
+.encontranos {
+  margin-left: 0rem;
+
+  margin-right: 0rem;
+}
+
+.footer-HO {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  padding: 0 2rem;
+  background-color: #ffffff;
+  color: var(--colorGrey2);
+
+
+
+  padding-top: 1rem;
+}

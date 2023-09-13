@@ -1,0 +1,122 @@
+.inputC {
+  color:black;
+
+}
+
+
+.formularioAltaUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  min-height: 750px;
+}
+/* 
+.form-control {
+
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  position: relative;
+} */
+
+/* .form-control label {
+  display: inline-block;
+  margin-bottom: 5px;
+} */
+
+.error-form {
+  font-size: 5px;
+  color: #cc2e2e;
+  width: 100%;
+}
+
+/* .campo-formulario {
+  background-color: white;
+} */
+
+.formularioAltaUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* .form-control label {
+  display: inline-block;
+  margin-bottom: 5px;
+} */
+
+/* .form-control input {
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  display: block;
+  font-size: var(--fsizeCat);
+  padding: 2px;
+  width: 320px;
+  color: black;
+} */
+
+/* .acceso-cuenta-o-usuarionuevo-alta {
+  color: rgb(3, 141, 165);
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fsizeS);
+} */
+
+/* ---------------------------- */
+
+.boton-alta-user {
+  background-color: white;
+  border: 1px solid var(--colorGrey4);
+  box-shadow: var(--BShadow);
+  border-radius: var(--bRadiusButton);
+  color: var(--colorGrey1);
+   font-family: "Roboto", sans-serif; 
+  font-size: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  max-height: 1.5rem;
+  max-width: 200px;
+  overflow: hidden;
+  line-height: 2rem;
+  padding: 1rem 2rem;
+  margin: 1.5rem 0rem;
+  position: relative;
+  transition: 0.3s transform ease;
+  will-change: transform;
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.boton-alta-user::after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-shadow: none;
+  transform: translate(-100%, 0) rotate(1deg);
+  transform-origin: top;
+  transition: 0.15s transform ease;
+  will-change: transform;
+  z-index: -1;
+}
+
+.boton-alta-user:hover::after {
+  transform: translate(0, 0);
+}
+
+.boton-alta-user:hover {
+  border: 1px solid var(--BGrey);
+
+  transform: scale(1.009);
+    box-shadow: var(--BShadowD);
+}
