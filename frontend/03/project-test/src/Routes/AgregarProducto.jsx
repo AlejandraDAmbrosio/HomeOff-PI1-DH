@@ -237,6 +237,7 @@ const AgregarProducto = () => {
     }
   }, [form]);
   const jsonData = productosBKLista;
+
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
@@ -298,8 +299,8 @@ const AgregarProducto = () => {
         });
 
 
-      if (response.ok) {
-        const responseData = await response.json();
+      if (response.status === 200) {
+        const responseData = await response.data;
         console.log("Respuesta:", responseData);
         getDatosBKLista();
       } else {
