@@ -30,6 +30,8 @@ const Navbar = () => {
     location.pathname.startsWith("/paginafiltrado/") ||
     location.pathname.startsWith("/editarproducto/") ||
     location.pathname.startsWith("/favoritos/") ||
+    location.pathname.startsWith("/agregarCaracteristicas/") ||
+
     location.pathname === "/formaltauser/";
   location.pathname === "/favoritos/";
 

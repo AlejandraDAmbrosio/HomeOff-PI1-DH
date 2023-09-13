@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ContextGlobal } from "../../utils/global.context";
-import "./TablaProductos.css";import { Link } from "react-router-dom";
+import "./TablaProductos.css";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import  Chip from "@mui/joy/Chip";
-import  Button  from "@mui/joy/Chip";
+import Chip from "@mui/joy/Chip";
+import Button from "@mui/joy/Chip";
 
 import {
   Dialog,
@@ -22,7 +23,6 @@ import {
   TableHead,
   TableCell,
 } from "@mui/material";
-
 
 function obtenerNombreCategoriaPorId(idCategoria, data, listaCategorias) {
   const categoriaEncontrada = listaCategorias.find(
@@ -45,7 +45,7 @@ const TablaProductos = () => {
     getDatosBKLista,
   } = useContext(ContextGlobal);
 
-  const tokenUser = localStorage.getItem("token")
+  const tokenUser = localStorage.getItem("token");
 
   useEffect(() => {
     getCategoriasLista();
@@ -58,15 +58,16 @@ const TablaProductos = () => {
 
   // const headers={}
 
- 
   const eliminarRecurso = async (idRecurso) => {
     try {
       const response = await axios.delete(
-        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`, {
+        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`,
+        {
           headers: {
             "Content-Type": "application/json",
           },
-        });
+        }
+      );
 
       const updatedRecursos = productosBKLista.filter(
         (productoXId) => productoXId.idRecurso !== idRecurso
@@ -76,8 +77,6 @@ const TablaProductos = () => {
       console.error("Error al eliminar el usuario:", error);
     }
   };
-
-
 
   const handleClick = (e, idRecurso) => {
     setIdRecursoToDelete(idRecurso);
@@ -128,10 +127,9 @@ const TablaProductos = () => {
         sx={{ width: "100%", overflow: "hidden" }}
         style={{ margin: "0 20px 0 0" }}
       >
-        <TableContainer sx={{ maxHeight: 500,   width: "100%" }}>
+        <TableContainer sx={{ maxHeight: 500, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-
               <TableRow
                 style={{
                   backgroundColor: "lightgray",
@@ -141,18 +139,17 @@ const TablaProductos = () => {
                 }}
               >
                 <TableCell>Imagen</TableCell>
-                <TableCell>IdRecurso</TableCell>
+                <TableCell>Id</TableCell>
                 <TableCell>Nombre</TableCell>
                 <TableCell>Categoría</TableCell>
                 <TableCell>Descripción</TableCell>
                 <TableCell>Precio</TableCell>
-                <TableCell>Estado</TableCell>
+                <TableCell>Características</TableCell>
                 <TableCell>Editar</TableCell>
                 <TableCell>Eliminar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-
               {productosBKLista.map((recurso, IdRecurso) => (
                 <TableRow key={IdRecurso} style={{ height: "30px" }}>
                   <TableCell style={{ width: "30px", padding: "0 0 0 15px" }}>
@@ -168,7 +165,7 @@ const TablaProductos = () => {
                     />
                   </TableCell>
                   <TableCell>{recurso.idRecurso}</TableCell>
-                  <TableCell style={{ width: "250px" }}>
+                  <TableCell style={{ width: "160px" }}>
                     {recurso.nombre}
                   </TableCell>
                   <TableCell style={{ width: "120px" }}>
@@ -178,16 +175,24 @@ const TablaProductos = () => {
                       categoriasLista
                     )}
                   </TableCell>
-                  <TableCell style={{ width: "450px" }}>
-                    {recurso.descripción}
+                  <TableCell style={{ width: "300px" }}>
+                    <div
+                      style={{
+                        maxWidth: "260px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {recurso.descripción}
+                    </div>
                   </TableCell>
                   <TableCell style={{ width: "70px" }}>
                     {recurso.precioUnitario}
                   </TableCell>
-                  <TableCell>{recurso.estadoRecurso}</TableCell>
                   <TableCell>
                     <Link
-                      to={`/editarproducto/${recurso.idRecurso}`}
+                      to={`/agregarCaracteristicas/${recurso.idRecurso}`}
                       key={recurso.idRecurso}
                     >
                       <Button
@@ -201,6 +206,25 @@ const TablaProductos = () => {
                       ></Button>
                     </Link>
                   </TableCell>
+                 
+                 
+                  <TableCell><Link
+                      to={`/editarproducto/${recurso.idRecurso}`}
+                      key={recurso.idRecurso}
+                    >
+                      <Button
+                        style={{
+                          backgroundColor: "#9dd6b3",
+                        }}
+                        size="md"
+                        variant="soft"
+                        color="primary"
+                        endDecorator={<EditIcon />}
+                      ></Button>
+                    </Link>
+                    </TableCell>
+                  {/* <TableCell>{recurso.estadoRecurso}</TableCell> */}
+                 
 
                   <TableCell>
                     <Chip

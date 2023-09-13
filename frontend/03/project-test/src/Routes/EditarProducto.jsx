@@ -69,6 +69,29 @@ const EditarProducto = () => {
     useState({});
 
   /////// Preparar obbjeto para enviar al servidor    ///////
+  const [nuevoProducto, setNuevoProducto] = useState({
+    idRecurso: 0,
+    nombre: "",
+    descripción: "",
+    capacidadMáxima: 0,
+    precioUnitario: 1.0,
+    idSede: 1,
+    categoria_id: 1,
+    id_Tipo_Espacio: 1,
+    imagenUrl01:
+      "https://c2-team4-images-test-bucket.s3.amazonaws.com/lockers.jpg",
+    imagenUrl02: "",
+    imagenURL: "",
+    imagenUrl03: "",
+    imagenUrl04: "",
+    tieneCafetería: 1,
+    tieneWifi: 1,
+    estadoRecurso: "Disponible",
+    tieneLokker: 1,
+    tieneFotocopiadoraImpresion: 1,
+    tieneEspacioDescanso: 1,
+    tieneEstaciónCafeAguaAromatica: 1,
+  });
 
   
 
