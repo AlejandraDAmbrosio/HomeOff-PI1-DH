@@ -211,7 +211,7 @@ export default function AccountMenu() {
           </Link>
         )}
 
-        <Divider />
+
         {isAdmin && (
           /*usuarioLogueado.rol == "ADMINISTRADOR" &&*/ <Link to="/administradorproductos/">
             <MenuItem onClick={handleClose}>
@@ -223,7 +223,6 @@ export default function AccountMenu() {
           </Link>
         )}
 
-        <Divider />
 
         {usuarioLogueado && (
           <MenuItem

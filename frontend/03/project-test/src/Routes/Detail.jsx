@@ -90,7 +90,7 @@ const Detail = () => {
     caracteristicasXID,
     getCaracteristicasXID,
     getCaracteristicasLista,
-    usuarioLogueado
+    usuarioLogueado,
   } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -212,11 +212,6 @@ const Detail = () => {
               }}
             />
           </div>
-
-          <Divider
-            orientation="horizontal"
-            style={{ margin: "1.5rem 0rem" }}
-          ></Divider>
 
           <Typography
             margin="1rem"
@@ -557,48 +552,15 @@ const Detail = () => {
           </Stack>
           {/* </div> */}
         </div>
-        {/* </Paper> */}
-        {/* <Stack
-        flexWrap={"wrap"}
-          gap={4}
-          alignItems={{ xl:"center", lg:"center", md: "center",  xs: "center" }}
-          margin={"auto"}
-          width={{
-            xl: "98%",
-            lg: "fit-content",
-          }}
-          direction={{
-            xl: "row",
-            lg: "row",
-            md: "column",
-            xs: "column",
-            sm: "column",
-          }}
-          style={{display:"flex", justifyContent:"center", border: "1px solid red",}}
-        >
-          <CalendarioXId></CalendarioXId>
-          <Divider
-            orientation={{
-              xl: "vertical",
-              lg: "vertical",
-              md: "vertical",
-              xs: "vertical",
-              sm: "horizontal",
-            }}
-          />
-          <Comentarios id={id}></Comentarios>
-        </Stack> */}
 
         <Stack
-          // container
           spacing={2}
-          // margin={"auto"}
-          flexDirection={{lg:"row"}}
+          flexDirection={{ lg: "row" }}
           style={{
-            display:"flex",
-            // border: "1px solid red",
-            gap:"3rem",
-            flexWrap:"wrap",
+            display: "flex",
+
+            gap: "3rem",
+            flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
             justifyItems: "center",

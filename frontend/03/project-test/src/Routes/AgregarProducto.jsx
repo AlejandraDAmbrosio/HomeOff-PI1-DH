@@ -20,8 +20,6 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
- 
- 
   const {
     productosBKLista,
     setProductosBKLista,
@@ -32,30 +30,10 @@ const AgregarProducto = () => {
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
- 
-
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
   const [nombreYaExiste, setNombreYaExiste] = useState(false);
   const [form, setForm] = useState(false);
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
-
-  //////////////// codigo para cargar imagenes comentado ///////////////////////
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const handleFileChange = (event) => {
-  //   const files = event.target.files;
-  //   const newFiles = Array.from(files).slice(0, 5); // Limitar a 5 archivos
-  //   setSelectedFiles(newFiles);
-  // };
-
-  // const handleUpload = () => {
-  //   if (selectedFiles.length > 0) {
-  //     // Aquí puedes implementar la lógica para enviar los archivos al servidor
-  //     console.log("Subiendo archivos:", selectedFiles.map(file => file.name));
-  //   }
-  // };
-  // const [showPreview, setShowPreview] = useState(false);
-  // const [selectedServiceIds, setSelectedServiceIds] = useState([]);
-  // const MAX_SELECTED_SERVICES = 5;
 
   /////// Preparar obbjeto para enviar al servidor    ///////
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -82,24 +60,11 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: 1,
   });
 
-  // const [servicios, setServicios] = useState({
-  //   tieneCafetería: false,
-  //   tieneWifi: false,
-  //   tieneLokker: false,
-  //   tieneFotocopiadoraImpresion: false,
-  //   tieneEspacioDescanso: false,
-  //   tieneEstaciónCafeAguaAromatica: false,
-  // });
-
   const [caracteristica, setCaracteristicas] = useState({
     nombre: "",
     logoCaracteristica: "",
     idCaracteristica: "",
   });
-
-  ///////////////Envio de datos
-
-  /////////////////////////////
 
   const sedesArray = [
     {
@@ -251,8 +216,8 @@ const AgregarProducto = () => {
     console.log(
       "------------------validarNombreProducto ??? ------------------"
     );
-    console.log( "nombreExisteEnData ----------------> ",nombreExisteEnData);
-    console.log( "nombreEsValido ----------------> ",nombreEsValido);
+    console.log("nombreExisteEnData ----------------> ", nombreExisteEnData);
+    console.log("nombreEsValido ----------------> ", nombreEsValido);
 
     if (nombreEsValido && !nombreExisteEnData) {
       setForm(true);
@@ -276,11 +241,11 @@ const AgregarProducto = () => {
         imagenURL: "",
         imagenUrl03: "",
         imagenUrl04: "",
-        tieneCafetería:  1,
+        tieneCafetería: 1,
         tieneWifi: 1,
         tieneLokker: 1,
         tieneFotocopiadoraImpresion: 1,
-        tieneEspacioDescanso:1,
+        tieneEspacioDescanso: 1,
         tieneEstaciónCafeAguaAromatica: 1,
       };
 
@@ -289,7 +254,9 @@ const AgregarProducto = () => {
       );
       console.log(nuevoProductoData);
       const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
-      // enviarDatos();
+
+      ///////////////Envio de datos
+
       try {
         const jsonData = JSON.stringify(nuevoProductoData);
         const response = await axios.post(urlBase, jsonData, {
@@ -297,47 +264,34 @@ const AgregarProducto = () => {
             "Content-Type": "application/json",
           },
         });
-
-
-      if (response.status === 200) {
-        const responseData = await response.data;
-        console.log("Respuesta:", responseData);
-        getDatosBKLista();
-      } else {
-        console.error(
-          "Error en la respuesta:",
-          response.status,
-          response.statusText
-        );
+        console.log("response.status", response.status);
+        if (response.status == 200) {
+          console.log(
+            "PRE  productosBKLista -------------------> ",
+            productosBKLista
+          );
+          const responseData = await response.data;
+          console.log("Respuesta:", responseData);
+          getDatosBKLista();
+          console.log(
+            "productosBKLista -----dentro de  if (response.status == 200) {--------------> ",
+            productosBKLista
+          );
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error:", error);
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+      getDatosBKLista();
 
-      // try {
-      //   const jsonData = JSON.stringify(nuevoProductoData);
-      //   const response = await axios.get(urlBase, jsonData, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       "Authorization": `Bearer ${token}`,
-      //     },
-      //   });
+      console.log("productosBKLista -------------------> ", productosBKLista);
 
-      //   console.log("Respuesta:", response.data);
-      //   getDatosBKLista();
-      // } catch (error) {
-      //   console.error("Error:", error);
-      // }
-      // useEffect(() => {
-      //   if (form) {
-      //     getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
-      //   }
-      // }, [form]);
 
-      console.log("Muestra el valor de toda la Lista ");
-      console.log(productosBKLista);
-      console.log("------------------productosBKLista  ------------------");
-      console.log(jsonData);
       // useEffect(() => {
       //   getDatosBKLista();
       // }, []);
@@ -381,7 +335,14 @@ const AgregarProducto = () => {
             >
               <h1 className="titulo-form-carga-prod">Carga de producto</h1>
               <div className="formularioAgregarProducto">
-                <div style={{ width: "400px", display:"flex", flexDirection:"column", gap:"1rem"  }}>
+                <div
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
                   <TextField
                     id="nombreProducto"
                     label="Nombre del producto"
@@ -434,8 +395,7 @@ const AgregarProducto = () => {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     maxWidth: "485px",
-                    gap:"0.5rem"
-                    
+                    gap: "0.5rem",
                   }}
                 >
                   <TextField
@@ -443,7 +403,7 @@ const AgregarProducto = () => {
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "210px"}}
+                    style={{ width: "210px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -471,7 +431,7 @@ const AgregarProducto = () => {
                     select
                     type="number"
                     label="Tipo de Espacio"
-                    style={{ width: "224px"}}
+                    style={{ width: "224px" }}
                     defaultValue="OFICINAS PRIVADAS"
                     SelectProps={{
                       native: true,
@@ -498,11 +458,11 @@ const AgregarProducto = () => {
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
-                  style={{ maxWidth: "480px", height:"fit-content" }}
+                  style={{ maxWidth: "480px", height: "fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                  {caracteristicasLista.map((caracteristica) => (
+                    {caracteristicasLista.map((caracteristica) => (
                       <li
                         key={caracteristica.idCaracteristica}
                         style={{ listStyle: "none" }}
@@ -640,12 +600,14 @@ const AgregarProducto = () => {
                 </div>
 
                 {/* ///////////////////////////////////////////////////////////////////// */}
-                <div className="campo-anotacion"
+                <div
+                  className="campo-anotacion"
                   style={{
                     margin: "35px 0px",
                     border: "1px solid grey",
                     padding: "10px 5px",
-                  }}>
+                  }}
+                >
                   <label className="anotacion" for="fotos">
                     Ingresa las fotos del producto *
                   </label>
