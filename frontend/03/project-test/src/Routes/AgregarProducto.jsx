@@ -17,11 +17,13 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
-  const urlBase = "http://52.32.210.155:8080/api/v1/recursos/save";
-  const token = localStorage.getItem("token");
+  
+  const navigate = useNavigate();
+
   const {
     productosBKLista,
     setProductosBKLista,
@@ -36,24 +38,6 @@ const AgregarProducto = () => {
   const [nombreYaExiste, setNombreYaExiste] = useState(false);
   const [form, setForm] = useState(false);
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
-
-  //////////////// codigo para cargar imagenes comentado ///////////////////////
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const handleFileChange = (event) => {
-  //   const files = event.target.files;
-  //   const newFiles = Array.from(files).slice(0, 5); // Limitar a 5 archivos
-  //   setSelectedFiles(newFiles);
-  // };
-
-  // const handleUpload = () => {
-  //   if (selectedFiles.length > 0) {
-  //     // Aquí puedes implementar la lógica para enviar los archivos al servidor
-  //     console.log("Subiendo archivos:", selectedFiles.map(file => file.name));
-  //   }
-  // };
-  // const [showPreview, setShowPreview] = useState(false);
-  // const [selectedServiceIds, setSelectedServiceIds] = useState([]);
-  // const MAX_SELECTED_SERVICES = 5;
 
   /////// Preparar obbjeto para enviar al servidor    ///////
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -80,24 +64,11 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: 1,
   });
 
-  // const [servicios, setServicios] = useState({
-  //   tieneCafetería: false,
-  //   tieneWifi: false,
-  //   tieneLokker: false,
-  //   tieneFotocopiadoraImpresion: false,
-  //   tieneEspacioDescanso: false,
-  //   tieneEstaciónCafeAguaAromatica: false,
-  // });
-
   const [caracteristica, setCaracteristicas] = useState({
     nombre: "",
     logoCaracteristica: "",
     idCaracteristica: "",
   });
-
-  ///////////////Envio de datos
-
-  /////////////////////////////
 
   const sedesArray = [
     {
@@ -235,6 +206,7 @@ const AgregarProducto = () => {
     }
   }, [form]);
   const jsonData = productosBKLista;
+
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
@@ -248,7 +220,8 @@ const AgregarProducto = () => {
     console.log(
       "------------------validarNombreProducto ??? ------------------"
     );
-    console.log(nombreExisteEnData);
+    console.log("nombreExisteEnData ----------------> ", nombreExisteEnData);
+    console.log("nombreEsValido ----------------> ", nombreEsValido);
 
     if (nombreEsValido && !nombreExisteEnData) {
       setForm(true);
@@ -272,11 +245,11 @@ const AgregarProducto = () => {
         imagenURL: "",
         imagenUrl03: "",
         imagenUrl04: "",
-        tieneCafetería:  1,
+        tieneCafetería: 1,
         tieneWifi: 1,
         tieneLokker: 1,
         tieneFotocopiadoraImpresion: 1,
-        tieneEspacioDescanso:1,
+        tieneEspacioDescanso: 1,
         tieneEstaciónCafeAguaAromatica: 1,
       };
 
@@ -284,33 +257,53 @@ const AgregarProducto = () => {
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
+      const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
 
-      // enviarDatos();
-console.log(" ---------------- > Agregar Producto - token" ,token)
+      ///////////////Envio de datos
+
       try {
         const jsonData = JSON.stringify(nuevoProductoData);
-        const response = await axios.get(urlBase, jsonData, {
+        const response = await axios.post(urlBase, jsonData, {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
           },
         });
+        console.log("response.status", response.status);
+        if (response.status == 200) {
+          console.log(
+            "PRE  productosBKLista -------------------> ",
+            productosBKLista
+          );
+          const responseData = await response.data;
+          console.log("Respuesta:", responseData);
+          getDatosBKLista();
+          console.log(
+            "productosBKLista -----dentro de  if (response.status == 200) {--------------> ",
+            productosBKLista
+          );
+          const ultimoElemento = productosBKLista[productosBKLista.length - 1];
 
-        console.log("Respuesta:", response.data);
-        getDatosBKLista();
+          const idRecursoUltimoElemento = ultimoElemento.idRecurso + 1;
+          
+          console.log(idRecursoUltimoElemento);
+          console.log("idRecursoUltimoElemento -----> ",idRecursoUltimoElemento);
+          navigate(`/agregarCaracteristicas/${idRecursoUltimoElemento}`);
+
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
+        }
       } catch (error) {
         console.error("Error:", error);
       }
-      useEffect(() => {
-        if (form) {
-          getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
-        }
-      }, [form]);
+      getDatosBKLista();
 
-      console.log("Muestra el valor de toda la Lista ");
-      console.log(productosBKLista);
-      console.log("------------------productosBKLista  ------------------");
-      console.log(jsonData);
+      console.log("productosBKLista -------------------> ", productosBKLista);
+
+
       // useEffect(() => {
       //   getDatosBKLista();
       // }, []);
@@ -343,7 +336,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
 
   return (
     <div className="administracion-agre">
-      <div className="administracion-agre-titulo">Agregar productos</div>
+      <div className="administracion-agre-titulo">Agregar producto</div>
       <div className="paneles-agregar">
         <PanelAdminUser />
         <div className="division-form-preview">
@@ -352,9 +345,16 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
               onSubmit={handleSubmitCrearProducto}
               style={{ padding: "1rem 0rem", width: "500px" }}
             >
-              <h1 className="titulo-form-carga-prod">Carga de producto</h1>
+              {/* <h1 className="titulo-form-carga-prod">Carga de producto</h1> */}
               <div className="formularioAgregarProducto">
-                <div style={{ width: "400px", display:"flex", flexDirection:"column", gap:"1rem"  }}>
+                <div
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
                   <TextField
                     id="nombreProducto"
                     label="Nombre del producto"
@@ -406,7 +406,8 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    maxWidth: "450px",
+                    maxWidth: "485px",
+                    gap: "0.5rem",
                   }}
                 >
                   <TextField
@@ -414,7 +415,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "220px" }}
+                    style={{ width: "210px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -442,6 +443,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     select
                     type="number"
                     label="Tipo de Espacio"
+                    style={{ width: "224px" }}
                     defaultValue="OFICINAS PRIVADAS"
                     SelectProps={{
                       native: true,
@@ -464,11 +466,11 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                   {/* //////////////////// */}
                 </div>
                 {/* -/////////////////////////////////////// */}
-                <FormGroup
+                {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
-                  style={{ maxWidth: "600px" }}
+                  style={{ maxWidth: "480px", height: "fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
@@ -481,7 +483,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                         <label>
                           <Checkbox
                             type="checkbox"
-                            // className="item-grid-check"
+                           // className="item-grid-check"
                             checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
                             onChange={() => handleOptionChange(caracteristica)}
                           />
@@ -490,7 +492,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                       </li>
                     ))}
                   </div>
-                </FormGroup>
+                </FormGroup> */}
                 {/* /////////--------------------------------////// */}
                 <div
                   style={{
@@ -564,7 +566,7 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                     SelectProps={{
                       native: true,
                     }}
-                    helperText="Esta Disponible?"
+                    helperText="Está disponible?"
                     variant="standard"
                     value={nuevoProducto.estadoRecurso}
                     onChange={onChangeDisponibilidad}
@@ -610,7 +612,15 @@ console.log(" ---------------- > Agregar Producto - token" ,token)
                 </div>
 
                 {/* ///////////////////////////////////////////////////////////////////// */}
-                <div className="campo-anotacion">
+                <div
+                  className="campo-anotacion"
+                  style={{
+                    margin: "35px 0px",
+                    border: "1px solid grey",
+                    padding: "10px 5px",
+                    width:"100%"
+                  }}
+                >
                   <label className="anotacion" for="fotos">
                     Ingresa las fotos del producto *
                   </label>

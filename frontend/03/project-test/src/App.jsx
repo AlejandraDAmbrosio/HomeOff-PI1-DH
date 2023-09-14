@@ -19,7 +19,9 @@ import PaginaFiltrado from "./Routes/PaginaFiltrado";
 import EditarProducto from "./Routes/EditarProducto";
 import Favoritos from "./Routes/Favoritos";
 import PrivateRoute from "./Components/PrivateRoute";
+import AgregarCaracteristicas from "./Routes/AgregarCaracteristicas";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 
 function App() {
   ////////////////// Segmento Logueo
@@ -105,6 +107,18 @@ function App() {
             element={<PrivateRoute component={EditarProducto} adminOnly={true} />}
           ></Route>
         </Route>
+
+        <Route
+          path="/agregarCaracteristicas/"
+          element={<PrivateRoute component={AgregarCaracteristicas} adminOnly={true} />}
+        >
+          <Route
+            path="/agregarCaracteristicas/:id"
+            element={<PrivateRoute component={AgregarCaracteristicas} adminOnly={true} />}
+          ></Route>
+        </Route>
+
+
 
         {/* <Route
           path="/administrarcategorias/"

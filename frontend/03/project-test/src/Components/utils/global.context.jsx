@@ -252,9 +252,9 @@ export const ContextProvider = ({ children }) => {
     setCaracteristicasLista(data);
   };
 
-  // useEffect(() => {
-  //   getCaracteristicasLista();
-  // }, []);
+  useEffect(() => {
+    getCaracteristicasLista();
+  }, []);
 
   /////////////////////// Get Caracteristicas por ID
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
