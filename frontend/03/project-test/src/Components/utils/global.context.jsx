@@ -395,9 +395,31 @@ const [listaFavXUserId, setListaFavXUserId] = useState([]);
     actualizarTitulo();
   }, [prodFiltrados, tituloListadoProductos]);
 
+////////////////////////////////////// Reservas 
+
+const [ reservas, setReservas] = useState([]);
+
+const getReservas = async (id) => {
+  const response = await axios.get(
+    `http://52.32.210.155:8080/auth/reserva/${id}`
+  );
+  const data = response.data;
+console.log(data)
+  setReservas(data);
+};
+
+
+
+
+
+
+  ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        getReservas,
+        reservas,
+        setReservas,
         listaFavXUserId, 
         setListaFavXUserId, 
         getListaFavXUserID, 
