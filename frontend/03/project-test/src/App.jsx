@@ -135,6 +135,12 @@ function App() {
           <Route path="/verreservas/:id" element={<VerReservas />} />
         </Route>
 
+
+        <Route path="/reservas/" element={<Reservas />}>
+          <Route path="/reservas/:id" element={<Reservas />} />
+        </Route>
+
+
         {/* <Route
           path="/administrarcategorias/"
           element={<AdministrarCategorias />}
