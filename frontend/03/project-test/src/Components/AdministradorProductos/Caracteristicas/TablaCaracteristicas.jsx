@@ -98,6 +98,63 @@ const TablaCaracteristicas = () => {
     setOpen(false);
   };
 
+  const handleGuardarEdicion = async (e) => {
+    e.preventDefault();
+    const nombreCaracteristicaValida = validarNombreCaracteristicas(
+      editedItem.nombre
+    );
+  
+    const caracteristicaExisteEnData = nombreExiste(
+      editedItem.nombre,
+      jsonDataCaracteristicas
+    );
+  
+    if (nombreCaracteristicaValida && !caracteristicaExisteEnData) {
+      setNombreCaracteristicaValida(true);
+  
+      const editedItemData = {
+        nombre: editedItem.nombre,
+        logoCaracteristica: editedItem.logoCaracteristica,
+        idCaracteristica: editedItem.idCaracteristica,
+      };
+  
+      const urlBaseEditar = "http://52.32.210.155:8080/auth/caracteristicas/update";
+  
+      try {
+        const jsonDataEdicion = JSON.stringify(editedItemData);
+        const response = await axios.post(urlBaseEditar, jsonDataEdicion, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (response.status === 200) {
+          const responseData = await response.data;
+          console.log("Respuesta:", responseData);
+          getCaracteristicasLista();
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+  
+      // Cierra el diálogo de edición
+      setEditDialogOpen(false);
+    }
+  };
+  
+
+
+
+
+
+
+
   const handleSubmitCrearCaracteristica = async (e) => {
     e.preventDefault();
 
@@ -226,75 +283,74 @@ const TablaCaracteristicas = () => {
 
   ////////////////////////////
 
-  const handleGuardarEdicion  = async (e) => {
-    e.preventDefault();
-    console.log()
-    const nombreCaracteristicaValida = validarNombreCaracteristicas(
-      editedItem.nombre
-    );
-    console.log("nombreCaracteristicaValida" ,nombreCaracteristicaValida)
+  // const handleGuardarEdicion  = async (e) => {
+  //   e.preventDefault();
+  //   const nombreCaracteristicaValida = validarNombreCaracteristicas(
+  //     editedItem.nombre
+  //   );
+  //   console.log("nombreCaracteristicaValida" ,nombreCaracteristicaValida)
 
-    const caracteristicaExisteEnData = nombreExiste(
-      editedItem.nombre,
-      jsonDataCaracteristicas
-    );
-    console.log("caracteristicaExisteEnData" ,caracteristicaExisteEnData)
+  //   const caracteristicaExisteEnData = nombreExiste(
+  //     editedItem.nombre,
+  //     jsonDataCaracteristicas
+  //   );
+  //   console.log("caracteristicaExisteEnData" ,caracteristicaExisteEnData)
 
-    if (nombreCaracteristicaValida && !caracteristicaExisteEnData) {
+  //   if (nombreCaracteristicaValida && !caracteristicaExisteEnData) {
    
-      setNombreCaracteristicaValida(true);
-      // setShowPreview(true);
+  //     setNombreCaracteristicaValida(true);
+  //     // setShowPreview(true);
 
-      const editedItem = {
-        nombre: editedItem.nombre,
-        logoCaracteristica: editedItem.logoCaracteristica,
-        idCaracteristica: 0,
-      };
+  //     const editedItem = {
+  //       nombre: editedItem.nombre,
+  //       logoCaracteristica: editedItem.logoCaracteristica,
+  //       idCaracteristica: 0,
+  //     };
 
-      console.log("editedItem ---------------- >" ,editedItem)
+  //     console.log("editedItem ---------------- >" ,editedItem)
 
-      const urlBaseEditar =
-      "http://52.32.210.155:8080/auth/caracteristicas/update";
-    // Realiza las acciones para guardar los cambios en editedItem
-    // Puedes enviar una solicitud al servidor aquí si es necesario
+  //     const urlBaseEditar =
+  //     "http://52.32.210.155:8080/auth/caracteristicas/update";
+  //   // Realiza las acciones para guardar los cambios en editedItem
+  //   // Puedes enviar una solicitud al servidor aquí si es necesario
 
   
  
-    try {
-      const jsonDataEdicion = JSON.stringify(editedItem);
-      console.log("jsonDataEdicion ---------------- >" ,jsonDataEdicion)
+  //   try {
+  //     const jsonDataEdicion = JSON.stringify(editedItem);
+  //     console.log("jsonDataEdicion ---------------- >" ,jsonDataEdicion)
 
-      const response = await axios.post(urlBaseEditar, jsonDataEdicion, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  //     const response = await axios.post(urlBaseEditar, jsonDataEdicion, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      if (response.status === 200) {
-        const responseData = await response.data;
-        console.log("Respuesta:", responseData);
-        getCaracteristicasLista();
+  //     if (response.status === 200) {
+  //       const responseData = await response.data;
+  //       console.log("Respuesta:", responseData);
+  //       getCaracteristicasLista();
         
-      } else {
-        console.error(
-          "Error en la respuesta:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  //     } else {
+  //       console.error(
+  //         "Error en la respuesta:",
+  //         response.status,
+  //         response.statusText
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
 
 
 
 
 
 
-  // Cierra el diálogo de edición
-    setEditDialogOpen(false);
-  };
-  }
+  // // Cierra el diálogo de edición
+  //   setEditDialogOpen(false);
+  // };
+  // }
   //////////////////////////////
 
   return (
