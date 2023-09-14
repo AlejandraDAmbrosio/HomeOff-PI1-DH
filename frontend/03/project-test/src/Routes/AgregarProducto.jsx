@@ -336,7 +336,7 @@ const AgregarProducto = () => {
 
   return (
     <div className="administracion-agre">
-      <div className="administracion-agre-titulo">Agregar productos</div>
+      <div className="administracion-agre-titulo">Agregar producto</div>
       <div className="paneles-agregar">
         <PanelAdminUser />
         <div className="division-form-preview">
@@ -345,7 +345,7 @@ const AgregarProducto = () => {
               onSubmit={handleSubmitCrearProducto}
               style={{ padding: "1rem 0rem", width: "500px" }}
             >
-              <h1 className="titulo-form-carga-prod">Carga de producto</h1>
+              {/* <h1 className="titulo-form-carga-prod">Carga de producto</h1> */}
               <div className="formularioAgregarProducto">
                 <div
                   style={{
@@ -466,7 +466,7 @@ const AgregarProducto = () => {
                   {/* //////////////////// */}
                 </div>
                 {/* -/////////////////////////////////////// */}
-                <FormGroup
+                {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
@@ -483,7 +483,7 @@ const AgregarProducto = () => {
                         <label>
                           <Checkbox
                             type="checkbox"
-                            // className="item-grid-check"
+                           // className="item-grid-check"
                             checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
                             onChange={() => handleOptionChange(caracteristica)}
                           />
@@ -492,7 +492,7 @@ const AgregarProducto = () => {
                       </li>
                     ))}
                   </div>
-                </FormGroup>
+                </FormGroup> */}
                 {/* /////////--------------------------------////// */}
                 <div
                   style={{
@@ -618,6 +618,7 @@ const AgregarProducto = () => {
                     margin: "35px 0px",
                     border: "1px solid grey",
                     padding: "10px 5px",
+                    width:"100%"
                   }}
                 >
                   <label className="anotacion" for="fotos">
