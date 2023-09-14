@@ -22,6 +22,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import AgregarCaracteristicas from "./Routes/AgregarCaracteristicas";
 import VerReservas from "./Routes/VerReservas";
 import Reservas from "./Routes/Reservas";
+import ReservarXIDRecurso from "./Routes/ReservarXIDRecurso";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
@@ -136,8 +137,14 @@ function App() {
         </Route>
 
 
-        <Route path="/reservas/" element={<Reservas />}>
+        {/* <Route path="/reservas/" element={<Reservas />}>
           <Route path="/reservas/:id" element={<Reservas />} />
+        </Route> */}
+
+
+
+        <Route path="/reserva/" element={<ReservarXIDRecurso />}>
+          <Route path="/reserva/:id" element={<ReservarXIDRecurso />} />
         </Route>
 
 

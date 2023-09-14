@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
+
 import { useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
 import {
@@ -19,28 +20,48 @@ import formateoFechas from "../Components/utils/formateoFechas";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 
-const Reservas = ({idRecurso, fechaInicio, fechaFin}) => {
+const Reservas = () => {
   const { id } = useParams();
-  const {
-    getReservas,
+  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin, getReservas,
     reservas,
     postReserva,
     productosBKLista,
-    getRecursoXID,
-  } = useContext(ContextGlobal);
+    recursoXID,
+    getRecursoXID, } =
+  useContext(ContextGlobal);
+
+
+  const user = localStorage.getItem("nombreCompleto");
+  const userId = localStorage.getItem("idUsuario");
+
+
 
   useEffect(() => {
-    getReservas(id);
-    postReserva();
+
+    getRecursoXID(id);
+    getCaracteristicasXID(id);
+    getPuntosComentXIDRecurso(id);
   }, [id]);
   console.log(reservas);
 
   return (
 
     <Container>
-    <div>
-      <div>Reservas</div>
-    </div>
+    <Stack  style={{
+        marginTop: "7rem",
+        marginBottom: "2rem",
+        minHeight: "730px",
+        maxWidth: "1900px",
+      }}>
+      <Typography variant="h3">{recursoXID.nombre}</Typography>
+      <Typography>{user}</Typography>
+
+
+  <Stack>  </Stack>
+  
+   </Stack>
+
+
 
     </Container>
   );
