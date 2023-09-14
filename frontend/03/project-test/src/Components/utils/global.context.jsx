@@ -430,23 +430,31 @@ export const ContextProvider = ({ children }) => {
     //   finalizaciónReserva:{finalizaciónReserva},
     //   fechaRealizaciónReserva:{fechaRealizaciónReserva},
     // }
-    const datosReserva = {
-      nombre: "Maria",
-      apellido: "Rojas",
-      idUsuario: 1,
-      idRecurso: 1,
-      inicioReserva: "2023-09-15T05:00:00.000+00:00",
-      estadoReserva: 1,
-      email: "mari98g@gmail.com",
-      finalizaciónReserva: "2023-09-16T05:00:00.000+00:00",
-      fechaRealizaciónReserva: "2023-09-14T05:00:00.000+00:00",
-    };
+     const datosReserva = {
+        "nombre": "Pedro",
+        "apellido": "Alzate",
+        "idUsuario": 44,
+        "idRecurso": 1,
+        "inicioReserva": "2023-09-12T05:00:00.000+00:00",
+        "estadoReserva": 1,
+        "email": "prueba12@gmail.com",
+        "finalizaciónReserva": "2023-09-14T05:00:00.000+00:00",
+        "fechaRealizaciónReserva": "2023-09-10T05:00:00.000+00:00"
+}
+
+
+    // const datosReserva ={"nombre":"Maria","apellido":"Rojas","idUsuario":1,"idRecurso":1,"inicioReserva":"2023-09-15T05:00:00.000+00:00","estadoReserva":1,"email":"mari98g@gmail.com","finalizaciónReserva":"2023-09-16T05:00:00.000+00:00","fechaRealizaciónReserva":"2023-09-14T05:00:00.000+00:00"};
+
+
+
+
+
     const urlReserva = `http://52.32.210.155:8080/auth/reserva/save/`;
     
     try {
       const jsonDataReserva = JSON.stringify(datosReserva);
       console.log("jsonDataReserva ---------- > ", jsonDataReserva)
-      const response = await axios.post(urlReserva, jsonDataReserva, {
+      const response = await axios.post(urlReserva, datosReserva, {
         headers: {
           "Content-Type": "application/json",
         },
