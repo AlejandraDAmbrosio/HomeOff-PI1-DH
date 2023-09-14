@@ -9,13 +9,15 @@ const VerReservas = () => {
     const { id } = useParams();
     const {
         getReservas,
-        reservas
+        reservas,
+        postReserva
       } = useContext(ContextGlobal);
 
 
 
     useEffect(() => {
         getReservas(id);
+        postReserva();
       }, [id]);
     
 

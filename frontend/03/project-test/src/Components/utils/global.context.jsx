@@ -197,7 +197,7 @@ export const ContextProvider = ({ children }) => {
   console.log("-------------- > getTokenUser", tokenUserState);
   const headers = {
     "Content-Type": "application/json",
-    "Authorization": `Bearer "${tokenUserState}"`,
+    Authorization: `Bearer "${tokenUserState}"`,
   };
 
   const getDatosUsers = async (tokenUserState) => {
@@ -206,10 +206,7 @@ export const ContextProvider = ({ children }) => {
     console.log("-------------- > urlUsers", urlUsers);
 
     try {
-      const response = await axios.get(
-        urlUsers,
-        headers
-      );
+      const response = await axios.get(urlUsers, headers);
 
       if (response.status === 200) {
         const data = response.data;
@@ -326,9 +323,9 @@ export const ContextProvider = ({ children }) => {
   //   console.log("esFav", esFav);
   //   setIsFav(esFav);
   // };
-const [listaFavXUserId, setListaFavXUserId] = useState([]);
+  const [listaFavXUserId, setListaFavXUserId] = useState([]);
 
- const getListaFavXUserID = async (id) => {
+  const getListaFavXUserID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
     setListaFavXUserId(data);
@@ -395,34 +392,94 @@ const [listaFavXUserId, setListaFavXUserId] = useState([]);
     actualizarTitulo();
   }, [prodFiltrados, tituloListadoProductos]);
 
-////////////////////////////////////// Reservas 
+  ////////////////////////////////////// Reservas
 
-const [ reservas, setReservas] = useState([]);
+  const [reservas, setReservas] = useState([]);
 
-const getReservas = async (id) => {
-  const response = await axios.get(
-    `http://52.32.210.155:8080/auth/reserva/${id}`
-  );
-  const data = response.data;
-console.log(data)
-  setReservas(data);
-};
+  const getReservas = async (id) => {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/reserva/${id}`
+    );
+    const data = response.data;
+    console.log(data);
+    setReservas(data);
+  };
 
+  ////////////////////////////////////// Guardar Reservas
 
+  const [guardarReserva, setGuardarReserva] = useState([]);
 
+  const postReserva = async (
+    /*nombre,
+    apellido,
+    idUsuario,
+    idRecurso,
+    inicioReserva,
+    email,
+    finalizaciónReserva,
+    fechaRealizaciónReserva*/
+  ) => {
+    // const datosReserva = {
+    //   nombre: {nombre},
+    //   apellido:{apellido},
+    //   idUsuario: {idUsuario},
+    //   idRecurso:{idRecurso},
+    //   inicioReserva:{inicioReserva},
+    //   estadoReserva: 1,
+    //   email:{email},
+    //   finalizaciónReserva:{finalizaciónReserva},
+    //   fechaRealizaciónReserva:{fechaRealizaciónReserva},
+    // }
+    const datosReserva = {
+      nombre: "Maria",
+      apellido: "Rojas",
+      idUsuario: 1,
+      idRecurso: 1,
+      inicioReserva: "2023-09-15T05:00:00.000+00:00",
+      estadoReserva: 1,
+      email: "mari98g@gmail.com",
+      finalizaciónReserva: "2023-09-16T05:00:00.000+00:00",
+      fechaRealizaciónReserva: "2023-09-14T05:00:00.000+00:00",
+    };
+    const urlReserva = `http://52.32.210.155:8080/auth/reserva/save/`;
+    
+    try {
+      const jsonDataReserva = JSON.stringify(datosReserva);
+      console.log("jsonDataReserva ---------- > ", jsonDataReserva)
+      const response = await axios.post(urlReserva, jsonDataReserva, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-
+      if (response.status === 200) {
+        const responseData = await response.data;
+        console.log("Respuesta:", responseData);
+      } else {
+        console.error(
+          "Error en la respuesta:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        guardarReserva,
+        setGuardarReserva,
+        postReserva,
         getReservas,
         reservas,
         setReservas,
-        listaFavXUserId, 
-        setListaFavXUserId, 
-        getListaFavXUserID, 
+        listaFavXUserId,
+        setListaFavXUserId,
+        getListaFavXUserID,
         tokenUserState,
         setTokenUserState,
         isAdmin,
