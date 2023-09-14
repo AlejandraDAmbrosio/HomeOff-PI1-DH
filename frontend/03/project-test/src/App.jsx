@@ -119,7 +119,7 @@ function App() {
           ></Route>
         </Route>
 
-
+{/* 
         <Route
           path="/verreservas/"
           element={<PrivateRoute component={VerReservas} adminOnly={true} />}
@@ -128,8 +128,12 @@ function App() {
             path="/verreservas/:id"
             element={<PrivateRoute component={VerReservas} adminOnly={true} />}
           ></Route>
-        </Route>
+        </Route> */}
 
+
+        <Route path="/verreservas/" element={<VerReservas />}>
+          <Route path="/verreservas/:id" element={<VerReservas />} />
+        </Route>
 
         {/* <Route
           path="/administrarcategorias/"
