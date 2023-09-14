@@ -20,8 +20,9 @@ import EditarProducto from "./Routes/EditarProducto";
 import Favoritos from "./Routes/Favoritos";
 import PrivateRoute from "./Components/PrivateRoute";
 import AgregarCaracteristicas from "./Routes/AgregarCaracteristicas";
+import VerReservas from "./Routes/VerReservas";
+import Reservas from "./Routes/Reservas";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
-
 
 function App() {
   ////////////////// Segmento Logueo
@@ -118,6 +119,16 @@ function App() {
           ></Route>
         </Route>
 
+
+        <Route
+          path="/verreservas/"
+          element={<PrivateRoute component={VerReservas} adminOnly={true} />}
+        >
+          <Route
+            path="/verreservas/:id"
+            element={<PrivateRoute component={VerReservas} adminOnly={true} />}
+          ></Route>
+        </Route>
 
 
         {/* <Route
