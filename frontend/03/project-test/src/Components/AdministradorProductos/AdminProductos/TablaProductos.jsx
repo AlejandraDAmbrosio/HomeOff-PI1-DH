@@ -54,14 +54,14 @@ const TablaProductos = () => {
   /////////////// Metodo Eliminar Producto
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
-  console.log("-------------- > tokenUser", tokenUser);
+  // console.log("-------------- > tokenUser", tokenUser);
 
   // const headers={}
 
   const eliminarRecurso = async (idRecurso) => {
     try {
       const response = await axios.delete(
-        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`,
+        `http://52.32.210.155:8080/auth/recurso/delete/${idRecurso}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -201,7 +201,7 @@ export default function AccountMenu() {
         )}
 
         {usuarioLogueado && (
-          <Link to={`/verreservas/1`}>
+          <Link to={`/verreservas/${userIdLogIn}`}>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <BsCalendarEvent fontSize="21" />
