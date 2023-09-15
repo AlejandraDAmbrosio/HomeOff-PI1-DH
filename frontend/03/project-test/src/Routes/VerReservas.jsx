@@ -14,14 +14,13 @@ const VerReservas = () => {
   const { id } = useParams();
   const { getReservas, reservas, postReserva, productosBKLista, getRecursoXID } = useContext(ContextGlobal);
 
-
-
   useEffect(() => {
     getReservas(id);
     postReserva();
-    
   }, [id]);
-console.log(reservas)
+
+
+
 
 
   return (

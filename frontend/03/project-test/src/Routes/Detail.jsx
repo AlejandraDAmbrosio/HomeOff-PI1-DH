@@ -91,6 +91,7 @@ const Detail = () => {
     getCaracteristicasXID,
     getCaracteristicasLista,
     usuarioLogueado,
+    
   } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -126,12 +127,14 @@ const Detail = () => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
     getPuntosComentXIDRecurso(id);
+    
   }, [id]);
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
 
+  console.log(`reservas del producto ${recursoXID}`, reservas)
   /////////////////////////
 
   const handleCopyClick = (e) => {

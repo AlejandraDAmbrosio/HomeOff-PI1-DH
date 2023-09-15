@@ -3,7 +3,6 @@ import {
   useNavigate,
   useParams,
   useLocation,
-  Link,
   useResolvedPath,
 } from "react-router-dom";
 import { ContextGlobal } from "../Components/utils/global.context";
@@ -12,34 +11,16 @@ import {
   Box,
   Paper,
   Modal,
-  Button,
   Stack,
   Typography,
-  Alert,
-  Snackbar,
-  IconButton,
-  Grid,
+  Divider,
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import "../Components/Detail.css";
-import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
-import Compartir from "../Components/CompartirEnRedes/Compartir";
-import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
-import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
-import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
-import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
-import TextField from "@mui/material/TextField";
-import Divider from "@mui/material/Divider";
-import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
-import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
-import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
+import "../Components/ReservarXIDRecurso.css";
+import { MdArrowBackIosNew } from "react-icons/md";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
-import { FacebookShareButton, TwitterShareButton } from "react-share";
-import { FacebookIcon, TwitterIcon } from "react-share";
-import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
-import CalendarioXIdReserva from "../Components/Genericos/Fecha/CalendarioXIdReserva";
 
 const style = {
   position: "absolute",
@@ -54,30 +35,8 @@ const style = {
 };
 
 const ReservarXIDRecurso = () => {
-  const [copied, setCopied] = useState(false);
-  const [openSnack, setOpenSnack] = React.useState(false);
-
-  const handleClickSnack = () => {
-    setOpenSnack(true);
-  };
-
-  const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenSnack(false);
-  };
-
   const navigate = useNavigate();
   const resolvedPath = useResolvedPath();
-  const [publicacionRedes, setPublicacionRedes] = useState("");
-
-  const currentURL = window.location.href;
-
-  const onChangeCopy = (event) => {
-    setPublicacionRedes(event.target.value);
-  };
 
   const { id } = useParams();
   const location = useLocation();
@@ -85,14 +44,9 @@ const ReservarXIDRecurso = () => {
     recursoXID,
     getRecursoXID,
     caracteristicasLista,
-    productosBKLista,
     getPuntosComentXIDRecurso,
-    puntosComentXIDRecurso,
-    categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
-    getCaracteristicasLista,
-    usuarioLogueado,
   } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -136,24 +90,23 @@ const ReservarXIDRecurso = () => {
 
   /////////////////////////
 
-  const handleCopyClick = (e) => {
-    e.preventDefault();
-    navigator.clipboard
-      .writeText(currentURL)
-      .then(() => {
-        setCopied(true);
-        handleClickSnack();
-      })
-      .catch((error) => {
-        console.error("Error al copiar la URL: ", error);
-      });
-  };
+  // const handleCopyClick = (e) => {
+  //   e.preventDefault();
+  //   navigator.clipboard
+  //     .writeText(currentURL)
+  //     .then(() => {
+  //       setCopied(true);
+  //       handleClickSnack();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al copiar la URL: ", error);
+  //     });
+  // };
   ///////////////
   console.log(
     " resolvedPath.pathname --------------------",
     resolvedPath.pathname
   );
-  console.log("URL completa:", currentURL);
 
   return (
     <Container>
@@ -172,8 +125,6 @@ const ReservarXIDRecurso = () => {
           gap: "2rem",
         }}
       >
-        {/* <Paper> */}
-        {/* <div className="segmento-producto"> */}
         <Stack direction={{ xs: "column", sm: "column" }} style={{}}>
           <div className="encabezado-descripcion">
             <Stack>
@@ -204,64 +155,244 @@ const ReservarXIDRecurso = () => {
                   </div>
                 </Stack>
               </Stack>
-              {/* 
-              <Typography
-                variant="body2"
-                style={{ width: "98%", margin: "1rem 0rem 1.5rem 0rem" }}
-              >
-                {recursoXID.descripción}{" "}
-              </Typography> */}
             </Stack>
           </div>
 
           <Stack
+            direction={{
+              xs: "column",
+              sm: "column",
+              md: "row",
+              lg: "row",
+              xl: "row",
+            }}
             style={{
               display: "flex",
-              flexDirection: "column",
+
               justifyContent: "space-between",
               alignItems: "center",
               placeItems: "center",
-              paddingLeft: "0",
-              paddingRight: "0",
+              padding: "1rem",
+              border: "1px solid #dfdfdf",
+              flexWrap: "wrap",
+              width: "100%",
+              // height:"220px",
+              // border: "1px solid red",
             }}
           >
-            <div className="grid-container-galeria">
-              <div className="item-grid-fotos1" onClick={handleOpenImage1}>
+            <Stack
+              direction={{
+                xs: "column",
+                sm: "column",
+                md: "column",
+                lg: "row",
+                xl: "row",
+              }}
+            >
+              {/* <div className="grid-container-galeria-reserva"> */}
+              <div
+                className="item-grid-fotos-reserva-1"
+                onClick={handleOpenImage1}
+              >
                 <img
-                  className="foto-producto block"
+                  className="/*foto-reserva1*/ foto block"
                   src={recursoXID.imagenURL}
                 />
               </div>
 
-              <div className="item-grid-fotos2" onClick={handleOpenImage2}>
+              <Divider
+                style={{ margin: "1rem" }}
+                orientation={{
+                  xs: "horizontal",
+                  sm: "horizontal",
+                  md: "vertical",
+                  lg: "vertical",
+                  xl: "vertical",
+                }}
+              />
+              {/* </div> */}
+              <Stack
+                spacing={2}
+                flexDirection={{ lg: "row" }}
+                style={{
+                  display: "flex",
+                  gap: "3rem",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  justifyItems: "center",
+                }}
+              >
+                <Stack
+                  item
+                  xs={12}
+                  md={5}
+                  lg={5}
+                  xl={5}
+                  style={{ placeItems: "center", margin: "auto" }}
+                >
+                  {/* <Paper style={{ display: "flex", padding: "1rem " }} > */}
+                  <Stack
+                    spacing={2}
+                    style={{
+                      width: "95%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="h4" style={{ textAlign: "center" }}>
+                      Confirmá tu reserva
+                    </Typography>
+                    <Stack
+                      spacing={10}
+                      direction={{
+                        xs: "column",
+                        sm: "row",
+                        md: "row",
+                        lg: "row",
+                      }}
+                      style={{
+                        justifyContent: "space-between",
+                        width: "100%" /* border:"1px solid red"*/,
+                      }}
+                    >
+                      <Stack spacing={2}>
+                        <Stack
+                          spacing={3}
+                          direction={"row"}
+                          style={{
+                            borderRadius: "12px",
+                            backgroundColor: "#DDDDDD",
+                            padding: "0.5rem 1rem",
+                            alignItems: "center",
+                            width: "335px",
+                          }}
+                        >
+                          <Stack spacing={1} direction={{ lg: "row" }}>
+                            <Typography>Check-in</Typography>
+                            <Typography style={{ fontWeight: "800" }}>
+                              23-nov
+                            </Typography>
+                          </Stack>
+                          <Divider orientation="vertical" />
+                          <Stack spacing={1} direction={{ lg: "row" }}>
+                            <Typography>Check-in</Typography>
+                            <Typography style={{ fontWeight: "800" }}>
+                              27-nov
+                            </Typography>
+                          </Stack>
+                        </Stack>
+
+                        <Typography>5 dias totales</Typography>
+                      </Stack>
+
+                      <Stack
+                        style={{
+                          alignItems: "center",
+                          width: "65px" /* border:"1px solid red"*/,
+                        }}
+                        direction={{
+                          xs: "row",
+                          sm: "row",
+                          md: "row",
+                          lg: "row",
+                        }}
+                      >
+                        <ArrowForwardIosIcon
+                          sx={{
+                            fontSize: "45px",
+                            color: "#b6b5b5",
+                            margin: "-0.7rem",
+                          }}
+                        />
+                        <ArrowForwardIosIcon
+                          sx={{
+                            fontSize: "45px",
+                            color: "#979797",
+                            margin: "-0.7rem",
+                          }}
+                        />
+                        <ArrowForwardIosIcon
+                          sx={{
+                            fontSize: "45px",
+                            color: "#424242",
+                            margin: "-0.7rem",
+                          }}
+                        />
+                      </Stack>
+                      <Stack
+                        direction={{ lg: "column" }}
+                        style={{
+                          justifyContent: "space-between",
+                          width: "230px" /* border:"1px solid red"*/,
+                        }}
+                      >
+                        <Stack
+                          spacing={3}
+                          direction={"row"}
+                          style={{ justifyContent: "space-between" }}
+                        >
+                          <Typography variant="h6">Precio x día</Typography>
+                          <Typography variant="h6">$300</Typography>
+                        </Stack>
+                        <Stack
+                          spacing={3}
+                          direction={"row"}
+                          style={{ justifyContent: "space-between" }}
+                        >
+                          <Typography variant="h6">Total</Typography>
+                          <Typography variant="h6">$1500</Typography>
+                        </Stack>
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                  {/* </Paper> */}
+                </Stack>
+              </Stack>
+
+              {/* 
+              <div
+                className="item-grid-fotos-reserva-2"
+                onClick={handleOpenImage2}
+              >
                 <img
-                  className="foto-producto block"
+                  className="foto-reserva block"
                   src={recursoXID.imagenUrl01}
                 />
               </div>
 
-              <div className="item-grid-fotos3" onClick={handleOpenImage3}>
+              <div
+                className="item-grid-fotos-reserva-3"
+                onClick={handleOpenImage3}
+              >
                 <img
-                  className="foto-producto block"
+                  className="foto-reserva block"
                   src={recursoXID.imagenUrl02}
                   style={{ borderRadius: "12px" }}
                 />
               </div>
 
-              <div className="item-grid-fotos4" onClick={handleOpenImage4}>
+              <div
+                className="item-grid-fotos-reserva-4"
+                onClick={handleOpenImage4}
+              >
                 <img
-                  className="foto-producto block"
+                  className="foto-reserva block"
                   src={recursoXID.imagenUrl03}
                 />
               </div>
 
-              <div className="item-grid-fotos5" onClick={handleOpenImage5}>
+              <div
+                className="item-grid-fotos-reserva-5"
+                onClick={handleOpenImage5}
+              >
                 <img
-                  className="foto-producto block"
+                  className="foto-reserva block"
                   src={recursoXID.imagenUrl04}
                 />
-              </div>
-            </div>
+              </div> */}
+            </Stack>
 
             <Modal
               open={openImage1}
@@ -332,191 +463,72 @@ const ReservarXIDRecurso = () => {
                 />
               </Box>
             </Modal>
-            
-            {/* <Stack style={{ margin: "1rem 0rem 2rem 0rem" }}> */}
-            <Paper spacing={2} style={{padding:"0.5rem"}}>
-              
-              <Typography variant="h5" style={{textAlign:"center", margin:"0.5rem 0 1rem 0"}}>Características</Typography>
-              <Stack spacing={2} style={{alignItems:"center"}}>
-                {/* <div className="segmento-icon-detalle"> */}
-                  {caracteristicasXID.map(
-                    (caracteristica, idCaracteristica) => (
-                      <div
-                        key={idCaracteristica}
-                        className="container-icono-caracteristica-texto"
-                      >
-                        <div className="icono-caracteristica-texto">
-                          {" "}
-                          {caracteristica.logoCaracteristica != "" ? (
-                            <Paper
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                width: "200px",
-                                padding: "7px 5px",
-                                justifyContent: "center",
-                                gap: "15px",
-                                borderRadius: "8px",
-                                boxShadow: "1px 1px 6px #979797",
-                              }}
-                            >
-                              <img
-                                className="icono-caracteristica"
-                                src={logoXIDCaracteristica(
-                                  caracteristica.idCaracteristica,
-                                  caracteristicasLista
-                                )}
-                                style={{ width: "25px", height: "25px" }}
-                              />
-                              <div>{caracteristica.nombreCaracteristica}</div>
-                            </Paper>
-                          ) : (
-                            <Paper
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                padding: "3px 10px",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <CheckOutlinedIcon style={{ color: "green" }} />
-
-                              <div>{caracteristica.nombre}</div>
-                            </Paper>
-                          )}
-                        </div>
-                      </div>
-                    )
-                  )}
-                {/* </div> */}
-              </Stack>
-              </Paper>
-            {/* </Stack> */}
           </Stack>
-          {/* </div> */}
         </Stack>
-        {/* </div> */}
-
-        <Stack
-          spacing={2}
-          flexDirection={{ lg: "row" }}
+        <Paper
+          spacing={0}
           style={{
-            display: "flex",
-
-            gap: "3rem",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            justifyItems: "center",
+            padding: "0.5rem",
+            /* border:"1px solid red"*/ height: "100%",
+            width: "100%",
           }}
         >
-          {/* <Stack
-            item
-            xs={12}
-            md={5}
-            lg={5}
-            xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
+          <Typography
+            variant="h5"
+            style={{ textAlign: "center", margin: "0.5rem 0 1rem 0" }}
           >
-            <CalendarioXIdReserva style={{ placeItems: "center" }} />
-          </Stack> */}
-
-          <Stack
-            item
-            xs={12}
-            md={5}
-            lg={5}
-            xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
-          >
-            {/* <Comentarios id={id} style={{ placeItems: "center" }} /> */}
-
-            <Paper
-              style={{ /*width: "95%",*/ display: "flex", padding: "1rem " }}
-            >
-              <Stack
-                spacing={2}
-                style={{
-                  width: "95%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+            Características
+          </Typography>
+          <Stack spacing={2} style={{ alignItems: "center" }}>
+            {caracteristicasXID.map((caracteristica, idCaracteristica) => (
+              <div
+                key={idCaracteristica}
+                className="container-icono-caracteristica-texto"
               >
-                <Typography variant="h4" style={{ textAlign: "center" }}>
-                  Confirmá tu reserva
-                </Typography>
-                <Stack
-                  spacing={10}
-                  direction={{ xs: "column", sm: "row", md: "row", lg: "row" }}
-                  style={{ justifyContent: "space-between" }}
-                >
-                  <Stack spacing={2}>
-                    <Stack
-                      spacing={3}
-                      direction={"row"}
-                      style={{
-                        borderRadius: "12px",
-                        backgroundColor: "#DDDDDD",
-                        padding: "0.5rem 1rem",
+                <div className="icono-caracteristica-texto">
+                  {" "}
+                  {caracteristica.logoCaracteristica != "" ? (
+                    <Paper
+                      sx={{
+                        display: "flex",
                         alignItems: "center",
+                        width: "200px",
+                        padding: "7px 5px",
+                        justifyContent: "center",
+                        gap: "15px",
+                        borderRadius: "8px",
+                        boxShadow: "1px 1px 6px #979797",
                       }}
                     >
-                      <Stack spacing={1} direction={{ lg: "row" }}>
-                        <Typography>Check-in</Typography>
-                        <Typography style={{ fontWeight: "800" }}>
-                          23-nov
-                        </Typography>
-                      </Stack>
-                      <Divider orientation="vertical" />
-                      <Stack spacing={1} direction={{ lg: "row" }}>
-                        <Typography>Check-in</Typography>
-                        <Typography style={{ fontWeight: "800" }}>
-                          27-nov
-                        </Typography>
-                      </Stack>
-                    </Stack>
-
-                    <Typography>5 dias totales</Typography>
-                  </Stack>
-
-                  <Stack
-                    style={{ alignItems: "center", width: "140px" }}
-                    direction={{ xs: "row", sm: "row", md: "row", lg: "row" }}
-                  >
-                    <ArrowForwardIosIcon
-                      sx={{ fontSize: "45px", color: "#b6b5b5" }}
-                    />
-                    <ArrowForwardIosIcon
-                      sx={{ fontSize: "45px", color: "#979797" }}
-                    />
-                    <ArrowForwardIosIcon
-                      sx={{ fontSize: "45px", color: "#424242" }}
-                    />
-                  </Stack>
-                  <Stack
-                    direction={{ lg: "column" }}
-                    style={{ justifyContent: "space-between" }}
-                  >
-                    <Stack spacing={3} direction={"row"}>
-                      <Typography variant="h6">Precio x día</Typography>
-                      <Typography variant="h6">$300</Typography>
-                    </Stack>
-                    <Stack
-                      spacing={3}
-                      direction={"row"}
-                      style={{ justifyContent: "space-between" }}
+                      <img
+                        className="icono-caracteristica"
+                        src={logoXIDCaracteristica(
+                          caracteristica.idCaracteristica,
+                          caracteristicasLista
+                        )}
+                        style={{ width: "25px", height: "25px" }}
+                      />
+                      <div>{caracteristica.nombreCaracteristica}</div>
+                    </Paper>
+                  ) : (
+                    <Paper
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "3px 10px",
+                        justifyContent: "center",
+                      }}
                     >
-                      <Typography variant="h6">Total</Typography>
-                      <Typography variant="h6">$1500</Typography>
-                    </Stack>
-                  </Stack>
-                </Stack>
-              </Stack>
-              
-            </Paper>
+                      <CheckOutlinedIcon style={{ color: "green" }} />
+
+                      <div>{caracteristica.nombre}</div>
+                    </Paper>
+                  )}
+                </div>
+              </div>
+            ))}
           </Stack>
-        </Stack>
+        </Paper>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

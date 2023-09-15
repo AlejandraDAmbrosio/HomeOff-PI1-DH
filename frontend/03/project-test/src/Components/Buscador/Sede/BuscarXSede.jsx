@@ -117,11 +117,7 @@ const BuscarXSede = () => {
     if (filteredSedesAndProductos.length === 0) {
       //  setOpenModal(true);
       setBusquedaCero(true);
-     } /* else {*/
-    //   setBusquedaCero("No se encontraron resultados");
-      //   setBusquedaCero("No se encontraron resultados")
-      //   setOpenModal(false);
-    // }
+     } 
 
     if (inputValue.length === 0) {
       setProdFiltrados([]);

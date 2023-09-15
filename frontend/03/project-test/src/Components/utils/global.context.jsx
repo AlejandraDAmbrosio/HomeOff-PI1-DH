@@ -210,7 +210,7 @@ export const ContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         const data = response.data;
-        console.log("Respuesta:", data);
+        // console.log("Respuesta:", data);
         setUsersLista(data);
       } else {
         console.error(
@@ -473,19 +473,30 @@ const getDatosUsersXID = async (id) => {
     //   fechaRealizacionReserva:"2023-09-10T05:00:00.000+00:00",
     // }
 
+////Pedido logrado en postman
+//     const datosReserva = {
+//       "nombre": "Eduardo",
+//       "apellido": "Gonzales",
+//       "idUsuario": 56,
+//       "idRecurso": 176,
+//       "inicioReserva": "2023-09-12T05:00:00.000+00:00",
+//       "estadoReserva": 1,
+//       "email": "prueba15@gmail.com",
+//       "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
+//       "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
+// }
 
-    const datosReserva = {
-      "nombre": "Eduardo",
-      "apellido": "Gonzales",
-      "idUsuario": 56,
-      "idRecurso": 176,
-      "inicioReserva": "2023-09-12T05:00:00.000+00:00",
-      "estadoReserva": 1,
-      "email": "prueba15@gmail.com",
-      "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
-      "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
+const datosReserva = {
+  nombre: "Eduardo",
+  apellido: "Gonzales",
+  idUsuario: 56,
+  idRecurso: 176,
+  inicioReserva: "2023-09-12T05:00:00.000+00:00",
+  estadoReserva: 1,
+  email: "prueba15@gmail.com",
+  finalizacionReserva: "2023-09-14T05:00:00.000+00:00",
+  fechaRealizacionReserva: "2023-09-10T05:00:00.000+00:00"
 }
-
 
 //      const datosReserva = {
 //         "nombre": "Pedro",
@@ -499,16 +510,16 @@ const getDatosUsersXID = async (id) => {
 //         "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
 // }
 
-    // const datosReserva ={"nombre":"Maria","apellido":"Rojas","idUsuario":1,"idRecurso":1,"inicioReserva":"2023-09-15T05:00:00.000+00:00","estadoReserva":1,"email":"mari98g@gmail.com","finalizaciónReserva":"2023-09-16T05:00:00.000+00:00","fechaRealizaciónReserva":"2023-09-14T05:00:00.000+00:00"};
-
     const urlReserva = `http://52.32.210.155:8080/auth/reserva/save/`;
     
     try {
       const jsonDataReserva = JSON.stringify(datosReserva);
       console.log("jsonDataReserva ---------- > ", jsonDataReserva)
-      const response = await axios.post(urlReserva, jsonDataReserva, {
+
+      const response = await axios.post(urlReserva, datosReserva, {
         headers: {
           "Content-Type": "application/json",
+          // 'Origin': 'http://localhost:5173/'
         },
       });
 
