@@ -32,7 +32,8 @@ deploy_homeoff-lab-be:
     - ssh-keyscan -H "$EC2_LAB_HOMEOFF_BE" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh ubuntu@$EC2_LAB_HOMEOFF_BE "sudo ls"
+    - echo "Comienza el despliegue"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo ls"
     - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo cat nohup.out"
     - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo rm ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar"
     - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo rm nohup.out"
