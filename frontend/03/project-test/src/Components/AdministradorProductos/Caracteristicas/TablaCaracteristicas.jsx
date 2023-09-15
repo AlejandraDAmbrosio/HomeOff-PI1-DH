@@ -104,7 +104,7 @@ const TablaCaracteristicas = () => {
       };
 
       const urlBaseGuardar =
-        "http://52.32.210.155:8080/api/v1/caracteristicas/save";
+        "http://44.231.66.124:8080/api/v1/caracteristicas/save";
 
       try {
         const jsonData = JSON.stringify(nuevaCaracteristicaData);
@@ -145,7 +145,7 @@ const TablaCaracteristicas = () => {
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
       const response = await axios.delete(
-        `http://52.32.210.155:8080/api/v1/caracteristicas/delete/${idCaracteristica}`,
+        `http://44.231.66.124:8080/api/v1/caracteristicas/delete/${idCaracteristica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",

@@ -11,7 +11,7 @@ const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
     useContext(ContextGlobal);
   const textoBotonGuardarForm = "Crear Cuenta";
-  const urlBase = "http://52.32.210.155:8080/api/v1/usuarios/save";
+  const urlBase = "http://44.231.66.124:8080/api/v1/usuarios/save";
 
   //Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);

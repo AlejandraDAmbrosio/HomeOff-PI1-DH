@@ -18,7 +18,7 @@ export const ContextProvider = ({ children }) => {
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/recursos/list");
+    const res = await fetch("http://44.231.66.124:8080/api/v1/recursos/list");
     const data = await res.json();
 
     setProductosBKLista(data);
@@ -33,7 +33,7 @@ export const ContextProvider = ({ children }) => {
 
   const getRecursoXID = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/api/v1/recursos/unico/${id}`
+      `http://44.231.66.124:8080/api/v1/recursos/unico/${id}`
     );
     const data = response.data;
 
@@ -46,7 +46,7 @@ export const ContextProvider = ({ children }) => {
   /////////////////////////////////// GET USERS
   const [usersLista, setUsersLista] = useState([]);
   const getDatosUsers = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/usuarios/list");
+    const res = await fetch("http://44.231.66.124:8080/api/v1/usuarios/list");
     const data = await res.json();
 
     setUsersLista(data);
@@ -61,7 +61,7 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/api/v1/categorias/list");
+    const res = await fetch("http://44.231.66.124:8080/api/v1/categorias/list");
     const data = await res.json();
 
     setCategoriasLista(data);
@@ -77,7 +77,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasLista = async () => {
     const res = await fetch(
-      "http://52.32.210.155:8080/api/v1/caracteristicas/list"
+      "http://44.231.66.124:8080/api/v1/caracteristicas/list"
     );
     const data = await res.json();
 
@@ -98,7 +98,7 @@ export const ContextProvider = ({ children }) => {
   const [errorLogueo, setErrorLogueo] = useState("");
 
   const realizarLogIn = async (userLogIn) => {
-    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+    const urlBaseGuardar = "http://44.231.66.124:8080/auth/login";
 
     try {
       const response = await axios.post(urlBaseGuardar, userLogIn, {
