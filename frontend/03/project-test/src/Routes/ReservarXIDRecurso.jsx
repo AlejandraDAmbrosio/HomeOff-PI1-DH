@@ -50,8 +50,11 @@ const ReservarXIDRecurso = () => {
     getPuntosComentXIDRecurso,
     caracteristicasXID,
     getCaracteristicasXID,
-    email
+    email,
+    infoRecursoAReservar,
   } = useContext(ContextGlobal);
+
+  console.log(" ------------ infoRecursoAReservar  -----------------> ", infoRecursoAReservar)
   const [usuario, setUsuario] = useState({
     username: "",
     

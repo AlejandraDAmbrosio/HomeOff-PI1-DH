@@ -176,6 +176,7 @@ const Detail = () => {
       dias:0,
     })
 
+    navigate(`/reserva/${id}`);
   };
   // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
 
