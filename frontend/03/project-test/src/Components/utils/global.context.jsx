@@ -97,12 +97,12 @@ export const ContextProvider = ({ children }) => {
     setUsuarioLogueado(nombreCompletoStorage);
     setRol(rol);
     setNombreCompleto(nombreCompletoStorage);
-    console.log("ROL ----------------------- >", rol);
-    console.log(
-      "nombreCompleto ----------------------- >",
-      nombreCompletoStorage
-    );
-    console.log("username ----------------------- >", userNameStorage);
+    // console.log("ROL ----------------------- >", rol);
+    // console.log(
+    //   "nombreCompleto ----------------------- >",
+    //   nombreCompletoStorage
+    // );
+    // console.log("username ----------------------- >", userNameStorage);
     if (rol === "ADMINISTRADOR") {
       setIsAdmin(true);
     }
@@ -118,7 +118,7 @@ export const ContextProvider = ({ children }) => {
     setIsAdmin(false);
     setUsuarioLogueado(null);
     window.location.replace("/");
-    console.log("----------Cerrando sesión. en Context .---------");
+    // console.log("----------Cerrando sesión. en Context .---------");
   };
 
   ////////////////////////////////// Registro User
@@ -194,7 +194,7 @@ export const ContextProvider = ({ children }) => {
   // const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
   // const getTokenUser = localStorage.getItem("token");
 
-  console.log("-------------- > getTokenUser", tokenUserState);
+  // console.log("-------------- > getTokenUser", tokenUserState);
   const headers = {
     "Content-Type": "application/json",
     // Authorization: `Bearer "${tokenUserState}"`,
@@ -202,8 +202,8 @@ export const ContextProvider = ({ children }) => {
 
   const getDatosUsers = async () => {
     const urlUsers = "http://52.32.210.155:8080/auth/usuario/list";
-    console.log("-------------- > getTokenUser", tokenUserState);
-    console.log("-------------- > urlUsers", urlUsers);
+    // console.log("-------------- > getTokenUser", tokenUserState);
+    // console.log("-------------- > urlUsers", urlUsers);
 
     try {
       const response = await axios.get(urlUsers, headers);
@@ -271,7 +271,7 @@ const getDatosUsersXID = async (id) => {
     const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
     const data = await res.json();
 
-    console.log(data);
+    // console.log(data);
     setCategoriasLista(data);
   };
 
@@ -350,9 +350,9 @@ const getDatosUsersXID = async (id) => {
   const getFavoritosXID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    console.log("Data antes de inyectarse getFavoritosXID", data);
+    // console.log("Data antes de inyectarse getFavoritosXID", data);
     const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
-    console.log("newArray", newArray);
+    // console.log("newArray", newArray);
     setFavoritosXID(newArray);
   };
 
@@ -376,7 +376,7 @@ const getDatosUsersXID = async (id) => {
   const getFavoritos = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    console.log("Data antes de inyectarse /////////// getFavoritos", data);
+    // console.log("Data antes de inyectarse /////////// getFavoritos", data);
 
     setFavoritos(data);
   };
@@ -389,8 +389,8 @@ const getDatosUsersXID = async (id) => {
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
-    console.log("puntosComentXIDRecurso");
-    console.log(puntosComentXIDRecurso);
+    // console.log("puntosComentXIDRecurso");
+    // console.log(puntosComentXIDRecurso);
   };
 
   //////////////////////////////////////////////////////////////
@@ -462,29 +462,42 @@ const getDatosUsersXID = async (id) => {
     fechaRealizaciónReserva*/
   ) => {
     // const datosReserva = {
-    //   nombre: {nombre},
-    //   apellido:{apellido},
-    //   idUsuario: {idUsuario},
-    //   idRecurso:{idRecurso},
-    //   inicioReserva:{inicioReserva},
+    //   nombre: "Pedro",
+    //   apellido:"Alzate",
+    //   idUsuario: 44,
+    //   idRecurso:1,
+    //   inicioReserva:"2023-09-12T05:00:00.000+00:00",
     //   estadoReserva: 1,
-    //   email:{email},
-    //   finalizaciónReserva:{finalizaciónReserva},
-    //   fechaRealizaciónReserva:{fechaRealizaciónReserva},
+    //   email:"prueba12@gmail.com",
+    //   finalizacionReserva:"2023-09-14T05:00:00.000+00:00",
+    //   fechaRealizacionReserva:"2023-09-10T05:00:00.000+00:00",
     // }
-     const datosReserva = {
-        "nombre": "Pedro",
-        "apellido": "Alzate",
-        "idUsuario": 44,
-        "idRecurso": 1,
-        "inicioReserva": "2023-09-12T05:00:00.000+00:00",
-        "estadoReserva": 1,
-        "email": "prueba12@gmail.com",
-        "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
-        "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
+
+
+    const datosReserva = {
+      "nombre": "Eduardo",
+      "apellido": "Gonzales",
+      "idUsuario": 56,
+      "idRecurso": 176,
+      "inicioReserva": "2023-09-12T05:00:00.000+00:00",
+      "estadoReserva": 1,
+      "email": "prueba15@gmail.com",
+      "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
+      "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
 }
 
 
+//      const datosReserva = {
+//         "nombre": "Pedro",
+//         "apellido": "Alzate",
+//         "idUsuario": 44,
+//         "idRecurso": 1,
+//         "inicioReserva": "2023-09-12T05:00:00.000+00:00",
+//         "estadoReserva": 1,
+//         "email": "prueba12@gmail.com",
+//         "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
+//         "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
+// }
 
     // const datosReserva ={"nombre":"Maria","apellido":"Rojas","idUsuario":1,"idRecurso":1,"inicioReserva":"2023-09-15T05:00:00.000+00:00","estadoReserva":1,"email":"mari98g@gmail.com","finalizaciónReserva":"2023-09-16T05:00:00.000+00:00","fechaRealizaciónReserva":"2023-09-14T05:00:00.000+00:00"};
 
@@ -493,7 +506,7 @@ const getDatosUsersXID = async (id) => {
     try {
       const jsonDataReserva = JSON.stringify(datosReserva);
       console.log("jsonDataReserva ---------- > ", jsonDataReserva)
-      const response = await axios.post(urlReserva, datosReserva, {
+      const response = await axios.post(urlReserva, jsonDataReserva, {
         headers: {
           "Content-Type": "application/json",
         },

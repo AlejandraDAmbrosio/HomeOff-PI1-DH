@@ -34,9 +34,9 @@ function App() {
   useEffect(() => {
     // Verificar si hay un token en el almacenamiento local
     const token = localStorage.getItem("token");
-    console.log("token en APP");
+    // console.log("token en APP");
 
-    console.log(token);
+    // console.log(token);
 
     if (token) {
       const token = localStorage.getItem("token");
@@ -45,9 +45,9 @@ function App() {
       const rol = localStorage.getItem("rol");
 
       const nombreCategoria = localStorage.getItem("nombreCategoria");
-      console.log("token en Local Storage", token);
-      console.log("user en Local Storage", user);
-      console.log("userId en Local Storage", userId);
+      // console.log("token en Local Storage", token);
+      // console.log("user en Local Storage", user);
+      // console.log("userId en Local Storage", userId);
       setUsuarioLogueado(user);
     }
   }, []);
