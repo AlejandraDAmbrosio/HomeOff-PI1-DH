@@ -134,7 +134,7 @@ const Detail = () => {
     return <div>Producto no encontrado</div>;
   }
 
-  console.log(`reservas del producto ${recursoXID}`, reservas)
+  // console.log(`reservas del producto ${recursoXID}`, reservas)
   /////////////////////////
 
   const handleCopyClick = (e) => {

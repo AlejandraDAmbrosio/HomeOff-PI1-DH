@@ -171,6 +171,7 @@ const ReservarXIDRecurso = () => {
 
               justifyContent: "space-between",
               alignItems: "center",
+
               placeItems: "center",
               padding: "1rem",
               border: "1px solid #dfdfdf",
@@ -468,35 +469,54 @@ const ReservarXIDRecurso = () => {
         <Paper
           spacing={0}
           style={{
-            padding: "0.5rem",
+            padding: "0.5rem 1rem",
             /* border:"1px solid red"*/ height: "100%",
             width: "100%",
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection:"row",
+            alignItems:"center",
+            gap:"1.5rem"
           }}
         >
           <Typography
-            variant="h5"
+            variant="h4"
             style={{ textAlign: "center", margin: "0.5rem 0 1rem 0" }}
           >
             Características
           </Typography>
-          <Stack spacing={2} style={{ alignItems: "center" }}>
+          <Stack
+            spacing={2}
+            style={{
+              display:"flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              flexDirection: "row",
+              flexWrap:"wrap",
+              gap:"1rem",
+              width:"100%",
+              marginLeft:"0.5rem",
+              marginRight:"0.5rem",
+
+            }}
+          >
             {caracteristicasXID.map((caracteristica, idCaracteristica) => (
               <div
                 key={idCaracteristica}
-                className="container-icono-caracteristica-texto"
+                className="container-icono-caracteristica-texto-reserva"
               >
-                <div className="icono-caracteristica-texto">
+                {/* <div className="icono-caracteristica-texto-reserva"> */}
                   {" "}
                   {caracteristica.logoCaracteristica != "" ? (
                     <Paper
                       sx={{
                         display: "flex",
                         alignItems: "center",
-                        width: "200px",
+                        width: "190px",
                         padding: "7px 5px",
                         justifyContent: "center",
                         gap: "15px",
-                        borderRadius: "8px",
+                        borderRadius: "10px",
                         boxShadow: "1px 1px 6px #979797",
                       }}
                     >
@@ -524,7 +544,7 @@ const ReservarXIDRecurso = () => {
                       <div>{caracteristica.nombre}</div>
                     </Paper>
                   )}
-                </div>
+                {/* </div> */}
               </div>
             ))}
           </Stack>
