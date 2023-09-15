@@ -20,6 +20,7 @@ import {
   IconButton,
   Grid,
 } from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
@@ -38,6 +39,7 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+import CalendarioXIdReserva from "../Components/Genericos/Fecha/CalendarioXIdReserva";
 
 const style = {
   position: "absolute",
@@ -154,176 +156,10 @@ const ReservarXIDRecurso = () => {
   console.log("URL completa:", currentURL);
 
   return (
-    <>
-      <Modal
-        open={openShareModal}
-        onClose={handleCloseShareModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div>
-            <IconButton
-              aria-label="close"
-              onClick={handleCloseShareModal}
-              sx={{
-                position: "relative",
-                marginBottom: "0.2rem",
-                float: "right",
-              }}
-            >
-              {" "}
-              <CloseIcon sx={{}} />
-            </IconButton>
-            <CardProductoSimulado
-              id={id}
-              className="card-simulada"
-              title={recursoXID.nombre}
-              descripcion={recursoXID.descripción}
-              url={recursoXID.imagenURL}
-              precio={recursoXID.precioUnitario}
-              sede={buscadorSedeXIDSede(recursoXID.idSede)}
-              categoria={obtenerNombreCategoriaPorId(
-                recursoXID.categoria_id,
-                productosBKLista,
-                categoriasLista
-              )}
-            />
-            <TextField
-              id="copy"
-              label="Editá tu comentario"
-              multiline
-              rows={1}
-              defaultValue="Mirá el espacio que encontré!"
-              variant="standard"
-              value={
-                publicacionRedes.length === 0
-                  ? "Mirá el espacio que encontré!"
-                  : publicacionRedes
-              }
-              onChange={onChangeCopy}
-              required
-              style={{
-                fontSize: "10px",
-                width: "280px",
-                margin: "1.5rem 0rem 1rem 0rem",
-                maxHeight: "40px",
-                paddingBottom: "2rem",
-              }}
-            />
-          </div>
-
-          <Typography
-            margin="1rem"
-            justifyContent="center"
-            textAlign="center"
-            flexItem
-            alignContent="center"
-          >
-            Comparti esta publicación en
-          </Typography>
-          <Stack
-            justifyContent="center"
-            direction="row"
-            spacing={5}
-            flexItem
-            alignItems="center"
-          >
-            <FacebookShareButton
-              url={`"${currentURL}"`}
-              quote={`"${recursoXID.nombre}"`}
-              hashtag={`#${obtenerNombreCategoriaPorId(
-                recursoXID.categoria_id,
-                productosBKLista,
-                categoriasLista
-              )}`}
-              description={`${publicacionRedes} `}
-              className=""
-            >
-              <FacebookIcon size={40} round />
-            </FacebookShareButton>
-
-            {/* Alternativa comentada */}
-            {/* <a
-              href={`https://www.facebook.com/sharer.php?u=${currentURL}&quote=${encodeURIComponent(
-                publicacionRedes
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MdFacebook style={{ fontSize: "50px" }} />
-            </a> */}
-
-            <TwitterShareButton
-              title={`"${recursoXID.nombre}"`}
-              url={`"${currentURL}"`}
-              hashtags={[
-                `${obtenerNombreCategoriaPorId(
-                  recursoXID.categoria_id,
-                  productosBKLista,
-                  categoriasLista
-                )}`,
-              ]}
-            >
-              <TwitterIcon size={40} round />
-            </TwitterShareButton>
-
-            {/* Alternativa comentada */}
-            {/* <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                publicacionRedes
-              )}&url=${currentURL}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BsTwitter style={{ fontSize: "50px" }} />
-            </a> */}
-
-            <a
-              href={`https://www.instagram.com/sharer.php?u=${currentURL}&caption=${encodeURIComponent(
-                publicacionRedes
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                className="Instagram"
-                src="/images/instagram.png"
-                alt="Instagram"
-                width={"42px"}
-              />
-            </a>
-
-            <a
-              href={currentURL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleCopyClick}
-            >
-              <BsLink45Deg style={{ fontSize: "50px" }} />
-            </a>
-          </Stack>
-
-          {/* <hr /> */}
-        </Box>
-      </Modal>
-
-      <Snackbar
-        open={openSnack}
-        autoHideDuration={3000}
-        onClose={handleCloseSnack}
-      >
-        <Alert
-          onClose={handleCloseSnack}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Link copiado en portapapeles!
-        </Alert>
-      </Snackbar>
-
+    <Container>
       <Stack
         style={{
+          marginTop: "5.5rem",
           paddingTop: "2rem",
           display: "flex",
           flexDirection: "column",
@@ -332,18 +168,22 @@ const ReservarXIDRecurso = () => {
           placeItems: "center",
           paddingLeft: "0",
           paddingRight: "0",
+          width: "100%",
+          gap: "2rem",
         }}
       >
         {/* <Paper> */}
-        <div className="segmento-producto">
+        {/* <div className="segmento-producto"> */}
+        <Stack direction={{ xs: "column", sm: "column" }} style={{}}>
           <div className="encabezado-descripcion">
-            <div className="contenido-encabezado">
+            <Stack>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 useFlexGap
                 flexWrap="wrap"
                 spacing={2}
                 justifyContent="space-between"
+                alignItems="center"
               >
                 <div className="titulo-detail">{recursoXID.nombre}</div>
                 <Stack
@@ -356,13 +196,6 @@ const ReservarXIDRecurso = () => {
                     justifyContent: "flex-end",
                   }}
                 >
-                  <Button
-                    variant="text"
-                    onClick={handleOpenShare}
-                    style={{ display: "flex", gap: "1rem" }}
-                  >
-                    Compartí <MdShare style={{ fontSize: "25px" }} />
-                  </Button>
                   <div onClick={() => navigate(-1)}>
                     <MdArrowBackIosNew className="flecha" />
                   </div>
@@ -375,7 +208,7 @@ const ReservarXIDRecurso = () => {
               >
                 {recursoXID.descripción}{" "}
               </Typography>
-            </div>
+            </Stack>
           </div>
 
           <Stack
@@ -408,6 +241,7 @@ const ReservarXIDRecurso = () => {
                 <img
                   className="foto-producto block"
                   src={recursoXID.imagenUrl02}
+                  style={{ borderRadius: "12px" }}
                 />
               </div>
 
@@ -495,63 +329,65 @@ const ReservarXIDRecurso = () => {
                 />
               </Box>
             </Modal>
+            <Stack style={{ margin: "1rem 0rem 2rem 0rem" }}>
+              <div className="contenedor-detalle-producto">
+                <h2 className="titulo-caracteristicas">Características</h2>
+              </div>
 
-            <div className="contenedor-detalle-producto">
-              <h2 className="titulo-caracteristicas">Características</h2>
-            </div>
+              <div className="segmento-icon-detalle">
+                {caracteristicasXID.map((caracteristica, idCaracteristica) => (
+                  <div
+                    key={idCaracteristica}
+                    className="container-icono-caracteristica-texto"
+                  >
+                    <div className="icono-caracteristica-texto">
+                      {" "}
+                      {caracteristica.logoCaracteristica != "" ? (
+                        <Paper
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "250px",
+                            padding: "7px 5px",
+                            justifyContent: "center",
+                            gap: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "1px 1px 6px #979797",
+                          }}
+                        >
+                          <img
+                            className="icono-caracteristica"
+                            src={logoXIDCaracteristica(
+                              caracteristica.idCaracteristica,
+                              caracteristicasLista
+                            )}
+                            style={{ width: "25px", height: "25px" }}
+                          />
+                          <div>{caracteristica.nombreCaracteristica}</div>
+                        </Paper>
+                      ) : (
+                        <Paper
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            padding: "3px 10px",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <CheckOutlinedIcon style={{ color: "green" }} />
 
-            <div className="segmento-icon-detalle">
-              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto"
-                >
-                  <div className="icono-caracteristica-texto">
-                    {" "}
-                    {caracteristica.logoCaracteristica != "" ? (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: "250px",
-                          padding: "7px 5px",
-                          justifyContent: "center",
-                          gap: "15px",
-                          borderRadius: " 11px 11px 11px 11px",
-                          boxShadow: "1px 1px 6px #979797",
-                        }}
-                      >
-                        <img
-                          className="icono-caracteristica"
-                          src={logoXIDCaracteristica(
-                            caracteristica.idCaracteristica,
-                            caracteristicasLista
-                          )}
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        <div>{caracteristica.nombreCaracteristica}</div>
-                      </Paper>
-                    ) : (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "3px 10px",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <CheckOutlinedIcon style={{ color: "green" }} />
-
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    )}
+                          <div>{caracteristica.nombre}</div>
+                        </Paper>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </Stack>
           </Stack>
           {/* </div> */}
-        </div>
+        </Stack>
+        {/* </div> */}
 
         <Stack
           spacing={2}
@@ -574,7 +410,7 @@ const ReservarXIDRecurso = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
-            <CalendarioXId style={{ placeItems: "center" }} />
+            <CalendarioXIdReserva style={{ placeItems: "center" }} />
           </Stack>
 
           <Stack
@@ -589,10 +425,92 @@ const ReservarXIDRecurso = () => {
           </Stack>
         </Stack>
 
+        <Paper style={{ width: "95%", display: "flex", padding: "1rem " }}>
+          <Stack
+            spacing={2}
+            style={{
+              width: "95%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h4" style={{ textAlign: "center" }}>
+              Solicitá tu reserva
+            </Typography>
+            <Stack
+              spacing={10}
+              direction={{ xs: "column", sm: "row", md: "row", lg: "row" }}
+              style={{ justifyContent: "space-between" }}
+            >
+              <Stack spacing={2}>
+                <Stack
+                  spacing={3}
+                  direction={"row"}
+                  style={{
+                    borderRadius: "12px",
+                    backgroundColor: "#DDDDDD",
+                    padding: "0.5rem 1rem",
+                    alignItems: "center",
+                  }}
+                >
+                  <Stack spacing={1} direction={{ lg: "row" }}>
+                    <Typography>Check-in</Typography>
+                    <Typography style={{ fontWeight: "800" }}>
+                      23-nov
+                    </Typography>
+                  </Stack>
+                  <Divider orientation="vertical" />
+                  <Stack spacing={1} direction={{ lg: "row" }}>
+                    <Typography>Check-in</Typography>
+                    <Typography style={{ fontWeight: "800" }}>
+                      27-nov
+                    </Typography>
+                  </Stack>
+                </Stack>
+
+                <Typography>5 dias totales</Typography>
+              </Stack>
+
+              <Stack
+                style={{ alignItems: "center", width: "140px" }}
+                direction={{ xs: "row", sm: "row", md: "row", lg: "row" }}
+              >
+                <ArrowForwardIosIcon
+                  sx={{ fontSize: "45px", color: "#b6b5b5" }}
+                />
+                <ArrowForwardIosIcon
+                  sx={{ fontSize: "45px", color: "#979797" }}
+                />
+                <ArrowForwardIosIcon
+                  sx={{ fontSize: "45px", color: "#424242" }}
+                />
+              </Stack>
+              <Stack
+                direction={{ lg: "column" }}
+                style={{ justifyContent: "space-between" }}
+              >
+                <Stack spacing={3} direction={"row"}>
+                  <Typography variant="h6">Precio x día</Typography>
+                  <Typography variant="h6">$300</Typography>
+                </Stack>
+                <Stack
+                  spacing={3}
+                  direction={"row"}
+                  style={{ justifyContent: "space-between" }}
+                >
+                  <Typography variant="h6">Total</Typography>
+                  <Typography variant="h6">$1500</Typography>
+                </Stack>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Paper>
+
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
       </Stack>
-    </>
+    </Container>
   );
 };
 
