@@ -5,7 +5,7 @@ import { Stack } from "@mui/system";
 import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import obtenerImagenXIdRecurso from "../Components/utils/obtenerImagenXIdRecurso"
 import formatearFecha from "../Components/utils/formatearFechaParaVisualizar"
-obtenerPrecioXIdRecurso
+
 import formateoFechas from "../Components/utils/formateoFechas"
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"

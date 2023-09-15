@@ -50,10 +50,11 @@ const ReservarXIDRecurso = () => {
     getPuntosComentXIDRecurso,
     caracteristicasXID,
     getCaracteristicasXID,
-    userNameStorage,
+    email
   } = useContext(ContextGlobal);
   const [usuario, setUsuario] = useState({
     username: "",
+    
   });
 
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -145,7 +146,10 @@ const ReservarXIDRecurso = () => {
    
 
     if (validarFormulario()) {
-
+      setUsuario({
+        username:usuario.username,
+      })
+      console.log(usuario)
 
     }
   };
@@ -517,7 +521,7 @@ const ReservarXIDRecurso = () => {
                   className="campo-formulario"
                   type="email"
                   placeholder="Ingresa tu email"
-                  value={userNameStorage}
+                  value={email}
                   onChange={onChangeEmail}
                   required
                   margin="normal"

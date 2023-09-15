@@ -206,7 +206,7 @@ export default function AccountMenu() {
               <ListItemIcon>
                 <BsCalendarEvent fontSize="21" />
               </ListItemIcon>
-              Reservas
+              Historial Reservas
             </MenuItem>
           </Link>
         )}

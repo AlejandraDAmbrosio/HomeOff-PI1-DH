@@ -27,7 +27,7 @@ import ReservarXIDRecurso from "./Routes/ReservarXIDRecurso";
 
 function App() {
   ////////////////// Segmento Logueo
-  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin } =
+  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin, getDatosUsersXID } =
     useContext(ContextGlobal);
   /////////////////
 
@@ -43,7 +43,7 @@ function App() {
       const user = localStorage.getItem("nombreCompleto");
       const userId = localStorage.getItem("idUsuario");
       const rol = localStorage.getItem("rol");
-
+      const emailStorage = localStorage.getItem("username");
       const nombreCategoria = localStorage.getItem("nombreCategoria");
       // console.log("token en Local Storage", token);
       // console.log("user en Local Storage", user);

@@ -18,6 +18,7 @@ export const ContextProvider = ({ children }) => {
     username: "",
     password: "",
   });
+  const [email, setEmail] = useState(null);
   const [errorLogueo, setErrorLogueo] = useState("");
   // const [mensajeLog, setMensajeLog] = useState("");
 
@@ -88,7 +89,7 @@ export const ContextProvider = ({ children }) => {
     const idUsuario = localStorage.getItem("idUsuario");
     const rol = localStorage.getItem("rol");
     const nombreCompletoStorage = localStorage.getItem("nombreCompleto");
-    const userNameStorage = localStorage.getItem("username");
+    const emailStorage = localStorage.getItem("username");
 
     setTokenUserState(tokenUser);
     setLoginSuccess(true);
@@ -97,6 +98,7 @@ export const ContextProvider = ({ children }) => {
     setUsuarioLogueado(nombreCompletoStorage);
     setRol(rol);
     setNombreCompleto(nombreCompletoStorage);
+    setEmail(emailStorage)
     // console.log("ROL ----------------------- >", rol);
     // console.log(
     //   "nombreCompleto ----------------------- >",
@@ -538,10 +540,24 @@ const datosReserva = {
     }
   };
 
+///////////////////////////////////
+
+const[infoRecursoAReservar, setInfoRecursoAReservar] = useState({
+  idRecurso:0,
+  fechaInicio:"2023-08-31T00:00:00.000+00:00",
+  fechaFin:"2023-08-31T00:00:00.000+00:00",
+  idUser:0,
+  precioProducto:0,
+  dias:0,
+
+});
+
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        email, setEmail,
+        infoRecursoAReservar, setInfoRecursoAReservar,
         getDatosUsersXID, usersXID, setUsersXID,
         guardarReserva,
         setGuardarReserva,
@@ -562,7 +578,7 @@ const datosReserva = {
         setRol,
         loginSuccess,
         setLoginSuccess,
-
+        // userNameStorage,
         busquedaCero,
         setBusquedaCero,
         tituloListadoProductos,
