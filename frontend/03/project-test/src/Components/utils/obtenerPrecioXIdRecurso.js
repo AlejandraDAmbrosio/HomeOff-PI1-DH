@@ -1,7 +1,7 @@
 
 
 function obtenerPrecioXIdRecurso(idRecurso, data, dias) {
-  console.log(dias)
+  // console.log(dias)
     const recursoEncontrado = data.find(
       (item) => item.idRecurso === idRecurso
     );
@@ -9,7 +9,7 @@ function obtenerPrecioXIdRecurso(idRecurso, data, dias) {
     if (recursoEncontrado) {
       return (recursoEncontrado.precioUnitario * (parseInt(dias)));
     } else {
-      return console.log("Imagen no encontrada");
+      return console.log("Recurso "+ idRecurso +" no encontrado");
     }
   }
   export default obtenerPrecioXIdRecurso;

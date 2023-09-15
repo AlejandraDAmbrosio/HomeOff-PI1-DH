@@ -82,24 +82,24 @@ console.log(reservas)
                   {formateoFechas(reserva.inicioReserva)}
                   </TableCell>
                   <TableCell style={{ width: "150px" }}>
-                  {formateoFechas(reserva.finalizaciónReserva)}
+                  {formateoFechas(reserva.finalizacionReserva)}
                   
                   </TableCell>
                   <TableCell style={{ width: "150px" }}>
-                  {formateoFechas(reserva.fechaRealizaciónReserva)}
+                  {formateoFechas(reserva.fechaRealizacionReserva)}
                  
                   </TableCell>
                   
                  
                  
                   <TableCell>
-                    {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizaciónReserva))  )}
+                    {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
                     </TableCell>
                   {/* <TableCell>{recurso.estadoRecurso}</TableCell> */}
                  
 
                   <TableCell>
-                ${obtenerPrecioXIdRecurso(reserva.idRecurso, productosBKLista, calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizaciónReserva))  ))}
+                ${obtenerPrecioXIdRecurso(reserva.idRecurso, productosBKLista, calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  ))}
                   </TableCell>
                 </TableRow>
               ))}
