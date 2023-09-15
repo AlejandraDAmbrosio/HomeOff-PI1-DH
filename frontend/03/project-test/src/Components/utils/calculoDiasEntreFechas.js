@@ -27,7 +27,7 @@ function calculoDiasEntreFechas(fechaInicial, fechaFinal) {
 
  // Calcula la diferencia en milisegundos y luego en días
  const diferenciaEnMilisegundos = fechaFinalObj - fechaInicialObj;
- const diferenciaEnDias = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+ const diferenciaEnDias = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24))+1;
  
  return diferenciaEnDias;
 }

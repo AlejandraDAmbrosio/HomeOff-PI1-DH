@@ -34,7 +34,7 @@ console.log(reservas)
         maxWidth: "1900px",
       }}
     >
-      <Typography variant="h3">Ver Reservas</Typography>
+      <Typography variant="h3">Ver historial Reservas</Typography>
 
    
 
@@ -54,9 +54,9 @@ console.log(reservas)
                 <TableCell>Nombre</TableCell>
                 <TableCell>Fecha de inicio</TableCell>
                 <TableCell>Fecha de fin</TableCell>
-                <TableCell>Fecha de reserva</TableCell>
-                <TableCell>Características</TableCell>
-                <TableCell>Editar</TableCell>
+                <TableCell>Fecha reserva</TableCell>
+              
+                <TableCell>Días</TableCell>
                 <TableCell>Precio</TableCell>
               </TableRow>
             </TableHead>
@@ -75,32 +75,31 @@ console.log(reservas)
                  
                   </TableCell>
                   <TableCell>{reserva.idRecurso}</TableCell>
-                  <TableCell style={{ width: "160px" }}>
+                  <TableCell style={{ width: "300px" }}>
                     {reserva.nombreRecurso}
                   </TableCell>
-                  <TableCell style={{ width: "120px" }}>
+                  <TableCell style={{ width: "150px" }}>
                   {formateoFechas(reserva.inicioReserva)}
                   </TableCell>
-                  <TableCell style={{ width: "300px" }}>
+                  <TableCell style={{ width: "150px" }}>
                   {formateoFechas(reserva.finalizaciónReserva)}
                   
                   </TableCell>
-                  <TableCell style={{ width: "70px" }}>
+                  <TableCell style={{ width: "150px" }}>
                   {formateoFechas(reserva.fechaRealizaciónReserva)}
                  
                   </TableCell>
-                  <TableCell>
                   
-                  </TableCell>
                  
                  
-                  <TableCell>Editar Reserva
+                  <TableCell>
+                    {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizaciónReserva))  )}
                     </TableCell>
                   {/* <TableCell>{recurso.estadoRecurso}</TableCell> */}
                  
 
                   <TableCell>
-                  {obtenerPrecioXIdRecurso(reserva.idRecurso, productosBKLista, calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizaciónReserva))  ))}
+                ${obtenerPrecioXIdRecurso(reserva.idRecurso, productosBKLista, calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizaciónReserva))  ))}
                   </TableCell>
                 </TableRow>
               ))}
