@@ -197,11 +197,11 @@ export const ContextProvider = ({ children }) => {
   console.log("-------------- > getTokenUser", tokenUserState);
   const headers = {
     "Content-Type": "application/json",
-    Authorization: `Bearer "${tokenUserState}"`,
+    // Authorization: `Bearer "${tokenUserState}"`,
   };
 
-  const getDatosUsers = async (tokenUserState) => {
-    const urlUsers = "http://52.32.210.155:8080/api/v1/usuarios/list";
+  const getDatosUsers = async () => {
+    const urlUsers = "http://52.32.210.155:8080/auth/usuario/list";
     console.log("-------------- > getTokenUser", tokenUserState);
     console.log("-------------- > urlUsers", urlUsers);
 
@@ -227,6 +227,42 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getDatosUsers();
   }, []);
+
+//////////////////////////
+
+const [usersXID, setUsersXID] = useState([]);
+
+
+
+const getDatosUsersXID = async (id) => {
+  const urlUsers = `http://52.32.210.155:8080/auth/usuario/${id}`;
+
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  try {
+    const response = await axios.get(urlUsers, headers);
+
+    if (response.status === 200) {
+      const data = response.data;
+      console.log("Respuesta:", data);
+      setUsersXID(data);
+    } else {
+      console.error(
+        "Error en la respuesta:",
+        response.status,
+        response.statusText
+      );
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+
+
+
 
   /////////////////////////////////GetCategorias
   const [categoriasLista, setCategoriasLista] = useState([]);
@@ -298,6 +334,12 @@ export const ContextProvider = ({ children }) => {
       return 0; // Devuelve 0 en caso de error
     }
   };
+
+
+  //// If response.data === 0  setPuntosPromedioXIDRecurso(0);
+
+////////////////////////////////////////////////////////////////////////
+
 
   //////////////////////////////////////Favoritos X ID
 
@@ -438,16 +480,13 @@ export const ContextProvider = ({ children }) => {
         "inicioReserva": "2023-09-12T05:00:00.000+00:00",
         "estadoReserva": 1,
         "email": "prueba12@gmail.com",
-        "finalizaciónReserva": "2023-09-14T05:00:00.000+00:00",
-        "fechaRealizaciónReserva": "2023-09-10T05:00:00.000+00:00"
+        "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
+        "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
 }
 
 
+
     // const datosReserva ={"nombre":"Maria","apellido":"Rojas","idUsuario":1,"idRecurso":1,"inicioReserva":"2023-09-15T05:00:00.000+00:00","estadoReserva":1,"email":"mari98g@gmail.com","finalizaciónReserva":"2023-09-16T05:00:00.000+00:00","fechaRealizaciónReserva":"2023-09-14T05:00:00.000+00:00"};
-
-
-
-
 
     const urlReserva = `http://52.32.210.155:8080/auth/reserva/save/`;
     
@@ -479,6 +518,7 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
+        getDatosUsersXID, usersXID, setUsersXID,
         guardarReserva,
         setGuardarReserva,
         postReserva,

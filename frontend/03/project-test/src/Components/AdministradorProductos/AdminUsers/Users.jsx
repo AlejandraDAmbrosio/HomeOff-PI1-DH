@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 
 const Users = () => {
-  const { usersLista, setUsersLista, getDatosUsers, tokenUserState } =
+  const { usersLista, setUsersLista, getDatosUsers, tokenUserState, getDatosUsersXID, usersXID } =
   useContext(ContextGlobal);
 
 console.log("-------------- > getTokenUser", tokenUserState);
@@ -27,23 +27,20 @@ console.log("-------------- > getTokenUser", tokenUserState);
   const [usuarioXEliminar, setUsuarioXEliminar] = useState(null);
 
   const [usuarioXEditar, setUsuarioXEditar] = useState({
-    nombrecompleto: "",
-    correo: "",
-    contraseña: "",
+    nombrecompleto: "",   //
+    nombre: "",
+    apellido: "",
+    username: "",     //
+    password: "",
     celular: "",
-    rol: "",
     dirección: "Falsa",
-    permisoEdición: "",
-    id_Rol: 0,
-    idUsuario: 2,
-  });
-
-
-
-
+    permisoedición: "EDITAR",
+    rol: "",
+    idUsuario:0,
+});
 
   useEffect(() => {
-    getDatosUsers(tokenUserState);
+    getDatosUsers();
   }, []);
 
   ////////////////////////////// Actualizar Rol //////////////////////////////
@@ -52,42 +49,45 @@ console.log("-------------- > getTokenUser", tokenUserState);
     setIdRecursoToDelete(idRecurso);
     setOpenDialog(true);
   };
-
   // 2) Traer info de todos los campos del usuario seleccionado y si tiene un valor el rol, cambiarlo
 
-  // const urlBaseActualizar = "http://52.32.210.155:8080/api/v1/usuarios/update";
-  // const handleUpdateUser = async (usuarioXEditar) => {
-  //   console.log(usuarioXEditar.idUsuario);
-  //   if (usuarioXEditar.idUsuario) {
-  //     const updatedUser = {
-  //       nombrecompleto: usuarioXEditar.nombrecompleto,
-  //       correo: usuarioXEditar.correo,
-  //       contraseña: usuarioXEditar.contraseña,
-  //       celular: usuarioXEditar.celular,
-  //       rol:
-  //         usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
-  //       dirección: "Falsa",
-  //       permisoEdición:
-  //         usuarioXEditar.permisoEdición === "EDITAR" ? "" : "EDITAR",
-  //       id_Rol: usuarioXEditar.id_Rol === 1 ? "2" : "1",
-  //       idUsuario: usuarioXEditar.idUsuario,
-  //     };
+  const urlBaseActualizar = "http://52.32.210.155:8080/auth/usuario/update";
+  const handleUpdateUser = async (usuarioXEditar) => {
 
-  //     try {
-  //       const response = await axios.post(urlBaseActualizar, updatedUser, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
+    getDatosUsersXID(usuarioXEditar.idUsuario)
+    console.log("usersXID", usersXID);
+    console.log(usuarioXEditar.idUsuario);
+    if (usuarioXEditar.idUsuario) {
+      const updatedUser = {
+        nombre: usersXID.nombre,
+        apellido: usersXID.apellido,
+        nombrecompleto: usuarioXEditar.nombrecompleto,
+        username: usuarioXEditar.username,
+        celular: usuarioXEditar.celular,
+        password:usersXID.password,
+        rol:
+          usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
+        direccion: "Falsa",
+        idUsuario: usuarioXEditar.idUsuario,
+        permisoedicion: "EDITAR"
+      };
 
-  //       console.log("Respuesta:", response.data);
-  //       getDatosUsers(); // Actualizar la lista de usuarios
-  //       setUsuarioXEditar(null); // Limpiar el usuario seleccionado
-  //     } catch (error) {
-  //       console.error("Error al actualizar el usuario:", error);
-  //     }
-  //   }
-  // };
+      try {
+        console.log("........... -updatedUser" , updatedUser)
+        const response = await axios.post(urlBaseActualizar, updatedUser, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("Respuesta:", response.data);
+        getDatosUsers(); // Actualizar la lista de usuarios
+        setUsuarioXEditar(null); // Limpiar el usuario seleccionado
+      } catch (error) {
+        console.error("Error al actualizar el usuario:", error);
+      }
+    }
+  };
 
   /////////////////////////////////////
 
@@ -158,7 +158,7 @@ console.log("-------------- > getTokenUser", tokenUserState);
                     width: "600px",
                   }}
                 >
-                  <div className="info-item">{user.correo}</div>
+                  <div className="info-item">{user.username}</div>
                 </TableCell>
                 <TableCell
                   style={{

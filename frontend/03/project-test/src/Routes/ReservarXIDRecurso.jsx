@@ -185,7 +185,10 @@ const ReservarXIDRecurso = () => {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <div className="titulo-detail">{recursoXID.nombre}</div>
+                <Stack direction={"column"}>
+                  <Typography variant="h5">Resumen de reservas</Typography>
+                  <Typography variant="h4">{recursoXID.nombre}</Typography>
+                </Stack>
                 <Stack
                   direction="row"
                   spacing={3}
@@ -201,13 +204,13 @@ const ReservarXIDRecurso = () => {
                   </div>
                 </Stack>
               </Stack>
-
+              {/* 
               <Typography
                 variant="body2"
                 style={{ width: "98%", margin: "1rem 0rem 1.5rem 0rem" }}
               >
                 {recursoXID.descripción}{" "}
-              </Typography>
+              </Typography> */}
             </Stack>
           </div>
 
@@ -329,61 +332,66 @@ const ReservarXIDRecurso = () => {
                 />
               </Box>
             </Modal>
-            <Stack style={{ margin: "1rem 0rem 2rem 0rem" }}>
-              <div className="contenedor-detalle-producto">
-                <h2 className="titulo-caracteristicas">Características</h2>
-              </div>
+            
+            {/* <Stack style={{ margin: "1rem 0rem 2rem 0rem" }}> */}
+            <Paper spacing={2} style={{padding:"0.5rem"}}>
+              
+              <Typography variant="h5" style={{textAlign:"center", margin:"0.5rem 0 1rem 0"}}>Características</Typography>
+              <Stack spacing={2} style={{alignItems:"center"}}>
+                {/* <div className="segmento-icon-detalle"> */}
+                  {caracteristicasXID.map(
+                    (caracteristica, idCaracteristica) => (
+                      <div
+                        key={idCaracteristica}
+                        className="container-icono-caracteristica-texto"
+                      >
+                        <div className="icono-caracteristica-texto">
+                          {" "}
+                          {caracteristica.logoCaracteristica != "" ? (
+                            <Paper
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                width: "200px",
+                                padding: "7px 5px",
+                                justifyContent: "center",
+                                gap: "15px",
+                                borderRadius: "8px",
+                                boxShadow: "1px 1px 6px #979797",
+                              }}
+                            >
+                              <img
+                                className="icono-caracteristica"
+                                src={logoXIDCaracteristica(
+                                  caracteristica.idCaracteristica,
+                                  caracteristicasLista
+                                )}
+                                style={{ width: "25px", height: "25px" }}
+                              />
+                              <div>{caracteristica.nombreCaracteristica}</div>
+                            </Paper>
+                          ) : (
+                            <Paper
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                padding: "3px 10px",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <CheckOutlinedIcon style={{ color: "green" }} />
 
-              <div className="segmento-icon-detalle">
-                {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                  <div
-                    key={idCaracteristica}
-                    className="container-icono-caracteristica-texto"
-                  >
-                    <div className="icono-caracteristica-texto">
-                      {" "}
-                      {caracteristica.logoCaracteristica != "" ? (
-                        <Paper
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            width: "250px",
-                            padding: "7px 5px",
-                            justifyContent: "center",
-                            gap: "15px",
-                            borderRadius: "8px",
-                            boxShadow: "1px 1px 6px #979797",
-                          }}
-                        >
-                          <img
-                            className="icono-caracteristica"
-                            src={logoXIDCaracteristica(
-                              caracteristica.idCaracteristica,
-                              caracteristicasLista
-                            )}
-                            style={{ width: "25px", height: "25px" }}
-                          />
-                          <div>{caracteristica.nombreCaracteristica}</div>
-                        </Paper>
-                      ) : (
-                        <Paper
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            padding: "3px 10px",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <CheckOutlinedIcon style={{ color: "green" }} />
-
-                          <div>{caracteristica.nombre}</div>
-                        </Paper>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Stack>
+                              <div>{caracteristica.nombre}</div>
+                            </Paper>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  )}
+                {/* </div> */}
+              </Stack>
+              </Paper>
+            {/* </Stack> */}
           </Stack>
           {/* </div> */}
         </Stack>
@@ -402,7 +410,7 @@ const ReservarXIDRecurso = () => {
             justifyItems: "center",
           }}
         >
-          <Stack
+          {/* <Stack
             item
             xs={12}
             md={5}
@@ -411,7 +419,7 @@ const ReservarXIDRecurso = () => {
             style={{ placeItems: "center", margin: "auto" }}
           >
             <CalendarioXIdReserva style={{ placeItems: "center" }} />
-          </Stack>
+          </Stack> */}
 
           <Stack
             item
@@ -421,91 +429,94 @@ const ReservarXIDRecurso = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
-            <Comentarios id={id} style={{ placeItems: "center" }} />
-          </Stack>
-        </Stack>
+            {/* <Comentarios id={id} style={{ placeItems: "center" }} /> */}
 
-        <Paper style={{ width: "95%", display: "flex", padding: "1rem " }}>
-          <Stack
-            spacing={2}
-            style={{
-              width: "95%",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h4" style={{ textAlign: "center" }}>
-              Solicitá tu reserva
-            </Typography>
-            <Stack
-              spacing={10}
-              direction={{ xs: "column", sm: "row", md: "row", lg: "row" }}
-              style={{ justifyContent: "space-between" }}
+            <Paper
+              style={{ /*width: "95%",*/ display: "flex", padding: "1rem " }}
             >
-              <Stack spacing={2}>
-                <Stack
-                  spacing={3}
-                  direction={"row"}
-                  style={{
-                    borderRadius: "12px",
-                    backgroundColor: "#DDDDDD",
-                    padding: "0.5rem 1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <Stack spacing={1} direction={{ lg: "row" }}>
-                    <Typography>Check-in</Typography>
-                    <Typography style={{ fontWeight: "800" }}>
-                      23-nov
-                    </Typography>
-                  </Stack>
-                  <Divider orientation="vertical" />
-                  <Stack spacing={1} direction={{ lg: "row" }}>
-                    <Typography>Check-in</Typography>
-                    <Typography style={{ fontWeight: "800" }}>
-                      27-nov
-                    </Typography>
-                  </Stack>
-                </Stack>
-
-                <Typography>5 dias totales</Typography>
-              </Stack>
-
               <Stack
-                style={{ alignItems: "center", width: "140px" }}
-                direction={{ xs: "row", sm: "row", md: "row", lg: "row" }}
+                spacing={2}
+                style={{
+                  width: "95%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                <ArrowForwardIosIcon
-                  sx={{ fontSize: "45px", color: "#b6b5b5" }}
-                />
-                <ArrowForwardIosIcon
-                  sx={{ fontSize: "45px", color: "#979797" }}
-                />
-                <ArrowForwardIosIcon
-                  sx={{ fontSize: "45px", color: "#424242" }}
-                />
-              </Stack>
-              <Stack
-                direction={{ lg: "column" }}
-                style={{ justifyContent: "space-between" }}
-              >
-                <Stack spacing={3} direction={"row"}>
-                  <Typography variant="h6">Precio x día</Typography>
-                  <Typography variant="h6">$300</Typography>
-                </Stack>
+                <Typography variant="h4" style={{ textAlign: "center" }}>
+                  Confirmá tu reserva
+                </Typography>
                 <Stack
-                  spacing={3}
-                  direction={"row"}
+                  spacing={10}
+                  direction={{ xs: "column", sm: "row", md: "row", lg: "row" }}
                   style={{ justifyContent: "space-between" }}
                 >
-                  <Typography variant="h6">Total</Typography>
-                  <Typography variant="h6">$1500</Typography>
+                  <Stack spacing={2}>
+                    <Stack
+                      spacing={3}
+                      direction={"row"}
+                      style={{
+                        borderRadius: "12px",
+                        backgroundColor: "#DDDDDD",
+                        padding: "0.5rem 1rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Stack spacing={1} direction={{ lg: "row" }}>
+                        <Typography>Check-in</Typography>
+                        <Typography style={{ fontWeight: "800" }}>
+                          23-nov
+                        </Typography>
+                      </Stack>
+                      <Divider orientation="vertical" />
+                      <Stack spacing={1} direction={{ lg: "row" }}>
+                        <Typography>Check-in</Typography>
+                        <Typography style={{ fontWeight: "800" }}>
+                          27-nov
+                        </Typography>
+                      </Stack>
+                    </Stack>
+
+                    <Typography>5 dias totales</Typography>
+                  </Stack>
+
+                  <Stack
+                    style={{ alignItems: "center", width: "140px" }}
+                    direction={{ xs: "row", sm: "row", md: "row", lg: "row" }}
+                  >
+                    <ArrowForwardIosIcon
+                      sx={{ fontSize: "45px", color: "#b6b5b5" }}
+                    />
+                    <ArrowForwardIosIcon
+                      sx={{ fontSize: "45px", color: "#979797" }}
+                    />
+                    <ArrowForwardIosIcon
+                      sx={{ fontSize: "45px", color: "#424242" }}
+                    />
+                  </Stack>
+                  <Stack
+                    direction={{ lg: "column" }}
+                    style={{ justifyContent: "space-between" }}
+                  >
+                    <Stack spacing={3} direction={"row"}>
+                      <Typography variant="h6">Precio x día</Typography>
+                      <Typography variant="h6">$300</Typography>
+                    </Stack>
+                    <Stack
+                      spacing={3}
+                      direction={"row"}
+                      style={{ justifyContent: "space-between" }}
+                    >
+                      <Typography variant="h6">Total</Typography>
+                      <Typography variant="h6">$1500</Typography>
+                    </Stack>
+                  </Stack>
                 </Stack>
               </Stack>
-            </Stack>
+              
+            </Paper>
           </Stack>
-        </Paper>
+        </Stack>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
