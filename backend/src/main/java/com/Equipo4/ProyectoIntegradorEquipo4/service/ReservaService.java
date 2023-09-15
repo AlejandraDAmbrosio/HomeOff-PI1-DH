@@ -56,13 +56,13 @@ public class ReservaService implements IReservaService {
         Reserva nuevaReserva = new Reserva();
         nuevaReserva.setIdUsuario(usuario.getIdUsuario());
         nuevaReserva.setInicioReserva(reserva.getInicioReserva());
-        nuevaReserva.setFinalizaciónReserva(reserva.getFinalizaciónReserva());
+        nuevaReserva.setFinalizacionReserva(reserva.getFinalizacionReserva());
         nuevaReserva.setEstadoReserva(reserva.getEstadoReserva());
         nuevaReserva.setIdRecurso(recurso.getIdRecurso());
         nuevaReserva.setNombre(reserva.getNombre());
         nuevaReserva.setApellido(reserva.getApellido());
         nuevaReserva.setEmail(reserva.getEmail());
-        nuevaReserva.setFechaRealizaciónReserva(reserva.getFechaRealizaciónReserva());
+        nuevaReserva.setFechaRealizacionReserva(reserva.getFechaRealizacionReserva());
 
 
         int resultKey = reservaRepository.save(nuevaReserva);

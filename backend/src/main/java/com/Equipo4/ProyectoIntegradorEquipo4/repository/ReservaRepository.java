@@ -31,7 +31,7 @@ public class ReservaRepository implements IReservaRepository {
 
     @Override
     public List<ReservaRespuesta> findAllByReserva(int idUsuario) {
-        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizaciónReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizaciónReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
+        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
                 "FROM offi_Reservas p " +
                 "INNER JOIN offi_usuarios u ON p.idUsuario = u.idUsuario " +
                 "INNER JOIN offi_recursos r ON p.idRecurso = r.idRecurso " +
@@ -40,13 +40,13 @@ public class ReservaRepository implements IReservaRepository {
     }
     @Override
     public int save(Reserva reserva) {
-        String SQL = "INSERT INTO offi_Reservas (IdUsuario, InicioReserva, FinalizaciónReserva, EstadoReserva, IdRecurso, nombre, apellido, Email, FechaRealizaciónReserva) VALUES (?,?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO offi_Reservas (IdUsuario, InicioReserva, FinalizacionReserva, EstadoReserva, IdRecurso, nombre, apellido, Email, FechaRealizacionReserva) VALUES (?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         // Configura la zona horaria a UTC
         ZoneId zoneId = ZoneId.of("UTC");
         Instant inicio = reserva.getInicioReserva().toInstant();
-        Instant finalizacion= reserva.getFinalizaciónReserva().toInstant();
-        Instant realizacion= reserva.getFechaRealizaciónReserva().toInstant();
+        Instant finalizacion= reserva.getFinalizacionReserva().toInstant();
+        Instant realizacion= reserva.getFechaRealizacionReserva().toInstant();
         ZonedDateTime inicio1 = inicio.atZone(zoneId);
         ZonedDateTime finalizacion1 = finalizacion.atZone(zoneId);
         ZonedDateTime realizacion1 = realizacion.atZone(zoneId);
@@ -72,8 +72,8 @@ public class ReservaRepository implements IReservaRepository {
 
     @Override
     public int update(Reserva reserva) {
-        String SQL = "UPDATE offi_Reservas SET IdUsuario=?, InicioReserva=?, FinalizaciónReserva=?, EstadoReserva=?, IdRecurso=?, nombre=?, apellido=?, Email=?, FechaRealizaciónReserva=?  WHERE IdReserva=?";
-        return jdbcTemplate.update(SQL, reserva.getIdUsuario(), reserva.getInicioReserva(), reserva.getFinalizaciónReserva(), reserva.getEstadoReserva(), reserva.getIdRecurso(), reserva.getNombre(), reserva.getApellido(), reserva.getEmail(), reserva.getFechaRealizaciónReserva(), reserva.getIdReserva());
+        String SQL = "UPDATE offi_Reservas SET IdUsuario=?, InicioReserva=?, FinalizacionReserva=?, EstadoReserva=?, IdRecurso=?, nombre=?, apellido=?, Email=?, FechaRealizacionReserva=?  WHERE IdReserva=?";
+        return jdbcTemplate.update(SQL, reserva.getIdUsuario(), reserva.getInicioReserva(), reserva.getFinalizacionReserva(), reserva.getEstadoReserva(), reserva.getIdRecurso(), reserva.getNombre(), reserva.getApellido(), reserva.getEmail(), reserva.getFechaRealizacionReserva(), reserva.getIdReserva());
     }
 
     @Override
