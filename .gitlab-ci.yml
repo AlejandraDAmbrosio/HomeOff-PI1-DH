@@ -8,8 +8,6 @@ frontend_cicd:
       when: always
       changes:
         - frontend/**/**
-  only:
-    - lab
 
 backend_cicd:
   trigger:
@@ -21,5 +19,3 @@ backend_cicd:
       when: always
       changes:
         - backend/**/**
-  only:
-    - lab
