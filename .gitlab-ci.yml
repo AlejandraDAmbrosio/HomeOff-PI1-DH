@@ -4,7 +4,7 @@ stages:
 
 build_homeoff-be:
   stage: build
-  image: maven:3.9.3-openjdk-17
+  image: maven:3.9-openjdk-17
   script:
     - pwd
     - ls
