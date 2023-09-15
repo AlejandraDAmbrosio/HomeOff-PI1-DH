@@ -2,46 +2,49 @@ stages:
   - build
   - deploy
 
-build_homeoff-fe:
+build_homeoff-be:
   stage: build
-  image: node:16.14.0
+  image: maven:3.9.3-openjdk-17
   script:
+    - pwd
     - ls
-    - npm install -g vite
+    - cd backend
     - ls
-    - cd frontend/03
-    - ls
-    - npm i react-router-dom
-    - npm install react-icons --save
-    - npm install axios
-    - npm install @mui/material @emotion/react @emotion/styled @mui/joy @mui/icons-material @mui/x-date-pickers-pro @mui/x-date-pickers
-    - npm install @fontsource/roboto
-    - npm install dayjs
-    - npm install react-share --save
-    - npm i react-datepicker
-    - ls
-    - cd project-test
-    - npm run build
-    - ls
+    - mvn clean install
+    - ls backend/target
   artifacts:
     paths:
-      - frontend/03/project-test/dist/
+      - backend/target/ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar
   only:
     - lab
 
-
-deploy_web-fe_2_aws-homeoff-lab-fe:
+deploy_homeoff-lab-be:
   stage: deploy
-  needs: [build_homeoff-fe]
-  image: python:3
+  needs: [build_homeoff-be]
+  image: alpine:3.11
   before_script:
-    - pip install awscli
-    - aws configure set aws_access_key_id $AWS_HOMEOFF_ACCESS_KEY_ID
-    - aws configure set aws_secret_access_key $AWS_HOMEOFF_SECRET_ACCESS_KEY
-    - aws configure set region $AWS_HOMEOFF_LAB_REGION
+    - apk update && apk add openssh-client bash
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$EC2_KEY_LAB_HOMEOFF_BE" | tr -d '\r' | ssh-add -
+    - touch ~/.ssh/config
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh-keyscan -H "$EC2_LAB_HOMEOFF_BE" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
   script:
-    - aws s3 rm s3://$S3_LAB_HOMEOFF_FE --recursive
-    - aws s3 sync frontend/03/project-test/dist/ s3://$S3_LAB_HOMEOFF_FE
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo ls"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo cat nohup.out"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo rm ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo rm nohup.out"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo ls"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo cat ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.service"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo date"
+    - scp backend/target/ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE:~/
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo nohup java -jar ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar &"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo ps -aux"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo ls"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo cat nohup.out"
+    - ssh $EC2_SSH_USER@$EC2_LAB_HOMEOFF_BE "sudo date"
   only:
     - lab
-
