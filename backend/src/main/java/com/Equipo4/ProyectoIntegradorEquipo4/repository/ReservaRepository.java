@@ -30,13 +30,13 @@ public class ReservaRepository implements IReservaRepository {
     }
 
     @Override
-    public List<ReservaRespuesta> findAllByReserva(int IdUsuario) {
+    public List<ReservaRespuesta> findAllByReserva(int idUsuario) {
         String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizaciónReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizaciónReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
                 "FROM offi_Reservas p " +
-                "INNER JOIN offi_usuarios u ON p.IdUsuario = u.IdUsuario " +
-                "INNER JOIN offi_recursos r ON p.IdRecurso = r.IdRecurso " +
+                "INNER JOIN offi_usuarios u ON p.idUsuario = u.idUsuario " +
+                "INNER JOIN offi_recursos r ON p.idRecurso = r.idRecurso " +
                 "WHERE p.idUsuario = ?";
-        return jdbcTemplate.query(SQL, new Object[]{IdUsuario}, BeanPropertyRowMapper.newInstance(ReservaRespuesta.class));
+        return jdbcTemplate.query(SQL, new Object[]{idUsuario}, BeanPropertyRowMapper.newInstance(ReservaRespuesta.class));
     }
     @Override
     public int save(Reserva reserva) {

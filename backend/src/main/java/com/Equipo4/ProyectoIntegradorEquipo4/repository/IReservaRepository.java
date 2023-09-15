@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface IReservaRepository {
 
-    public List<ReservaRespuesta> findAllByReserva(int idUsuario);
-    public Optional<Reserva> findById(int id);
-    public int save(Reserva reserva);
-    public int update(Reserva reserva);
+    List<ReservaRespuesta> findAllByReserva(int idUsuario);
+    Optional<Reserva> findById(int id);
+    int save(Reserva reserva);
+    int update(Reserva reserva);
 
 }

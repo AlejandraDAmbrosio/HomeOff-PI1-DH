@@ -17,12 +17,12 @@ import java.util.List;
 public class ReservaController {
 
     @Autowired
-    private IReservaService iReservaService;
+    private IReservaService reservaService;
 
     @GetMapping("/{IdUsuario}")
     public ResponseEntity<?> buscarReservaUsuario(@PathVariable Integer IdUsuario) {
         try {
-            List<ReservaRespuesta> reservas = iReservaService.devolverReservaPorUsuario(IdUsuario);
+            List<ReservaRespuesta> reservas = reservaService.devolverReservaPorUsuario(IdUsuario);
             if (reservas.isEmpty()) {
                 String mensaje = "No se encontraron reservas para el usuario con ID: " + IdUsuario;
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
@@ -37,7 +37,7 @@ public class ReservaController {
     @PostMapping("/save")
     public ResponseEntity<?> guardarReserva(@RequestBody Reserva reserva) {
         try {
-            Reserva resultado = iReservaService.guardarReserva(reserva);
+            Reserva resultado = reservaService.guardarReserva(reserva);
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
             String mensaje = "Error al guardar la reserva: " + e.getMessage();

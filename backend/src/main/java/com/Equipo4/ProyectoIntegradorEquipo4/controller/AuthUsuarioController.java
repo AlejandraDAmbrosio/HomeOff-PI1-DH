@@ -1,4 +1,4 @@
-/*package com.Equipo4.ProyectoIntegradorEquipo4.controller;
+package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Usuario;
@@ -32,4 +32,27 @@ public class AuthUsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
-}*/
+    @PostMapping("usuario/update")
+    public ResponseEntity<String> update(@RequestBody Usuario usuario){
+        Optional<Usuario> usuarioBuscado=usuarioService.findByID(usuario.getIdUsuario());
+        if(usuarioBuscado.isPresent()){
+            usuarioService.update(usuario);
+            return ResponseEntity.ok("Usuario Actualizado");
+        }
+        else{
+            return ResponseEntity.badRequest().body("Usuario no existe");
+        }
+    }
+    @PostMapping("usuario/delete/{id}")
+    public ResponseEntity<String> borrarUsuario(@PathVariable Integer id){
+        Optional<Usuario> usuarioEliminar=usuarioService.findByID(id);
+        if(usuarioEliminar.isPresent()){
+            usuarioService.deletedById(id);
+            return ResponseEntity.ok("Usuario borrado");
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+}

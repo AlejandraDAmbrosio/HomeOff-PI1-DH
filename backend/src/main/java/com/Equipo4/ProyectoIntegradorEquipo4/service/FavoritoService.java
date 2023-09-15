@@ -51,8 +51,8 @@ public class FavoritoService implements IFavoritoService {
 
     @Override
     public List<FavoritoRespuesta> devolverFavoritoPorUsuario(Integer IdUsuario) throws Exception {
-        Favorito favorito = iFavoritoRepository.findById(IdUsuario)
-                .orElseThrow(() -> new Exception("El recurso no existe"));
+        /*Favorito favorito = iFavoritoRepository.findById(IdUsuario)
+                .orElseThrow(() -> new Exception("El recurso no existe"));*/
 
         List<FavoritoRespuesta> favoritos = iFavoritoRepository.findAllByUsuario(IdUsuario);
 

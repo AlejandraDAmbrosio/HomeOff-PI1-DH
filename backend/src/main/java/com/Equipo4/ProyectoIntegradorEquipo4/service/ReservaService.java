@@ -1,6 +1,5 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
-
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Reserva;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.ReservaRespuesta;
@@ -18,23 +17,23 @@ import java.util.List;
 public class ReservaService implements IReservaService {
 
 
-    private final IReservaRepository iReservaRepository;
+    private final IReservaRepository reservaRepository;
     private final IRecursosRepository recursosRepository;
     private final UsuarioRepository usuarioRepository;
 
     @Autowired
-    public ReservaService(IReservaRepository iReservaRepository, IRecursosRepository recursosRepository, UsuarioRepository usuarioRepository) {
-        this.iReservaRepository = iReservaRepository;
+    public ReservaService(IReservaRepository reservaRepository, IRecursosRepository recursosRepository, UsuarioRepository usuarioRepository) {
+        this.reservaRepository = reservaRepository;
         this.recursosRepository = recursosRepository;
         this.usuarioRepository = usuarioRepository;
     }
 
     @Override
     public List<ReservaRespuesta> devolverReservaPorUsuario(Integer idUsuario) throws Exception{
-        Reserva reserva = iReservaRepository.findById(idUsuario)
-                .orElseThrow(() -> new Exception("El usuario no existe"));
+        /*Reserva reserva = reservaRepository.findById(idUsuario)
+                .orElseThrow(() -> new Exception("El usuario no existe"));*/
 
-        List<ReservaRespuesta> reservas = iReservaRepository.findAllByReserva(idUsuario);
+        List<ReservaRespuesta> reservas = reservaRepository.findAllByReserva(idUsuario);
 
 
         if (reservas.isEmpty()) {
@@ -66,7 +65,7 @@ public class ReservaService implements IReservaService {
         nuevaReserva.setFechaRealizaciónReserva(reserva.getFechaRealizaciónReserva());
 
 
-        int resultKey = iReservaRepository.save(nuevaReserva);
+        int resultKey = reservaRepository.save(nuevaReserva);
         nuevaReserva.setIdReserva(resultKey);
         System.out.println("INFO:" + nuevaReserva.toString());
         System.out.println("INFO:" + nuevaReserva.getIdReserva());
