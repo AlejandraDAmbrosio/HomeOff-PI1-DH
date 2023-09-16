@@ -3,7 +3,7 @@ import {
   useNavigate,
   useParams,
   useLocation,
-  Link,
+  // Link,
   useResolvedPath,
 } from "react-router-dom";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
@@ -13,7 +13,7 @@ import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
-  Container,
+  // Container,
   Box,
   Paper,
   Modal,
@@ -28,7 +28,7 @@ import {
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
-import Compartir from "../Components/CompartirEnRedes/Compartir";
+// import Compartir from "../Components/CompartirEnRedes/Compartir";
 import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
@@ -57,7 +57,9 @@ const style = {
 };
 
 const Detail = () => {
-  
+  const navigate = useNavigate();
+  const currentURL = window.location.href;
+  const resolvedPath = useResolvedPath();
   const { id } = useParams();
   const location = useLocation();
   const {
@@ -66,46 +68,25 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
-    puntosComentXIDRecurso,
+    // puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
-    getCaracteristicasLista,
-    usuarioLogueado,
-    infoRecursoAReservar,
+    // getCaracteristicasLista,
+    // usuarioLogueado,
+    // infoRecursoAReservar,
     setInfoRecursoAReservar,
-    email,
-    setEmail,
+    // email,
+    // setEmail,
     userIdLogIn,
   } = useContext(ContextGlobal);
-  
+
   const [copied, setCopied] = useState(false);
   const [openSnack, setOpenSnack] = React.useState(false);
-
-  const handleClickSnack = () => {
-    setOpenSnack(true);
-  };
-
-  const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenSnack(false);
-  };
-
-  const navigate = useNavigate();
-  const resolvedPath = useResolvedPath();
   const [publicacionRedes, setPublicacionRedes] = useState("");
-
-  const currentURL = window.location.href;
-
-  const onChangeCopy = (event) => {
-    setPublicacionRedes(event.target.value);
-  };
-
-
   const [openShareModal, setOpenShareModal] = useState(false);
+ 
+
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -125,6 +106,45 @@ const Detail = () => {
   const handleOpenImage5 = () => setOpenImage5(true);
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
+  
+  ///////////////MODAL  Compartir  ////////////////////////
+
+  
+  const onChangeCopy = (event) => {
+    setPublicacionRedes(event.target.value);
+  };
+
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
+
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
+  };
+
+  const handleCopyClick = (e) => {
+    e.preventDefault();
+    navigator.clipboard
+      .writeText(currentURL)
+      .then(() => {
+        setCopied(true);
+        handleClickSnack();
+      })
+      .catch((error) => {
+        console.error("Error al copiar la URL: ", error);
+      });
+  };
+  ///////////////FIN MODAL  Compartir  ////////////////////////
 
   useEffect(
     () => {
@@ -140,29 +160,7 @@ const Detail = () => {
     return <div>Producto no encontrado</div>;
   }
 
-  ///////////////MODAL  Compartir  ////////////////////////
-
-  const handleOpenShare = () => {
-    setOpenShareModal(true);
-  };
-
-  const handleCloseShareModal = () => {
-    setOpenShareModal(false);
-  };
-  const handleCopyClick = (e) => {
-    e.preventDefault();
-    navigator.clipboard
-      .writeText(currentURL)
-      .then(() => {
-        setCopied(true);
-        handleClickSnack();
-      })
-      .catch((error) => {
-        console.error("Error al copiar la URL: ", error);
-      });
-  };
-  ///////////////FIN MODAL  Compartir  ////////////////////////
-
+  /////////////// INICIO Carga de Datos para reservar  ////////////////////////
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
@@ -172,7 +170,7 @@ const Detail = () => {
       fechaInicio: "2023-08-31T00:00:00.000+00:00",
       fechaFin: "2023-09-05T00:00:00.000+00:00",
       fechaRealizacionReserva: "2023-08-31T00:00:00.000+00:00",
-      idUser: userIdLogIn,
+      idUser: idUserParse,
       precioProducto: recursoXID.precioUnitario,
       precioTotal: 0,
       dias: 0,
