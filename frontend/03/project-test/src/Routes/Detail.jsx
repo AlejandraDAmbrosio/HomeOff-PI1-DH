@@ -146,6 +146,8 @@ const Detail = () => {
   };
   ///////////////FIN MODAL  Compartir  ////////////////////////
 
+  //////////////// Traer info del Contexto //////////////////////// 
+
   useEffect(
     () => {
       getRecursoXID(id);
