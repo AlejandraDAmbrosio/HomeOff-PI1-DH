@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import dayjs, { Dayjs } from "dayjs";
 import {
   useNavigate,
   useParams,
@@ -85,8 +86,9 @@ const Detail = () => {
   const [openSnack, setOpenSnack] = React.useState(false);
   const [publicacionRedes, setPublicacionRedes] = useState("");
   const [openShareModal, setOpenShareModal] = useState(false);
- 
-
+  const [fechaInicio, setFechaInicio] = useState(dayjs());
+  const [fechaFin, setFechaFin] = useState(dayjs());
+  const [fechaRealizacionReserva, setFechaRealizacionReserva] = useState(Date);
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -106,10 +108,9 @@ const Detail = () => {
   const handleOpenImage5 = () => setOpenImage5(true);
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
-  
+
   ///////////////MODAL  Compartir  ////////////////////////
 
-  
   const onChangeCopy = (event) => {
     setPublicacionRedes(event.target.value);
   };
@@ -146,7 +147,7 @@ const Detail = () => {
   };
   ///////////////FIN MODAL  Compartir  ////////////////////////
 
-  //////////////// Traer info del Contexto //////////////////////// 
+  //////////////// Traer info del Contexto ////////////////////////
 
   useEffect(
     () => {
@@ -169,9 +170,9 @@ const Detail = () => {
     e.preventDefault();
     setInfoRecursoAReservar({
       idRecurso: recursoXID.idRecurso,
-      fechaInicio: "2023-08-31T00:00:00.000+00:00",
-      fechaFin: "2023-09-05T00:00:00.000+00:00",
-      fechaRealizacionReserva: "2023-08-31T00:00:00.000+00:00",
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
+      fechaRealizacionReserva: fechaRealizacionReserva,
       idUser: idUserParse,
       precioProducto: recursoXID.precioUnitario,
       precioTotal: 0,
@@ -602,7 +603,15 @@ const Detail = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
-            <CalendarioXId style={{ placeItems: "center" }} />
+           <CalendarioXId
+              style={{ placeItems: "center" }}
+              fechaInicio={fechaInicio}
+              fechaFin={fechaFin}
+              fechaRealizacionReserva={fechaRealizacionReserva}
+              setFechaInicio={setFechaInicio}
+              setFechaFin={setFechaFin}
+              setFechaRealizacionReserva={setFechaRealizacionReserva}
+            />
             <Button
               sx={{
                 width: "100%",
