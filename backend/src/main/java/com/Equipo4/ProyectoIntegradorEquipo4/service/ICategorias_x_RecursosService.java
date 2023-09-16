@@ -2,8 +2,6 @@ package com.Equipo4.ProyectoIntegradorEquipo4.service;
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Categorias_x_Recurso;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Categorias_x_RecursoRespuesta;
-import com.Equipo4.ProyectoIntegradorEquipo4.entities.PuntajeRespuesta;
-
 
 import java.util.List;
 import java.util.Optional;

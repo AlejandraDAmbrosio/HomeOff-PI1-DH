@@ -35,7 +35,7 @@ public class CaracteristicasController {
         }
     }
 
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody Caracteristicas caracteristicas){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCaracteristicasService.save(caracteristicas);
@@ -53,7 +53,7 @@ public class CaracteristicasController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCaracteristicasService.deleteById(id);

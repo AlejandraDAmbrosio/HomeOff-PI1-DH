@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,6 +26,8 @@ public class JwtService {
     }
 
     private String getToken(Map<String, Object> extraClaims, UserDetails usuario) {
+        var rol= usuario.getAuthorities().stream().collect(Collectors.toList()).get(0);
+        extraClaims.put("rol",rol);
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

@@ -34,10 +34,10 @@ public class Categorias_x_RecursosService implements ICategorias_x_RecursosServi
     }
 
     @Override
-    public int save(Categorias_x_Recurso categoriasXRecurso) {
+    public int save(Categorias_x_Recurso categorias_x_recurso) {
         int row;
         try {
-            row = iCategorias_x_recursosRepository.save(categoriasXRecurso);
+            row = iCategorias_x_recursosRepository.save(categorias_x_recurso);
         }catch (Exception ex){
             throw ex;
         }
@@ -45,10 +45,10 @@ public class Categorias_x_RecursosService implements ICategorias_x_RecursosServi
     }
 
     @Override
-    public int update(Categorias_x_Recurso categoriasXRecurso) {
+    public int update(Categorias_x_Recurso categorias_x_recurso) {
         int row;
         try {
-            row = iCategorias_x_recursosRepository.update(categoriasXRecurso);
+            row = iCategorias_x_recursosRepository.update(categorias_x_recurso);
         }catch (Exception ex){
             throw ex;
         }
