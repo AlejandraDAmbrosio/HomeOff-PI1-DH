@@ -98,7 +98,7 @@ export const ContextProvider = ({ children }) => {
     setUsuarioLogueado(nombreCompletoStorage);
     setRol(rol);
     setNombreCompleto(nombreCompletoStorage);
-    setEmail(emailStorage)
+    setEmail(emailStorage);
     // console.log("ROL ----------------------- >", rol);
     // console.log(
     //   "nombreCompleto ----------------------- >",
@@ -230,41 +230,35 @@ export const ContextProvider = ({ children }) => {
     getDatosUsers();
   }, []);
 
-//////////////////////////
+  //////////////////////////
 
-const [usersXID, setUsersXID] = useState([]);
+  const [usersXID, setUsersXID] = useState([]);
 
+  const getDatosUsersXID = async (id) => {
+    const urlUsers = `http://52.32.210.155:8080/auth/usuario/${id}`;
 
+    const headers = {
+      "Content-Type": "application/json",
+    };
 
-const getDatosUsersXID = async (id) => {
-  const urlUsers = `http://52.32.210.155:8080/auth/usuario/${id}`;
+    try {
+      const response = await axios.get(urlUsers, headers);
 
-  const headers = {
-    "Content-Type": "application/json",
-  };
-
-  try {
-    const response = await axios.get(urlUsers, headers);
-
-    if (response.status === 200) {
-      const data = response.data;
-      console.log("Respuesta:", data);
-      setUsersXID(data);
-    } else {
-      console.error(
-        "Error en la respuesta:",
-        response.status,
-        response.statusText
-      );
+      if (response.status === 200) {
+        const data = response.data;
+        console.log("Respuesta:", data);
+        setUsersXID(data);
+      } else {
+        console.error(
+          "Error en la respuesta:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
-
-
-
-
+  };
 
   /////////////////////////////////GetCategorias
   const [categoriasLista, setCategoriasLista] = useState([]);
@@ -337,11 +331,9 @@ const getDatosUsersXID = async (id) => {
     }
   };
 
-
   //// If response.data === 0  setPuntosPromedioXIDRecurso(0);
 
-////////////////////////////////////////////////////////////////////////
-
+  ////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////Favoritos X ID
 
@@ -391,7 +383,6 @@ const getDatosUsersXID = async (id) => {
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
-
   };
 
   //////////////////////////////////////////////////////////////
@@ -450,117 +441,141 @@ const getDatosUsersXID = async (id) => {
 
   ////////////////////////////////////// Guardar Reservas
 
-  const [guardarReserva, setGuardarReserva] = useState([]);
+  const [guardarReserva, setGuardarReserva] = useState({
+    nombre:"",
+    apellido:"",
+    idUsuario: 0,
+    idRecurso: 0,
+    inicioReserva:"",
+    estadoReserva:0,
+    email:"",
+    finalizacionReserva: "",
+    fechaRealizacionReserva: "",
+  });
 
-  const postReserva = async (
-    /*nombre,
-    apellido,
-    idUsuario,
-    idRecurso,
-    inicioReserva,
-    email,
-    finalizaciónReserva,
-    fechaRealizaciónReserva*/
-  ) => {
-    // const datosReserva = {
-    //   nombre: "Pedro",
-    //   apellido:"Alzate",
-    //   idUsuario: 44,
-    //   idRecurso:1,
-    //   inicioReserva:"2023-09-12T05:00:00.000+00:00",
+  // const postReserva = async (
+    // nombre,
+    // apellido,
+    // idUsuario,
+    // idRecurso,
+    // inicioReserva,
+    // estadoReserva,
+    // email,
+    // finalizacionReserva,
+    // fechaRealizacionReserva
+  // ) => {
+    // const datosReserva2 = {
+    //   nombre: "Eduardo",
+    //   apellido: "Gonzales",
+    //   idUsuario: 56,
+    //   idRecurso: 176,
+    //   inicioReserva: "2023-09-12",
     //   estadoReserva: 1,
-    //   email:"prueba12@gmail.com",
-    //   finalizacionReserva:"2023-09-14T05:00:00.000+00:00",
-    //   fechaRealizacionReserva:"2023-09-10T05:00:00.000+00:00",
+    //   email: "prueba15@gmail.com",
+    //   finalizacionReserva: "2023-09-14",
+    //   fechaRealizacionReserva: "2023-09-10"
+
+    // setGuardarReserva({
+    //   nombre: nombre,
+    // apellido:apellido,
+    // idUsuario: idUsuario,
+    // idRecurso: idRecurso,
+    // inicioReserva: inicioReserva,
+    // estadoReserva: estadoReserva,
+    // email: email,
+    // finalizacionReserva:finalizacionReserva,
+    // fechaRealizacionReserva: fechaRealizacionReserva,
+    // })
     // }
 
-////Pedido logrado en postman
-//     const datosReserva = {
-//       "nombre": "Eduardo",
-//       "apellido": "Gonzales",
-//       "idUsuario": 56,
-//       "idRecurso": 176,
-//       "inicioReserva": "2023-09-12T05:00:00.000+00:00",
-//       "estadoReserva": 1,
-//       "email": "prueba15@gmail.com",
-//       "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
-//       "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
-// }
+    // try {
+    //   const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+    //   const jsonDataReserva = JSON.stringify(guardarReserva);
+    //   console.log("datosReserva", jsonDataReserva);
+    //   const response = await fetch(urlReserva, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: jsonDataReserva,
+    //   });
 
-const datosReserva = {
-  nombre: "Eduardo",
-  apellido: "Gonzales",
-  idUsuario: 56,
-  idRecurso: 176,
-  inicioReserva: "2023-09-12T05:00:00.000+00:00",
-  estadoReserva: 1,
-  email: "prueba15@gmail.com",
-  finalizacionReserva: "2023-09-14T05:00:00.000+00:00",
-  fechaRealizacionReserva: "2023-09-10T05:00:00.000+00:00"
-}
+    //   if (response.ok) {
+    //     const responseData = await response.json();
+    //     console.log("Respuesta:", responseData);
+    //   } else {
+    //     console.error(
+    //       "Error en la respuesta:",
+    //       response.status,
+    //       response.statusText
+    //     );
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+    ///////////////datosReserva stringify///////////////////
 
-//      const datosReserva = {
-//         "nombre": "Pedro",
-//         "apellido": "Alzate",
-//         "idUsuario": 44,
-//         "idRecurso": 1,
-//         "inicioReserva": "2023-09-12T05:00:00.000+00:00",
-//         "estadoReserva": 1,
-//         "email": "prueba12@gmail.com",
-//         "finalizacionReserva": "2023-09-14T05:00:00.000+00:00",
-//         "fechaRealizacionReserva": "2023-09-10T05:00:00.000+00:00"
-// }
+    // try {
+    //   const jsonDataReserva = JSON.stringify(datosReserva);
+    //   console.log("jsonDataReserva ---------- > ", jsonDataReserva)
 
-    const urlReserva = `http://52.32.210.155:8080/auth/reserva/save/`;
-    
-    try {
-      const jsonDataReserva = JSON.stringify(datosReserva);
-      console.log("jsonDataReserva ---------- > ", jsonDataReserva)
+    //   const response = await axios.post(urlReserva, datosReserva, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
 
-      const response = await axios.post(urlReserva, datosReserva, {
-        headers: {
-          "Content-Type": "application/json",
-          // 'Origin': 'http://localhost:5173/'
-        },
-      });
+    //   if (response.status === 200) {
+    //     const responseData = await response.data;
+    //     console.log("Respuesta:", responseData);
+    //   } else {
+    //     console.error(
+    //       "Error en la respuesta:",
+    //       response.status,
+    //       response.statusText
+    //     );
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+  // };
 
-      if (response.status === 200) {
-        const responseData = await response.data;
-        console.log("Respuesta:", responseData);
-      } else {
-        console.error(
-          "Error en la respuesta:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  ///////////////////////////////////
 
-///////////////////////////////////
+  const [infoRecursoAReservar, setInfoRecursoAReservar] = useState({
+    idRecurso:0,
+    fechaInicio:"2023-08-31T00:00:00.000+00:00",
+    fechaFin:"2023-09-05T00:00:00.000+00:00",
+    idUser:0,
+    precioProducto:0,
+    precioTotal:0 , 
+    dias:0,
+    fechaRealizacionReserva:"2023-09-05T00:00:00.000+00:00",
+  });
 
-const[infoRecursoAReservar, setInfoRecursoAReservar] = useState({
-  idRecurso:0,
-  fechaInicio:"2023-08-31T00:00:00.000+00:00",
-  fechaFin:"2023-08-31T00:00:00.000+00:00",
-  idUser:0,
-  precioProducto:0,
-  dias:0,
 
-});
+  const [fechasInicioDetalle, setFechasInicioDetalle] = useState([null, null]);
+  const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
+  const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
+
 
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
-        email, setEmail,
-        infoRecursoAReservar, setInfoRecursoAReservar,
-        getDatosUsersXID, usersXID, setUsersXID,
+        fechasResDetalle, setFechasResDetalle,
+        fechasFinDetalle, setFechasFinDetalle,
+        fechasInicioDetalle, setFechasInicioDetalle,
+        email,
+        setEmail,
+        infoRecursoAReservar,
+        setInfoRecursoAReservar,
+        getDatosUsersXID,
+        usersXID,
+        setUsersXID,
         guardarReserva,
         setGuardarReserva,
-        postReserva,
+        // postReserva,
         getReservas,
         reservas,
         setReservas,
