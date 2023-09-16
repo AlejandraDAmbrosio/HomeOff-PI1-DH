@@ -29,7 +29,8 @@ const FormIngreso = () => {
     errorLogueo,
     setErrorLogueo,
     setUserLogIn,
-    loginSuccess, setLoginSuccess,
+    loginSuccess,
+    setLoginSuccess,
   } = useContext(ContextGlobal);
 
   // Repo de validaciones
@@ -40,8 +41,6 @@ const FormIngreso = () => {
   ////////// Segmento modal   //////////
   const [modalTimeout, setModalTimeout] = useState(null); // Nuevo estado para controlar el cierre del modal por tiempo
   const [open, setOpen] = useState(false);
-
-
 
   const handleOpen = () => {
     setOpen(true);
@@ -72,11 +71,10 @@ const FormIngreso = () => {
   //         console.log("setTimeout")
   //         handleClose();
   //         clearTimeout(modalTimeout);
-  //       }, 10000) 
+  //       }, 10000)
   //     );
 
   // };
-
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -174,7 +172,7 @@ const FormIngreso = () => {
       console.log(userLogIn);
 
       realizarLogIn(userLogIn);
-       setErrorLogueo("Logueando usuario...");
+      setErrorLogueo("Logueando usuario...");
       handleOpen();
 
       //ENVIAR DATOS
@@ -193,18 +191,20 @@ const FormIngreso = () => {
     // useEffect(() => {
     // if (usuarioLogueado) {
     //   setErrorLogueo(`Gracias por ingresar ${usuario.username}`);
- 
+
     //   }
     // }, [usuarioLogueado]);
   };
 
   return (
     <>
-     <Dialog open={open} onClose={handleClose}>
-     <DialogTitle>Cerrar</DialogTitle>
-     <DialogContent>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Cerrar</DialogTitle>
+        <DialogContent>
           <DialogContentText>
-            {errorLogueo && <h5 className="msj-form-guardado">{errorLogueo}</h5>}
+            {errorLogueo && (
+              <h5 className="msj-form-guardado">{errorLogueo}</h5>
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -213,7 +213,7 @@ const FormIngreso = () => {
           </Button>
         </DialogActions>
       </Dialog>
-        {/* <Paper
+      {/* <Paper
           sx={{
             width: "320px",
             overflow: "hidden",
@@ -318,10 +318,9 @@ const FormIngreso = () => {
                   style={{ borderColor: emailValido ? "" : "red" }}
                 />
                 {!emailValido ? (
-                  <p className="error-form-inicio">
-                    Ingresar al menos 3 caracteres antes del arroba y tener un
-                    formato válido.
-                  </p>
+                  <Typography variant="body2" style={{ color: "red" }}>
+                    Ingrese un email válido. Debe contener al menos 3 caracteres antes del arroba.
+                  </Typography>
                 ) : (
                   ""
                 )}

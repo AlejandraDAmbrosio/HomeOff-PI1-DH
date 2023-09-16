@@ -391,8 +391,7 @@ const getDatosUsersXID = async (id) => {
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
-    // console.log("puntosComentXIDRecurso");
-    // console.log(puntosComentXIDRecurso);
+
   };
 
   //////////////////////////////////////////////////////////////
@@ -415,7 +414,7 @@ const getDatosUsersXID = async (id) => {
 
   /////////////////////////////  Productos a mostrar en busqueda ////////////
   const [prodFiltrados, setProdFiltrados] = useState([]);
-  const [busquedaCero, setBusquedaCero] = useState(false);
+  const [busquedaCero, setBusquedaCero] = useState(false); /// define mensaje de error en resultado 0 en las busquedas
   const [tituloListadoProductos, setTituloListadoProductos] =
     useState("Productos");
 

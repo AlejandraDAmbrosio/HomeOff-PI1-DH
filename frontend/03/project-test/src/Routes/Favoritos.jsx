@@ -30,21 +30,20 @@ const Favoritos = () => {
 
   useEffect(() => {
     getFavoritosXID(id);
-   
   }, []);
 
-  console.log("favoritosXID" , favoritosXID);
+  // console.log("favoritosXID" , favoritosXID);
 
   const idRecursos = favoritosXID.map((favoritoIdRecurso) => favoritoIdRecurso.idRecurso);
-  console.log("idRecursos", idRecursos);
+  // console.log("idRecursos", idRecursos);
 
   const productosFavoritos = productosBKLista.filter((producto) =>
     idRecursos.includes(producto.idRecurso)
 
   );
-  console.log("productosFavoritos")
+  // console.log("productosFavoritos")
 
-  console.log(productosFavoritos)
+  // console.log(productosFavoritos)
 
   // console.log("prodFiltrados en LIstaProd:", prodFiltrados);
 

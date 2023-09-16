@@ -24,6 +24,9 @@ import "../Components/ReservarXIDRecurso.css";
 import { MdArrowBackIosNew } from "react-icons/md";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+import formateoFechas from "../Components/utils/formateoFechas"
+import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
+import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
 
 const style = {
   position: "absolute",
@@ -52,6 +55,7 @@ const ReservarXIDRecurso = () => {
     getCaracteristicasXID,
     email,
     infoRecursoAReservar,
+    productosBKLista 
   } = useContext(ContextGlobal);
 
   console.log(" ------------ infoRecursoAReservar  -----------------> ", infoRecursoAReservar)
@@ -185,8 +189,12 @@ const ReservarXIDRecurso = () => {
                 alignItems="center"
               >
                 <Stack direction={"column"}>
-                  <Typography variant="h5">Resumen de reservas</Typography>
-                  <Typography variant="h4">{recursoXID.nombre}</Typography>
+                  {/* <Typography variant="h5">Resumen de reservas</Typography> */}
+                  <Typography variant="h4" style={{ textAlign: "center" }}>
+                      Confirmá tu reserva
+                    </Typography>
+
+                
                 </Stack>
                 <Stack
                   direction="row"
@@ -290,9 +298,10 @@ const ReservarXIDRecurso = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Typography variant="h4" style={{ textAlign: "center" }}>
+                      <Typography variant="h4">{recursoXID.nombre}</Typography>
+                    {/* <Typography variant="h4" style={{ textAlign: "center" }}>
                       Confirmá tu reserva
-                    </Typography>
+                    </Typography> */}
                     <Stack
                       spacing={4}
                       direction={{
@@ -309,14 +318,14 @@ const ReservarXIDRecurso = () => {
                     >
                       <Stack spacing={1} style={{ alignItems: "center" }}>
                         <Stack
-                          spacing={3}
+                          spacing={2}
                           direction={"row"}
                           style={{
                             borderRadius: "12px",
                             backgroundColor: "#DDDDDD",
-                            padding: "0.5rem 1rem",
+                            padding: "0.5rem 0.5rem",
                             alignItems: "center",
-                            width: "335px",
+                            width: "370px",
                           }}
                         >
                           <Stack
@@ -330,7 +339,7 @@ const ReservarXIDRecurso = () => {
                           >
                             <Typography>Check-in</Typography>
                             <Typography style={{ fontWeight: "800" }}>
-                              23-nov
+                            {formateoFechas(infoRecursoAReservar.fechaInicio)}
                             </Typography>
                           </Stack>
                           <Divider orientation="vertical" />
@@ -343,14 +352,14 @@ const ReservarXIDRecurso = () => {
                               md: "row",
                             }}
                           >
-                            <Typography>Check-in</Typography>
+                            <Typography>Check-out</Typography>
                             <Typography style={{ fontWeight: "800" }}>
-                              27-nov
+                            {formateoFechas(infoRecursoAReservar.fechaFin)}
                             </Typography>
                           </Stack>
                         </Stack>
 
-                        <Typography>5 días totales</Typography>
+                        <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography>
                       </Stack>
 
                       <Stack
@@ -400,7 +409,8 @@ const ReservarXIDRecurso = () => {
                           style={{ justifyContent: "space-between" }}
                         >
                           <Typography variant="h6">Precio x día</Typography>
-                          <Typography variant="h6">$300</Typography>
+                          {/* <Typography variant="h6">$300</Typography> */}
+                          <Typography variant="h6">$ {infoRecursoAReservar.precioProducto}</Typography>
                         </Stack>
                         <Stack
                           spacing={3}
@@ -408,7 +418,7 @@ const ReservarXIDRecurso = () => {
                           style={{ justifyContent: "space-between" }}
                         >
                           <Typography variant="h6">Total</Typography>
-                          <Typography variant="h6">$1500</Typography>
+                          <Typography variant="h6">${obtenerPrecioXIdRecurso(recursoXID.idRecurso, productosBKLista, calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  ))} </Typography>
                         </Stack>
                       </Stack>
                     </Stack>
