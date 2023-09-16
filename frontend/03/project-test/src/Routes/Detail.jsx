@@ -6,10 +6,10 @@ import {
   Link,
   useResolvedPath,
 } from "react-router-dom";
-import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
-import formateoFechas from "../Components/utils/formateoFechas"
+import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
+import formateoFechas from "../Components/utils/formateoFechas";
 
-import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
@@ -57,6 +57,28 @@ const style = {
 };
 
 const Detail = () => {
+  
+  const { id } = useParams();
+  const location = useLocation();
+  const {
+    recursoXID,
+    getRecursoXID,
+    caracteristicasLista,
+    productosBKLista,
+    getPuntosComentXIDRecurso,
+    puntosComentXIDRecurso,
+    categoriasLista,
+    caracteristicasXID,
+    getCaracteristicasXID,
+    getCaracteristicasLista,
+    usuarioLogueado,
+    infoRecursoAReservar,
+    setInfoRecursoAReservar,
+    email,
+    setEmail,
+    userIdLogIn,
+  } = useContext(ContextGlobal);
+  
   const [copied, setCopied] = useState(false);
   const [openSnack, setOpenSnack] = React.useState(false);
 
@@ -82,34 +104,8 @@ const Detail = () => {
     setPublicacionRedes(event.target.value);
   };
 
-  const { id } = useParams();
-  const location = useLocation();
-  const {
-    recursoXID,
-    getRecursoXID,
-    caracteristicasLista,
-    productosBKLista,
-    getPuntosComentXIDRecurso,
-    puntosComentXIDRecurso,
-    categoriasLista,
-    caracteristicasXID,
-    getCaracteristicasXID,
-    getCaracteristicasLista,
-    usuarioLogueado,
-    infoRecursoAReservar, setInfoRecursoAReservar,
-    email, setEmail,
-    userIdLogIn
-  } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);
-
-  const handleOpenShare = () => {
-    setOpenShareModal(true);
-  };
-
-  const handleCloseShareModal = () => {
-    setOpenShareModal(false);
-  };
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -130,20 +126,29 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-  useEffect(() => {
-    getRecursoXID(id);
-    getCaracteristicasXID(id);
-    getPuntosComentXIDRecurso(id);
-    
-  }, [id], { max: 2});
+  useEffect(
+    () => {
+      getRecursoXID(id);
+      getCaracteristicasXID(id);
+      getPuntosComentXIDRecurso(id);
+    },
+    [id],
+    { max: 2 }
+  );
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
 
-  // console.log(`reservas del producto ${recursoXID}`, reservas)
-  /////////////////////////
+  ///////////////MODAL  Compartir  ////////////////////////
 
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
   const handleCopyClick = (e) => {
     e.preventDefault();
     navigator.clipboard
@@ -156,31 +161,25 @@ const Detail = () => {
         console.error("Error al copiar la URL: ", error);
       });
   };
-  ///////////////
-  console.log(
-    " resolvedPath.pathname --------------------",
-    resolvedPath.pathname
-  );
-  console.log("URL completa:", currentURL);
+  ///////////////FIN MODAL  Compartir  ////////////////////////
 
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setInfoRecursoAReservar({
-      idRecurso:recursoXID.idRecurso,
-      fechaInicio:"2023-08-31T00:00:00.000+00:00",
-      fechaFin:"2023-09-05T00:00:00.000+00:00",
-      fechaRealizacionReserva:"2023-08-31T00:00:00.000+00:00",
-      idUser:userIdLogIn,
-      precioProducto:recursoXID.precioUnitario,
-      precioTotal:0 , 
-      dias:0,
-    })
+      idRecurso: recursoXID.idRecurso,
+      fechaInicio: "2023-08-31T00:00:00.000+00:00",
+      fechaFin: "2023-09-05T00:00:00.000+00:00",
+      fechaRealizacionReserva: "2023-08-31T00:00:00.000+00:00",
+      idUser: userIdLogIn,
+      precioProducto: recursoXID.precioUnitario,
+      precioTotal: 0,
+      dias: 0,
+    });
 
     navigate(`/reserva/${id}`);
   };
-  // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
 
   return (
     <>
@@ -605,18 +604,18 @@ const Detail = () => {
           >
             <CalendarioXId style={{ placeItems: "center" }} />
             <Button
-            sx={{
-              width: "100%",
-              color: "white",
-              backgroundColor: "#7cc598",
-              ":hover": {
-                backgroundColor: "#3c9960",
-              },
-            }}
-            onClick={handleSubmit}
-          >
-            Reservar
-          </Button>
+              sx={{
+                width: "100%",
+                color: "white",
+                backgroundColor: "#7cc598",
+                ":hover": {
+                  backgroundColor: "#3c9960",
+                },
+              }}
+              onClick={handleSubmit}
+            >
+              Reservar
+            </Button>
           </Stack>
 
           <Stack
@@ -639,9 +638,6 @@ const Detail = () => {
 };
 
 export default Detail;
-
-
-
 
 // import React, { useState, useEffect, useContext } from "react";
 // import {
@@ -775,7 +771,6 @@ export default Detail;
 //   const handleCloseImage5 = () => setOpenImage5(false);
 //   ///////
 
- 
 //   ////////////////////Datos para reserva
 //   // const [fechaInicio, setFechaInicio] = useState("");
 //   // const [fechaFin, setFechaFin] = useState("");
