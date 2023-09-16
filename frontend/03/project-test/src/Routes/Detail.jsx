@@ -6,6 +6,11 @@ import {
   Link,
   useResolvedPath,
 } from "react-router-dom";
+import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
+import formateoFechas from "../Components/utils/formateoFechas"
+
+import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
   Container,
@@ -91,6 +96,9 @@ const Detail = () => {
     getCaracteristicasXID,
     getCaracteristicasLista,
     usuarioLogueado,
+    infoRecursoAReservar, setInfoRecursoAReservar,
+    email, setEmail,
+    userIdLogIn
   } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -126,12 +134,14 @@ const Detail = () => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
     getPuntosComentXIDRecurso(id);
+    
   }, [id]);
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
 
+  // console.log(`reservas del producto ${recursoXID}`, reservas)
   /////////////////////////
 
   const handleCopyClick = (e) => {
@@ -152,6 +162,24 @@ const Detail = () => {
     resolvedPath.pathname
   );
   console.log("URL completa:", currentURL);
+
+  const idUserParse = +userIdLogIn;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setInfoRecursoAReservar({
+      idRecurso:recursoXID.idRecurso,
+      fechaInicio:"2023-08-31T00:00:00.000+00:00",
+      fechaFin:"2023-09-05T00:00:00.000+00:00",
+      idUser:userIdLogIn,
+      precioProducto:recursoXID.precioUnitario,
+      precioTotal:0 , 
+      dias:0,
+    })
+
+    navigate(`/reserva/${id}`);
+  };
+  // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
 
   return (
     <>
@@ -575,6 +603,19 @@ const Detail = () => {
             style={{ placeItems: "center", margin: "auto" }}
           >
             <CalendarioXId style={{ placeItems: "center" }} />
+            <Button
+            sx={{
+              width: "100%",
+              color: "white",
+              backgroundColor: "#7cc598",
+              ":hover": {
+                backgroundColor: "#3c9960",
+              },
+            }}
+            onClick={handleSubmit}
+          >
+            Reservar
+          </Button>
           </Stack>
 
           <Stack

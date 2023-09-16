@@ -319,9 +319,9 @@ h3.descripcion {
   }
   .grid-container-galeria {
     width: 95%;
-    grid-template-columns: repeat(2, 45%); /* Dos columnas con un 45% de ancho cada una */
-    grid-row: 1fr 1fr 1fr 1fr; /* Define las filas como lo tienes */
-    gap: 0.5rem; /* Espaciado entre celdas */
+    grid-template-columns: repeat(2, 45%); 
+    grid-row: 1fr 1fr 1fr 1fr;
+    gap: 0.5rem; 
   }
 
   .item-grid-fotos1 {
