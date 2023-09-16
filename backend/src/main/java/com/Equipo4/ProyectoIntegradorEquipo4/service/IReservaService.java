@@ -8,6 +8,7 @@ import java.util.List;
 public interface IReservaService {
 
     public List<ReservaRespuesta> devolverReservaPorUsuario(Integer idUsuario) throws Exception;
+    public List<ReservaRespuesta> devolverReservaPorRecurso(Integer idRecurso) throws Exception;
     public Reserva guardarReserva(Reserva reserva) throws Exception;
 
 
