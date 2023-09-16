@@ -41,6 +41,8 @@ const style = {
 };
 
 const ReservarXIDRecurso = () => {
+  const userId = localStorage.getItem("idUsuario");
+  const eMailLocal = localStorage.getItem("username");
   const navigate = useNavigate();
   const resolvedPath = useResolvedPath();
   const [emailValido, setEmailValido] = useState(true);
@@ -59,16 +61,19 @@ const ReservarXIDRecurso = () => {
     postReserva,
     getDatosUsersXID,
     usersXID,
-    userIdLogIn
+    userIdLogIn,
+    setGuardarReserva,
+    guardarReserva,
+    fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
   } = useContext(ContextGlobal);
 
-  console.log(" ------------ infoRecursoAReservar  -----------------> ", infoRecursoAReservar)
+
   const [usuario, setUsuario] = useState({
     username: "",
   });
 
   const idUserParse = parseInt(userIdLogIn);
-  getDatosUsersXID(idUserParse);
+
   // console.log("usersXID", usersXID);
   const [openShareModal, setOpenShareModal] = useState(false);
 
@@ -90,7 +95,8 @@ const ReservarXIDRecurso = () => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
     getPuntosComentXIDRecurso(id);
-  }, [id]);
+    getDatosUsersXID(idUserParse);
+  }, [infoRecursoAReservar], { max: 2});
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
@@ -100,39 +106,10 @@ const ReservarXIDRecurso = () => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, username: newValue });
     setEmailValido(true);
-
   };
 
-  // const validarEmail = (e) => {
-  //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
-  //   if (regex.test(e)) {
-  //     setEmailValido(true);
-  //     return true;
-  //   } else {
-  //     setEmailValido(false);
-  //     return false;
-  //   }
-  // };
-
-  /////////////////////////
-
-  // const handleCopyClick = (e) => {
-  //   e.preventDefault();
-  //   navigator.clipboard
-  //     .writeText(currentURL)
-  //     .then(() => {
-  //       setCopied(true);
-  //       handleClickSnack();
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error al copiar la URL: ", error);
-  //     });
-  // };
   ///////////////
-  console.log(
-    " resolvedPath.pathname --------------------",
-    resolvedPath.pathname
-  );
+
   const validarFormulario = () => {
     return (
       // validarNombre(usuario.nombre) &&
@@ -141,46 +118,70 @@ const ReservarXIDRecurso = () => {
   };
 ////////////////////////////////////
 
-// idRecurso:recursoXID.idRecurso,
-// fechaInicio:"2023-08-31T00:00:00.000+00:00",
-// fechaFin:"2023-09-05T00:00:00.000+00:00",
-// idUser:idUserParse,
-// precioProducto:recursoXID.precioUnitario,
-// precioTotal:0 , 
-// dias:0,
-
 const nombreReserva = usersXID.nombre;
-const inicio = formateoFechas(infoRecursoAReservar.fechaInicio);
-const fin = formateoFechas(infoRecursoAReservar.fechaFin);
-const emailReserva = usuario.username;
+const inicio = infoRecursoAReservar.fechaInicio;
+const fin = infoRecursoAReservar.fechaFin;
+const emailReserva = (usersXID.username == ""? eMailLocal : usersXID.username);
 const apellidoReserva = usersXID.apellido;
-const idRecursoReserva = recursoXID.idRecurso
-const fechaReserva = formateoFechas(infoRecursoAReservar.fechaRealizacionReserva);
+const idRecursoReserva = recursoXID.idRecurso;
+const fechaReserva = infoRecursoAReservar.fechaRealizacionReserva;
 const estadoRes = 1;
+const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoRecursoAReservar.idUser);
 ////////////////////
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
-    // if (validarFormulario()) {
-    //   setUsuario({
-    //     username:usuario.username,
-    //   })
-    //   console.log(usuario)
-      postReserva(nombreReserva,
-        apellidoReserva,
-        infoRecursoAReservar.idUser,
-        idRecursoReserva,
-        inicio,
-        estadoRes,
-        emailReserva,
-        fin,
-        fechaReserva)
+
+    const guardarReserva = {
+      nombre: nombreReserva,
+      apellido: apellidoReserva,
+      idUsuario: userIdVariable,
+      idRecurso: idRecursoReserva,
+      inicioReserva: inicio,
+      estadoReserva: estadoRes,
+      email: emailReserva,
+      finalizacionReserva:fin,
+      fechaRealizacionReserva: fechaReserva,
+    };
+    console.log("guardarReserva", guardarReserva);
+    // setGuardarReserva(guardarReserva);
+  
+    // postReserva(guardarReserva);
+
+    try {
+      const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+      const jsonDataReserva = JSON.stringify(guardarReserva);
+      console.log("datosReserva", jsonDataReserva);
+      const response = await fetch(urlReserva, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonDataReserva,
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Respuesta:", responseData);
+      } else {
+        console.error(
+          "Error en la respuesta:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
 
-  };
+
+
+
+    }
+
+    console.log(" ------------ infoRecursoAReservar  -----------------> ", infoRecursoAReservar)
   return (
     <Container>
       <Stack
@@ -462,61 +463,7 @@ const estadoRes = 1;
               </Box>
             </Modal>
 
-            <Modal
-              open={openImage2}
-              onClose={handleCloseImage2}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl01}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage3}
-              onClose={handleCloseImage3}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl02}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage4}
-              onClose={handleCloseImage4}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl03}
-                />
-              </Box>
-            </Modal>
-
-            <Modal
-              open={openImage5}
-              onClose={handleCloseImage5}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenUrl04}
-                />
-              </Box>
-            </Modal>
+            
           </Stack>
           <Button
             sx={{

@@ -16,7 +16,6 @@ const VerReservas = () => {
 
   useEffect(() => {
     getReservas(id);
-    postReserva();
   }, [id]);
 
 

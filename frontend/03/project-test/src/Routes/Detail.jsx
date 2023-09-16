@@ -96,7 +96,7 @@ const Detail = () => {
     getCaracteristicasXID,
     getCaracteristicasLista,
     usuarioLogueado,
-    infoRecursoAReservar, setInfoRecursoAReservar,
+    infoRecursoAReservar, setInfoRecursoAReservar,fechasResDetalle,
     email, setEmail,
     userIdLogIn
   } = useContext(ContextGlobal);
@@ -157,11 +157,11 @@ const Detail = () => {
       });
   };
   ///////////////
-  console.log(
-    " resolvedPath.pathname --------------------",
-    resolvedPath.pathname
-  );
-  console.log("URL completa:", currentURL);
+  // // console.log(
+  // //   " resolvedPath.pathname --------------------",
+  // //   resolvedPath.pathname
+  // // );
+  // // console.log("URL completa:", currentURL);
 
   const idUserParse = +userIdLogIn;
 
@@ -169,13 +169,13 @@ const Detail = () => {
     e.preventDefault();
     setInfoRecursoAReservar({
       idRecurso:recursoXID.idRecurso,
-      fechaInicio:"2023-08-31T00:00:00.000+00:00",
-      fechaFin:"2023-09-05T00:00:00.000+00:00",
+      fechaInicio:fechasInicioDetalle,
+      fechaFin:fechasFinDetalle,
       idUser:idUserParse,
       precioProducto:recursoXID.precioUnitario,
       precioTotal:0 , 
       dias:0,
-      fechaRealizacionReserva:"2023-09-05T00:00:00.000+00:00",
+      fechaRealizacionReserva:fechasResDetalle,
     })
 
     navigate(`/reserva/${id}`);

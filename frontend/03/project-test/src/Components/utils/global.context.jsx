@@ -442,28 +442,28 @@ export const ContextProvider = ({ children }) => {
   ////////////////////////////////////// Guardar Reservas
 
   const [guardarReserva, setGuardarReserva] = useState({
-    nombre: "Eduardo",
-    apellido: "Gonzales",
-    idUsuario: 56,
-    idRecurso: 176,
-    inicioReserva: "2023-09-12",
-    estadoReserva: 1,
-    email: "prueba15@gmail.com",
-    finalizacionReserva: "2023-09-14",
-    fechaRealizacionReserva: "2023-09-10",
+    nombre:"",
+    apellido:"",
+    idUsuario: 0,
+    idRecurso: 0,
+    inicioReserva:"",
+    estadoReserva:0,
+    email:"",
+    finalizacionReserva: "",
+    fechaRealizacionReserva: "",
   });
 
-  const postReserva = async (
-    nombre,
-    apellido,
-    idUsuario,
-    idRecurso,
-    inicioReserva,
-    estadoReserva,
-    email,
-    finalizacionReserva,
-    fechaRealizacionReserva
-  ) => {
+  // const postReserva = async (
+    // nombre,
+    // apellido,
+    // idUsuario,
+    // idRecurso,
+    // inicioReserva,
+    // estadoReserva,
+    // email,
+    // finalizacionReserva,
+    // fechaRealizacionReserva
+  // ) => {
     // const datosReserva2 = {
     //   nombre: "Eduardo",
     //   apellido: "Gonzales",
@@ -475,44 +475,44 @@ export const ContextProvider = ({ children }) => {
     //   finalizacionReserva: "2023-09-14",
     //   fechaRealizacionReserva: "2023-09-10"
 
-    setGuardarReserva({
-      nombre: nombre,
-    apellido:apellido,
-    idUsuario: idUsuario,
-    idRecurso: idRecurso,
-    inicioReserva: inicioReserva,
-    estadoReserva: estadoReserva,
-    email: email,
-    finalizacionReserva:finalizacionReserva,
-    fechaRealizacionReserva: fechaRealizacionReserva,
-    })
+    // setGuardarReserva({
+    //   nombre: nombre,
+    // apellido:apellido,
+    // idUsuario: idUsuario,
+    // idRecurso: idRecurso,
+    // inicioReserva: inicioReserva,
+    // estadoReserva: estadoReserva,
+    // email: email,
+    // finalizacionReserva:finalizacionReserva,
+    // fechaRealizacionReserva: fechaRealizacionReserva,
+    // })
     // }
 
-    try {
-      const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
-      const jsonDataReserva = JSON.stringify(guardarReserva);
-      console.log("datosReserva", jsonDataReserva);
-      const response = await fetch(urlReserva, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: jsonDataReserva,
-      });
+    // try {
+    //   const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+    //   const jsonDataReserva = JSON.stringify(guardarReserva);
+    //   console.log("datosReserva", jsonDataReserva);
+    //   const response = await fetch(urlReserva, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: jsonDataReserva,
+    //   });
 
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log("Respuesta:", responseData);
-      } else {
-        console.error(
-          "Error en la respuesta:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    //   if (response.ok) {
+    //     const responseData = await response.json();
+    //     console.log("Respuesta:", responseData);
+    //   } else {
+    //     console.error(
+    //       "Error en la respuesta:",
+    //       response.status,
+    //       response.statusText
+    //     );
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
     ///////////////datosReserva stringify///////////////////
 
     // try {
@@ -538,23 +538,34 @@ export const ContextProvider = ({ children }) => {
     // } catch (error) {
     //   console.error("Error:", error);
     // }
-  };
+  // };
 
   ///////////////////////////////////
 
   const [infoRecursoAReservar, setInfoRecursoAReservar] = useState({
-    idRecurso: 0,
-    fechaInicio: "2023-08-31T00:00:00.000+00:00",
-    fechaFin: "2023-08-31T00:00:00.000+00:00",
-    idUser: 0,
-    precioProducto: 0,
-    dias: 0,
+    idRecurso:0,
+    fechaInicio:"2023-08-31T00:00:00.000+00:00",
+    fechaFin:"2023-09-05T00:00:00.000+00:00",
+    idUser:0,
+    precioProducto:0,
+    precioTotal:0 , 
+    dias:0,
+    fechaRealizacionReserva:"2023-09-05T00:00:00.000+00:00",
   });
+
+
+  const [fechasInicioDetalle, setFechasInicioDetalle] = useState([null, null]);
+  const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
+  const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
+
 
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        fechasResDetalle, setFechasResDetalle,
+        fechasFinDetalle, setFechasFinDetalle,
+        fechasInicioDetalle, setFechasInicioDetalle,
         email,
         setEmail,
         infoRecursoAReservar,
@@ -564,7 +575,7 @@ export const ContextProvider = ({ children }) => {
         setUsersXID,
         guardarReserva,
         setGuardarReserva,
-        postReserva,
+        // postReserva,
         getReservas,
         reservas,
         setReservas,
