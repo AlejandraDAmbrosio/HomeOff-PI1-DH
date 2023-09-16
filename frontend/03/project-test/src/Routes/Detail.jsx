@@ -171,10 +171,11 @@ const Detail = () => {
       idRecurso:recursoXID.idRecurso,
       fechaInicio:"2023-08-31T00:00:00.000+00:00",
       fechaFin:"2023-09-05T00:00:00.000+00:00",
-      idUser:userIdLogIn,
+      idUser:idUserParse,
       precioProducto:recursoXID.precioUnitario,
       precioTotal:0 , 
       dias:0,
+      fechaRealizacionReserva:"2023-09-05T00:00:00.000+00:00",
     })
 
     navigate(`/reserva/${id}`);

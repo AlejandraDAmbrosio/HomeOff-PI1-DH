@@ -33,7 +33,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  Width: "320px",
+  width: "320px",
   bgcolor: "background.paper",
   border: "12px solid white",
   boxShadow: 24,
@@ -55,15 +55,21 @@ const ReservarXIDRecurso = () => {
     getCaracteristicasXID,
     email,
     infoRecursoAReservar,
-    productosBKLista 
+    productosBKLista,
+    postReserva,
+    getDatosUsersXID,
+    usersXID,
+    userIdLogIn
   } = useContext(ContextGlobal);
 
   console.log(" ------------ infoRecursoAReservar  -----------------> ", infoRecursoAReservar)
   const [usuario, setUsuario] = useState({
     username: "",
-    
   });
 
+  const idUserParse = parseInt(userIdLogIn);
+  getDatosUsersXID(idUserParse);
+  // console.log("usersXID", usersXID);
   const [openShareModal, setOpenShareModal] = useState(false);
 
   const handleOpenShare = () => {
@@ -76,21 +82,8 @@ const ReservarXIDRecurso = () => {
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
-  const [openImage2, setOpenImage2] = useState(false);
-  const [openImage3, setOpenImage3] = useState(false);
-  const [openImage4, setOpenImage4] = useState(false);
-  const [openImage5, setOpenImage5] = useState(false);
-
   const handleOpenImage1 = () => setOpenImage1(true);
   const handleCloseImage1 = () => setOpenImage1(false);
-  const handleOpenImage2 = () => setOpenImage2(true);
-  const handleCloseImage2 = () => setOpenImage2(false);
-  const handleOpenImage3 = () => setOpenImage3(true);
-  const handleCloseImage3 = () => setOpenImage3(false);
-  const handleOpenImage4 = () => setOpenImage4(true);
-  const handleCloseImage4 = () => setOpenImage4(false);
-  const handleOpenImage5 = () => setOpenImage5(true);
-  const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
   useEffect(() => {
@@ -110,16 +103,16 @@ const ReservarXIDRecurso = () => {
 
   };
 
-  const validarEmail = (e) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
-    if (regex.test(e)) {
-      setEmailValido(true);
-      return true;
-    } else {
-      setEmailValido(false);
-      return false;
-    }
-  };
+  // const validarEmail = (e) => {
+  //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
+  //   if (regex.test(e)) {
+  //     setEmailValido(true);
+  //     return true;
+  //   } else {
+  //     setEmailValido(false);
+  //     return false;
+  //   }
+  // };
 
   /////////////////////////
 
@@ -146,19 +139,47 @@ const ReservarXIDRecurso = () => {
       validarEmail(usuario.username) 
     );
   };
+////////////////////////////////////
+
+// idRecurso:recursoXID.idRecurso,
+// fechaInicio:"2023-08-31T00:00:00.000+00:00",
+// fechaFin:"2023-09-05T00:00:00.000+00:00",
+// idUser:idUserParse,
+// precioProducto:recursoXID.precioUnitario,
+// precioTotal:0 , 
+// dias:0,
+
+const nombreReserva = usersXID.nombre;
+const inicio = formateoFechas(infoRecursoAReservar.fechaInicio);
+const fin = formateoFechas(infoRecursoAReservar.fechaFin);
+const emailReserva = usuario.username;
+const apellidoReserva = usersXID.apellido;
+const idRecursoReserva = recursoXID.idRecurso
+const fechaReserva = formateoFechas(infoRecursoAReservar.fechaRealizacionReserva);
+const estadoRes = 1;
+////////////////////
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
    
-
-    if (validarFormulario()) {
-      setUsuario({
-        username:usuario.username,
-      })
-      console.log(usuario)
-
+    // if (validarFormulario()) {
+    //   setUsuario({
+    //     username:usuario.username,
+    //   })
+    //   console.log(usuario)
+      postReserva(nombreReserva,
+        apellidoReserva,
+        infoRecursoAReservar.idUser,
+        idRecursoReserva,
+        inicio,
+        estadoRes,
+        emailReserva,
+        fin,
+        fechaReserva)
     }
+
   };
   return (
     <Container>
