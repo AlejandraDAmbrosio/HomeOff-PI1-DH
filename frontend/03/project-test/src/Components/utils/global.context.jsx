@@ -562,16 +562,52 @@ export const ContextProvider = ({ children }) => {
   const [fechaFin, setFechaFin] = useState(new Date());
   const [cantidadDias, setCantidadDias] = useState(null);
 
+const [ reservasPorRecurso, setReservasPorRecurso] = useState([]);
 
 
+ 
+
+const getReservasPorRecurso = async (id) => {
+  const response = await axios.get(
+    `http://52.32.210.155:8080/auth/reserva/recurso/${id}`
+  );
+  const data = response.data;
+
+  setReservasPorRecurso(data);
+  console.log(`reservasPorRecurso ${id}`, data   )
+};
 
 
+const [ arrayFechasReservasXRecurso, setArrayFechasReservasXRecurso] = useState([]);
 
+const getArrayFechasReservasXRecurso = async (id) => {
+  const response = await axios.get(`http://52.32.210.155:8080/auth/reserva/recurso/${id}`);
+  const data = response.data;
+  
+  const fechas = [];
+
+  for (const objeto of data) {
+    const inicioReserva = new Date(objeto.inicioReserva);
+    const finalizacionReserva = new Date(objeto.finalizacionReserva);
+
+    fechas.push(inicioReserva, finalizacionReserva);
+  }
+
+  // Luego de procesar los datos y crear el array de fechas, lo asignamos al estado
+  setArrayFechasReservasXRecurso(fechas);
+
+  console.log(`reservasPorRecurso ${id}`, data);
+  console.log(`reservasPorRecurso arrayFechasReservasXRecurso ${id}`, arrayFechasReservasXRecurso);
+};
   
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        arrayFechasReservasXRecurso,
+        getArrayFechasReservasXRecurso,
+        getReservasPorRecurso,
+        reservasPorRecurso,
         cantidadDias, setCantidadDias,
         fechaInicio, setFechaInicio,
         fechaFin, setFechaFin,

@@ -82,7 +82,10 @@ const Detail = () => {
     userIdLogIn,
     fechaInicio, setFechaInicio,
     fechaFin, setFechaFin,
-    cantidadDias, setCantidadDias
+    cantidadDias, setCantidadDias,  getReservasPorRecurso,
+    arrayFechasReservasXRecurso,
+        getArrayFechasReservasXRecurso,
+    reservasPorRecurso,
   } = useContext(ContextGlobal);
 
   const [copied, setCopied] = useState(false);
@@ -160,6 +163,7 @@ const Detail = () => {
       getRecursoXID(id);
       getCaracteristicasXID(id);
       getPuntosComentXIDRecurso(id);
+      getArrayFechasReservasXRecurso(id)
     },
     [id],
     { max: 2 }
