@@ -554,13 +554,20 @@ export const ContextProvider = ({ children }) => {
   });
 
 
-  const [fechasInicioDetalle, setFechasInicioDetalle] = useState([null, null]);
-  const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
-  const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
+  // const [fechasInicioDetalle, setFechasInicioDetalle] = useState([null, null]);
+  // const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
+  // const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
 
   const [fechaInicio, setFechaInicio] = useState(new Date());
   const [fechaFin, setFechaFin] = useState(new Date());
   const [cantidadDias, setCantidadDias] = useState(null);
+
+
+
+
+
+
+  
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
@@ -568,9 +575,9 @@ export const ContextProvider = ({ children }) => {
         cantidadDias, setCantidadDias,
         fechaInicio, setFechaInicio,
         fechaFin, setFechaFin,
-        fechasResDetalle, setFechasResDetalle,
-        fechasFinDetalle, setFechasFinDetalle,
-        fechasInicioDetalle, setFechasInicioDetalle,
+        // fechasResDetalle, setFechasResDetalle,
+        // fechasFinDetalle, setFechasFinDetalle,
+        // fechasInicioDetalle, setFechasInicioDetalle,
         email,
         setEmail,
         infoRecursoAReservar,

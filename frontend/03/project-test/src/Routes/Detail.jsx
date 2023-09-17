@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import dayjs, { Dayjs } from "dayjs";
+// import dayjs, { Dayjs } from "dayjs";
 import {
   useNavigate,
   useParams,
@@ -7,10 +7,10 @@ import {
   // Link,
   useResolvedPath,
 } from "react-router-dom";
-import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
-import formateoFechas from "../Components/utils/formateoFechas";
+// import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
+// import formateoFechas from "../Components/utils/formateoFechas";
 
-import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
+// import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
@@ -36,7 +36,6 @@ import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
 import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
-import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
 import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
 import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
@@ -44,7 +43,6 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
-import CalendarioRDP from "../Components/Genericos/Fecha/CalendarioRDP";
 import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
 
 const style = {
@@ -619,19 +617,9 @@ const Detail = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
-           {/* <CalendarioXId
-              style={{ placeItems: "center" }}
-              fechaInicio={fechaInicio}
-              fechaFin={fechaFin}
-              fechaRealizacionReserva={fechaRealizacionReserva}
-              setFechaInicio={setFechaInicio}
-              setFechaFin={setFechaFin}
-              setFechaRealizacionReserva={setFechaRealizacionReserva}
-            /> */}
-{/* //////////////////////////////////////// */}
-{/* <CalendarioRDP></CalendarioRDP> */}
 
-{/* <CalendarioPrueba></CalendarioPrueba> */}
+{/* //////////////////////////////////////// */}
+
 <CalendarioPrueba
   fechaInicio={fechaInicio}
   fechaFin={fechaFin}
