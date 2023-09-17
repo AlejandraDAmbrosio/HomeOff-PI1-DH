@@ -3,27 +3,17 @@ import Calendar from "react-calendar";
 import "./Calendar.css";
 import { useEffect } from "react";
 import { ContextGlobal } from "../../utils/global.context";
+import obtenerFechasDeshabilitadas from "../../utils/obtenerFechasDeshabilitadas ";
 
-const fechasDeshabilitadas = [
-  "30/10/2023",
-  "31/10/2023",
-  "1/11/2023",
-  "2/11/2023",
-  "30/10/2023",
-  "31/10/2023",
-  "1/11/2023",
-  "2/11/2023",
-];
+// function tileDisabled({ date, view }) {
+//   // Disable tiles in month view only
+//   if (view === "month") {
+//     // Check if a date React-Calendar wants to check is on the list of disabled dates
+//     return fechasDeshabilitadas.includes(date.toLocaleDateString());
+//   }
+// }
 
-function tileDisabled({ date, view }) {
-  // Disable tiles in month view only
-  if (view === "month") {
-    // Check if a date React-Calendar wants to check is on the list of disabled dates
-    return fechasDeshabilitadas.includes(date.toLocaleDateString());
-  }
-}
-
-const CalendarioPrueba = () => {
+const CalendarioPrueba = ({id}) => {
   const [value, setValue] = useState(new Date());
   const [estadoFechas, setEstadoFechas] = useState([]);
   //   const [fechaInicio, setFechaInicio] = useState(new Date());
@@ -36,7 +26,28 @@ const CalendarioPrueba = () => {
     setFechaFin,
     cantidadDias,
     setCantidadDias,
+    arrayFechasReservasXRecurso,
+        getArrayFechasReservasXRecurso,
   } = useContext(ContextGlobal);
+
+if( id !== undefined ){
+  getArrayFechasReservasXRecurso(id)
+}
+
+
+  const fechasDeshabilitadas = obtenerFechasDeshabilitadas(
+    arrayFechasReservasXRecurso
+  );
+
+  function tileDisabled({ date, view }) {
+    // Disable tiles in month view only
+    if (view === "month") {
+      // Check if a date React-Calendar wants to check is on the list of disabled dates
+      return fechasDeshabilitadas.some((deshabilitada) =>
+        date.toLocaleDateString() === deshabilitada.toLocaleDateString()
+      );
+    }
+  }
 
   useEffect(() => {
     console.log("USEEFFECT ---> ", value);
