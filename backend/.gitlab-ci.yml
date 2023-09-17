@@ -6,10 +6,7 @@ build_homeoff-be:
   stage: build
   image: maven:3.8-openjdk-17
   script:
-    - pwd
-    - ls
     - cd backend
-    - ls
     - mvn clean install
   artifacts:
     paths:
