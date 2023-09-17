@@ -30,7 +30,10 @@ const CalendarioPrueba = ({id}) => {
         getArrayFechasReservasXRecurso,
   } = useContext(ContextGlobal);
 
+if( id !== undefined ){
   getArrayFechasReservasXRecurso(id)
+}
+
 
   const fechasDeshabilitadas = obtenerFechasDeshabilitadas(
     arrayFechasReservasXRecurso

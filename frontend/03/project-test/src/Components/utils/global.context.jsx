@@ -574,7 +574,7 @@ const getReservasPorRecurso = async (id) => {
   const data = response.data;
 
   setReservasPorRecurso(data);
-  console.log(`reservasPorRecurso ${id}`, data   )
+  // console.log(`reservasPorRecurso ${id}`, data   )
 };
 
 
@@ -606,11 +606,11 @@ const getArrayFechasReservasXRecurso = async (id) => {
   // Luego de procesar los datos y crear el array de fechas, lo asignamos al estado
   setArrayFechasReservasXRecurso(fechas);
 
-  console.log(`reservasPorRecurso ${id}`, data);
-  console.log("inicioReserva ---------Context---", inicioReserva)
-  console.log("finalizacionReserva -----------Context---", finalizacionReserva)
+  // console.log(`reservasPorRecurso ${id}`, data);
+  // console.log("inicioReserva ---------Context---", inicioReserva)
+  // console.log("finalizacionReserva -----------Context---", finalizacionReserva)
 };
-console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
+// console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
