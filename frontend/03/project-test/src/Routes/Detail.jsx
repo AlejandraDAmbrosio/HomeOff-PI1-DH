@@ -44,6 +44,8 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+import CalendarioRDP from "../Components/Genericos/Fecha/CalendarioRDP";
+import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
 
 const style = {
   position: "absolute",
@@ -80,15 +82,21 @@ const Detail = () => {
     // email,
     // setEmail,
     userIdLogIn,
+    fechaInicio, setFechaInicio,
+    fechaFin, setFechaFin,
+    cantidadDias, setCantidadDias
   } = useContext(ContextGlobal);
 
   const [copied, setCopied] = useState(false);
   const [openSnack, setOpenSnack] = React.useState(false);
   const [publicacionRedes, setPublicacionRedes] = useState("");
   const [openShareModal, setOpenShareModal] = useState(false);
-  const [fechaInicio, setFechaInicio] = useState(dayjs());
-  const [fechaFin, setFechaFin] = useState(dayjs());
+  // const [fechaInicio, setFechaInicio] = useState(dayjs());
+  // const [fechaFin, setFechaFin] = useState(dayjs());
   const [fechaRealizacionReserva, setFechaRealizacionReserva] = useState(Date);
+
+  // const [fechaInicio, setFechaInicio] = useState(new Date());
+  // const [fechaFin, setFechaFin] = useState(new Date());
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -164,6 +172,13 @@ const Detail = () => {
   }
 
   /////////////// INICIO Carga de Datos para reservar  ////////////////////////
+  
+  const handleDateChange = (date) => {
+    setFechaInicio(date.startDate);
+    setFechaFin(date.endDate);
+  };
+  
+  
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
@@ -176,11 +191,12 @@ const Detail = () => {
       idUser: idUserParse,
       precioProducto: recursoXID.precioUnitario,
       precioTotal: 0,
-      dias: 0,
+      dias: cantidadDias,
     });
 
     navigate(`/reserva/${id}`);
   };
+
 
   return (
     <>
@@ -603,7 +619,7 @@ const Detail = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
-           <CalendarioXId
+           {/* <CalendarioXId
               style={{ placeItems: "center" }}
               fechaInicio={fechaInicio}
               fechaFin={fechaFin}
@@ -611,7 +627,19 @@ const Detail = () => {
               setFechaInicio={setFechaInicio}
               setFechaFin={setFechaFin}
               setFechaRealizacionReserva={setFechaRealizacionReserva}
-            />
+            /> */}
+{/* //////////////////////////////////////// */}
+{/* <CalendarioRDP></CalendarioRDP> */}
+
+{/* <CalendarioPrueba></CalendarioPrueba> */}
+<CalendarioPrueba
+  fechaInicio={fechaInicio}
+  fechaFin={fechaFin}
+  onChange={{handleDateChange}}
+/>
+
+{/* //////////////////////////////////////// */}
+
             <Button
               sx={{
                 width: "100%",
@@ -647,616 +675,3 @@ const Detail = () => {
 };
 
 export default Detail;
-
-// import React, { useState, useEffect, useContext } from "react";
-// import {
-//   useNavigate,
-//   useParams,
-//   useLocation,
-//   Link,
-//   useResolvedPath,
-// } from "react-router-dom";
-
-// import { ContextGlobal } from "../Components/utils/global.context";
-// import {
-//   Box,
-//   Paper,
-//   Modal,
-//   Button,
-//   Stack,
-//   Typography,
-//   Alert,
-//   Snackbar,
-//   IconButton,
-// } from "@mui/material";
-// import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-// import "../Components/Detail.css";
-// import { MdArrowBackIosNew, MdShare } from "react-icons/md";
-
-// import { BsLink45Deg } from "react-icons/bs";
-// import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
-// import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
-// import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
-// import TextField from "@mui/material/TextField";
-// import Divider from "@mui/material/Divider";
-// import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
-// import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
-// import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
-// import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
-// import { FacebookShareButton, TwitterShareButton } from "react-share";
-// import { FacebookIcon, TwitterIcon } from "react-share";
-// import CloseIcon from "@mui/icons-material/Close";
-// import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
-
-// import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
-// import formateoFechas from "../Components/utils/formateoFechas";
-// import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
-
-// const Detail = () => {
-//   const { id } = useParams();
-//   const location = useLocation();
-//   const navigate = useNavigate();
-//   const currentURL = window.location.href;
-//   const resolvedPath = useResolvedPath();
-//   const [openShareModal, setOpenShareModal] = useState(false);
-//   const [publicacionRedes, setPublicacionRedes] = useState("");
-//   const [copied, setCopied] = useState(false);
-//   const [openSnack, setOpenSnack] = React.useState(false);
-
-//   const {
-//     recursoXID,
-//     getRecursoXID,
-//     caracteristicasLista,
-//     productosBKLista,
-//     getPuntosComentXIDRecurso,
-//     puntosComentXIDRecurso,
-//     categoriasLista,
-//     caracteristicasXID,
-//     getCaracteristicasXID,
-//     setInfoRecursoAReservar,
-//     userIdLogIn,
-//   } = useContext(ContextGlobal);
-
-//   useEffect(() => {
-//     getRecursoXID(id);
-//     getCaracteristicasXID(id);
-//     getPuntosComentXIDRecurso(id);
-//   }, []);
-
-//   if (!recursoXID) {
-//     return <div>Producto no encontrado</div>;
-//   }
-//  /////////////////// MODAL COMPARTIR
-
-//  const handleOpenShare = () => {
-//   setOpenShareModal(true);
-// };
-
-// const handleCloseShareModal = () => {
-//   setOpenShareModal(false);
-// };
-// const handleCopyClick = (e) => {
-//   e.preventDefault();
-//   navigator.clipboard
-//     .writeText(currentURL)
-//     .then(() => {
-//       setCopied(true);
-//       handleClickSnack();
-//     })
-//     .catch((error) => {
-//       console.error("Error al copiar la URL: ", error);
-//     });
-// };
-// const onChangeCopy = (event) => {
-//   setPublicacionRedes(event.target.value);
-// };
-
-// const handleClickSnack = () => {
-//   setOpenSnack(true);
-// };
-
-// const handleCloseSnack = (event, reason) => {
-//   if (reason === "clickaway") {
-//     return;
-//   }
-//   setOpenSnack(false);
-// };
-//   /////////////////Config para modales Imagenes
-//   const [openImage1, setOpenImage1] = useState(false);
-//   const [openImage2, setOpenImage2] = useState(false);
-//   const [openImage3, setOpenImage3] = useState(false);
-//   const [openImage4, setOpenImage4] = useState(false);
-//   const [openImage5, setOpenImage5] = useState(false);
-
-//   const handleOpenImage1 = () => setOpenImage1(true);
-//   const handleCloseImage1 = () => setOpenImage1(false);
-//   const handleOpenImage2 = () => setOpenImage2(true);
-//   const handleCloseImage2 = () => setOpenImage2(false);
-//   const handleOpenImage3 = () => setOpenImage3(true);
-//   const handleCloseImage3 = () => setOpenImage3(false);
-//   const handleOpenImage4 = () => setOpenImage4(true);
-//   const handleCloseImage4 = () => setOpenImage4(false);
-//   const handleOpenImage5 = () => setOpenImage5(true);
-//   const handleCloseImage5 = () => setOpenImage5(false);
-//   ///////
-
-//   ////////////////////Datos para reserva
-//   // const [fechaInicio, setFechaInicio] = useState("");
-//   // const [fechaFin, setFechaFin] = useState("");
-//   // const [fechaRealizacionReserva, setFechaRealizacionReserva] = useState("");
-
-//   const idUserParse = +userIdLogIn;
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setInfoRecursoAReservar({
-//       idRecurso: recursoXID.idRecurso,
-//       fechaInicio: fechaInicio,
-//       fechaFin: fechaFin,
-//       idUser: idUserParse,
-//       precioProducto: recursoXID.precioUnitario,
-//       precioTotal: 0,
-//       dias: 0,
-//       fechaRealizacionReserva: fechaRealizacionReserva,
-//     });
-
-//     navigate(`/reserva/${id}`);
-//   };
-
-//   return (
-//     <>
-//       {/* //////// Inicio Compartir////////////  */}
-
-//       <Modal
-//         open={openShareModal}
-//         onClose={handleCloseShareModal}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <Box
-//           sx={{
-//             position: "absolute",
-//             top: "50%",
-//             left: "50%",
-//             transform: "translate(-50%, -50%)",
-//             Width: "320px",
-//             bgcolor: "background.paper",
-//             border: "12px solid white",
-//             boxShadow: 24,
-//             p: 1,
-//           }}
-//         >
-//           <div>
-//             <IconButton
-//               aria-label="close"
-//               onClick={handleCloseShareModal}
-//               sx={{
-//                 position: "relative",
-//                 marginBottom: "0.2rem",
-//                 float: "right",
-//               }}
-//             >
-//               {" "}
-//               <CloseIcon sx={{}} />
-//             </IconButton>
-//             <CardProductoSimulado
-//               id={id}
-//               className="card-simulada"
-//               title={recursoXID.nombre}
-//               descripcion={recursoXID.descripción}
-//               url={recursoXID.imagenURL}
-//               precio={recursoXID.precioUnitario}
-//               sede={buscadorSedeXIDSede(recursoXID.idSede)}
-//               categoria={obtenerNombreCategoriaPorId(
-//                 recursoXID.categoria_id,
-//                 productosBKLista,
-//                 categoriasLista
-//               )}
-//             />
-//             <TextField
-//               id="copy"
-//               label="Editá tu comentario"
-//               multiline
-//               rows={1}
-//               defaultValue="Mirá el espacio que encontré!"
-//               variant="standard"
-//               value={
-//                 publicacionRedes.length === 0
-//                   ? "Mirá el espacio que encontré!"
-//                   : publicacionRedes
-//               }
-//               onChange={onChangeCopy}
-//               required
-//               style={{
-//                 fontSize: "10px",
-//                 width: "280px",
-//                 margin: "1.5rem 0rem 1rem 0rem",
-//                 maxHeight: "40px",
-//                 paddingBottom: "2rem",
-//               }}
-//             />
-//           </div>
-
-//           <Typography
-//             margin="1rem"
-//             justifyContent="center"
-//             textAlign="center"
-//             flexItem
-//             alignContent="center"
-//           >
-//             Comparti esta publicación en
-//           </Typography>
-//           <Stack
-//             justifyContent="center"
-//             direction="row"
-//             spacing={5}
-//             flexItem
-//             alignItems="center"
-//           >
-//             <FacebookShareButton
-//               url={`"${currentURL}"`}
-//               quote={`"${recursoXID.nombre}"`}
-//               hashtag={`#${obtenerNombreCategoriaPorId(
-//                 recursoXID.categoria_id,
-//                 productosBKLista,
-//                 categoriasLista
-//               )}`}
-//               description={`${publicacionRedes} `}
-//               className=""
-//             >
-//               <FacebookIcon size={40} round />
-//             </FacebookShareButton>
-
-//             <TwitterShareButton
-//               title={`"${recursoXID.nombre}"`}
-//               url={`"${currentURL}"`}
-//               hashtags={[
-//                 `${obtenerNombreCategoriaPorId(
-//                   recursoXID.categoria_id,
-//                   productosBKLista,
-//                   categoriasLista
-//                 )}`,
-//               ]}
-//             >
-//               <TwitterIcon size={40} round />
-//             </TwitterShareButton>
-
-//             <a
-//               href={`https://www.instagram.com/sharer.php?u=${currentURL}&caption=${encodeURIComponent(
-//                 publicacionRedes
-//               )}`}
-//               target="_blank"
-//               rel="noopener noreferrer"
-//             >
-//               <img
-//                 className="Instagram"
-//                 src="/images/instagram.png"
-//                 alt="Instagram"
-//                 width={"42px"}
-//               />
-//             </a>
-
-//             <a
-//               href={currentURL}
-//               target="_blank"
-//               rel="noopener noreferrer"
-//               onClick={handleCopyClick}
-//             >
-//               <BsLink45Deg style={{ fontSize: "50px" }} />
-//             </a>
-//           </Stack>
-
-//           {/* <hr /> */}
-//         </Box>
-//       </Modal>
-
-//       <Snackbar
-//         open={openSnack}
-//         autoHideDuration={3000}
-//         onClose={handleCloseSnack}
-//       >
-//         <Alert
-//           onClose={handleCloseSnack}
-//           severity="success"
-//           sx={{ width: "100%" }}
-//         >
-//           Link copiado en portapapeles!
-//         </Alert>
-//       </Snackbar>
-
-//       {/* //////// Fin Compartir////////////  */}
-//       <Stack
-//         style={{
-//           paddingTop: "2rem",
-//           display: "flex",
-//           flexDirection: "column",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           placeItems: "center",
-//           paddingLeft: "0",
-//           paddingRight: "0",
-//         }}
-//       >
-//         <div className="segmento-producto">
-//           <div className="encabezado-descripcion">
-//             <div className="contenido-encabezado">
-//               <Stack
-//                 direction={{ xs: "column", sm: "row" }}
-//                 useFlexGap
-//                 flexWrap="wrap"
-//                 spacing={2}
-//                 justifyContent="space-between"
-//               >
-//                 <div className="titulo-detail">{recursoXID.nombre}</div>
-//                 <Stack
-//                   direction="row"
-//                   spacing={3}
-//                   style={{
-//                     marginLeft: "auto",
-//                     display: "flex",
-//                     alignSelf: "center",
-//                     justifyContent: "flex-end",
-//                   }}
-//                 >
-//                   <Button
-//                     variant="text"
-//                     onClick={handleOpenShare}
-//                     style={{ display: "flex", gap: "1rem" }}
-//                   >
-//                     Compartí <MdShare style={{ fontSize: "25px" }} />
-//                   </Button>
-//                   <div onClick={() => navigate(-1)}>
-//                     <MdArrowBackIosNew className="flecha" />
-//                   </div>
-//                 </Stack>
-//               </Stack>
-
-//               <Typography
-//                 variant="body2"
-//                 style={{ width: "98%", margin: "1rem 0rem 1.5rem 0rem" }}
-//               >
-//                 {recursoXID.descripción}{" "}
-//               </Typography>
-//             </div>
-//           </div>
-
-//           <Stack
-//             style={{
-//               display: "flex",
-//               flexDirection: "column",
-//               justifyContent: "space-between",
-//               alignItems: "center",
-//               placeItems: "center",
-//               paddingLeft: "0",
-//               paddingRight: "0",
-//             }}
-//           >
-//             <div className="grid-container-galeria">
-//               <div className="item-grid-fotos1" onClick={handleOpenImage1}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenURL}
-//                 />
-//               </div>
-
-//               <div className="item-grid-fotos2" onClick={handleOpenImage2}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl01}
-//                 />
-//               </div>
-
-//               <div className="item-grid-fotos3" onClick={handleOpenImage3}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl02}
-//                 />
-//               </div>
-
-//               <div className="item-grid-fotos4" onClick={handleOpenImage4}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl03}
-//                 />
-//               </div>
-
-//               <div className="item-grid-fotos5" onClick={handleOpenImage5}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl04}
-//                 />
-//               </div>
-//             </div>
-
-//             <Modal
-//               open={openImage1}
-//               onClose={handleCloseImage1}
-//               aria-labelledby="modal-modal-title"
-//               aria-describedby="modal-modal-description"
-//             >
-//               <Box sx={style}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenURL}
-//                 />
-//               </Box>
-//             </Modal>
-
-//             <Modal
-//               open={openImage2}
-//               onClose={handleCloseImage2}
-//               aria-labelledby="modal-modal-title"
-//               aria-describedby="modal-modal-description"
-//             >
-//               <Box sx={style}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl01}
-//                 />
-//               </Box>
-//             </Modal>
-
-//             <Modal
-//               open={openImage3}
-//               onClose={handleCloseImage3}
-//               aria-labelledby="modal-modal-title"
-//               aria-describedby="modal-modal-description"
-//             >
-//               <Box sx={style}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl02}
-//                 />
-//               </Box>
-//             </Modal>
-
-//             <Modal
-//               open={openImage4}
-//               onClose={handleCloseImage4}
-//               aria-labelledby="modal-modal-title"
-//               aria-describedby="modal-modal-description"
-//             >
-//               <Box sx={style}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl03}
-//                 />
-//               </Box>
-//             </Modal>
-
-//             <Modal
-//               open={openImage5}
-//               onClose={handleCloseImage5}
-//               aria-labelledby="modal-modal-title"
-//               aria-describedby="modal-modal-description"
-//             >
-//               <Box sx={style}>
-//                 <img
-//                   className="foto-producto block"
-//                   src={recursoXID.imagenUrl04}
-//                 />
-//               </Box>
-//             </Modal>
-
-//             <div className="contenedor-detalle-producto">
-//               <h2 className="titulo-caracteristicas">Características</h2>
-//             </div>
-
-//             <div className="segmento-icon-detalle">
-//               {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-//                 <div
-//                   key={idCaracteristica}
-//                   className="container-icono-caracteristica-texto"
-//                 >
-//                   <div className="icono-caracteristica-texto">
-//                     {" "}
-//                     {caracteristica.logoCaracteristica != "" ? (
-//                       <Paper
-//                         sx={{
-//                           display: "flex",
-//                           alignItems: "center",
-//                           width: "250px",
-//                           padding: "7px 5px",
-//                           justifyContent: "center",
-//                           gap: "15px",
-//                           borderRadius: " 11px 11px 11px 11px",
-//                           boxShadow: "1px 1px 6px #979797",
-//                         }}
-//                       >
-//                         <img
-//                           className="icono-caracteristica"
-//                           src={logoXIDCaracteristica(
-//                             caracteristica.idCaracteristica,
-//                             caracteristicasLista
-//                           )}
-//                           style={{ width: "25px", height: "25px" }}
-//                         />
-//                         <div>{caracteristica.nombreCaracteristica}</div>
-//                       </Paper>
-//                     ) : (
-//                       <Paper
-//                         sx={{
-//                           display: "flex",
-//                           alignItems: "center",
-//                           padding: "3px 10px",
-//                           justifyContent: "center",
-//                         }}
-//                       >
-//                         <CheckOutlinedIcon style={{ color: "green" }} />
-
-//                         <div>{caracteristica.nombre}</div>
-//                       </Paper>
-//                     )}
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </Stack>
-//           {/* </div> */}
-//         </div>
-
-//         <Stack
-//           spacing={2}
-//           flexDirection={{ lg: "row" }}
-//           style={{
-//             display: "flex",
-
-//             gap: "3rem",
-//             flexWrap: "wrap",
-//             justifyContent: "center",
-//             alignItems: "flex-start",
-//             justifyItems: "center",
-//           }}
-//         >
-//           <Stack
-//             item
-//             xs={12}
-//             md={5}
-//             lg={5}
-//             xl={5}
-//             style={{ placeItems: "center", margin: "auto" }}
-//           >
-//             <CalendarioXId
-//               style={{ placeItems: "center" }}
-//               fechaInicio={fechaInicio}
-//               fechaFin={fechaFin}
-//               fechaRealizacionReserva={fechaRealizacionReserva}
-//               setFechaInicio={setFechaInicio}
-//               setFechaFin={setFechaFin}
-//               setFechaRealizacionReserva={setFechaRealizacionReserva}
-//             />
-//             <Button
-//               sx={{
-//                 width: "100%",
-//                 color: "white",
-//                 backgroundColor: "#7cc598",
-//                 ":hover": {
-//                   backgroundColor: "#3c9960",
-//                 },
-//               }}
-//               onClick={handleSubmit}
-//             >
-//               Reservar
-//             </Button>
-//           </Stack>
-
-//           <Stack
-//             item
-//             xs={12}
-//             md={5}
-//             lg={5}
-//             xl={5}
-//             style={{ placeItems: "center", margin: "auto" }}
-//           >
-//             <Comentarios id={id} style={{ placeItems: "center" }} />
-//           </Stack>
-//         </Stack>
-
-//         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-//         <Politicas id={id}></Politicas>
-//       </Stack>
-//     </>
-//   );
-// };
-
-// export default Detail;

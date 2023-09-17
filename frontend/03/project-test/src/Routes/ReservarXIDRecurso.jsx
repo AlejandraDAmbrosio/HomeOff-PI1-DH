@@ -5,6 +5,7 @@ import {
   useLocation,
   useResolvedPath,
 } from "react-router-dom";
+
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
   Container,
@@ -27,6 +28,7 @@ import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
 import formateoFechas from "../Components/utils/formateoFechas"
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+import formatearFechaParaEnvioBE from "../Components/utils/formatearFechaParaEnvioBE";
 
 const style = {
   position: "absolute",
@@ -62,8 +64,10 @@ const ReservarXIDRecurso = () => {
     getDatosUsersXID,
     usersXID,
     userIdLogIn,
+    userNameStorage,
     setGuardarReserva,
     guardarReserva,
+    cantidadDias, setCantidadDias,
     fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
   } = useContext(ContextGlobal);
 
@@ -110,10 +114,23 @@ const ReservarXIDRecurso = () => {
 
   ///////////////
 
+  const validarEmailReg = (e) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
+    if (regex.test(e)) {
+      setEmailValido(true);
+      return true;
+    } else {
+      setEmailValido(false);
+      return false;
+    }
+  };
+
+
+  ///////////
   const validarFormulario = () => {
     return (
       // validarNombre(usuario.nombre) &&
-      validarEmail(usuario.username) 
+      validarEmailReg(usuario.username) 
     );
   };
 ////////////////////////////////////
@@ -139,11 +156,11 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
       apellido: apellidoReserva,
       idUsuario: userIdVariable,
       idRecurso: idRecursoReserva,
-      inicioReserva: inicio,
+      inicioReserva:formatearFechaParaEnvioBE(inicio) ,
       estadoReserva: estadoRes,
       email: emailReserva,
-      finalizacionReserva:fin,
-      fechaRealizacionReserva: fechaReserva,
+      finalizacionReserva:formatearFechaParaEnvioBE(fin),
+      fechaRealizacionReserva: formatearFechaParaEnvioBE(fechaReserva),
     };
     console.log("guardarReserva", guardarReserva);
     // setGuardarReserva(guardarReserva);
@@ -381,7 +398,9 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                           </Stack>
                         </Stack>
 
-                        <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography>
+                        {/* <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography> */}
+                        <Typography>Tiempo reservado:  {cantidadDias} día/s</Typography>
+
                       </Stack>
 
                       <Stack
