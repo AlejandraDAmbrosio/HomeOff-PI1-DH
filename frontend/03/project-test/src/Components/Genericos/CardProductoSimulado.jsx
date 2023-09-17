@@ -9,9 +9,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import "../ListadoDeProductos/CardProducto.css"
+import "../ListadoDeProductos/CardProducto.css";
 import { Link } from "react-router-dom";
-
+import { Stack } from "@mui/system";
+import EstrellaValor from "./Puntuaciones/EstrellaValor";
 
 const CardProductoSimulado = ({
   title,
@@ -28,26 +29,36 @@ const CardProductoSimulado = ({
 }) => {
   return (
     <Link to={"/producto/" + id}>
-    <Card sx={{ width: 320,/* height: 440, */borderRadius:" 11px 11px 11px 11px" }}>
-      <CardMedia sx={{ height: 240 }} image={url} title="imagen" />
-      <CardContent style={{ height: "120px" }}>
-        <Typography
-          gutterBottom
-          variant="body2"
-          component="div"
-          style={{ fontWeight: "600", color: "#979797" }}
-        >
-          {categoria}
-        </Typography>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          style={{ fontWeight: "600", color: "#383B58" }}
-        >
-          {title}
-        </Typography>
-        <Typography
+      <Card
+        sx={{
+          width: 320,
+          /* height: 440, */ borderRadius: " 11px 11px 11px 11px",
+        }}
+      >
+        <CardMedia sx={{ height: 240 }} image={url} title="imagen" />
+        <CardContent style={{ height: "120px" }}>
+        <Stack direction="row" flexItem justifyContent="space-between">
+              <Typography
+                gutterBottom
+                variant="body2"
+                component="div"
+                style={{ fontWeight: "600", color: "#979797" }}
+              >
+                {categoria}
+              </Typography>
+            
+              <EstrellaValor/>
+              {/* <EstrellaValor puntuacion={estrellas} /> */}
+            </Stack>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            style={{ fontWeight: "600", color: "#383B58" }}
+          >
+            {title}
+          </Typography>
+          <Typography
             gutterBottom
             variant="body2"
             component="div"
@@ -55,53 +66,65 @@ const CardProductoSimulado = ({
               fontWeight: "600",
               color: "#383B58",
               alignItems: "center",
+              lineHeight: "15px",
             }}
           >
             <LocationOnIcon
-              style={{ width: 17, height: 17, marginRight: "10px" }}
+                  style={{
+                    width: 17,
+                    height: 16,
+                    marginRight: "10px",
+                    lineHeight: "15px",
+                  }}
             />
             {sede}
           </Typography>
 
-        <Typography variant="body2" color="text.secondary"   style={{
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style={{
               color: "#383B58",
               fontSize: "14px",
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "-webkit-box",
-              WebkitLineClamp: 2, // Mostrar hasta 2 líneas
+              WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
-              paddingBottom: "5px",
-              marginBottom: "5px",
-            }}>
-          {descripcion}
-        </Typography>
-      </CardContent>
-      <CardActions
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignContent: "right",
-          // justifyContent: "",
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-      >
-        {/* <Button size="small">Share</Button> */}
-        <Typography
-          style={{
-            color: "#000000",
-            fontSize: "20px",
-            fontWeight: "600",
-            marginLeft: "auto",
-            marginTop:"20px"
+              paddingBottom: "1px",
+              marginBottom: "1px",
+              lineHeight: "15px",
+            }}
+          >
+            {descripcion}
+          </Typography>
+        </CardContent>
+        <CardActions
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignContent: "right",
+            // justifyContent: "",
+            vertical: "bottom",
+            horizontal: "right",
           }}
         >
-          ${precio}
-        </Typography>
-      </CardActions>
-    </Card>
-  </Link>
+          {/* <Button size="small">Share</Button> */}
+          <Typography
+            style={{
+              color: "#000000",
+              fontSize: "20px",
+              fontWeight: "600",
+              marginLeft: "auto",
+              marginTop: "35px",
+              paddingRight: "10px",
+            }}
+          >
+            ${precio}
+          </Typography>
+        </CardActions>
+      </Card>
+    </Link>
   );
 };
 
@@ -116,9 +139,7 @@ CardProductoSimulado.propTypes = {
 
 export default CardProductoSimulado;
 
-
 //////////////////////////////
-
 
 // import Card from "@mui/material/Card";
 // import CardActions from "@mui/material/CardActions";

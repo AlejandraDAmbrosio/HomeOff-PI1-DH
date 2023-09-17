@@ -30,6 +30,10 @@ const Navbar = () => {
     location.pathname.startsWith("/paginafiltrado/") ||
     location.pathname.startsWith("/editarproducto/") ||
     location.pathname.startsWith("/favoritos/") ||
+    location.pathname.startsWith("/agregarCaracteristicas/") ||
+    location.pathname.startsWith("/verreservas/") ||
+    location.pathname.startsWith("/reservas/") ||
+    location.pathname.startsWith("/reserva/") ||
     location.pathname === "/formaltauser/";
   location.pathname === "/favoritos/";
 
@@ -41,9 +45,9 @@ const Navbar = () => {
             <li>
               <Logo />
             </li>
-            <li>
+            {/* <li>
               <NuevoBuscador />
-            </li>
+            </li> */}
             <div className="botones-header">
               {!usuarioLogueado && (
                 <>
@@ -64,7 +68,7 @@ const Navbar = () => {
         {isPanelSinCategorias ? (
           ""
         ) : (
-          <div className="buscador-cat">
+          <div className="banda-categorias">
             <Categorias />
           </div>
         )}

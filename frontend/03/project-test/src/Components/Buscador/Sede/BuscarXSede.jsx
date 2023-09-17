@@ -23,10 +23,13 @@ const BuscarXSede = () => {
     setFilteredSedes,
     prodFiltrados,
     setProdFiltrados,
+    busquedaCero,
+    setBusquedaCero,
   } = useContext(ContextGlobal);
 
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
 
   const sedesArray = [
     {
@@ -112,13 +115,13 @@ const BuscarXSede = () => {
     setProdFiltrados(filteredSedesAndProductos);
 
     if (filteredSedesAndProductos.length === 0) {
-      setOpenModal(true);
-    } else {
-      setOpenModal(false);
-    }
+      //  setOpenModal(true);
+      setBusquedaCero(true);
+     } 
 
     if (inputValue.length === 0) {
       setProdFiltrados([]);
+      setBusquedaCero(false)
     }
   };
 
@@ -132,7 +135,10 @@ const BuscarXSede = () => {
         placeholder="Sede o nombre"
         onKeyUp={handleSearch}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setBusquedaCero(false);
+        }}
         options={filteredSedes.map((sede) => sede.nombre)}
       ></input>
 

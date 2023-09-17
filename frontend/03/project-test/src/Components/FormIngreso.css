@@ -43,10 +43,11 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin: 2rem;
 }
 
 .error-form-inicio {
-  font-size: var(--fsizeXS);
+  font-size: 5px;
   color: red;
 }
 

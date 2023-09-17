@@ -9,25 +9,27 @@ import { Typography } from "@mui/material";
 import { SegmentoBuscador } from "../Components/Buscador/SegmentoBuscador";
 
 const Home = () => {
-  const { prodFiltrados } = useContext(ContextGlobal);
+  const { prodFiltrados, tituloListadoProductos } = useContext(ContextGlobal);
 
+
+
+ 
   return (
     <>
       <section style={{ marginTop: "12rem" }}>
-        <TitularSection
-          estilo={"titulo-section-banner"}
-          titulo={"Oportunidades Únicas"}
-        />
+        <h2 className="titulo-section-banner">Oportunidades Únicas</h2>
+
         <BannerPrincipal />
       </section>
       <SegmentoBuscador />
       <section style={{ marginTop: "1rem" }}>
         <TitularSection
           estilo={"titulo-section-productos"}
-          titulo={
-            prodFiltrados.length > 0 ? "Resultados de tu búsqueda" : "Productos"
-          }
+          // titulo={prodFiltrados.length > 0 ? tituloListadoProductos : "Productos"}
+          titulo={prodFiltrados? tituloListadoProductos :"Productos"}
+
         />
+        
         <ListadoProductos CantidadCards={10} />
       </section>
     </>

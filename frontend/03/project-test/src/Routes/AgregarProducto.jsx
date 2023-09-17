@@ -15,43 +15,29 @@ import {
   FormGroup,
   Checkbox,
   Button,
+  Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const AgregarProducto = () => {
-  const urlBase = "http://52.88.220.184:8080/api/v1/recursos/save";
-  const jwt = localStorage.getItem("jwt");
+  
+  const navigate = useNavigate();
+
   const {
     productosBKLista,
     setProductosBKLista,
     getDatosBKLista,
     categoriasLista,
+    caracteristicasLista,
     setCategoriasLista,
     getCategoriasLista,
   } = useContext(ContextGlobal);
 
   const [nombreProductoValido, setNombreProductoValido] = useState(true);
-  const [nombreYaExiste, setNombreYaExiste] = useState(true);
+  const [nombreYaExiste, setNombreYaExiste] = useState(false);
   const [form, setForm] = useState(false);
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
-
-  //////////////// codigo para cargar imagenes comentado ///////////////////////
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const handleFileChange = (event) => {
-  //   const files = event.target.files;
-  //   const newFiles = Array.from(files).slice(0, 5); // Limitar a 5 archivos
-  //   setSelectedFiles(newFiles);
-  // };
-
-  // const handleUpload = () => {
-  //   if (selectedFiles.length > 0) {
-  //     // Aquí puedes implementar la lógica para enviar los archivos al servidor
-  //     console.log("Subiendo archivos:", selectedFiles.map(file => file.name));
-  //   }
-  // };
-  // const [showPreview, setShowPreview] = useState(false);
-  // const [selectedServiceIds, setSelectedServiceIds] = useState([]);
-  // const MAX_SELECTED_SERVICES = 5;
 
   /////// Preparar obbjeto para enviar al servidor    ///////
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -78,25 +64,11 @@ const AgregarProducto = () => {
     tieneEstaciónCafeAguaAromatica: 1,
   });
 
-  // const [servicios, setServicios] = useState({
-  //   tieneCafetería: false,
-  //   tieneWifi: false,
-  //   tieneLokker: false,
-  //   tieneFotocopiadoraImpresion: false,
-  //   tieneEspacioDescanso: false,
-  //   tieneEstaciónCafeAguaAromatica: false,
-  // });
-
-const [ caracteristica, setCaracteristicas] = useState({
-  nombre:"",
-  logoCaracteristica:"",
-  idCaracteristica:"",
-})
-
-
-  ///////////////Envio de datos
-
-  /////////////////////////////
+  const [caracteristica, setCaracteristicas] = useState({
+    nombre: "",
+    logoCaracteristica: "",
+    idCaracteristica: "",
+  });
 
   const sedesArray = [
     {
@@ -234,6 +206,7 @@ const [ caracteristica, setCaracteristicas] = useState({
     }
   }, [form]);
   const jsonData = productosBKLista;
+
   /////////handleSubmit //////
   const handleSubmitCrearProducto = async (e) => {
     e.preventDefault();
@@ -247,7 +220,8 @@ const [ caracteristica, setCaracteristicas] = useState({
     console.log(
       "------------------validarNombreProducto ??? ------------------"
     );
-    console.log(nombreExisteEnData);
+    console.log("nombreExisteEnData ----------------> ", nombreExisteEnData);
+    console.log("nombreEsValido ----------------> ", nombreEsValido);
 
     if (nombreEsValido && !nombreExisteEnData) {
       setForm(true);
@@ -271,24 +245,21 @@ const [ caracteristica, setCaracteristicas] = useState({
         imagenURL: "",
         imagenUrl03: "",
         imagenUrl04: "",
-        tieneCafetería: servicios.tieneCafetería ? 1 : 0,
-        tieneWifi: servicios.tieneWifi ? 1 : 0,
-        tieneLokker: servicios.tieneLokker ? 1 : 0,
-        tieneFotocopiadoraImpresion: servicios.tieneFotocopiadoraImpresion
-          ? 1
-          : 0,
-        tieneEspacioDescanso: servicios.tieneEspacioDescanso ? 1 : 0,
-        tieneEstaciónCafeAguaAromatica: servicios.tieneEstaciónCafeAguaAromatica
-          ? 1
-          : 0,
+        tieneCafetería: 1,
+        tieneWifi: 1,
+        tieneLokker: 1,
+        tieneFotocopiadoraImpresion: 1,
+        tieneEspacioDescanso: 1,
+        tieneEstaciónCafeAguaAromatica: 1,
       };
 
       console.log(
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
+      const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
 
-      // enviarDatos();
+      ///////////////Envio de datos
 
       try {
         const jsonData = JSON.stringify(nuevoProductoData);
@@ -297,22 +268,42 @@ const [ caracteristica, setCaracteristicas] = useState({
             "Content-Type": "application/json",
           },
         });
+        console.log("response.status", response.status);
+        if (response.status == 200) {
+          console.log(
+            "PRE  productosBKLista -------------------> ",
+            productosBKLista
+          );
+          const responseData = await response.data;
+          console.log("Respuesta:", responseData);
+          getDatosBKLista();
+          console.log(
+            "productosBKLista -----dentro de  if (response.status == 200) {--------------> ",
+            productosBKLista
+          );
+          const ultimoElemento = productosBKLista[productosBKLista.length - 1];
 
-        console.log("Respuesta:", response.data);
-        getDatosBKLista();
+          const idRecursoUltimoElemento = ultimoElemento.idRecurso + 1;
+          
+          console.log(idRecursoUltimoElemento);
+          console.log("idRecursoUltimoElemento -----> ",idRecursoUltimoElemento);
+          navigate(`/agregarCaracteristicas/${idRecursoUltimoElemento}`);
+
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
+        }
       } catch (error) {
         console.error("Error:", error);
       }
-      useEffect(() => {
-        if (form) {
-          getDatosBKLista(); // Actualiza el estado jsonData después de enviar la petición POST
-        }
-      }, [form]);
+      getDatosBKLista();
 
-      console.log("Muestra el valor de toda la Lista ");
-      console.log(productosBKLista);
-      console.log("------------------productosBKLista  ------------------");
-      console.log(jsonData);
+      console.log("productosBKLista -------------------> ", productosBKLista);
+
+
       // useEffect(() => {
       //   getDatosBKLista();
       // }, []);
@@ -345,49 +336,55 @@ const [ caracteristica, setCaracteristicas] = useState({
 
   return (
     <div className="administracion-agre">
-      <div className="administracion-agre-titulo">Agregar productos</div>
+      <div className="administracion-agre-titulo">Agregar producto</div>
       <div className="paneles-agregar">
         <PanelAdminUser />
-        <div
-          className="division-form-preview"
-          style={{ padding: "0rem 2rem", maxWidth: "1500px" }}
-        >
+        <div className="division-form-preview">
           <div className="pagina-formulario-alta-producto">
             <FormControl
               onSubmit={handleSubmitCrearProducto}
-              style={{ padding: "1rem 2rem", width: "890px" }}
+              style={{ padding: "1rem 0rem", width: "500px" }}
             >
-              <h1 className="titulo-form-carga-prod">Carga de producto</h1>
+              {/* <h1 className="titulo-form-carga-prod">Carga de producto</h1> */}
               <div className="formularioAgregarProducto">
-                <TextField
-                  id="nombreProducto"
-                  label="Nombre del producto"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa el nombre del producto "
-                  value={nuevoProducto.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                />
-                {!nombreProductoValido ? (
-                  <p className="error-nombre-existe">
-                    Ingrese un nombre que tenga mas de 3 y menos de 30
-                    caracteres y solo letras.
-                  </p>
-                ) : (
-                  ""
-                )}
-                {nombreYaExiste ? (
-                  <p className="error-nombre-existe">
-                    Ya existe un producto con el mismo nombre. Por favor,
-                    indique un nuevo nombre.
-                  </p>
-                ) : (
-                  ""
-                )}
-
+                <div
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
+                  <TextField
+                    id="nombreProducto"
+                    label="Nombre del producto"
+                    variant="standard"
+                    className="campo-formulario"
+                    type="text"
+                    placeholder="Ingresa el nombre del producto "
+                    value={nuevoProducto.nombre}
+                    onChange={onChangeNombre}
+                    required
+                    margin="normal"
+                    // style={{ width: "400px" }}
+                  />
+                  {!nombreProductoValido ? (
+                    <Typography className="error-nombre-existe">
+                      Ingrese un nombre que tenga mas de 3 y menos de 30
+                      caracteres y solo letras.
+                    </Typography>
+                  ) : (
+                    ""
+                  )}
+                  {nombreYaExiste ? (
+                    <p className="error-nombre-existe">
+                      Ya existe un producto con el mismo nombre. Por favor,
+                      indique un nuevo nombre.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 {/* /////////--------------------------------////// */}
 
                 <TextField
@@ -401,7 +398,7 @@ const [ caracteristica, setCaracteristicas] = useState({
                   onChange={onChangeDescripcion}
                   required
                   margin="normal"
-                  style={{ width: "700px" }}
+                  style={{ width: "400px" }}
                 />
                 {/* /////////--------------------------------////// */}
                 <div
@@ -409,6 +406,8 @@ const [ caracteristica, setCaracteristicas] = useState({
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "485px",
+                    gap: "0.5rem",
                   }}
                 >
                   <TextField
@@ -416,7 +415,7 @@ const [ caracteristica, setCaracteristicas] = useState({
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "300px" }}
+                    style={{ width: "210px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -444,6 +443,7 @@ const [ caracteristica, setCaracteristicas] = useState({
                     select
                     type="number"
                     label="Tipo de Espacio"
+                    style={{ width: "224px" }}
                     defaultValue="OFICINAS PRIVADAS"
                     SelectProps={{
                       native: true,
@@ -464,79 +464,44 @@ const [ caracteristica, setCaracteristicas] = useState({
                   </TextField>
 
                   {/* //////////////////// */}
-                  <TextField
-                    id="capacidad maxima"
-                    select
-                    type="number"
-                    value={nuevoProducto.capacidadMáxima}
-                    onChange={onChangeCapacidadMáxima}
-                    label="Capacidad máxima"
-                    defaultValue="1"
-                    style={{ width: "150px" }}
-                    margin="normal"
-                    SelectProps={{
-                      native: true,
-                    }}
-                    helperText="Elija una capacidad máxima"
-                    variant="standard"
-                    required
-                  >
-                    {capacidadArray.map((cant) => (
-                      <option
-                        key={cant.id}
-                        className="item-grid"
-                        value={cant.cantidad}
-                      >
-                        {cant.cantidad}{" "}
-                      </option>
-                    ))}
-                  </TextField>
                 </div>
                 {/* -/////////////////////////////////////// */}
-                <FormGroup
+                {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
+                  style={{ maxWidth: "480px", height: "fit-content" }}
                 >
-                  <FormLabel component="legend">Label placement</FormLabel>
+                  <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                    {Object.keys(caracteristicasLista).map((caracteristica) => (
-                      <li key={caracteristica} style={{ listStyle: "none" }}>
+                    {caracteristicasLista.map((caracteristica) => (
+                      <li
+                        key={caracteristica.idCaracteristica}
+                        style={{ listStyle: "none" }}
+                        className="item-grid-check"
+                      >
                         <label>
                           <Checkbox
                             type="checkbox"
-                            className="item-grid-check"
-                            checked={caracteristicasLista[caracteristica]}
+                           // className="item-grid-check"
+                            checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
                             onChange={() => handleOptionChange(caracteristica)}
                           />
-                          {caracteristica}
+                          {caracteristica.nombre}
                         </label>
                       </li>
                     ))}
                   </div>
-                </FormGroup>
+                </FormGroup> */}
                 {/* /////////--------------------------------////// */}
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "600px",
                   }}
                 >
-                  <TextField
-                    id="precioProducto"
-                    label="Ingresa el precio del producto"
-                    type="number"
-                    value={nuevoProducto.precioUnitario}
-                    onChange={onChangePreciounitario}
-                    margin="normal"
-                    style={{ width: "150px" }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="standard"
-                  />
-                  {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
                     id="sede"
                     select
@@ -565,6 +530,31 @@ const [ caracteristica, setCaracteristicas] = useState({
                     ))}
                   </TextField>
 
+                  <TextField
+                    id="precioProducto"
+                    label="Ingresa el precio del producto"
+                    type="number"
+                    value={nuevoProducto.precioUnitario}
+                    onChange={onChangePreciounitario}
+                    margin="normal"
+                    style={{ width: "150px" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+
+                  {/* //////////////////////////////////////////////////////////////////////////////// */}
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    maxWidth: "600px",
+                  }}
+                >
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
                     id="disponible"
@@ -572,11 +562,11 @@ const [ caracteristica, setCaracteristicas] = useState({
                     type="text"
                     label="Esta Disponible?"
                     defaultValue="Argentina"
-                    style={{ width: "200px" }}
+                    style={{ width: "300px" }}
                     SelectProps={{
                       native: true,
                     }}
-                    helperText="Esta Disponible?"
+                    helperText="Está disponible?"
                     variant="standard"
                     value={nuevoProducto.estadoRecurso}
                     onChange={onChangeDisponibilidad}
@@ -590,10 +580,47 @@ const [ caracteristica, setCaracteristicas] = useState({
                       No disponible
                     </option>
                   </TextField>
+
+                  {/* ////////////// */}
+                  <TextField
+                    id="capacidad maxima"
+                    select
+                    type="number"
+                    value={nuevoProducto.capacidadMáxima}
+                    onChange={onChangeCapacidadMáxima}
+                    label="Capacidad máxima"
+                    defaultValue="1"
+                    style={{ width: "120px" }}
+                    margin="normal"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    // helperText="Elija una capacidad máxima"
+                    variant="standard"
+                    required
+                  >
+                    {capacidadArray.map((cant) => (
+                      <option
+                        key={cant.id}
+                        className="item-grid"
+                        value={cant.cantidad}
+                      >
+                        {cant.cantidad}{" "}
+                      </option>
+                    ))}
+                  </TextField>
                 </div>
 
                 {/* ///////////////////////////////////////////////////////////////////// */}
-                <div className="campo-anotacion">
+                <div
+                  className="campo-anotacion"
+                  style={{
+                    margin: "35px 0px",
+                    border: "1px solid grey",
+                    padding: "10px 5px",
+                    width:"100%"
+                  }}
+                >
                   <label className="anotacion" for="fotos">
                     Ingresa las fotos del producto *
                   </label>
@@ -667,7 +694,7 @@ const [ caracteristica, setCaracteristicas] = useState({
             <div className="acceso-cuenta-o-usuarionuevo-agregar-prod"></div>
           </div>
           <div className="segmento-preview">
-            <h1 className="titulo-preview">Preview</h1>
+            <h1 className="titulo-preview">Previsualiza tu producto</h1>
             <CardProductoSimulado
               className="card-simulada"
               title={nuevoProducto.nombre}

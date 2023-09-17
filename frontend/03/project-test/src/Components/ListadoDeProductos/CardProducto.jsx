@@ -5,17 +5,17 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 //////////////////////////
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./CardProducto.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Puntuacion from "../Genericos/Puntuaciones/Puntuacion";
 import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
 import { Stack } from "@mui/material";
-
+import { ContextGlobal } from "../utils/global.context";
 
 const CardProducto = ({
   title,
@@ -29,7 +29,34 @@ const CardProducto = ({
   servicio1,
   servicio2,
   servicio3,
+  puntuacion,
+ 
+  
 }) => {
+  const {
+    getPuntosPromedioXIDRecurso,
+    getListaFavXUserID,
+    listaFavXUserId,
+  } = useContext(ContextGlobal);
+  const userId = localStorage.getItem("idUsuario");
+  useEffect(() => {
+    getPuntosPromedioXIDRecurso(id);
+  }, [id]);
+
+  useEffect(() => {
+    getListaFavXUserID(userId);
+  }, [userId]);
+
+  const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
+
+
+  // console.log("idUsuario", userIdLogIn);
+  // console.log("idRecurso", id);
+  // console.log("listaFavXUserId", listaFavXUserId);
+
+  // console.log("esFav", esFav, ". id producto: ",id , ". id User: ", userIdLogIn );
+  // const estrellas = puntosPromedioXIDRecurso;
+
   return (
     <Link to={"/producto/" + id}>
       <Card
@@ -40,88 +67,113 @@ const CardProducto = ({
         }}
       >
         <CardMedia sx={{ height: 240 }} image={url} title="imagen">
-        <FavoriteIcon style={{position:"relative" ,fontSize:"30px", color:"red", top:"5%", left:"88%"}} />
-        </CardMedia>
-     
-        <div className="caja-texto-card">
-        <CardContent style={{ height: "120px" }}>
-          <Stack direction="row" flexItem justifyContent="space-between">
-          <Typography
-            gutterBottom
-            variant="body2"
-            component="div"
-            style={{ fontWeight: "600", color: "#979797" }}
-          >
-            {categoria}
-          </Typography>
-
-          <EstrellaValor puntuacion={id}/>
-          </Stack>
-          
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            style={{ fontWeight: "600", color: "#383B58" }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="body2"
-            component="div"
-            style={{
-              fontWeight: "600",
-              color: "#383B58",
-              alignItems: "center",
-              lineHeight:"15px" 
-            }}
-          >
-            <LocationOnIcon
-              style={{ width: 17, height: 16, marginRight: "10px", lineHeight:"15px" }}
+          {esFav ? (
+            <FavoriteIcon
+              style={{
+                position: "relative",
+                fontSize: "30px",
+                color: "red",
+                top: "5%",
+                left: "88%",
+              }}
             />
-            {sede}
-          </Typography>
+          ) : (
+            <FavoriteIcon
+              style={{
+                position: "relative",
+                fontSize: "30px",
+                color: "grey",
+                top: "5%",
+                left: "88%",
+              }}
+            />
+          )}
+        </CardMedia>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            style={{
-              color: "#383B58",
-              fontSize: "14px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitLineClamp: 2, 
-              WebkitBoxOrient: "vertical",
-              paddingBottom: "1px",
-              marginBottom: "1px",
-              lineHeight:"15px" 
+        <div className="caja-texto-card">
+          <CardContent style={{ height: "120px" }}>
+            <Stack direction="row" flexItem justifyContent="space-between">
+              <Typography
+                gutterBottom
+                variant="body2"
+                component="div"
+                style={{ fontWeight: "600", color: "#979797" }}
+              >
+                {categoria}
+              </Typography>
+              <EstrellaValor puntuacion={puntuacion} />
+              {/* <EstrellaValor puntuacion={estrellas} /> */}
+            </Stack>
+
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              style={{ fontWeight: "600", color: "#383B58" }}
+            >
+              {title}
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body2"
+              component="div"
+              style={{
+                fontWeight: "600",
+                color: "#383B58",
+                alignItems: "center",
+                lineHeight: "15px",
+              }}
+            >
+              <LocationOnIcon
+                style={{
+                  width: 17,
+                  height: 16,
+                  marginRight: "10px",
+                  lineHeight: "15px",
+                }}
+              />
+              {sede}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              style={{
+                color: "#383B58",
+                fontSize: "14px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                paddingBottom: "1px",
+                marginBottom: "1px",
+                lineHeight: "15px",
+              }}
+            >
+              {descripcion}
+            </Typography>
+          </CardContent>
+          <CardActions
+            sx={{
+              display: "flex",
+              flexDirection: "row",
             }}
           >
-            {descripcion}
-          </Typography>
-        </CardContent>
-        <CardActions
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          {/* <Button size="small">Share</Button> */}
-          <Typography
-            style={{
-              color: "#000000",
-              fontSize: "20px",
-              fontWeight: "600",
-              marginLeft: "auto",
-              marginTop: "35px",
-              paddingRight: "10px",
-            }}
-          >
-            ${precio}
-          </Typography>
-        </CardActions>
+            {/* <Button size="small">Share</Button> */}
+            <Typography
+              style={{
+                color: "#000000",
+                fontSize: "20px",
+                fontWeight: "600",
+                marginLeft: "auto",
+                marginTop: "35px",
+                paddingRight: "10px",
+              }}
+            >
+              ${precio}
+            </Typography>
+          </CardActions>
         </div>
       </Card>
     </Link>

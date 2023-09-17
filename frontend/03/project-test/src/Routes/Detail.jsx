@@ -6,6 +6,11 @@ import {
   Link,
   useResolvedPath,
 } from "react-router-dom";
+import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
+import formateoFechas from "../Components/utils/formateoFechas"
+
+import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
   Container,
@@ -18,6 +23,7 @@ import {
   Alert,
   Snackbar,
   IconButton,
+  Grid,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
@@ -36,6 +42,7 @@ import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
+import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
 
 const style = {
   position: "absolute",
@@ -82,8 +89,16 @@ const Detail = () => {
     getRecursoXID,
     caracteristicasLista,
     productosBKLista,
+    getPuntosComentXIDRecurso,
+    puntosComentXIDRecurso,
     categoriasLista,
+    caracteristicasXID,
+    getCaracteristicasXID,
     getCaracteristicasLista,
+    usuarioLogueado,
+    infoRecursoAReservar, setInfoRecursoAReservar,fechasResDetalle,
+    email, setEmail,
+    userIdLogIn
   } = useContext(ContextGlobal);
 
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -117,12 +132,16 @@ const Detail = () => {
 
   useEffect(() => {
     getRecursoXID(id);
+    getCaracteristicasXID(id);
+    getPuntosComentXIDRecurso(id);
+    
   }, [id]);
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
 
+  // console.log(`reservas del producto ${recursoXID}`, reservas)
   /////////////////////////
 
   const handleCopyClick = (e) => {
@@ -138,11 +157,30 @@ const Detail = () => {
       });
   };
   ///////////////
-  console.log(
-    " resolvedPath.pathname --------------------",
-    resolvedPath.pathname
-  );
-  console.log("URL completa:", currentURL);
+  // // console.log(
+  // //   " resolvedPath.pathname --------------------",
+  // //   resolvedPath.pathname
+  // // );
+  // // console.log("URL completa:", currentURL);
+
+  const idUserParse = +userIdLogIn;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setInfoRecursoAReservar({
+      idRecurso:recursoXID.idRecurso,
+      fechaInicio:fechasInicioDetalle,
+      fechaFin:fechasFinDetalle,
+      idUser:idUserParse,
+      precioProducto:recursoXID.precioUnitario,
+      precioTotal:0 , 
+      dias:0,
+      fechaRealizacionReserva:fechasResDetalle,
+    })
+
+    navigate(`/reserva/${id}`);
+  };
+  // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
 
   return (
     <>
@@ -204,11 +242,6 @@ const Detail = () => {
             />
           </div>
 
-          <Divider
-            orientation="horizontal"
-            style={{ margin: "1.5rem 0rem" }}
-          ></Divider>
-
           <Typography
             margin="1rem"
             justifyContent="center"
@@ -224,7 +257,6 @@ const Detail = () => {
             spacing={5}
             flexItem
             alignItems="center"
-           
           >
             <FacebookShareButton
               url={`"${currentURL}"`}
@@ -498,7 +530,7 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-              {caracteristicasLista.map((caracteristica, idCaracteristica) => (
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
                 <div
                   key={idCaracteristica}
                   className="container-icono-caracteristica-texto"
@@ -520,10 +552,13 @@ const Detail = () => {
                       >
                         <img
                           className="icono-caracteristica"
-                          src={caracteristica.logoCaracteristica}
+                          src={logoXIDCaracteristica(
+                            caracteristica.idCaracteristica,
+                            caracteristicasLista
+                          )}
                           style={{ width: "25px", height: "25px" }}
                         />
-                        <div>{caracteristica.nombre}</div>
+                        <div>{caracteristica.nombreCaracteristica}</div>
                       </Paper>
                     ) : (
                       <Paper
@@ -546,13 +581,58 @@ const Detail = () => {
           </Stack>
           {/* </div> */}
         </div>
-        {/* </Paper> */}
-        <CalendarioXId></CalendarioXId>
+
+        <Stack
+          spacing={2}
+          flexDirection={{ lg: "row" }}
+          style={{
+            display: "flex",
+
+            gap: "3rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            justifyItems: "center",
+          }}
+        >
+          <Stack
+            item
+            xs={12}
+            md={5}
+            lg={5}
+            xl={5}
+            style={{ placeItems: "center", margin: "auto" }}
+          >
+            <CalendarioXId style={{ placeItems: "center" }} />
+            <Button
+            sx={{
+              width: "100%",
+              color: "white",
+              backgroundColor: "#7cc598",
+              ":hover": {
+                backgroundColor: "#3c9960",
+              },
+            }}
+            onClick={handleSubmit}
+          >
+            Reservar
+          </Button>
+          </Stack>
+
+          <Stack
+            item
+            xs={12}
+            md={5}
+            lg={5}
+            xl={5}
+            style={{ placeItems: "center", margin: "auto" }}
+          >
+            <Comentarios id={id} style={{ placeItems: "center" }} />
+          </Stack>
+        </Stack>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        <Comentarios></Comentarios>
-        <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-        <Politicas></Politicas>
+        <Politicas id={id}></Politicas>
       </Stack>
     </>
   );

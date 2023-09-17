@@ -18,23 +18,26 @@ import {
 import axios from "axios";
 
 const Users = () => {
+  const { usersLista, setUsersLista, getDatosUsers, tokenUserState, getDatosUsersXID, usersXID } =
+  useContext(ContextGlobal);
+
+console.log("-------------- > getTokenUser", tokenUserState);
+
   const [open, setOpen] = React.useState(false);
   const [usuarioXEliminar, setUsuarioXEliminar] = useState(null);
 
   const [usuarioXEditar, setUsuarioXEditar] = useState({
-    nombreCompleto: "",
-    correo: "",
-    contraseña: "",
+    nombrecompleto: "",   //
+    nombre: "",
+    apellido: "",
+    username: "",     //
+    password: "",
     celular: "",
-    rol: "",
     dirección: "Falsa",
-    permisoEdición: "",
-    id_Rol: 0,
-    idUsuario: 2,
-  });
-
-  const { usersLista, setUsersLista, getDatosUsers } =
-    useContext(ContextGlobal);
+    permisoedición: "EDITAR",
+    rol: "",
+    idUsuario:0,
+});
 
   useEffect(() => {
     getDatosUsers();
@@ -46,28 +49,31 @@ const Users = () => {
     setIdRecursoToDelete(idRecurso);
     setOpenDialog(true);
   };
-
   // 2) Traer info de todos los campos del usuario seleccionado y si tiene un valor el rol, cambiarlo
 
-  const urlBaseActualizar = "http://52.88.220.184:8080/api/v1/usuarios/update";
+  const urlBaseActualizar = "http://52.32.210.155:8080/auth/usuario/update";
   const handleUpdateUser = async (usuarioXEditar) => {
+
+    getDatosUsersXID(usuarioXEditar.idUsuario)
+    console.log("usersXID", usersXID);
     console.log(usuarioXEditar.idUsuario);
     if (usuarioXEditar.idUsuario) {
       const updatedUser = {
-        nombreCompleto: usuarioXEditar.nombreCompleto,
-        correo: usuarioXEditar.correo,
-        contraseña: usuarioXEditar.contraseña,
+        nombre: usersXID.nombre,
+        apellido: usersXID.apellido,
+        nombrecompleto: usuarioXEditar.nombrecompleto,
+        username: usuarioXEditar.username,
         celular: usuarioXEditar.celular,
+        password:usersXID.password,
         rol:
           usuarioXEditar.rol === "ADMINISTRADOR" ? "CLIENTE" : "ADMINISTRADOR",
-        dirección: "Falsa",
-        permisoEdición:
-          usuarioXEditar.permisoEdición === "EDITAR" ? "" : "EDITAR",
-        id_Rol: usuarioXEditar.id_Rol === 1 ? "2" : "1",
+        direccion: "Falsa",
         idUsuario: usuarioXEditar.idUsuario,
+        permisoedicion: "EDITAR"
       };
 
       try {
+        console.log("........... -updatedUser" , updatedUser)
         const response = await axios.post(urlBaseActualizar, updatedUser, {
           headers: {
             "Content-Type": "application/json",
@@ -134,7 +140,7 @@ const Users = () => {
                       color: "black",
                     }}
                   >
-                    {obtenerIniciales(user.nombreCompleto)}
+                    {obtenerIniciales(user.nombrecompleto)}
                   </Avatar>
                 </TableCell>
                 <TableCell>
@@ -145,14 +151,14 @@ const Users = () => {
                     width: "600px",
                   }}
                 >
-                  <div className="info-item">{user.nombreCompleto}</div>
+                  <div className="info-item">{user.nombrecompleto}</div>
                 </TableCell>
                 <TableCell
                   style={{
                     width: "600px",
                   }}
                 >
-                  <div className="info-item">{user.correo}</div>
+                  <div className="info-item">{user.username}</div>
                 </TableCell>
                 <TableCell
                   style={{

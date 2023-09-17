@@ -16,23 +16,6 @@ const BotonInicio = () => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const ocultarComponente = windowWidth < 1300;
-
-  if (ocultarComponente) {
-    return null;
-  }
 
   ////////// Segmento modal   //////////
 
@@ -48,6 +31,29 @@ const BotonInicio = () => {
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
+///////////////////////////
+
+useEffect(() => {
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
+const ocultarComponente = windowWidth < 1300;
+
+if (ocultarComponente) {
+  return null;
+}
+
+
+
+
 
   return (
     <div>
@@ -60,11 +66,13 @@ const BotonInicio = () => {
         Iniciar Cuenta
       </Button>
 
-      <Modal open={open} onClose={handleClose} BackdropClick={true}>
+      {/* <Modal open={open} onClose={handleClose} BackdropClick={true}>
         <div onClick={handleModalClick} onMouseDown={handleModalClick}>
           <FormIngreso />
         </div>
-      </Modal>
+      </Modal> */}
+
+      
     </div>
   );
 };

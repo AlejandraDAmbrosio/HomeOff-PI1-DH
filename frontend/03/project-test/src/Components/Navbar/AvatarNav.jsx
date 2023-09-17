@@ -7,14 +7,15 @@ import Avatar from "@mui/joy/Avatar";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
-const AvatarNav = () => {
-  const { usuarioLogueado, iniciarSesion, cerrarSesion } =
+const AvatarNav = ({Iniciales}) => {
+  const { usuarioLogueado, iniciarSesion, cerrarSesion, nombreCompleto } =
     useContext(ContextGlobal);
-
+// Desde App se modifica el conectado como en donde se define user getitem del local storage
+const user = localStorage.getItem("nombreCompleto");
 
   return (
     <div>
-      {usuarioLogueado ? (
+      {(Iniciales != null) || usuarioLogueado ? (
         <Avatar
           variant="solid"
           size="lg"
@@ -22,8 +23,8 @@ const AvatarNav = () => {
             backgroundColor: "#9dd6b3",
             color: "black",
           }}
-        >
-          {obtenerIniciales(usuarioLogueado.nombreCompleto)}
+        > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(user)) }
+          
         </Avatar>
       ) : (
         <Avatar

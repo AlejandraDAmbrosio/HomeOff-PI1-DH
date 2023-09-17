@@ -1,46 +1,21 @@
-stages:
-  - build
-  - deploy
+frontend_cicd:
+  trigger:
+    include:
+      - local: frontend/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - if: $CI_COMMIT_BRANCH == "test"
+      when: always
+      changes:
+        - frontend/**/**
 
-build_homeoff-fe:
-  stage: build
-  image: node:16.14.0
-  script:
-    - ls
-    - npm install -g vite
-    - ls
-    - cd frontend/03
-    - ls
-    - npm i react-router-dom
-    - npm install react-icons --save
-    - npm install axios
-    - npm install @mui/material @emotion/react @emotion/styled @mui/joy @mui/icons-material @mui/x-date-pickers-pro @mui/x-date-pickers
-    - npm install @fontsource/roboto
-    - npm install dayjs
-    - npm install react-share --save
-    - npm i react-datepicker
-    - ls
-    - cd project-test
-    - npm run build
-    - ls
-  artifacts:
-    paths:
-      - frontend/03/project-test/dist/
-  only:
-    - test
-
-deploy_homeoff-test-fe:
-  stage: deploy
-  needs: [build_homeoff-fe]
-  image: python:3
-  before_script:
-    - pip install awscli
-    - aws configure set aws_access_key_id $AWS_HOMEOFF_ACCESS_KEY_ID
-    - aws configure set aws_secret_access_key $AWS_HOMEOFF_SECRET_ACCESS_KEY
-    - aws configure set region $AWS_HOMEOFF_TS_REGION
-  script:
-    - aws s3 rm s3://$S3_TS_HOMEOFF_FE --recursive
-    - aws s3 sync frontend/03/project-test/dist/ s3://$S3_TS_HOMEOFF_FE
-  only:
-    - test
-
+backend_cicd:
+  trigger:
+    include:
+      - local: backend/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - if: $CI_COMMIT_BRANCH == "test"
+      when: always
+      changes:
+        - backend/**/**

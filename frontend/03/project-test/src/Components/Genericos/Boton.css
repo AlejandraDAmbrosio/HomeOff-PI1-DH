@@ -10,7 +10,7 @@
   font-weight: var(--fweight5);
   max-height: 1.5rem;
   max-width: 150px;
-  overflow: hidden;
+ 
   line-height: 2rem;
   padding: 1rem 1.5rem;
   position: relative;
@@ -23,7 +23,7 @@
 }
 
 .boton-generico::after {
-  content: "";
+  /* content: ""; */
   height: 100%;
   width: 100%;
   position: absolute;

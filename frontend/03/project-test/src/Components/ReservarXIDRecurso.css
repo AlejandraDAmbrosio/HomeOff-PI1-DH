@@ -1,0 +1,116 @@
+
+
+.flecha {
+  font-size: 2rem;
+  font-weight: 300;
+  /* align-items: right; */
+}
+
+
+.foto {
+  width: 250px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 15px 16px 11px -12px rgba(121, 121, 121, 0.46);
+  -webkit-box-shadow: 15px 16px 11px -12px rgba(121, 121, 121, 0.46);
+  /* -moz-box-shadow: 15px 16px 11px -12px rgba(121, 121, 121, 0.46); */
+  transition: transform 0.3s ease, box-shadow 0.5s ease; /* Cambié la duración a 0.5s para hacerla más suave */
+}
+
+
+
+.foto:hover {
+    transform: scale(0.97);
+    box-shadow: 5px 5px 10px rgba(68, 77, 136, 0.3);
+  }
+  
+
+.foto-reserva:hover {
+  transform: scale(0.97);
+  box-shadow: 5px 5px 10px rgba(68, 77, 136, 0.3);
+}
+
+
+
+@media (max-width: 1260px) {
+  .segmento-producto {
+    margin-top: 13rem;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .item-grid-fotos-reserva-1 {
+
+  }
+}
+
+@media (max-width: 1260px) {
+  .segmento-producto {
+    margin-top: 13rem;
+  }
+}
+
+@media (max-width: 700px) {
+  
+
+}
+
+.descripcion-producto {
+  width: 90%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  height: fit-content;
+}
+
+.descripcion-producto {
+  font-size: 14px;
+}
+
+.container-icono-caracteristica-texto-reserva {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 470px) {
+  .segmento-producto {
+    width: 95%;
+    margin-top: 13rem;
+    padding-top: 2rem;
+  }
+  .grid-container-galeria-reserva {
+    width: 95%;
+    grid-template-columns: repeat(
+      2,
+      45%
+    ); /* Dos columnas con un 45% de ancho cada una */
+    grid-row: 1fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .item-grid-fotos-reserva-1 {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+    border-radius: 8px, 8px, 0px, 0px;
+  }
+  /* .item-grid-fotos-reserva-2 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .item-grid-fotos-reserva-3 {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .item-grid-fotos-reserva-4 {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  .item-grid-fotos-reserva-5 {
+    grid-column: 2;
+    grid-row: 4;
+  } */
+}
