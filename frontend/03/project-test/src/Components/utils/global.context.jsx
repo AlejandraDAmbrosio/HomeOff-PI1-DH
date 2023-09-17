@@ -590,16 +590,27 @@ const getArrayFechasReservasXRecurso = async (id) => {
     const inicioReserva = new Date(objeto.inicioReserva);
     const finalizacionReserva = new Date(objeto.finalizacionReserva);
 
-    fechas.push(inicioReserva, finalizacionReserva);
+    if (inicioReserva.toDateString() !== finalizacionReserva.toDateString()) {
+      // Si las fechas no son iguales, agregamos todas las fechas intermedias
+      const fechaActual = new Date(inicioReserva);
+      while (fechaActual <= finalizacionReserva) {
+        fechas.push(new Date(fechaActual));
+        fechaActual.setDate(fechaActual.getDate() + 1);
+      }
+    } else {
+      // Si las fechas son iguales, agregamos solo una vez la fecha de inicio
+      fechas.push(inicioReserva);
+    }
   }
 
   // Luego de procesar los datos y crear el array de fechas, lo asignamos al estado
   setArrayFechasReservasXRecurso(fechas);
 
   console.log(`reservasPorRecurso ${id}`, data);
-  console.log(`reservasPorRecurso arrayFechasReservasXRecurso ${id}`, arrayFechasReservasXRecurso);
+  console.log("inicioReserva ---------Context---", inicioReserva)
+  console.log("finalizacionReserva -----------Context---", finalizacionReserva)
 };
-  
+console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
