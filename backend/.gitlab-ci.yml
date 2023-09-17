@@ -32,5 +32,6 @@ deploy_homeoff-test-be:
     - ssh $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE "sudo systemctl stop ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.service"
     - scp backend/target/ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE:~/
     - ssh $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE "sudo systemctl start ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.service"
+    - ssh $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE "sudo systemctl enable ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.service"
   only:
     - test
