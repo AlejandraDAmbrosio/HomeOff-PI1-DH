@@ -25,10 +25,10 @@ const CardProducto = ({
   precio,
   categoria,
   sede,
-  tipoRecurso,
-  servicio1,
-  servicio2,
-  servicio3,
+  // tipoRecurso,
+  // servicio1,
+  // servicio2,
+  // servicio3,
   puntuacion,
  
   
@@ -38,7 +38,9 @@ const CardProducto = ({
     getListaFavXUserID,
     listaFavXUserId,
   } = useContext(ContextGlobal);
+
   const userId = localStorage.getItem("idUsuario");
+
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
   }, [id]);
@@ -92,7 +94,7 @@ const CardProducto = ({
 
         <div className="caja-texto-card">
           <CardContent style={{ height: "120px" }}>
-            <Stack direction="row" flexItem justifyContent="space-between">
+            <Stack direction="row"  justifyContent="space-between">
               <Typography
                 gutterBottom
                 variant="body2"
@@ -186,7 +188,7 @@ CardProducto.propTypes = {
   url: PropTypes.string.isRequired,
   descripcion: PropTypes.string.isRequired,
   precio: PropTypes.number.isRequired,
-  tipoRecurso: PropTypes.string.isRequired,
+  // tipoRecurso: PropTypes.string.isRequired,
 
   // servicio1: PropTypes.string.isRequired,
 };

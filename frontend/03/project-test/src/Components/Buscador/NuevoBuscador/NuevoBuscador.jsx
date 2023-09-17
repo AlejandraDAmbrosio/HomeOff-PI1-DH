@@ -11,12 +11,11 @@ import {
 } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
-import Calendario from "../Fecha/Calendario";
+
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BuscarXSede from "../Sede/BuscarXSede";
-import CalendarioXId from "../../Genericos/Fecha/CalendarioXId";
-import CalendarioII from "../Fecha/CalendarioII";
 
+import CalendarioPrueba from "../Fecha/CalendarioPrueba";
 const NuevoBuscador = () => {
   const { fechasBusqueda, productosBKLista } = useContext(ContextGlobal);
   ////////// Segmento visual Calendario ///////////////
@@ -128,14 +127,15 @@ const NuevoBuscador = () => {
           }}
         >
           <Box p={2}>
-            <CalendarioII   value={fechasBusqueda}
+            <CalendarioPrueba></CalendarioPrueba>
+            {/* <CalendarioII   value={fechasBusqueda}
               onChange={(newValue) => {
                 if (Array.isArray(newValue) && newValue.length === 2) {
                   setFechasBusqueda(newValue.map((date) => date || null));
                 } else {
                   setFechasBusqueda([null, null]);
                 }
-              }}/>
+              }}/> */}
           </Box>
         </Popover>
 

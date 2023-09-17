@@ -64,11 +64,11 @@ const ReservarXIDRecurso = () => {
     getDatosUsersXID,
     usersXID,
     userIdLogIn,
-    userNameStorage,
+    // userNameStorage,
     setGuardarReserva,
     guardarReserva,
     cantidadDias, setCantidadDias,
-    fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
+    // fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
   } = useContext(ContextGlobal);
 
 
