@@ -118,7 +118,7 @@ const TablaCaracteristicas = () => {
         idCaracteristica: editedItem.idCaracteristica,
       };
   
-      const urlBaseEditar = "http://52.32.210.155:8080/auth/caracteristicas/update";
+      const urlBaseEditar = "http://52.88.220.184:8080/auth/caracteristicas/update";
   
       try {
         const jsonDataEdicion = JSON.stringify(editedItemData);
@@ -178,7 +178,7 @@ const TablaCaracteristicas = () => {
       };
 
       const urlBaseGuardar =
-        "http://52.32.210.155:8080/auth/caracteristicas/save";
+        "http://52.88.220.184:8080/auth/caracteristicas/save";
 
       // const token = localStorage.getItem("token");
       // console.log("token previo a agregar caracteristicas", token);
@@ -258,7 +258,7 @@ const TablaCaracteristicas = () => {
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
       const response = await axios.post(
-        `http://52.32.210.155:8080/auth/caracteristicas/delete/${idCaracteristica}`,
+        `http://52.88.220.184:8080/auth/caracteristicas/delete/${idCaracteristica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
