@@ -1,6 +1,7 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Favorito;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.FavoritoRespuesta;
 import com.Equipo4.ProyectoIntegradorEquipo4.service.IFavoritoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class AuthFavoritoController {
             return ResponseEntity.ok(puntajes);
         } catch (Exception e) {
             String mensaje = "Error al buscar los favoritos: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
+        }
+    }
+    @PostMapping("favoritos/save")
+    public ResponseEntity<?> guardarFavorito(@RequestBody Favorito favorito) {
+        try {
+            Favorito resultado = iFavoritoService.guardarFavorito(favorito);
+            return ResponseEntity.ok(resultado);
+        } catch (Exception e) {
+            String mensaje = "Error al guardar el favorito: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }

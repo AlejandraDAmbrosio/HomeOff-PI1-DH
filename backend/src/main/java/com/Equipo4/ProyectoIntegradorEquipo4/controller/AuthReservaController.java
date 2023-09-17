@@ -20,7 +20,7 @@ public class AuthReservaController {
     @Autowired
     private IReservaService iReservaService;
 
-    @GetMapping("reserva/{IdUsuario}")
+    @GetMapping("reserva/usuario/{IdUsuario}")
     public ResponseEntity<?> buscarReservaUsuario(@PathVariable Integer IdUsuario) {
         try {
             List<ReservaRespuesta> reservas = iReservaService.devolverReservaPorUsuario(IdUsuario);
@@ -42,6 +42,21 @@ public class AuthReservaController {
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
             String mensaje = "Error al guardar la reserva: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
+        }
+    }
+
+    @GetMapping("reserva/recurso/{IdRecurso}")
+    public ResponseEntity<?> buscarReservaRecurso(@PathVariable Integer IdRecurso) {
+        try {
+            List<ReservaRespuesta> reservas = iReservaService.devolverReservaPorRecurso(IdRecurso);
+            if (reservas.isEmpty()) {
+                String mensaje = "No se encontraron reservas para el recurso con ID: " + IdRecurso;
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
+            }
+            return ResponseEntity.ok(reservas);
+        } catch (Exception e) {
+            String mensaje = "Error al buscar las reservas: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }
