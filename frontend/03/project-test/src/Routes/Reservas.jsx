@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import obtenerImagenXIdRecurso from "../Components/utils/obtenerImagenXIdRecurso";
 import formatearFecha from "../Components/utils/formatearFechaParaVisualizar";
-obtenerPrecioXIdRecurso;
+
 import formateoFechas from "../Components/utils/formateoFechas";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";

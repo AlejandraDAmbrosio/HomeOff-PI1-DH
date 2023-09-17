@@ -24,24 +24,21 @@ const renderDay = (day) => {
   );
 };
 
-const CalendarioXId = () => {
-  const {
-    fechasInicioDetalle,
-    setFechasInicioDetalle,
-    fechasFinDetalle,
-    setFechasFinDetalle,
-    fechasResDetalle,
-    setFechasResDetalle,
-  } = useContext(ContextGlobal);
-
+const CalendarioXId = (
+  fechaInicio,
+  fechaFin,
+  fechaRealizacionReserva,
+  setFechaInicio,
+  setFechaFin,
+  setFechaRealizacionReserva
+) => {
   const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 30]);
 
-  // console.log({ fechasBusqueda });
-  // console.log(fechasBusqueda[0]);
-  setFechasResDetalle(dayjs());
-  const [fechaInicio, setFechaInicio] = useState(null);
-  const [fechaFin, setFechaFin] = useState(null);
+
+  // Convierte las fechas de inicio y fin a objetos Date
+  const fechaInicioDate = fechaInicio ? fechaInicio.toDate() : null;
+  const fechaFinDate = fechaFin ? fechaFin.toDate() : null;
 
   const inicioFechas = () => {
     if (fechaInicio == null) {
@@ -74,7 +71,16 @@ const CalendarioXId = () => {
   ];
 
   // console.log(fechaInicio);
+  const handleFechaInicioChange = (newValue) => {
+    setFechaInicio(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+    setFechasInicioDetalle(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+  };
 
+  const handleFechaFinChange = (newValue) => {
+    setFechaFin(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+    setFechasFinDetalle(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+  };
+  
   function ServerDay(props) {
     const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
@@ -109,16 +115,6 @@ const CalendarioXId = () => {
       </Badge>
     );
   }
-
-  const handleFechaInicioChange = (newValue) => {
-    setFechaInicio(newValue);
-    setFechasInicioDetalle(newValue);
-  };
-  
-  const handleFechaFinChange = (newValue) => {
-    setFechaFin(newValue);
-    setFechasFinDetalle(newValue);
-  };
 
   return (
     <Paper>
@@ -172,7 +168,7 @@ const CalendarioXId = () => {
             >
               <DateCalendar
                 label="Fin"
-                value={fechaInicio}
+                value={fechaFin}
                 onChange={handleFechaFinChange}
                 showDaysOutsideCurrentMonth={false}
                 minDate={dayjs()}

@@ -100,7 +100,8 @@ const FormIngreso = () => {
     setUsuario({ ...usuario, username: newValue });
     setUserLogIn({ ...usuario, username: newValue });
     setErrorLogueo("");
-    validarEmail(newValue);
+    // validarEmail(newValue);
+    setEmailValido(true)
   };
 
   const onChangePass = (e) => {

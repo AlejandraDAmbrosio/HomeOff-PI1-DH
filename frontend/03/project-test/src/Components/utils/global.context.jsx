@@ -558,11 +558,16 @@ export const ContextProvider = ({ children }) => {
   const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
   const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
 
-
+  const [fechaInicio, setFechaInicio] = useState(new Date());
+  const [fechaFin, setFechaFin] = useState(new Date());
+  const [cantidadDias, setCantidadDias] = useState(null);
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        cantidadDias, setCantidadDias,
+        fechaInicio, setFechaInicio,
+        fechaFin, setFechaFin,
         fechasResDetalle, setFechasResDetalle,
         fechasFinDetalle, setFechasFinDetalle,
         fechasInicioDetalle, setFechasInicioDetalle,

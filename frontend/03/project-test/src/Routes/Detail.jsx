@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
+import dayjs, { Dayjs } from "dayjs";
 import {
   useNavigate,
   useParams,
   useLocation,
-  Link,
+  // Link,
   useResolvedPath,
 } from "react-router-dom";
-import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
-import formateoFechas from "../Components/utils/formateoFechas"
+import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
+import formateoFechas from "../Components/utils/formateoFechas";
 
-import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
-  Container,
+  // Container,
   Box,
   Paper,
   Modal,
@@ -28,7 +29,7 @@ import {
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
-import Compartir from "../Components/CompartirEnRedes/Compartir";
+// import Compartir from "../Components/CompartirEnRedes/Compartir";
 import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
@@ -43,6 +44,8 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+import CalendarioRDP from "../Components/Genericos/Fecha/CalendarioRDP";
+import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
 
 const style = {
   position: "absolute",
@@ -57,31 +60,9 @@ const style = {
 };
 
 const Detail = () => {
-  const [copied, setCopied] = useState(false);
-  const [openSnack, setOpenSnack] = React.useState(false);
-
-  const handleClickSnack = () => {
-    setOpenSnack(true);
-  };
-
-  const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenSnack(false);
-  };
-
   const navigate = useNavigate();
-  const resolvedPath = useResolvedPath();
-  const [publicacionRedes, setPublicacionRedes] = useState("");
-
   const currentURL = window.location.href;
-
-  const onChangeCopy = (event) => {
-    setPublicacionRedes(event.target.value);
-  };
-
+  const resolvedPath = useResolvedPath();
   const { id } = useParams();
   const location = useLocation();
   const {
@@ -90,26 +71,32 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
-    puntosComentXIDRecurso,
+    // puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
-    getCaracteristicasLista,
-    usuarioLogueado,
-    infoRecursoAReservar, setInfoRecursoAReservar,fechasResDetalle,
-    email, setEmail,
-    userIdLogIn
+    // getCaracteristicasLista,
+    // usuarioLogueado,
+    // infoRecursoAReservar,
+    setInfoRecursoAReservar,
+    // email,
+    // setEmail,
+    userIdLogIn,
+    fechaInicio, setFechaInicio,
+    fechaFin, setFechaFin,
+    cantidadDias, setCantidadDias
   } = useContext(ContextGlobal);
 
+  const [copied, setCopied] = useState(false);
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [publicacionRedes, setPublicacionRedes] = useState("");
   const [openShareModal, setOpenShareModal] = useState(false);
+  // const [fechaInicio, setFechaInicio] = useState(dayjs());
+  // const [fechaFin, setFechaFin] = useState(dayjs());
+  const [fechaRealizacionReserva, setFechaRealizacionReserva] = useState(Date);
 
-  const handleOpenShare = () => {
-    setOpenShareModal(true);
-  };
-
-  const handleCloseShareModal = () => {
-    setOpenShareModal(false);
-  };
+  // const [fechaInicio, setFechaInicio] = useState(new Date());
+  // const [fechaFin, setFechaFin] = useState(new Date());
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -130,19 +117,29 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-  useEffect(() => {
-    getRecursoXID(id);
-    getCaracteristicasXID(id);
-    getPuntosComentXIDRecurso(id);
-    
-  }, [id]);
+  ///////////////MODAL  Compartir  ////////////////////////
 
-  if (!recursoXID) {
-    return <div>Producto no encontrado</div>;
-  }
+  const onChangeCopy = (event) => {
+    setPublicacionRedes(event.target.value);
+  };
 
-  // console.log(`reservas del producto ${recursoXID}`, reservas)
-  /////////////////////////
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
+
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
+  };
 
   const handleCopyClick = (e) => {
     e.preventDefault();
@@ -156,31 +153,50 @@ const Detail = () => {
         console.error("Error al copiar la URL: ", error);
       });
   };
-  ///////////////
-  // // console.log(
-  // //   " resolvedPath.pathname --------------------",
-  // //   resolvedPath.pathname
-  // // );
-  // // console.log("URL completa:", currentURL);
+  ///////////////FIN MODAL  Compartir  ////////////////////////
 
+  //////////////// Traer info del Contexto ////////////////////////
+
+  useEffect(
+    () => {
+      getRecursoXID(id);
+      getCaracteristicasXID(id);
+      getPuntosComentXIDRecurso(id);
+    },
+    [id],
+    { max: 2 }
+  );
+
+  if (!recursoXID) {
+    return <div>Producto no encontrado</div>;
+  }
+
+  /////////////// INICIO Carga de Datos para reservar  ////////////////////////
+  
+  const handleDateChange = (date) => {
+    setFechaInicio(date.startDate);
+    setFechaFin(date.endDate);
+  };
+  
+  
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setInfoRecursoAReservar({
-      idRecurso:recursoXID.idRecurso,
-      fechaInicio:fechasInicioDetalle,
-      fechaFin:fechasFinDetalle,
-      idUser:idUserParse,
-      precioProducto:recursoXID.precioUnitario,
-      precioTotal:0 , 
-      dias:0,
-      fechaRealizacionReserva:fechasResDetalle,
-    })
+      idRecurso: recursoXID.idRecurso,
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
+      fechaRealizacionReserva: fechaRealizacionReserva,
+      idUser: idUserParse,
+      precioProducto: recursoXID.precioUnitario,
+      precioTotal: 0,
+      dias: cantidadDias,
+    });
 
     navigate(`/reserva/${id}`);
   };
-  // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
+
 
   return (
     <>
@@ -603,20 +619,40 @@ const Detail = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
-            <CalendarioXId style={{ placeItems: "center" }} />
+           {/* <CalendarioXId
+              style={{ placeItems: "center" }}
+              fechaInicio={fechaInicio}
+              fechaFin={fechaFin}
+              fechaRealizacionReserva={fechaRealizacionReserva}
+              setFechaInicio={setFechaInicio}
+              setFechaFin={setFechaFin}
+              setFechaRealizacionReserva={setFechaRealizacionReserva}
+            /> */}
+{/* //////////////////////////////////////// */}
+{/* <CalendarioRDP></CalendarioRDP> */}
+
+{/* <CalendarioPrueba></CalendarioPrueba> */}
+<CalendarioPrueba
+  fechaInicio={fechaInicio}
+  fechaFin={fechaFin}
+  onChange={{handleDateChange}}
+/>
+
+{/* //////////////////////////////////////// */}
+
             <Button
-            sx={{
-              width: "100%",
-              color: "white",
-              backgroundColor: "#7cc598",
-              ":hover": {
-                backgroundColor: "#3c9960",
-              },
-            }}
-            onClick={handleSubmit}
-          >
-            Reservar
-          </Button>
+              sx={{
+                width: "100%",
+                color: "white",
+                backgroundColor: "#7cc598",
+                ":hover": {
+                  backgroundColor: "#3c9960",
+                },
+              }}
+              onClick={handleSubmit}
+            >
+              Reservar
+            </Button>
           </Stack>
 
           <Stack
