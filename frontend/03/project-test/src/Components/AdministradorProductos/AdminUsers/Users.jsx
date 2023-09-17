@@ -51,7 +51,7 @@ console.log("-------------- > getTokenUser", tokenUserState);
   };
   // 2) Traer info de todos los campos del usuario seleccionado y si tiene un valor el rol, cambiarlo
 
-  const urlBaseActualizar = "http://52.88.220.184:8080/auth/usuario/update";
+  const urlBaseActualizar = "http://52.32.210.155:8080/auth/usuario/update";
   const handleUpdateUser = async (usuarioXEditar) => {
 
     getDatosUsersXID(usuarioXEditar.idUsuario)

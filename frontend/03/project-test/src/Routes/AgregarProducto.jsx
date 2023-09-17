@@ -257,7 +257,7 @@ const AgregarProducto = () => {
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
-      const urlBase = "http://52.88.220.184:8080/auth/recursos/save";
+      const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
 
       ///////////////Envio de datos
 

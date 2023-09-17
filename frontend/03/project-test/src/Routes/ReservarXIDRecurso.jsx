@@ -151,7 +151,7 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
     // postReserva(guardarReserva);
 
     try {
-      const urlReserva = "http://52.88.220.184:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+      const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
       const jsonDataReserva = JSON.stringify(guardarReserva);
       console.log("datosReserva", jsonDataReserva);
       const response = await fetch(urlReserva, {
