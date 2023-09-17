@@ -32,16 +32,22 @@ public class ReservaService implements IReservaService {
     public List<ReservaRespuesta> devolverReservaPorUsuario(Integer idUsuario) throws Exception{
         /*Reserva reserva = reservaRepository.findById(idUsuario)
                 .orElseThrow(() -> new Exception("El usuario no existe"));*/
-
         List<ReservaRespuesta> reservas = reservaRepository.findAllByReserva(idUsuario);
-
-
         if (reservas.isEmpty()) {
             throw new Exception("El usuario no tiene reserva");
         }
-
         return reservas;
     }
+
+    @Override
+    public List<ReservaRespuesta> devolverReservaPorRecurso(Integer idRecurso) throws Exception {
+        List<ReservaRespuesta> recursos = reservaRepository.findReservaRecurso(idRecurso);
+        if (recursos.isEmpty()) {
+            throw new Exception("El recurso no tiene reserva");
+        }
+        return recursos;
+    }
+
 
     @Override
     public Reserva guardarReserva(Reserva reserva) throws Exception {

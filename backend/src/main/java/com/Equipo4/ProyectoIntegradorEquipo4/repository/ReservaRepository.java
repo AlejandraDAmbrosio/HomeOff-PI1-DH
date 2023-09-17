@@ -38,6 +38,17 @@ public class ReservaRepository implements IReservaRepository {
                 "WHERE p.idUsuario = ?";
         return jdbcTemplate.query(SQL, new Object[]{idUsuario}, BeanPropertyRowMapper.newInstance(ReservaRespuesta.class));
     }
+
+    @Override
+    public List<ReservaRespuesta> findReservaRecurso(int idRecurso) {
+        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
+                "FROM offi_Reservas p " +
+                "INNER JOIN offi_usuarios u ON p.idUsuario = u.idUsuario " +
+                "INNER JOIN offi_recursos r ON p.idRecurso = r.idRecurso " +
+                "WHERE p.idRecurso = ?";
+        return jdbcTemplate.query(SQL, new Object[]{idRecurso}, BeanPropertyRowMapper.newInstance(ReservaRespuesta.class));
+    }
+
     @Override
     public int save(Reserva reserva) {
         String SQL = "INSERT INTO offi_Reservas (IdUsuario, InicioReserva, FinalizacionReserva, EstadoReserva, IdRecurso, nombre, apellido, Email, FechaRealizacionReserva) VALUES (?,?,?,?,?,?,?,?,?)";
