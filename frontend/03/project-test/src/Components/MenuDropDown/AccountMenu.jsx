@@ -39,6 +39,8 @@ export default function AccountMenu() {
     nombreCompleto,
     userIdLogIn,
   } = useContext(ContextGlobal);
+  const user = localStorage.getItem("nombreCompleto");
+
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
