@@ -86,8 +86,6 @@ const BuscarXSede = () => {
     return [...sedeNames, ...productoNames];
   };
 
-  // console.log("Nombres en combineNames");
-  // console.log(combineNames());
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -188,6 +186,9 @@ const BuscarXSede = () => {
           setBusquedaCero(false);
         }}
         options={filteredSedes.map((sede) => sede.nombre)}
+      
+        sx={{color:"white"}}
+      
       ></input>
 
       <datalist id="paises">

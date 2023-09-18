@@ -158,7 +158,7 @@ const CalendarioPrueba = ({ id }) => {
         <Stack
           flexDirection={{ lg: "row",  md: "row" }}
           style={{justifyContent:"space-around", alignItems:"center"}}>
-          <Typography>
+          <Typography >
             {" "}
             {new Date(value[0]).toDateString() !== "Invalid Date" && (
               <p>Inicio :  {new Date(value[0]).toDateString()}</p>

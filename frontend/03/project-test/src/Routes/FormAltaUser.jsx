@@ -486,11 +486,11 @@ const FormAltaUser = () => {
             </h5>
           )}
         </form>
-        <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
+        {/* <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
  
           <p>¿Se te olvidó tu contraseña?</p>
       
-        </Stack>
+        </Stack> */}
       </Stack>
     </Container>
   );

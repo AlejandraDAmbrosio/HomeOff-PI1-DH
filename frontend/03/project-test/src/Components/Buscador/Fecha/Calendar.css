@@ -62,7 +62,9 @@
   
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
-    color: rgb(103, 103, 103);
+    color: rgb(16, 16, 16);
+    border-radius: 1px 18px 20px 25px;
+    background: #04c295;
     /* background-color: #20c07b; */
   }
   
