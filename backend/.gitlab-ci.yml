@@ -31,6 +31,6 @@ deploy_homeoff-test-be:
   script:
     - ssh $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE "sudo bash kill_pid_jar"
     - scp backend/target/ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.jar $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE:/home/ubuntu
-    - ssh $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE "sudo systemctl restart ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.service"1-SNAPSHOT.service"
+    - ssh $EC2_SSH_USER@$EC2_TEST_HOMEOFF_BE "sudo systemctl restart ProyectoIntegradorEquipo4-0.0.1-SNAPSHOT.service"
   only:
     - test
