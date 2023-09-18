@@ -1,6 +1,6 @@
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
-import {} from "@mui/material";
+import { Divider, Popover, Stack } from "@mui/material";
 import {
   Dialog,
   DialogTitle,
@@ -12,6 +12,15 @@ import {
 } from "@mui/material";
 
 import "./BuscarXSede.css";
+import CalendarioBuscador from "../Fecha/CalendarioBuscador";
+
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+// import BuscarXSede from "../Sede/BuscarXSede";
+
+// import CalendarioPrueba from "../Fecha/CalendarioPrueba";
+
+
+
 
 const BuscarXSede = () => {
   const {
@@ -23,10 +32,33 @@ const BuscarXSede = () => {
     setFilteredSedes,
     prodFiltrados,
     setProdFiltrados,
+    busquedaCero,
+    setBusquedaCero,
+    fechasBusqueda,
   } = useContext(ContextGlobal);
 
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
+  ////////// Segmento visual Calendario ///////////////
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isDateDropdownOpen = Boolean(anchorEl);
+
+  const handleDateDropdownOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleDateDropdownClose = () => {
+    setAnchorEl(null);
+  };
+
+
+
+
+
+
+
+
 
   const sedesArray = [
     {
@@ -54,8 +86,6 @@ const BuscarXSede = () => {
     return [...sedeNames, ...productoNames];
   };
 
-  // console.log("Nombres en combineNames");
-  // console.log(combineNames());
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -112,17 +142,36 @@ const BuscarXSede = () => {
     setProdFiltrados(filteredSedesAndProductos);
 
     if (filteredSedesAndProductos.length === 0) {
-      setOpenModal(true);
-    } else {
-      setOpenModal(false);
-    }
+      //  setOpenModal(true);
+      setBusquedaCero(true);
+     } 
 
     if (inputValue.length === 0) {
       setProdFiltrados([]);
+      setBusquedaCero(false)
     }
   };
 
   return (
+
+    <Stack
+    direction="row"
+    spacing={2}
+    style={{
+      width: "400px",
+      border: "1px solid grey",
+      alignContent: "center",
+      justifyContent: "space-between",
+      height: "42px",
+      padding: "0 5px 0 10px",
+      borderRadius: "20px",
+      borderColor: "white",
+      color: "white",
+    }}
+  >
+    <Stack>
+
+
     <div className="input-container">
       <input
         className="busqueda"
@@ -132,8 +181,14 @@ const BuscarXSede = () => {
         placeholder="Sede o nombre"
         onKeyUp={handleSearch}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setBusquedaCero(false);
+        }}
         options={filteredSedes.map((sede) => sede.nombre)}
+      
+        sx={{color:"white"}}
+      
       ></input>
 
       <datalist id="paises">
@@ -161,6 +216,65 @@ const BuscarXSede = () => {
         </Button>
       </Dialog>
     </div>
+    </Stack>
+    
+
+      <Stack
+        direction="row"
+        spacing={2}
+        style={{ marginBottom: "1rem" /*, height:"40px"*/ }}
+      >
+        <div onClick={handleDateDropdownOpen}>
+          {fechasBusqueda[0] && fechasBusqueda[1] ? (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <div>
+                {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                })}{" "}
+              </div>
+              <Divider orientation="vertical" flexItem />
+              <div>
+                {fechasBusqueda[1].$d.toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                })}{" "}
+              </div>
+            </div>
+          ) : (
+            <CalendarMonthIcon  style={{fontSize:"38px"}}/>
+          )}
+        </div>
+
+        <Popover
+          sx={{
+            borderRadius: "20px",
+            style: {
+              overflowY: "auto",
+            },
+          }}
+          
+          open={isDateDropdownOpen}
+          onClose={handleDateDropdownClose}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        
+        >
+           <CalendarioBuscador></CalendarioBuscador>
+          {/* <Box p={2} sx={{borderRadius:"20%"}}> */}
+        
+          {/* </Box> */}
+        </Popover>
+
+      </Stack>
+    </Stack>
   );
 };
 

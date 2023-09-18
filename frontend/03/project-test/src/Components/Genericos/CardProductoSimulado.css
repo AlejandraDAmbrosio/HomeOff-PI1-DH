@@ -7,7 +7,7 @@
     height: 500px;
     border-radius: 11px 11px 11px 11px;
     -webkit-border-radius: 11px 11px 11px 11px;
-    -moz-border-radius: 11px 11px 11px 11px;
+    /* -moz-border-radius: 11px 11px 11px 11px; */
     /* border: 1px solid red; */
     /* border: 1px solid var(--colorGrey4); */
     box-shadow: var(--BShadow);
@@ -125,7 +125,7 @@
     color: var(--colorGrey1);
     margin-top: 4px;
     /* ----------- Borrar despues de poner dinamicas las categorias */
-     white-space: wrap;  
+     /* white-space: wrap;   */
     overflow: hidden;/* Oculta el contenido que excede el ancho */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido excede el ancho */
     /* Ajusta este valor según el ancho deseado */

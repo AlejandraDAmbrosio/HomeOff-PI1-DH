@@ -7,7 +7,7 @@
   height: 360px;
   border-radius: 11px 11px 11px 11px;
   -webkit-border-radius: 11px 11px 11px 11px;
-  -moz-border-radius: 11px 11px 11px 11px;
+  /* -moz-border-radius: 11px 11px 11px 11px; */
   margin-bottom: 1rem;
   box-shadow: var(--BShadow);
   border-radius: var(--bRadiusButton);
@@ -34,7 +34,7 @@
   width: 85%;
   flex-direction: column;
   justify-content: space-around;
-  display: fle;
+  display: flex;
   align-items: center;
 }
 
@@ -127,7 +127,7 @@
   color: var(--colorGrey1);
   margin-top: 4px;
   /* ----------- Borrar despues de poner dinamicas las categorias */
-   white-space: wrap;  
+   /* white-space: wrap;   */
   overflow: hidden;/* Oculta el contenido que excede el ancho */
   text-overflow: ellipsis; 
 }

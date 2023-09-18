@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface IReservaRepository {
 
     List<ReservaRespuesta> findAllByReserva(int idUsuario);
+    List<ReservaRespuesta> findReservaRecurso(int idRecurso);
     Optional<Reserva> findById(int id);
     int save(Reserva reserva);
     int update(Reserva reserva);

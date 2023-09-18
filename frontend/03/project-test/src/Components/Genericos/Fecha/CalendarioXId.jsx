@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ContextGlobal } from "../../utils/global.context";
-import { TextField, Typography } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Badge from "@mui/material/Badge";
@@ -24,15 +24,21 @@ const renderDay = (day) => {
   );
 };
 
-const CalendarioXId = () => {
+const CalendarioXId = (
+  fechaInicio,
+  fechaFin,
+  fechaRealizacionReserva,
+  setFechaInicio,
+  setFechaFin,
+  setFechaRealizacionReserva
+) => {
   const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 30]);
 
-  console.log({ fechasBusqueda });
-  console.log(fechasBusqueda[0]);
 
-  const [fechaInicio, setFechaInicio] = useState(null);
-  const [fechaFin, setFechaFin] = useState(null);
+  // Convierte las fechas de inicio y fin a objetos Date
+  const fechaInicioDate = fechaInicio ? fechaInicio.toDate() : null;
+  const fechaFinDate = fechaFin ? fechaFin.toDate() : null;
 
   const inicioFechas = () => {
     if (fechaInicio == null) {
@@ -65,7 +71,16 @@ const CalendarioXId = () => {
   ];
 
   // console.log(fechaInicio);
+  const handleFechaInicioChange = (newValue) => {
+    setFechaInicio(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+    setFechasInicioDetalle(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+  };
 
+  const handleFechaFinChange = (newValue) => {
+    setFechaFin(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+    setFechasFinDetalle(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+  };
+  
   function ServerDay(props) {
     const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
@@ -102,77 +117,81 @@ const CalendarioXId = () => {
   }
 
   return (
-    <Stack
-      direction="column"
-      divider={<Divider orientation="vertical" flexItem />}
-      spacing={1}
-      margin={"auto"}
-      
-    >
-      <Divider style={{ margin: "1rem 0rem 1rem 0rem" }} flexItem />
-
-      <Typography variant="h4">Fechas disponibles</Typography>
+    <Paper>
       <Stack
-        direction={{ xs: "column", sm: "row" }}
-        useFlexGap flexWrap="wrap"
+        direction="column"
         divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        spacing={1}
+        margin={"auto"}
+        alignItems={"flex-start"}
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker"]}>
-            <DateCalendar
-              label="Inicio"
-              value={fechaInicio}
-              onChange={(newValue) => setFechaInicio(newValue)}
-              showDaysOutsideCurrentMonth={false}
-              minDate={dayjs()}
-              maxDate={dayjs().add(60, "days")}
-              disableNavigation={true}
-              disablePast={true}
-              format="DD-MM-YY"
-              slotProps={{
-                textField: { size: "small" },
-                day: {
-                  highlightedDays,
-                },
-              }}
-              slots={{
-                day: ServerDay,
-              }}
-            />
-          </DemoContainer>
-        </LocalizationProvider>
-
-        <LocalizationProvider
-          dateAdapter={AdapterDayjs}
-          style={{ height: "20px" }}
+        <Typography variant="h4">Fechas disponibles</Typography>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          useFlexGap
+          flexWrap="wrap"
+          divider={<Divider orientation="vertical" flexItem />}
+          spacing={2}
         >
-          <DemoContainer components={["DatePicker"]} style={{ height: "20px" }}>
-            <DateCalendar
-              label="Fin"
-              value={fechaInicio}
-              onChange={(newValue) => setFechaFin(newValue)}
-              showDaysOutsideCurrentMonth={false}
-              minDate={dayjs()}
-              maxDate={dayjs().add(60, "days")}
-              disableNavigation={true}
-              format="DD-MM-YY"
-              disablePast={true}
-              slotProps={{
-                textField: { size: "small" },
-                day: {
-                  highlightedDays,
-                },
-              }}
-              slots={{
-                day: ServerDay,
-              }}
-            />
-          </DemoContainer>
-        </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DateCalendar
+                label="Inicio"
+                value={fechaInicio}
+                onChange={handleFechaInicioChange}
+                showDaysOutsideCurrentMonth={false}
+                minDate={dayjs()}
+                maxDate={dayjs().add(60, "days")}
+                disableNavigation={true}
+                disablePast={true}
+                format="DD-MM-YY"
+                slotProps={{
+                  textField: { size: "small" },
+                  day: {
+                    highlightedDays,
+                  },
+                }}
+                slots={{
+                  day: ServerDay,
+                }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            style={{ height: "20px" }}
+          >
+            <DemoContainer
+              components={["DatePicker"]}
+              style={{ height: "20px" }}
+            >
+              <DateCalendar
+                label="Fin"
+                value={fechaFin}
+                onChange={handleFechaFinChange}
+                showDaysOutsideCurrentMonth={false}
+                minDate={dayjs()}
+                maxDate={dayjs().add(60, "days")}
+                disableNavigation={true}
+                format="DD-MM-YY"
+                disablePast={true}
+                slotProps={{
+                  textField: { size: "small" },
+                  day: {
+                    highlightedDays,
+                  },
+                }}
+                slots={{
+                  day: ServerDay,
+                }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </Stack>
+        {/* <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem /> */}
       </Stack>
-      <Divider style={{ margin: "2rem 0rem 2rem 0rem" }} flexItem />
-    </Stack>
+    </Paper>
   );
 };
 

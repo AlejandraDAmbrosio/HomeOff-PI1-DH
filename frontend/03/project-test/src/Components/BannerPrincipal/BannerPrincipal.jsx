@@ -10,16 +10,13 @@ const BannerPrincipal = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
-        // Si el usuario ha desplazado hacia abajo, establecer scrolling en verdadero
         setScrolling(true);
       } else {
-        // Si el usuario está en la parte superior de la página, establecer scrolling en falso
         setScrolling(false);
       }
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Limpiar el listener cuando el componente se desmonta
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

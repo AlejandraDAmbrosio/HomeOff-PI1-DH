@@ -24,7 +24,7 @@
   transition: 1.6s ease;
   border-radius: 11px 11px 11px 11px;
   -webkit-border-radius: 11px 11px 11px 11px;
-  -moz-border-radius: 11px 11px 11px 11px;
+  /* -moz-border-radius: 11px 11px 11px 11px; */
   box-shadow: var(--BShadow);
   border-radius: var(--bRadiusButton);
 }
@@ -81,10 +81,13 @@
   .section.focus .title {
     transform: translate(-50%, -50%) scale(1.25);
     color: var(--green);
+    
   }
   .section .title {
     font-size: calc(2vw + 3rem);
   }
+
+ 
 }
 
 @media (max-width: 1000px) {
@@ -100,6 +103,12 @@
   .section .title {
     font-size: calc(2vw + 3rem);
   }
+  .section:hover,
+  .section:active,
+  .section.focus {
+    flex: 2;
+  }
+
 }
 
 .section .title {

@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import AccountMenu from "../MenuDropDown/AccountMenu";
 
 import { useParams } from "react-router-dom";
+import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
 
 const Navbar = () => {
   const { id } = useParams();
@@ -29,6 +30,10 @@ const Navbar = () => {
     location.pathname.startsWith("/paginafiltrado/") ||
     location.pathname.startsWith("/editarproducto/") ||
     location.pathname.startsWith("/favoritos/") ||
+    location.pathname.startsWith("/agregarCaracteristicas/") ||
+    location.pathname.startsWith("/verreservas/") ||
+    location.pathname.startsWith("/reservas/") ||
+    location.pathname.startsWith("/reserva/") ||
     location.pathname === "/formaltauser/";
   location.pathname === "/favoritos/";
 
@@ -40,7 +45,9 @@ const Navbar = () => {
             <li>
               <Logo />
             </li>
-
+            {/* <li>
+              <NuevoBuscador />
+            </li> */}
             <div className="botones-header">
               {!usuarioLogueado && (
                 <>
@@ -52,7 +59,7 @@ const Navbar = () => {
                   </li>
                 </>
               )}
-              <li>
+              <li className="account-menu">
                 <AccountMenu />
               </li>
             </div>
@@ -61,7 +68,7 @@ const Navbar = () => {
         {isPanelSinCategorias ? (
           ""
         ) : (
-          <div className="buscador-cat">
+          <div className="banda-categorias">
             <Categorias />
           </div>
         )}

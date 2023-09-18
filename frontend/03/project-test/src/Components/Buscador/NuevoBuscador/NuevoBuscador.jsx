@@ -11,10 +11,12 @@ import {
 } from "@mui/material";
 import { ContextGlobal } from "../../utils/global.context";
 import React, { useEffect, useState, useContext } from "react";
-import Calendario from "../Fecha/Calendario";
+
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BuscarXSede from "../Sede/BuscarXSede";
 
+import CalendarioPrueba from "../Fecha/CalendarioPrueba";
+import CalendarioBuscador from "../Fecha/CalendarioBuscador";
 const NuevoBuscador = () => {
   const { fechasBusqueda, productosBKLista } = useContext(ContextGlobal);
   ////////// Segmento visual Calendario ///////////////
@@ -73,31 +75,26 @@ const NuevoBuscador = () => {
         border: "1px solid grey",
         alignContent: "center",
         justifyContent: "space-between",
-        
         height: "42px",
         padding: "0 5px 0 10px",
         borderRadius: "20px",
-        borderColor:"white",
-        color:"white",
+        borderColor: "white",
+        color: "white",
       }}
     >
       <Stack>
         <BuscarXSede></BuscarXSede>
       </Stack>
-      {/* <datalist id="buscarXSede">
-        <option value="Colombia"></option>
-        <option value="Argentina"></option>
-        <option value="Chile"></option>
-      </datalist> */}
+    
 
-      <Stack direction="row" spacing={2} style={{ marginBottom: "1rem", height:"40px" }}>
-        <div
-          onClick={handleDateDropdownOpen}
-          style={{ placeItems: "center", width: "100%" }}
-        >
-          {" "}
+      <Stack
+        direction="row"
+        spacing={2}
+        style={{ marginBottom: "1rem" /*, height:"40px"*/ }}
+      >
+        <div onClick={handleDateDropdownOpen}>
           {fechasBusqueda[0] && fechasBusqueda[1] ? (
-            <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <div>
                 {fechasBusqueda[0].$d.toLocaleDateString("en-US", {
                   month: "numeric",
@@ -113,11 +110,18 @@ const NuevoBuscador = () => {
               </div>
             </div>
           ) : (
-            <CalendarMonthIcon style={{ fontSize: "40px" }} />
+            <CalendarMonthIcon  style={{fontSize:"38px"}}/>
           )}
         </div>
-        <Portal>
+
         <Popover
+          sx={{
+            borderRadius: "20px",
+            style: {
+              overflowY: "auto",
+            },
+          }}
+          
           open={isDateDropdownOpen}
           onClose={handleDateDropdownClose}
           anchorEl={anchorEl}
@@ -129,21 +133,14 @@ const NuevoBuscador = () => {
             vertical: "top",
             horizontal: "center",
           }}
+        
         >
-          <Box p={2}>
-            <Calendario
-              value={fechasBusqueda}
-              onChange={(newValue) => {
-                if (Array.isArray(newValue) && newValue.length === 2) {
-                  setFechasBusqueda(newValue.map((date) => date || null));
-                } else {
-                  setFechasBusqueda([null, null]);
-                }
-              }}
-            />
-          </Box>
+           <CalendarioBuscador></CalendarioBuscador>
+          {/* <Box p={2} sx={{borderRadius:"20%"}}> */}
+        
+          {/* </Box> */}
         </Popover>
-        </Portal>
+
       </Stack>
     </Stack>
   );

@@ -44,7 +44,7 @@
   --bRadiusButton:11px;
   --bRadImg: 20px;
 
-
+ 
   --hoverSinBShadow: 0 0px 0px;
   --speed:500ms;
   --nav-size: 60px;
@@ -95,8 +95,13 @@ footer {
 .titulo-section-productos {
   font-size: var(--fsizeTXL);
   color: var(--colorGrey1);
-  margin: 1rem 2% ; 
+  margin: 1rem 2% 1rem 2%; 
   font-weight: var(--fweightL);  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  
   border-bottom: 0.5px solid var( --BGrey);
   /* text-shadow: var(--BShadowD6); */
 }

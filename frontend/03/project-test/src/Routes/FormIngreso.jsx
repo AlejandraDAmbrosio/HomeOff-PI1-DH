@@ -1,33 +1,65 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
+import {
+  useNavigate,
+
+} from "react-router-dom";
 import "../Components/FormIngreso.css";
-import { Button,  FormControl, IconButton,Modal,  Paper,TextField,
-  Typography,Backdrop} from "@mui/material";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+  // Backdrop,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import FormAltaUser from "./FormAltaUser";
 
 const FormIngreso = () => {
-  const { usuarioLogueado,realizarLogIn, iniciarSesion, userLogIn, errorLogueo, setUserLogIn } = useContext(ContextGlobal);
-
+  const {
+    usuarioLogueado,
+    realizarLogIn,
+    iniciarSesion,
+    userLogIn,
+    errorLogueo,
+    setErrorLogueo,
+    setUserLogIn,
+    loginSuccess,
+    setLoginSuccess,
+  } = useContext(ContextGlobal);
+  const navigate = useNavigate();
+  console.log("FORM INICIO ABREEEEEEE")
   // Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
   const [emailValido, setEmailValido] = useState(true);
   const [passwordValido, setPasswordValido] = useState(true);
 
   ////////// Segmento modal   //////////
+  const [modalTimeout, setModalTimeout] = useState(null); // Nuevo estado para controlar el cierre del modal por tiempo
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    window.location.replace("/");
   };
+
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
-    nombre: "",
-    email: "",
+    // nombre: "",
+    username: "",
     password: "",
   });
 
@@ -36,36 +68,42 @@ const FormIngreso = () => {
 
   ////////////////OnChanges///////////////
 
-  const onChangeNombre = (e) => {
-    const newValue = e.target.value;
-    setUsuario({ ...usuario, nombre: newValue });
-    validarNombre(newValue);
-  };
+  // const onChangeNombre = (e) => {
+  //   const newValue = e.target.value;
+  //   setUsuario({ ...usuario, nombre: newValue });
+
+  //   validarNombre(newValue);
+  // };
 
   const onChangeEmail = (e) => {
     const newValue = e.target.value;
-    setUsuario({ ...usuario, email: newValue });
-    validarEmail(newValue);
+    setUsuario({ ...usuario, username: newValue });
+    setUserLogIn({ ...usuario, username: newValue });
+    setErrorLogueo("");
+    // validarEmail(newValue);
+    setEmailValido(true)
   };
 
   const onChangePass = (e) => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
+    setUserLogIn({ ...usuario, password: newValue });
+    setErrorLogueo("");
     validarPassword(newValue);
   };
 
   //////////Validaciones ///////////////////
 
-  const validarNombre = (n) => {
-    const regex = /^[A-Za-z\s]{3,30}$/;
-    if (regex.test(n)) {
-      setNombreValido(true);
-      return true;
-    } else {
-      setNombreValido(false);
-      return false;
-    }
-  };
+  // const validarNombre = (n) => {
+  //   const regex = /^[A-Za-z\s]{3,30}$/;
+  //   if (regex.test(n)) {
+  //     setNombreValido(true);
+  //     return true;
+  //   } else {
+  //     setNombreValido(false);
+  //     return false;
+  //   }
+  // };
 
   const validarEmail = (e) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
@@ -93,14 +131,13 @@ const FormIngreso = () => {
 
   const validarFormulario = () => {
     return (
-      validarNombre(usuario.nombre) &&
-      validarEmail(usuario.email) &&
-      validarPassword(usuario.password)
+      // validarNombre(usuario.nombre) &&
+      validarEmail(usuario.username) && validarPassword(usuario.password)
     );
   };
 
   ///////handleSubmit //////
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validarFormulario()) {
@@ -108,101 +145,65 @@ const FormIngreso = () => {
       console.log("Datos Enviados");
       console.log(usuario);
 
-
       setUserLogIn({
-        username: usuario.nombre,
+        username: usuario.username,
         password: usuario.password,
       });
+      console.log("Que datos enviamos del user? ");
+      console.log(userLogIn);
 
+      realizarLogIn(userLogIn);
+      setErrorLogueo("Logueando usuario...");
+      handleOpen();
 
       //ENVIAR DATOS
-
-      setUsuario({
-        username: usuario.email,
-        password:usuario.password,
-      });
-      realizarLogIn(userLogIn);
-
     } else {
       setForm(false);
       console.log("Datos No Enviados");
       console.log(usuario);
+      setErrorLogueo("Por favor, revise sus credenciales");
+      handleOpen();
       setUsuario({
         nombre: "",
-        email: "",
+        username: "",
         password: "",
       });
     }
-    handleOpen();
+    // useEffect(() => {
+    // if (usuarioLogueado) {
+    //   setErrorLogueo(`Gracias por ingresar ${usuario.username}`);
+
+    //   }
+    // }, [usuarioLogueado]);
   };
 
   return (
     <>
-      <Modal open={open} onClose={handleClose}>
-        <Paper
-          sx={{
-            width: "320px",
-            overflow: "hidden",
-            position: "relative", 
-          }}
-          style={{
-            placeItems: "center",
-            margin: "auto",
-            justifyContent: "spaceBetween",
-            height: "100px",
-            marginTop: "10rem",
-          }}
-        >
-          {/* Botón de cerrar */}
-          <IconButton
-            aria-label="cerrar"
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>
-
-          <div>
-          {errorLogueo && <p>{errorLogueo}</p>}
-            {form && usuarioLogueado ? (
-              <h5 className="msj-form-guardado">
-                Gracias!! Has ingresado como usuario{" "}
-                {usuarioLogueado.nombreCompleto} a HomeOFF !
-              </h5>
-            ) : (
-              <h5 className="msj-form-guardado">
-                Por favor, revise las credenciales.
-              </h5>
-            )}
-          </div>
-        </Paper>
-      </Modal>
-
+    
       {!usuarioLogueado ? (
         <Paper
           sx={{
             width: "auto",
-            maxWidth:"400px",
-            margin:"auto",
+            maxWidth: "320px",
+            margin: "auto",
             overflow: "hidden",
             height: "fitContent",
-             justifyContent: "spaceAround",
-            padding:"1rem"
+            justifyContent: "spaceAround",
+            padding: "1rem",
           }}
           style={{
             margin: "auto",
             justifyContent: "spaceBetween",
-            marginTop: "5rem",
+            marginTop: "1rem",
             height: "fitContent",
-            alignContent:"center"
+            alignContent: "center",
           }}
         >
           <div className="pagina-formulario-Ingreso">
-            <Typography style={{fontSize:"30px"}}> Inicia sesión ahora</Typography>
+            <Typography style={{ fontSize: "30px" }}>
+              {" "}
+              Inicia sesión
+            </Typography>
 
             <FormControl
               onSubmit={handleSubmit}
@@ -213,27 +214,7 @@ const FormIngreso = () => {
               }}
             >
               <div className="formulario-inicio">
-                <TextField
-                  id="nombre"
-                  label="Nombre"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa tu nombre "
-                  value={usuario.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                  style={{ borderColor: nombreValido ? "" : "red" }}
-                />
-
-                {!nombreValido ? (
-                  <p className="error-form-inicio">
-                    Ingrese entre 3 y 30 caracteres y solo contener letras.
-                  </p>
-                ) : (
-                  ""
-                )}
+                
 
                 <TextField
                   id="email"
@@ -242,17 +223,16 @@ const FormIngreso = () => {
                   className="campo-formulario"
                   type="email"
                   placeholder="Ingresa tu email"
-                  value={usuario.email}
+                  value={usuario.username}
                   onChange={onChangeEmail}
                   required
                   margin="normal"
                   style={{ borderColor: emailValido ? "" : "red" }}
                 />
                 {!emailValido ? (
-                  <p className="error-form-inicio">
-                    Ingresar al menos 3 caracteres antes del arroba y tener un
-                    formato válido.
-                  </p>
+                  <Typography variant="body2" style={{ color: "red" }}>
+                    Ingrese un email válido. Debe contener al menos 3 caracteres antes del arroba.
+                  </Typography>
                 ) : (
                   ""
                 )}
@@ -262,7 +242,7 @@ const FormIngreso = () => {
                   label="Password *"
                   variant="standard"
                   className="campo-formulario"
-                  type="email"
+                  type="password"
                   placeholder="Ingresa tu password"
                   value={usuario.password}
                   onChange={onChangePass}
@@ -293,15 +273,33 @@ const FormIngreso = () => {
                 </Button>
               </div>
             </FormControl>
+
             <div className="acceso-cuenta-o-usuarionuevo">
-              <div>No tenés cuenta?</div>
-              <div>Se te olvidó tu contraseña?</div>
+              <div onClick={() =>   navigate(`/formaltauser/`)} style={{cursor:"pointer"}}>
+                No tenés cuenta? 
+              </div>
+       
             </div>
           </div>
         </Paper>
       ) : (
         ""
       )}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Iniciar sesión</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{fontSize:"1.3rem"}}>
+            {errorLogueo && (
+              <h5 className="msj-form-guardado">{errorLogueo}</h5>
+            )}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
