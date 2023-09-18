@@ -12,12 +12,12 @@ public class Reserva implements Serializable {
     private Integer IdReserva;
     private Integer IdUsuario;
     private Date InicioReserva;
-    private Date FinalizaciónReserva;
+    private Date FinalizacionReserva;
     private Integer EstadoReserva;
     private Integer IdRecurso;
     private String nombre;
     private String apellido;
     private String Email;
-    private Date FechaRealizaciónReserva;
+    private Date FechaRealizacionReserva;
 
 }

@@ -32,7 +32,6 @@ public class SecurityConfig {
                         authRequest
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/api/**").authenticated()
-                                .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager->
                         sessionManager
@@ -41,6 +40,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
 }
 

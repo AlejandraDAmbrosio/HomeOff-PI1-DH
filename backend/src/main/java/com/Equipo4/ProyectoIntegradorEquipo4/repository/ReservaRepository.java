@@ -1,6 +1,7 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.repository;
 
 
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Recursos;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Reserva;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.ReservaRespuesta;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,12 +34,23 @@ public class ReservaRepository implements IReservaRepository {
 
     @Override
     public List<ReservaRespuesta> findAllByReserva(int IdUsuario) {
-        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizaciónReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizaciónReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
+        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
                 "FROM offi_Reservas p " +
                 "INNER JOIN offi_usuarios u ON p.IdUsuario = u.IdUsuario " +
                 "INNER JOIN offi_recursos r ON p.IdRecurso = r.IdRecurso " +
                 "WHERE p.idUsuario = ?";
         return jdbcTemplate.query(SQL, new Object[]{IdUsuario}, BeanPropertyRowMapper.newInstance(ReservaRespuesta.class));
+    }
+
+    @Override
+    public List<Reserva> findAllByRecursoInDatesRange(int idRecurso, Date fechaInicio, Date fechaFin) {
+        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva "+
+                "FROM offi_Reservas p  "+
+                "INNER JOIN offi_recursos r ON p.IdRecurso = r.IdRecurso "+
+                "WHERE p.IdRecurso = ? "+
+                "AND ((p.InicioReserva BETWEEN ? AND ?) OR (p.FinalizacionReserva BETWEEN ? AND ?))";
+
+        return jdbcTemplate.query(SQL, new Object[]{idRecurso, fechaInicio, fechaFin, fechaInicio, fechaFin}, BeanPropertyRowMapper.newInstance(Reserva.class));
     }
     @Override
     public int save(Reserva reserva) {
@@ -45,8 +59,8 @@ public class ReservaRepository implements IReservaRepository {
         // Configura la zona horaria a UTC
         ZoneId zoneId = ZoneId.of("UTC");
         Instant inicio = reserva.getInicioReserva().toInstant();
-        Instant finalizacion= reserva.getFinalizaciónReserva().toInstant();
-        Instant realizacion= reserva.getFechaRealizaciónReserva().toInstant();
+        Instant finalizacion= reserva.getFinalizacionReserva().toInstant();
+        Instant realizacion= reserva.getFechaRealizacionReserva().toInstant();
         ZonedDateTime inicio1 = inicio.atZone(zoneId);
         ZonedDateTime finalizacion1 = finalizacion.atZone(zoneId);
         ZonedDateTime realizacion1 = realizacion.atZone(zoneId);
@@ -72,8 +86,8 @@ public class ReservaRepository implements IReservaRepository {
 
     @Override
     public int update(Reserva reserva) {
-        String SQL = "UPDATE offi_Reservas SET IdUsuario=?, InicioReserva=?, FinalizaciónReserva=?, EstadoReserva=?, IdRecurso=?, nombre=?, apellido=?, Email=?, FechaRealizaciónReserva=?  WHERE IdReserva=?";
-        return jdbcTemplate.update(SQL, reserva.getIdUsuario(), reserva.getInicioReserva(), reserva.getFinalizaciónReserva(), reserva.getEstadoReserva(), reserva.getIdRecurso(), reserva.getNombre(), reserva.getApellido(), reserva.getEmail(), reserva.getFechaRealizaciónReserva(), reserva.getIdReserva());
+        String SQL = "UPDATE offi_Reservas SET IdUsuario=?, InicioReserva=?, FinalizacionReserva=?, EstadoReserva=?, IdRecurso=?, nombre=?, apellido=?, Email=?, FechaRealizacionReserva=?  WHERE IdReserva=?";
+        return jdbcTemplate.update(SQL, reserva.getIdUsuario(), reserva.getInicioReserva(), reserva.getFinalizacionReserva(), reserva.getEstadoReserva(), reserva.getIdRecurso(), reserva.getNombre(), reserva.getApellido(), reserva.getEmail(), reserva.getFechaRealizacionReserva(), reserva.getIdReserva());
     }
 
     @Override
@@ -81,6 +95,5 @@ public class ReservaRepository implements IReservaRepository {
         String SQL = "SELECT * FROM offi_Reservas WHERE IdReserva= ?";
         return Optional.ofNullable(jdbcTemplate.queryForObject(SQL, new Object[]{id}, BeanPropertyRowMapper.newInstance(Reserva.class)));
     }
-
 
 }
