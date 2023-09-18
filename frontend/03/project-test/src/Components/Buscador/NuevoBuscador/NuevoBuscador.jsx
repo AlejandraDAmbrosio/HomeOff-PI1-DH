@@ -16,6 +16,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BuscarXSede from "../Sede/BuscarXSede";
 
 import CalendarioPrueba from "../Fecha/CalendarioPrueba";
+import CalendarioBuscador from "../Fecha/CalendarioBuscador";
 const NuevoBuscador = () => {
   const { fechasBusqueda, productosBKLista } = useContext(ContextGlobal);
   ////////// Segmento visual Calendario ///////////////
@@ -114,6 +115,13 @@ const NuevoBuscador = () => {
         </div>
 
         <Popover
+          sx={{
+            borderRadius: "20px",
+            style: {
+              overflowY: "auto",
+            },
+          }}
+          
           open={isDateDropdownOpen}
           onClose={handleDateDropdownClose}
           anchorEl={anchorEl}
@@ -125,18 +133,12 @@ const NuevoBuscador = () => {
             vertical: "top",
             horizontal: "center",
           }}
+        
         >
-          <Box p={2}>
-            <CalendarioPrueba></CalendarioPrueba>
-            {/* <CalendarioII   value={fechasBusqueda}
-              onChange={(newValue) => {
-                if (Array.isArray(newValue) && newValue.length === 2) {
-                  setFechasBusqueda(newValue.map((date) => date || null));
-                } else {
-                  setFechasBusqueda([null, null]);
-                }
-              }}/> */}
-          </Box>
+           <CalendarioBuscador></CalendarioBuscador>
+          {/* <Box p={2} sx={{borderRadius:"20%"}}> */}
+        
+          {/* </Box> */}
         </Popover>
 
       </Stack>

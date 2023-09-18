@@ -628,6 +628,7 @@ const Detail = () => {
   fechaInicio={fechaInicio}
   fechaFin={fechaFin}
   onChange={{handleDateChange}}
+  idRecurso={id}
 />
 
 {/* //////////////////////////////////////// */}

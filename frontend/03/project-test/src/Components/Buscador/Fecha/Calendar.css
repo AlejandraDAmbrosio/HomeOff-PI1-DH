@@ -5,7 +5,7 @@
     border: 1px solid #cccccc;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 0.7em;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow:  3px 3px 3px #DDDDDD;
   }
   
@@ -112,7 +112,7 @@
   }
   
   .react-calendar__tile:disabled {
-    background-color: #ee0202;
+    background-color: #dedede;
   }
   
   .react-calendar__tile:enabled:hover,
@@ -122,7 +122,7 @@
   }
   
   .react-calendar__tile--now {
-    background: #4f4f4f;
+    background-color: #343434;
     color: white;
     border-radius: 15px;
   }
