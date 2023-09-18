@@ -32,7 +32,7 @@ export const ContextProvider = ({ children }) => {
     }
 
     // solicitud POST a la API
-    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+    const urlBaseGuardar = "http://44.231.66.124:8080/auth/login";
     const body = JSON.stringify({
       username,
       password,
@@ -157,7 +157,7 @@ export const ContextProvider = ({ children }) => {
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/recursos/list");
+    const res = await fetch("http://44.231.66.124:8080/auth/recursos/list");
     const data = await res.json();
 
     setProductosBKLista(data);
@@ -172,7 +172,7 @@ export const ContextProvider = ({ children }) => {
 
   const getRecursoXID = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/auth/recursos/${id}`
+      `http://44.231.66.124:8080/auth/recursos/${id}`
     );
     const data = response.data;
 
@@ -203,7 +203,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   const getDatosUsers = async () => {
-    const urlUsers = "http://52.32.210.155:8080/auth/usuario/list";
+    const urlUsers = "http://44.231.66.124:8080/auth/usuario/list";
     // console.log("-------------- > getTokenUser", tokenUserState);
     // console.log("-------------- > urlUsers", urlUsers);
 
@@ -235,7 +235,7 @@ export const ContextProvider = ({ children }) => {
   const [usersXID, setUsersXID] = useState([]);
 
   const getDatosUsersXID = async (id) => {
-    const urlUsers = `http://52.32.210.155:8080/auth/usuario/${id}`;
+    const urlUsers = `http://44.231.66.124:8080/auth/usuario/${id}`;
 
     const headers = {
       "Content-Type": "application/json",
@@ -264,7 +264,7 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
+    const res = await fetch("http://44.231.66.124:8080/auth/categoria/list");
     const data = await res.json();
 
     // console.log(data);
@@ -275,7 +275,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasLista = async () => {
     const res = await fetch(
-      "http://52.32.210.155:8080/auth/caracteristicas/list"
+      "http://44.231.66.124:8080/auth/caracteristicas/list"
     );
     const data = await res.json();
     setCaracteristicasLista(data);
@@ -289,7 +289,7 @@ export const ContextProvider = ({ children }) => {
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
 
   const getCaracteristicasXID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/inter/${id}`);
+    const res = await fetch(`http://44.231.66.124:8080/auth/inter/${id}`);
     const data = await res.json();
     setCaracteristicasXID(data);
   };
@@ -303,7 +303,7 @@ export const ContextProvider = ({ children }) => {
   const [politicasXID, setPoliticasXID] = useState([]);
 
   const getPoliticasXID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
+    const res = await fetch(`http://44.231.66.124:8080/auth/politicas/${id}`);
     const data = await res.json();
 
     setPoliticasXID(data);
@@ -315,7 +315,7 @@ export const ContextProvider = ({ children }) => {
 const [politicas, setPoliticas] = useState([]);
 
 const getPoliticas = async () => {
-  const res = await fetch(`http://52.32.210.155:8080/auth/politicas/list`);
+  const res = await fetch(`http://44.231.66.124:8080/auth/politicas/list`);
   const data = await res.json();
 
   setPoliticas(data);
@@ -332,7 +332,7 @@ const getPoliticas = async () => {
   const getPuntosPromedioXIDRecurso = async (id) => {
     try {
       const response = await axios.get(
-        `http://52.32.210.155:8080/auth/puntaje/${id}/promedio`
+        `http://44.231.66.124:8080/auth/puntaje/${id}/promedio`
       );
 
       if (response.status === 404 || isNaN(response.data)) {
@@ -358,7 +358,7 @@ const getPoliticas = async () => {
   const [favoritos, setFavoritos] = useState([]);
 
   const getFavoritosXID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://44.231.66.124:8080/auth/favoritos/${id}`);
     const data = await res.json();
     // console.log("Data antes de inyectarse getFavoritosXID", data);
     const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
@@ -378,13 +378,13 @@ const getPoliticas = async () => {
   const [listaFavXUserId, setListaFavXUserId] = useState([]);
 
   const getListaFavXUserID = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://44.231.66.124:8080/auth/favoritos/${id}`);
     const data = await res.json();
     setListaFavXUserId(data);
   };
 
   const getFavoritos = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://44.231.66.124:8080/auth/favoritos/${id}`);
     const data = await res.json();
     // console.log("Data antes de inyectarse /////////// getFavoritos", data);
 
@@ -400,7 +400,7 @@ const getPoliticas = async () => {
   const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 
   const getPuntosComentXIDRecurso = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
+    const res = await fetch(`http://44.231.66.124:8080/auth/puntaje/${id}`);
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
@@ -453,7 +453,7 @@ const getPoliticas = async () => {
 
   const getReservas = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/auth/reserva/usuario/${id}`
+      `http://44.231.66.124:8080/auth/reserva/usuario/${id}`
     );
     const data = response.data;
     console.log(data);
@@ -590,7 +590,7 @@ const [ reservasPorRecurso, setReservasPorRecurso] = useState([]);
 
 const getReservasPorRecurso = async (id) => {
   const response = await axios.get(
-    `http://52.32.210.155:8080/auth/reserva/recurso/${id}`
+    `http://44.231.66.124:8080/auth/reserva/recurso/${id}`
   );
   const data = response.data;
 
@@ -602,7 +602,7 @@ const getReservasPorRecurso = async (id) => {
 const [ arrayFechasReservasXRecurso, setArrayFechasReservasXRecurso] = useState([]);
 
 const getArrayFechasReservasXRecurso = async (id) => {
-  const response = await axios.get(`http://52.32.210.155:8080/auth/reserva/recurso/${id}`);
+  const response = await axios.get(`http://44.231.66.124:8080/auth/reserva/recurso/${id}`);
   const data = response.data;
   
   const fechas = [];

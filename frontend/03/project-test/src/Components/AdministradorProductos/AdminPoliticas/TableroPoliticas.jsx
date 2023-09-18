@@ -117,7 +117,7 @@ const TableroPoliticas = () => {
 
 
       try {
-        const urlBaseGuardar = "http://52.32.210.155:8080/auth/politicas/save";
+        const urlBaseGuardar = "http://44.231.66.124:8080/auth/politicas/save";
         const jsonDataPoliticas = JSON.stringify(nuevaPoliticaData);
         console.log("jsonDataReserva", jsonDataPoliticas);
         console.log("nuevaPoliticaData", nuevaPoliticaData);
@@ -175,7 +175,7 @@ const TableroPoliticas = () => {
   const eliminarPolitica = async (idPolitica) => {
     try {
       const response = await axios.post(
-        `http://52.32.210.155:8080/auth/politicas/delete/${idPolitica}`,
+        `http://44.231.66.124:8080/auth/politicas/delete/${idPolitica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -227,7 +227,7 @@ const TableroPoliticas = () => {
       setPoliticasValida(true);
 
       const urlUpdatePoliticas =
-        "http://52.32.210.155:8080/auth/politicas/update";
+        "http://44.231.66.124:8080/auth/politicas/update";
 
       const editedItemData = {
         politica_uso_conducta: editedItem.politica_uso_conducta,

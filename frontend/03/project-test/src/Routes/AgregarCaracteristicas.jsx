@@ -200,7 +200,7 @@ const AgregarCaracteristicas = () => {
   const handleOptionChange = async (caracteristica) => {
     try {
       const urlCaracteristicasXIdRec =
-        "http://52.32.210.155:8080/auth/inter/save";
+        "http://44.231.66.124:8080/auth/inter/save";
 
       const caracteristicasParaEnviar = {
         idCaracteristica: caracteristica.idCaracteristica,
