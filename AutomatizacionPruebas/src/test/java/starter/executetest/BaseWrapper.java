@@ -1,4 +1,4 @@
-package starter;
+package starter.executetest;
 
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.JavascriptExecutor;

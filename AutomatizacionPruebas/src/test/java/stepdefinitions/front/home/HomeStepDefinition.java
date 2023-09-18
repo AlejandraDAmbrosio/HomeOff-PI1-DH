@@ -1,10 +1,10 @@
-package stepdefinitions;
+package stepdefinitions.front.home;
 
-import steps.HomeStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
+import steps.front.HomeStep;
 
 public class HomeStepDefinition {
     @Steps
@@ -14,11 +14,11 @@ public class HomeStepDefinition {
         homeStep.abrirUrl();
     }
     @When("Ingrese al url")
-    public void ingrese_al_url() {
-        throw new io.cucumber.java.PendingException();
+    public void ingrese_al_url() throws InterruptedException {
+        homeStep.validacionLogo();
     }
     @Then("Sera direccionado al home de HomeOff")
-    public void sera_direccionado_al_home_de_home_off() {
-        throw new io.cucumber.java.PendingException();
+    public void sera_direccionado_al_home_de_home_off() throws InterruptedException {
+        homeStep.validacionHome();
     }
 }
