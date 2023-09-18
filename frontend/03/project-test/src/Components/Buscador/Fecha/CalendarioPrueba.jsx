@@ -153,21 +153,21 @@ const CalendarioPrueba = ({ id }) => {
           }}
           onClick={onSaveDates}
         >
-          Guardar
+          Definir Fechas
         </Button>
         <Stack
-          flexDirection={{ lg: "row" }}
+          flexDirection={{ lg: "row",  md: "row" }}
           style={{justifyContent:"space-around", alignItems:"center"}}>
           <Typography>
             {" "}
             {new Date(value[0]).toDateString() !== "Invalid Date" && (
-              <p>Inicio de reserva:  {new Date(value[0]).toDateString()}</p>
+              <p>Inicio :  {new Date(value[0]).toDateString()}</p>
             )}
           </Typography>
           <Divider></Divider>
           <Typography>
             {new Date(value[0]).toDateString() !== "Invalid Date" && (
-              <p>Fin de reserva: {new Date(value[1]).toDateString()}</p>
+              <p>Fin : {new Date(value[1]).toDateString()}</p>
             )}
           </Typography>
         </Stack>
