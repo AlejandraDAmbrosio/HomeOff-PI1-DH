@@ -73,6 +73,13 @@ const PanelAdminUser = () => {
             <ListItemButton>Usuarios</ListItemButton>
           </ListItem>
         </Link>
+
+        
+        <Link to="/administrarpoliticas/">
+          <ListItem>
+            <ListItemButton>Politicas</ListItemButton>
+          </ListItem>
+        </Link>
 {/* 
         <ListItemButton onClick={() => alert("Próximamente")}>
           <ListItem>

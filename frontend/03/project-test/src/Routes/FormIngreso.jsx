@@ -1,5 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ContextGlobal } from "../Components/utils/global.context";
+import {
+  useNavigate,
+
+} from "react-router-dom";
 import "../Components/FormIngreso.css";
 import {
   Button,
@@ -32,7 +36,8 @@ const FormIngreso = () => {
     loginSuccess,
     setLoginSuccess,
   } = useContext(ContextGlobal);
-
+  const navigate = useNavigate();
+  console.log("FORM INICIO ABREEEEEEE")
   // Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
   const [emailValido, setEmailValido] = useState(true);
@@ -263,7 +268,7 @@ const FormIngreso = () => {
           style={{
             margin: "auto",
             justifyContent: "spaceBetween",
-            marginTop: "5rem",
+            marginTop: "1rem",
             height: "fitContent",
             alignContent: "center",
           }}
@@ -271,7 +276,7 @@ const FormIngreso = () => {
           <div className="pagina-formulario-Ingreso">
             <Typography style={{ fontSize: "30px" }}>
               {" "}
-              Inicia sesión ahora
+              Inicia sesión
             </Typography>
 
             <FormControl
@@ -364,11 +369,11 @@ const FormIngreso = () => {
             </FormControl>
 
             <div className="acceso-cuenta-o-usuarionuevo">
-              <div onClick={() => window.location.replace("/formaltauser")}>
-                No tenés cuenta?
+              <div onClick={() =>   navigate(`/formaltauser/`)} style={{cursor:"pointer"}}>
+                No tenés cuenta? 
               </div>
               {/* <div>No tenés cuenta?</div> */}
-              <div>Se te olvidó tu contraseña?</div>
+              {/* <div>Se te olvidó tu contraseña?</div> */}
             </div>
           </div>
         </Paper>

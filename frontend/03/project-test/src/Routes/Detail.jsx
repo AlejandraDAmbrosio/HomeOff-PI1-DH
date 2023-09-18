@@ -44,17 +44,34 @@ import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
 import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
+import FormIngreso from "./FormIngreso";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  Width: "320px",
+  width: "320px",
+  height: "auto",
   bgcolor: "background.paper",
   border: "12px solid white",
   boxShadow: 24,
   p: 1,
+};
+
+const styleModalInicio = {
+  position: "relative",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 360,
+
+  bgcolor: "background.paper",
+  border: "1px solid #ffff",
+  boxShadow: 24,
+  pt: 0,
+  px: 0,
+  pb: 3,
 };
 
 const Detail = () => {
@@ -80,11 +97,16 @@ const Detail = () => {
     // email,
     // setEmail,
     userIdLogIn,
-    fechaInicio, setFechaInicio,
-    fechaFin, setFechaFin,
-    cantidadDias, setCantidadDias,  getReservasPorRecurso,
+    fechaInicio,
+    setFechaInicio,
+    usuarioLogueado,
+    fechaFin,
+    setFechaFin,
+    cantidadDias,
+    setCantidadDias,
+    getReservasPorRecurso,
     arrayFechasReservasXRecurso,
-        getArrayFechasReservasXRecurso,
+    getArrayFechasReservasXRecurso,
     reservasPorRecurso,
   } = useContext(ContextGlobal);
 
@@ -155,6 +177,19 @@ const Detail = () => {
       });
   };
   ///////////////FIN MODAL  Compartir  ////////////////////////
+  ////////////////Derivacion a Inicio en caso de reservar y no estar logueado
+
+  const [openLogIn, setOpenLogIn] = useState(false);
+  const handleOpenLogIn = () => {
+    setOpenLogIn(true);
+  };
+
+  const handleCloseLogIn = () => {
+    setOpenLogIn(false);
+  };
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
 
   //////////////// Traer info del Contexto ////////////////////////
 
@@ -163,7 +198,7 @@ const Detail = () => {
       getRecursoXID(id);
       getCaracteristicasXID(id);
       getPuntosComentXIDRecurso(id);
-      getArrayFechasReservasXRecurso(id)
+      getArrayFechasReservasXRecurso(id);
     },
     [id],
     { max: 2 }
@@ -174,31 +209,34 @@ const Detail = () => {
   }
 
   /////////////// INICIO Carga de Datos para reservar  ////////////////////////
-  
+
   const handleDateChange = (date) => {
     setFechaInicio(date.startDate);
     setFechaFin(date.endDate);
   };
-  
-  
+
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setInfoRecursoAReservar({
-      idRecurso: recursoXID.idRecurso,
-      fechaInicio: fechaInicio,
-      fechaFin: fechaFin,
-      fechaRealizacionReserva: fechaRealizacionReserva,
-      idUser: idUserParse,
-      precioProducto: recursoXID.precioUnitario,
-      precioTotal: 0,
-      dias: cantidadDias,
-    });
 
-    navigate(`/reserva/${id}`);
+    if (idUserParse == 0) {
+      handleOpenLogIn();
+    } else {
+      setInfoRecursoAReservar({
+        idRecurso: recursoXID.idRecurso,
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        fechaRealizacionReserva: fechaRealizacionReserva,
+        idUser: idUserParse,
+        precioProducto: recursoXID.precioUnitario,
+        precioTotal: 0,
+        dias: cantidadDias,
+      });
+
+      navigate(`/reserva/${id}`);
+    }
   };
-
 
   return (
     <>
@@ -621,17 +659,16 @@ const Detail = () => {
             xl={5}
             style={{ placeItems: "center", margin: "auto" }}
           >
+            {/* //////////////////////////////////////// */}
 
-{/* //////////////////////////////////////// */}
+            <CalendarioPrueba
+              fechaInicio={fechaInicio}
+              fechaFin={fechaFin}
+              onChange={{ handleDateChange }}
+              idRecurso={id}
+            />
 
-<CalendarioPrueba
-  fechaInicio={fechaInicio}
-  fechaFin={fechaFin}
-  onChange={{handleDateChange}}
-  idRecurso={id}
-/>
-
-{/* //////////////////////////////////////// */}
+            {/* //////////////////////////////////////// */}
 
             <Button
               sx={{
@@ -647,6 +684,42 @@ const Detail = () => {
               Reservar
             </Button>
           </Stack>
+
+          <Modal
+            open={openLogIn}
+            onClose={handleCloseLogIn}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={styleModalInicio}>
+              <Stack
+                style={{ alignItems: "center", justifyContent: "space-around" }}
+              >
+                <Paper 
+                sx={{width:"320px"}}>
+                  <Typography
+                    style={{
+                      margin: "1rem 0 0 0",
+                      textAlign: "center",
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    Inicie su sesion para reservar.{" "}
+                  </Typography>
+                  <Typography
+                    style={{
+                      margin: "1rem 0 0 0",
+                      textAlign: "center",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Si no esta registrado, debe crear su usuario para continuar.
+                  </Typography>
+                </Paper>
+                <FormIngreso />
+              </Stack>
+            </Box>
+          </Modal>
 
           <Stack
             item

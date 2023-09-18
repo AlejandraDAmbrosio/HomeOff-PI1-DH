@@ -153,7 +153,7 @@ const CalendarioBuscador = ({ id }) => {
           }}
           onClick={onSaveDates}
         >
-          Guardar
+          Buscar
         </Button>
         {/* <Stack
           flexDirection={{ lg: "row" }}

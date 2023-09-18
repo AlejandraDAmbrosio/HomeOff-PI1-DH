@@ -23,6 +23,7 @@ import AgregarCaracteristicas from "./Routes/AgregarCaracteristicas";
 import VerReservas from "./Routes/VerReservas";
 import Reservas from "./Routes/Reservas";
 import ReservarXIDRecurso from "./Routes/ReservarXIDRecurso";
+import AdministrarPoliticas from "./Routes/AdministrarPoliticas";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
@@ -92,6 +93,17 @@ function App() {
             />
           }
         />
+
+<Route
+          path="/AdministrarPoliticas/"
+          element={
+            <PrivateRoute
+              component={AdministrarPoliticas}
+              adminOnly={true}
+            />
+          }
+        />
+
 
         <Route
           path="/administradorproductos/"

@@ -309,6 +309,22 @@ export const ContextProvider = ({ children }) => {
     setPoliticasXID(data);
   };
 
+////////////////////////////////
+
+
+const [politicas, setPoliticas] = useState([]);
+
+const getPoliticas = async () => {
+  const res = await fetch(`http://52.32.210.155:8080/auth/politicas/list`);
+  const data = await res.json();
+
+  setPoliticas(data);
+};
+
+
+
+
+
   /////////////////////////////////// Puntaje promedio por IDRecurso
 
   const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
@@ -432,7 +448,7 @@ export const ContextProvider = ({ children }) => {
 
   const getReservas = async (id) => {
     const response = await axios.get(
-      `http://52.32.210.155:8080/auth/reserva/${id}`
+      `http://52.32.210.155:8080/auth/reserva/usuario/${id}`
     );
     const data = response.data;
     console.log(data);
@@ -611,10 +627,18 @@ const getArrayFechasReservasXRecurso = async (id) => {
   // console.log("finalizacionReserva -----------Context---", finalizacionReserva)
 };
 // console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
+
+
+
+
+
+
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        politicas, setPoliticas,
+        getPoliticas,
         arrayFechasReservasXRecurso,
         getArrayFechasReservasXRecurso,
         getReservasPorRecurso,
