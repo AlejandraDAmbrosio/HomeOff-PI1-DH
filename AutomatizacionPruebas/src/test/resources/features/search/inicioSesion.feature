@@ -7,9 +7,9 @@ Background:
     When Ingrese al url
     Then Sera direccionado al home de HomeOff
 
-  @Login
-
-  Scenario: Login a la web de HomeOff
+  @Regresion @Login
+  @Test3
+  Scenario: Login a la web de HomeOff rol admin
     Given Que se tiene un usuario existente
-    When Se ingrese en el login y se ingresen los datos del usuario creado
+    When Se ingrese en el login y se ingresen los datos del correo "picapiedra@gmail.com" y contrasena "Papanatas.1"
     Then al dar clic en Acceso, debe permitir ingresar correctamente

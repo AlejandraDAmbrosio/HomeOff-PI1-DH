@@ -7,8 +7,8 @@ Feature: Crear cuenta aplicativo HomeOff
     When Ingrese al url
     Then Sera direccionado al home de HomeOff
 
-  @CreaCuenta
-
+  @Regresion @CreaCuenta
+  @Test2
   Scenario: Creacion cuenta usuarios
     Given Que se quiere crear un usuario para navegar
     When se ingrese la informacion de los datos requeridos para creacion de cuenta

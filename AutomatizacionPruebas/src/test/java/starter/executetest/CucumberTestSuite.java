@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         plugin = {"json:target/destination/cucumber.json"},
         glue = "stepdefinitions",
-        tags = "@CreaCuenta"
+        tags = "@Test1"
 )
 public class  CucumberTestSuite {
 }

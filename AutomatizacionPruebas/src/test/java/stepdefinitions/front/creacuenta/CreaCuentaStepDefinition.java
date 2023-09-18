@@ -5,7 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
-import steps.CreaCuentaStep;
+import steps.front.CreaCuentaStep;
 
 public class CreaCuentaStepDefinition {
     @Steps
@@ -13,7 +13,8 @@ public class CreaCuentaStepDefinition {
 
     @Given("Que se quiere crear un usuario para navegar")
     public void que_se_quiere_crear_un_usuario_para_navegar() throws InterruptedException {
-        creaCuentaStep.abrirAdmonUser();
+        creaCuentaStep.ingresoOpcionCrearUsuario();
+       // creaCuentaStep.abrirAdmonUser();
     }
     @When("se ingrese la informacion de los datos requeridos para creacion de cuenta")
     public void se_ingrese_la_informacion_de_los_datos_requeridos_para_creacion_de_cuenta() throws InterruptedException {
