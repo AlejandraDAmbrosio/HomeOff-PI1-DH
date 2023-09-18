@@ -91,7 +91,7 @@ public class ReservaService implements IReservaService {
         estadoFechaRespuesta.setFechaInicioBusqueda(fechaInicialBusqueda);
         estadoFechaRespuesta.setFechaFinBusqueda(fechaFinalBusqueda);
 
-        HashMap<Date, String> rangoDiasEntreFechas = new HashMap<>();
+        LinkedHashMap<String, String> rangoDiasEntreFechas = new LinkedHashMap<>();
         estadoFechaRespuesta.setEstadoPorFechas(rangoDiasEntreFechas);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -124,8 +124,9 @@ public class ReservaService implements IReservaService {
         Date fecha = fechaInicio;
 
         // Define un HashMap para almacenar las fechas con su estado, inicializa las fechas como disponibles
-        while (fecha.before(fechaFin)) {
-            rangoDiasEntreFechas.put(fecha, "DISPONIBLE");
+        while (fecha.before(fechaFin) || fecha.equals(fechaFin)) {
+            String fechaTexto = sdf.format(fecha);
+            rangoDiasEntreFechas.put(fechaTexto, "DISPONIBLE");
 
             // Avanza al siguiente intervalo de tiempo
             calendario.setTime(fecha);
@@ -140,9 +141,12 @@ public class ReservaService implements IReservaService {
             Date finReserva = reserva.getFinalizacionReserva();
             // Itera sobre el rango de fechas y marca como ocupada las que se superponen con reservas
             Date diaReserva = inicioReserva;
-            while (diaReserva.before(finReserva)) {
-                rangoDiasEntreFechas.put(diaReserva, "OCUPADO");
-
+            calendario.setTime(diaReserva);
+            while (diaReserva.compareTo(finReserva)<=0 && diaReserva.compareTo(fechaFin)<=0) {
+                if (diaReserva.compareTo(fechaInicio)>=0) {
+                    String diaReservaTexto = sdf.format(diaReserva);
+                    rangoDiasEntreFechas.put(diaReservaTexto, "OCUPADO");
+                }
                 // Avanza al siguiente intervalo de tiempo
                 calendario.setTime(diaReserva);
                 calendario.add(Calendar.DAY_OF_YEAR, 1);

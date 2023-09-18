@@ -48,9 +48,9 @@ public class ReservaRepository implements IReservaRepository {
                 "FROM offi_Reservas p  "+
                 "INNER JOIN offi_recursos r ON p.IdRecurso = r.IdRecurso "+
                 "WHERE p.IdRecurso = ? "+
-                "AND ((p.InicioReserva BETWEEN ? AND ?) OR (p.FinalizacionReserva BETWEEN ? AND ?))";
+                "AND (p.InicioReserva <= ? AND p.FinalizacionReserva >= ?)";
 
-        return jdbcTemplate.query(SQL, new Object[]{idRecurso, fechaInicio, fechaFin, fechaInicio, fechaFin}, BeanPropertyRowMapper.newInstance(Reserva.class));
+        return jdbcTemplate.query(SQL, new Object[]{idRecurso, fechaFin, fechaInicio}, BeanPropertyRowMapper.newInstance(Reserva.class));
     }
     @Override
     public int save(Reserva reserva) {

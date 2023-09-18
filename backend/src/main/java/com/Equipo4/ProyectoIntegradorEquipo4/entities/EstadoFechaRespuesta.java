@@ -8,5 +8,5 @@ public class EstadoFechaRespuesta {
     private int	idRecurso;
     private String fechaInicioBusqueda;
     private String fechaFinBusqueda;
-    private HashMap<Date,String> estadoPorFechas;
+    private HashMap<String,String> estadoPorFechas;
 }
