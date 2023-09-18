@@ -178,6 +178,7 @@ const ReservarXIDRecurso = () => {
     try {
       const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
       const jsonDataReserva = JSON.stringify(guardarReserva);
+      console.log("jsonDataReserva", jsonDataReserva)
       console.log("datosReserva", jsonDataReserva);
       const response = await fetch(urlReserva, {
         method: "POST",
