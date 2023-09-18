@@ -391,6 +391,11 @@ const getPoliticas = async () => {
     setFavoritos(data);
   };
 
+
+
+
+
+
   ///////////////////////////////// Puntajes y comentarios por IdRecurso
   const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 

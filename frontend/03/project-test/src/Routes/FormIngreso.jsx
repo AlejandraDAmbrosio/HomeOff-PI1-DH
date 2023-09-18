@@ -55,31 +55,6 @@ const FormIngreso = () => {
     setOpen(false);
   };
 
-  // const handleOpen = () => {
-  //   setOpen(true);
-  //   if (modalTimeout) {
-  //     console.log("clearTimeout(modalTimeout);")
-  //     clearTimeout(modalTimeout);
-  //   }
-  // };
-
-  // const handleClose = () => {
-  //   if (!loginSuccess) {
-  //     setOpen(false);
-  //   }
-  // };
-
-  // const handleCloseWithTimeout = () => {
-
-  //     setModalTimeout(
-  //       setTimeout(() => {
-  //         console.log("setTimeout")
-  //         handleClose();
-  //         clearTimeout(modalTimeout);
-  //       }, 10000)
-  //     );
-
-  // };
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -204,56 +179,7 @@ const FormIngreso = () => {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Cerrar</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {errorLogueo && (
-              <h5 className="msj-form-guardado">{errorLogueo}</h5>
-            )}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cerrar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {/* <Paper
-          sx={{
-            width: "320px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-          style={{
-            placeItems: "center",
-            margin: "auto",
-            justifyContent: "spaceBetween",
-            height: "100px",
-            marginTop: "10rem",
-          }}
-        >
-       
-          <IconButton
-            aria-label="cerrar"
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>
-
-          <div>
-            {errorLogueo && (
-              <h5 className="msj-form-guardado">{errorLogueo}</h5>
-            )}
-          </div>
-        </Paper>
-      </Modal> */}
-
+    
       {!usuarioLogueado ? (
         <Paper
           sx={{
@@ -288,27 +214,7 @@ const FormIngreso = () => {
               }}
             >
               <div className="formulario-inicio">
-                {/* <TextField
-                  id="nombre"
-                  label="Nombre"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa tu nombre "
-                  value={usuario.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                  style={{ borderColor: nombreValido ? "" : "red" }}
-                />
-
-                {!nombreValido ? (
-                  <p className="error-form-inicio">
-                    Ingrese entre 3 y 30 caracteres y solo contener letras.
-                  </p>
-                ) : (
-                  ""
-                )} */}
+                
 
                 <TextField
                   id="email"
@@ -372,14 +278,28 @@ const FormIngreso = () => {
               <div onClick={() =>   navigate(`/formaltauser/`)} style={{cursor:"pointer"}}>
                 No tenés cuenta? 
               </div>
-              {/* <div>No tenés cuenta?</div> */}
-              {/* <div>Se te olvidó tu contraseña?</div> */}
+       
             </div>
           </div>
         </Paper>
       ) : (
         ""
       )}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Iniciar sesión</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{fontSize:"1.3rem"}}>
+            {errorLogueo && (
+              <h5 className="msj-form-guardado">{errorLogueo}</h5>
+            )}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
