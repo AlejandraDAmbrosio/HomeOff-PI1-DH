@@ -228,7 +228,7 @@ const BuscarXSede = () => {
   ////////////////////////////////////////////
 
  
-
+  let estaDisponible = true;
   const getFechasHabilitadasXIDRecurso = async (id) => {
     try {
       const response = await axios.get(
@@ -237,16 +237,18 @@ const BuscarXSede = () => {
       const data = response.data;
       // Realiza acciones con los datos obtenidos
       console.log(`Datos para recurso ${id}:`, data);
-      let estaDiponible = true;
+ 
       for (const fecha in data.estadoPorFechas) {
         // Accede al valor "DISPONIBLE"
         if (data.estadoPorFechas[fecha] !== "DISPONIBLE") {
           // console.log(`Fecha: ${fecha}, Estado: DISPONIBLE`);
-          estaDiponible = false; 
+          estaDisponible = false; 
           break;
+        }else{
+          estaDisponible = true; 
         }
       }
-      console.log(` el producto ${id}  estaDiponible? ${estaDiponible}`);
+      console.log(` el producto ${id}  estaDiponible? ${estaDisponible}`);
 
 
     } catch (error) {
@@ -255,14 +257,15 @@ const BuscarXSede = () => {
     }
   };
 
- 
+  let filteredProducts= [];
   const handleSearchFechas = async () => {
-    let filteredProducts;
+   
     if (prodFiltrados.length > 0) {
       console.log("prodFiltrados", prodFiltrados);
       // Si hay productos filtrados, enviar solicitudes para cada idRecurso//// OK
       for (const producto of prodFiltrados) {
         await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+        
         
         console.log("Productos filtrados por fechas  if (prodFiltrados.length > 0):", filteredProducts);
       
@@ -270,19 +273,26 @@ const BuscarXSede = () => {
       }
 
     } else {
-      // Si hay productos YA filtrados, enviar solicitudes para cada idRecurso
+      // Si no tienes productos filtrados, realiza la búsqueda y filtro aquí
       filteredProducts = await Promise.all(
         productosBKLista.map(async (producto) => {
-          // Utiliza Promise.all para esperar todas las solicitudes en paralelo
+          // Realiza la llamada a getFechasHabilitadasXIDRecurso para cada producto
           await getFechasHabilitadasXIDRecurso(producto.idRecurso);
-          console.log("Productos filtrados por fechas const filteredProducts = await Promise.all:", filteredProducts);
-          // Sumemos el criterio del filtro aca!!!
-          return (
-            producto.fecha >= fechaInicioBusqueda &&
-            producto.fecha <= fechaFinBusqueda
-          );
+  
+          // Verifica si el producto está disponible
+          if (estaDisponible) {
+            // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
+            return producto;
+          } else {
+            return null; // No agregues el producto si no está disponible
+          }
         })
       );
+  
+      // Filtra los productos no nulos (es decir, disponibles)
+      filteredProducts = filteredProducts.filter((producto) => producto !== null);
+    
+  setProdFiltrados(filteredProducts);
 
       // Realiza acciones con los productos filtrados
       console.log("Productos filtrados por fechas:", filteredProducts);
