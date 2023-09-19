@@ -248,10 +248,13 @@ const BuscarXSede = () => {
     let filteredProducts;
     if (prodFiltrados.length > 0) {
       console.log("prodFiltrados", prodFiltrados);
-      // Si hay productos filtrados, enviar solicitudes para cada idRecurso
+      // Si hay productos filtrados, enviar solicitudes para cada idRecurso//// OK
       for (const producto of prodFiltrados) {
         await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+        
         console.log("Productos filtrados por fechas  if (prodFiltrados.length > 0):", filteredProducts);
+      
+      
       }
 
     } else {
