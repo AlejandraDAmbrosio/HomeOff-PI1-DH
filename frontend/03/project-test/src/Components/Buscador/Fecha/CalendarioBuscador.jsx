@@ -35,21 +35,21 @@ const CalendarioBuscador = ({ id }) => {
   } = useContext(ContextGlobal);
 
 
-  useEffect(() => {
-    console.log("USEEFFECT ---> ", value);
-    const inicio =
-      new Date(value[0]).toDateString() !== "Invalid Date"
-        ? new Date(value[0]).toDateString()
-        : new Date(value).toLocaleDateString();
-    const fin =
-      new Date(value[1]).toDateString() !== "Invalid Date"
-        ? new Date(value[1]).toDateString()
-        : new Date(value).toLocaleDateString();
-    console.log("USEEFFECT  inicio---> ", inicio);
-    console.log("USEEFFECT  fin---> ", fin);
-    setFechaInicioBusqueda(inicio);
-    setFechaFinBusqueda(fin);
-  }, [value]);
+  // useEffect(() => {
+  //   console.log("USEEFFECT ---> ", value);
+  //   const inicio =
+  //     new Date(value[0]).toDateString() !== "Invalid Date"
+  //       ? new Date(value[0]).toDateString()
+  //       : new Date(value).toLocaleDateString();
+  //   const fin =
+  //     new Date(value[1]).toDateString() !== "Invalid Date"
+  //       ? new Date(value[1]).toDateString()
+  //       : new Date(value).toLocaleDateString();
+  //   console.log("USEEFFECT  inicio---> ", inicio);
+  //   console.log("USEEFFECT  fin---> ", fin);
+  //   setFechaInicioBusqueda(inicio);
+  //   setFechaFinBusqueda(fin);
+  // }, [value]);
 
   const handleDateChange = (date) => {
     setValue(date);
@@ -94,10 +94,10 @@ const CalendarioBuscador = ({ id }) => {
       }
     }
     console.log(arrayFechas);
-    console.log("Fechas INICIO guardada en onSaveDates", inicio);
-    console.log("Fechas FIN guardada en onSaveDates", fin);
-    setFechaInicioBusqueda(inicio);
-    setFechaFinBusqueda(fin);
+    console.log("Fechas INICIO guardada en onSaveDates", inicio.toLocaleDateString());
+    console.log("Fechas FIN guardada en onSaveDates", fin.toLocaleDateString());
+    setFechaInicioBusqueda(inicio.toLocaleDateString());
+    setFechaFinBusqueda(fin.toLocaleDateString());
     // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
   }, [value]);
   return (
