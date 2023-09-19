@@ -251,10 +251,10 @@ const FormIngreso = () => {
                   style={{ borderColor: passwordValido ? "" : "red" }}
                 />
                 {!passwordValido ? (
-                  <p className="error-form-inicio">
-                    La contraseña debe tener al menos 8 caracteres, incluir una
+                      <Typography variant="body2" style={{ color: "red" }}>
+                        La contraseña debe tener al menos 8 caracteres, incluir una
                     letra mayúscula y un carácter no alfanumérico.
-                  </p>
+                    </Typography>
                 ) : (
                   ""
                 )}

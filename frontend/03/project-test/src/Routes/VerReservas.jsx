@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
 import {
   Container,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -14,6 +15,8 @@ import {
 } from "@mui/material";
 import obtenerImagenXIdRecurso from "../Components/utils/obtenerImagenXIdRecurso";
 import formatearFecha from "../Components/utils/formatearFechaParaVisualizar";
+import { BiSortDown,BiSortUp  } from 'react-icons/bi';
+
 
 import formateoFechas from "../Components/utils/formateoFechas";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
@@ -82,6 +85,12 @@ const VerReservas = () => {
     setSortedReservas(newSortedReservas);
   };
 
+  const getSortIcon = (column) => {
+    if (column === sortColumn) {
+      return sortDirection === "asc" ? <BiSortDown fontSize={"20px"}/> : <BiSortUp  fontSize={"20px"}/>;
+    }
+    return null;
+  };
 
   return (
     <Container>
@@ -94,7 +103,7 @@ const VerReservas = () => {
         }}
       >
         <Typography variant="h3">Ver historial Reservas</Typography>
-
+<Paper>
         <TableContainer sx={{ maxHeight: 500, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -106,14 +115,14 @@ const VerReservas = () => {
                   width: "100%",
                 }}
               >
-              <TableCell >Imagen</TableCell>
-                <TableCell onClick={() => sortData("idRecurso")} style={{cursor:"pointer"}}>Id</TableCell>
-                <TableCell onClick={() => sortData("nombreRecurso")} style={{cursor:"pointer"}}>Nombre</TableCell>
-                <TableCell onClick={() => sortData("inicioReserva")} style={{cursor:"pointer"}}>Fecha de inicio</TableCell>
-                <TableCell onClick={() => sortData("finalizacionReserva")} style={{cursor:"pointer"}}>Fecha de fin</TableCell>
-                <TableCell onClick={() => sortData("fechaRealizacionReserva") } style={{cursor:"pointer"}}>Fecha reserva</TableCell>
-                <TableCell onClick={() => sortData("dias")} style={{cursor:"pointer"}}>Días</TableCell>
-                <TableCell onClick={() => sortData("precio")} style={{cursor:"pointer"}}>Precio</TableCell>
+              <TableCell style={{fontSize:"1.1rem"}}>Imagen</TableCell>
+                <TableCell onClick={() => sortData("idRecurso")} style={{cursor:"pointer", fontSize:"1.1rem", width:"80px"}}>Id {getSortIcon("idRecurso")}</TableCell>
+                <TableCell onClick={() => sortData("nombreRecurso")} style={{cursor:"pointer", fontSize:"1.1rem", width:"100px"}}>Nombre  {getSortIcon("nombreRecurso")}</TableCell>
+                <TableCell onClick={() => sortData("inicioReserva")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Fecha de inicio {getSortIcon("inicioReserva")}</TableCell>
+                <TableCell onClick={() => sortData("finalizacionReserva")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Fecha de fin {getSortIcon("finalizacionReserva")}</TableCell>
+                <TableCell onClick={() => sortData("fechaRealizacionReserva") } style={{cursor:"pointer", fontSize:"1.1rem"}}>Fecha reserva {getSortIcon("fechaRealizacionReserva")}</TableCell>
+                <TableCell onClick={() => sortData("dias")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Días {getSortIcon("dias")}</TableCell>
+                <TableCell onClick={() => sortData("precio")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Precio  {getSortIcon("precio")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -171,6 +180,7 @@ const VerReservas = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        </Paper>
       </Stack>
     </Container>
   );
