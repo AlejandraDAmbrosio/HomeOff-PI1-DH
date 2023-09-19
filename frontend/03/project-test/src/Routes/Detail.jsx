@@ -25,6 +25,7 @@ import {
   Snackbar,
   IconButton,
   Grid,
+  Dialog,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
@@ -685,7 +686,7 @@ const Detail = () => {
             </Button>
           </Stack>
 
-          <Modal
+          <Dialog
             open={openLogIn}
             onClose={handleCloseLogIn}
             aria-labelledby="modal-modal-title"
@@ -715,11 +716,12 @@ const Detail = () => {
                   >
                     Si no esta registrado, debe crear su usuario para continuar.
                   </Typography>
+                  <FormIngreso />
                 </Paper>
-                <FormIngreso />
+                
               </Stack>
             </Box>
-          </Modal>
+          </Dialog>
 
           <Stack
             item
