@@ -308,8 +308,12 @@ const BuscarXSede = () => {
       setProdFiltrados(filteredProducts);
       // Realiza acciones con los productos filtrados
       console.log("Productos filtrados por fechas   } else {:", filteredProducts);
+      console.log("prodFiltrados.length", prodFiltrados.length)
     }
    console.log(prodFiltrados)
+   console.log("prodFiltrados.length", prodFiltrados.length)
+
+
   };
 
   return (
