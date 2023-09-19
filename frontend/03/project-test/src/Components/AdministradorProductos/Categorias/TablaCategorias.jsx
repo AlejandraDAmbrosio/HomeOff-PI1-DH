@@ -106,7 +106,7 @@ const TablaCategorias = () => {
       console.log(nuevaCategoriaData);
 
       // enviarDatos
-      const urlBaseGuardar = "http://52.32.210.155:8080/api/v1/categorias/save";
+      const urlBaseGuardar = "http://52.32.210.155:8080/auth/categoria/save";
 
       try {
         const jsonData = JSON.stringify(nuevaCategoriaData);
@@ -151,8 +151,8 @@ const TablaCategorias = () => {
 
   const eliminarCategoria = async (categoria_id) => {
     try {
-      const response = await axios.get(
-        `http://52.32.210.155:8080/api/v1/categorias/delete/${categoria_id}`,
+      const response = await axios.post(
+        `http://52.32.210.155:8080/auth/categoria/delete/${categoria_id}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -317,6 +317,19 @@ const TablaCategorias = () => {
             type="text"
             value={nuevaCategoria.icono_Categoria}
             onChange={onChangeIconoCat}
+            fullWidth
+            variant="standard"
+          />
+           <TextField
+            autoFocus
+            margin="dense"
+            multiline
+            rows={3}
+            id="descripcion"
+            label="Descripción Característica"
+            type="text"
+            value={nuevaCategoria.description}
+            onChange={onChangeDescription}
             fullWidth
             variant="standard"
           />

@@ -190,7 +190,7 @@ const ReservarXIDRecurso = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Respuesta:", responseData);
+        // console.log("Respuesta:", responseData);
         setInfoMensaje({cuerpo:" Ha realizado una reserva con éxito",idReserva:`Su numero de reserva es el ${responseData.idReserva} .`, final:"Gracias por reservar con HomeOff" })
 
       } else {

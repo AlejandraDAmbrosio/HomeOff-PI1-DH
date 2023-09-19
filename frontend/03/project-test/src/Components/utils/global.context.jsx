@@ -586,7 +586,11 @@ const getPoliticas = async () => {
 const [ reservasPorRecurso, setReservasPorRecurso] = useState([]);
 
 
- 
+ const [fechaInicioBusqueda, setFechaInicioBusqueda]= useState(new Date());
+ const [fechaFinBusqueda, setFechaFinBusqueda]= useState(new Date());
+ const [cantidadDiasBusqueda, setCantidadDiasBusqueda]=  useState(null);
+
+
 
 const getReservasPorRecurso = async (id) => {
   const response = await axios.get(
@@ -642,6 +646,9 @@ const getArrayFechasReservasXRecurso = async (id) => {
   return (
     <ContextGlobal.Provider
       value={{
+        fechaFinBusqueda, setFechaFinBusqueda,
+        cantidadDiasBusqueda, setCantidadDiasBusqueda,
+        fechaInicioBusqueda, setFechaInicioBusqueda,
         politicas, setPoliticas,
         getPoliticas,
         arrayFechasReservasXRecurso,

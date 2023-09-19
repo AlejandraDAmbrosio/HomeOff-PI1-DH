@@ -60,8 +60,8 @@ const TablaProductos = () => {
 
   const eliminarRecurso = async (idRecurso) => {
     try {
-      const response = await axios.delete(
-        `http://52.32.210.155:8080/auth/recurso/delete/${idRecurso}`,
+      const response = await axios.post(
+        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`,
         {
           headers: {
             "Content-Type": "application/json",

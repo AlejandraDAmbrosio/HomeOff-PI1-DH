@@ -13,9 +13,11 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AgregarCaracteristicas = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const {
@@ -62,140 +64,7 @@ const AgregarCaracteristicas = () => {
     }
   }, [recursoXID]);
 
-  //////////////////OnChanges///////////////
-
-// const handleOptionChange = (caracteristica) => {
-//   if (caracteristicasSeleccionadas.some((item) => item.idCaracteristica === caracteristica.idCaracteristica)) {
-//     // Si ya está seleccionado, quítalo del array
-//     setCaracteristicasSeleccionadas((prevCaracteristicas) => 
-//       prevCaracteristicas.filter((item) => item.idCaracteristica !== caracteristica.idCaracteristica)
-//     );
-//   } else {
-//     // Si no está seleccionado, agrégalo al array
-//     setCaracteristicasSeleccionadas((prevCaracteristicas) => 
-//       [...prevCaracteristicas, caracteristica]
-//     );
-//   }
-// };
-
-  /////////handleSubmit //////
-  // const handleSubmitCrearProducto = async (e) => {
-  //   e.preventDefault();
-
-  //   if (formCaracteristicas != null) {
-  //     console.log("----Info paquete enviado en nuevoProductoData---");
-  //     console.log(formCaracteristicas);
-
-  //     console.log("------------------formCaracteristicas  ------------------");
-  //     console.log(formCaracteristicas);
-
-      //////// Envio de info a Caracteristicas///////////////////
-
-      // const urlCaracteristicasXIdRec =
-      //   "http://52.32.210.155:8080/auth/inter/save";
-
-      // const caracteristicasParaEnviar = Object.keys(
-      //   caracteristicasSeleccionadas
-      // ).map((idCaracteristica) => ({
-      //   idCaracteristica: parseInt(idCaracteristica),
-      //   idRecurso: recursoXID.idRecurso,
-      //   idCaracteristicas_x_Recurso: 0,
-      // }));
-
-
-      // const caracteristicasParaEnviar = {
-      //   idCaracteristica: 10, 
-      //   idRecurso: 229, 
-      //   idCaracteristicas_x_Recurso: 0, 
-      // };
-
-
-      // const caracteristicasParaEnviar = caracteristicasSeleccionadas.map((caracteristica) => ({
-      //   idCaracteristica: caracteristica.idCaracteristica,
-      //   idRecurso: recursoXID.idRecurso,
-      //   idCaracteristicas_x_Recurso: 0,
-      // }));
-
-      // console.log(
-      //   "----caracteristicasParaEnviar: --->",
-      //   caracteristicasParaEnviar
-      // );
-
-      // try {
-      //   console.log("segundo Try: ------------------------------------------------>");
-
-      //   const jsonData2 = JSON.stringify(caracteristicasParaEnviar);
-
-      //   console.log("jsonData2", jsonData2)
-      //   console.log("caracteristicasParaEnviar", caracteristicasParaEnviar)
-
-      //   const response2 = await axios.post(
-      //     urlCaracteristicasXIdRec,
-      //     jsonData2,
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   );
-
-      //     console.log("caracteristicasParaEnviar-----------------", jsonData2)
-      //   if (response2.status == 200) {
-      //     const responseData2 = await response2.data;
-      //     console.log("Respuesta:", responseData2);
-
-      //   } else {
-      //     console.error(
-      //       "Error en la segunda llamada a axios.post:",
-      //       response2.status,
-      //       response2.statusText
-      //     );
-      //     setError("Error en la segunda llamada a axios.post: " + error.message);
-      //   }
-
-  //     try {
-  //       console.log(
-  //         "segundo Try: ------------------------------------------------>"
-  //       );
-
-  //       const jsonData2 = JSON.stringify(caracteristicasParaEnviar);
-
-  //       console.log("jsonData2", jsonData2);
-  //       console.log("caracteristicasParaEnviar", caracteristicasParaEnviar);
-
-  //       const response2 = await fetch(urlCaracteristicasXIdRec, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: jsonData2,
-  //       });
-
-  //       if (response2.status === 200) {
-  //         const responseData2 = await response2.json();
-  //         console.log("Respuesta:", responseData2);
-  //       } else {
-  //         console.error(
-  //           "Error en la segunda llamada a fetch:",
-  //           response2.status,
-  //           response2.statusText
-  //         );
-  //         setError(
-  //           "Error en la segunda llamada a fetch: " + response2.statusText
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.error("Error en la segunda llamada a axios.post:", error);
-  //       setError(
-  //         "Error en la llamada a axios.post. Fallo el intento: " + error.message
-  //       );
-  //     }
-
-  //     /////ERROR ????////////////////////////
-  //   } else {
-  //     setForm(false);
-  //   }
-  // };
+  
 
   const handleOptionChange = async (caracteristica) => {
     try {
@@ -297,9 +166,9 @@ const AgregarCaracteristicas = () => {
                 className="boton"
                 type="reset"
                 variant="outlined"
-                color="error"
+                onClick={() => navigate(-1)}
               >
-                Cancelar
+                Guardar
               </Button>
             </div>
           </FormControl>
