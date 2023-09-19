@@ -1,7 +1,11 @@
 import { ContextGlobal } from "../../utils/global.context";
-import React, { useEffect, useState, useContext } from "react";
-import { Divider, Popover, Stack } from "@mui/material";
+import React, { useEffect, useState, useContext, useCallback  } from "react";
+import axios from "axios";
+// import { Divider, Popover, Stack } from "@mui/material";
+import "../Fecha/Calendar.css"
+import Calendar from "react-calendar";
 import {
+  Divider, Popover, Stack,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -9,17 +13,14 @@ import {
   Button,
   Autocomplete,
   TextField,
+ 
 } from "@mui/material";
+
 
 import "./BuscarXSede.css";
 import CalendarioBuscador from "../Fecha/CalendarioBuscador";
 
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-// import BuscarXSede from "../Sede/BuscarXSede";
-
-// import CalendarioPrueba from "../Fecha/CalendarioPrueba";
-
-
 
 
 const BuscarXSede = () => {
@@ -35,8 +36,15 @@ const BuscarXSede = () => {
     busquedaCero,
     setBusquedaCero,
     fechasBusqueda,
+    fechaInicioBusqueda, setFechaInicioBusqueda,
+    fechaFinBusqueda, setFechaFinBusqueda,
+    cantidadDiasBusqueda, setCantidadDiasBusqueda,
   } = useContext(ContextGlobal);
-
+/////////////////////////////States para Buscar por fecha
+  const [value, setValue] = useState(new Date());
+  const [estadoFechas, setEstadoFechas] = useState([]);
+  const arrayFechas = [];
+//////////////////////////////////////////////////////////
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -152,10 +160,102 @@ const BuscarXSede = () => {
     }
   };
 
+  const handleDateChange = (date) => {
+    setValue(date);
+  };
 
-  
+//////////////////////////////
+
+const onSaveDates = useCallback(() => {
+  const inicio =
+    new Date(value[0]).toDateString() !== "Invalid Date"
+      ? new Date(value[0])
+      : new Date(value);
+  const fin =
+    new Date(value[1]).toDateString() !== "Invalid Date"
+      ? new Date(value[1])
+      : new Date(value);
+
+  if (inicio.toLocaleString() === fin.toLocaleString()) {
+    const fechaUnica =
+      new Date(value[0]).toDateString() === "Invalid Date"
+        ? new Date(value).toLocaleDateString()
+        : new Date(value[0]).toLocaleDateString();
+  } else {
+    // if the user selects a range of days
+    const date_1 = new Date(value[0]);
+    const date_2 = new Date(value[1]);
+
+    // formula of total days selected for the range
+    const totalDays = (date_1, date_2) => {
+      const difference = date_1.getTime() - date_2.getTime();
+      const days = Math.ceil((difference / (1000 * 3600 * 24)) * -1);
+      setCantidadDiasBusqueda(days);
+      // console.log("CantidadDias", cantidadDias)
+      return days;
+    };
+
+    // total days selected to loop and save in the database
+    const td = totalDays(date_1, date_2);
+
+    for (let i = 0; i < td; i++) {
+      const date = new Date(value[0]);
+      date.setDate(date.getDate() + i);
+      arrayFechas.push(date.toLocaleDateString());
+    }
+  }
+  console.log(arrayFechas);
+  console.log("Fechas INICIO guardada en onSaveDates", inicio.toLocaleDateString());
+  console.log("Fechas FIN guardada en onSaveDates", fin.toLocaleDateString());
+  setFechaInicioBusqueda(inicio.toLocaleDateString());
+  setFechaFinBusqueda(fin.toLocaleDateString());
+  // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
+}, [value]);
+////////////////////////////////////////////
 
 
+
+const hendleSearchFechas = async () => {
+  if (prodFiltrados.length > 0) {
+    console.log("prodFiltrados", prodFiltrados)
+    // Si hay productos filtrados, enviar solicitudes para cada idRecurso
+    for (const producto of prodFiltrados) {
+      await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+      console.log("Productos filtrados por fechas:", filteredProducts);
+    }
+  } else {
+    // Si no hay productos filtrados, aplicar el filtro sobre las fechas de productosBKLista
+    // Esto es un ejemplo, debes implementar la lógica de filtro adecuada
+    const filteredProducts = productosBKLista.filter((producto) => {
+      // Aplica el filtro según tus criterios
+      // Por ejemplo, si deseas filtrar por fechas
+      return (
+        producto.fecha >= fechaInicioBusqueda &&
+        producto.fecha <= fechaFinBusqueda
+      );
+    });
+
+    // Realiza acciones con los productos filtrados
+    console.log("Productos filtrados por fechas:", filteredProducts);
+  }
+};
+
+
+const getFechasHabilitadasXIDRecurso = async (id) => {
+  try {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/recurso/${id}/estadoFechas?fechaInicialBusqueda=${fechaInicioBusqueda}&fechaFinalBusqueda=${fechaFinBusqueda}`
+    );
+    const data = response.data;
+    // Realiza acciones con los datos obtenidos
+    console.log(`Datos para recurso ${id}:`, data);
+  } catch (error) {
+    // Maneja los errores adecuadamente
+    console.error("Error al obtener datos:", error);
+  }
+};
+
+getFechasHabilitadasXIDRecurso(1)
 
 
   return (
@@ -273,10 +373,56 @@ const BuscarXSede = () => {
           }}
         
         >
-           <CalendarioBuscador></CalendarioBuscador>
-          {/* <Box p={2} sx={{borderRadius:"20%"}}> */}
-        
-          {/* </Box> */}
+           {/* <CalendarioBuscador></CalendarioBuscador> */}
+           <div>
+      <Calendar
+        calendarType="gregory"
+        returnValue="range"
+        showDoubleView={true}
+        selectRange={true}
+        // onChange={(date) => setValue(date)}
+        // onChange={setValue}
+        onChange={handleDateChange}
+        value={value}
+        onClickDay={handleDateChange}
+        style={{ backgroundColor: "red" }}
+        // tileDisabled={tileDisabled}
+      />
+      <Stack>
+        <Button
+          sx={{
+            width: "100%",
+            color: "white",
+            backgroundColor: "#7cc598",
+            ":hover": {
+              backgroundColor: "#3c9960",
+            },
+          }}
+          onClick={onSaveDates}
+        >
+          Buscar
+        </Button>
+        <Stack
+          flexDirection={{ lg: "row" }}
+          style={{justifyContent:"space-around", alignItems:"center"}}>
+          <Typography>
+            {" "}
+            {new Date(value[0]).toDateString() !== "Invalid Date" && (
+              <p>Inicio de reserva:  {new Date(value[0]).toDateString()}</p>
+            )}
+          </Typography>
+          <Divider></Divider>
+          <Typography>
+            {new Date(value[0]).toDateString() !== "Invalid Date" && (
+              <p>Fin de reserva: {new Date(value[1]).toDateString()}</p>
+            )}
+          </Typography>
+        </Stack>
+      </Stack>
+    </div>
+
+
+
         </Popover>
 
       </Stack>
