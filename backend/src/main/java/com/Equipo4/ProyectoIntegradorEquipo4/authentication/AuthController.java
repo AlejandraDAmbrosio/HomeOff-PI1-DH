@@ -4,8 +4,10 @@ package com.Equipo4.ProyectoIntegradorEquipo4.authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +19,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    /*private final JavaMailSender mail;*/
+    private final JavaMailSender mail;
 
     @PostMapping(value = "login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
@@ -31,7 +33,9 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
 
     }
-    /*@PostMapping("correo")
+
+
+    @PostMapping("correo")
     public ResponseEntity<?> enviar_correo(){
 
         SimpleMailMessage email= new SimpleMailMessage();
@@ -43,7 +47,7 @@ public class AuthController {
 
         return new ResponseEntity<>(true, HttpStatus.OK);
 
-    }*/
+    }
 
 
 }
