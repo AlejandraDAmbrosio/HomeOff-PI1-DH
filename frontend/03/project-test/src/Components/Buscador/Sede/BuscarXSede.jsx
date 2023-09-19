@@ -1,11 +1,13 @@
 import { ContextGlobal } from "../../utils/global.context";
-import React, { useEffect, useState, useContext, useCallback  } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import axios from "axios";
 // import { Divider, Popover, Stack } from "@mui/material";
-import "../Fecha/Calendar.css"
+import "../Fecha/Calendar.css";
 import Calendar from "react-calendar";
 import {
-  Divider, Popover, Stack,
+  Divider,
+  Popover,
+  Stack,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -13,15 +15,12 @@ import {
   Button,
   Autocomplete,
   TextField,
- 
 } from "@mui/material";
-
 
 import "./BuscarXSede.css";
 import CalendarioBuscador from "../Fecha/CalendarioBuscador";
-
+import formatearFecha from "../../utils/formatearFecha";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-
 
 const BuscarXSede = () => {
   const {
@@ -36,15 +35,18 @@ const BuscarXSede = () => {
     busquedaCero,
     setBusquedaCero,
     fechasBusqueda,
-    fechaInicioBusqueda, setFechaInicioBusqueda,
-    fechaFinBusqueda, setFechaFinBusqueda,
-    cantidadDiasBusqueda, setCantidadDiasBusqueda,
+    fechaInicioBusqueda,
+    setFechaInicioBusqueda,
+    fechaFinBusqueda,
+    setFechaFinBusqueda,
+    cantidadDiasBusqueda,
+    setCantidadDiasBusqueda,
   } = useContext(ContextGlobal);
-/////////////////////////////States para Buscar por fecha
+  /////////////////////////////States para Buscar por fecha
   const [value, setValue] = useState(new Date());
   const [estadoFechas, setEstadoFechas] = useState([]);
   const arrayFechas = [];
-//////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -59,14 +61,6 @@ const BuscarXSede = () => {
   const handleDateDropdownClose = () => {
     setAnchorEl(null);
   };
-
-
-
-
-
-
-
-
 
   const sedesArray = [
     {
@@ -93,7 +87,6 @@ const BuscarXSede = () => {
     );
     return [...sedeNames, ...productoNames];
   };
-
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -152,11 +145,11 @@ const BuscarXSede = () => {
     if (filteredSedesAndProductos.length === 0) {
       //  setOpenModal(true);
       setBusquedaCero(true);
-     } 
+    }
 
     if (inputValue.length === 0) {
       setProdFiltrados([]);
-      setBusquedaCero(false)
+      setBusquedaCero(false);
     }
   };
 
@@ -164,166 +157,184 @@ const BuscarXSede = () => {
     setValue(date);
   };
 
-//////////////////////////////
 
-const onSaveDates = useCallback(() => {
-  const inicio =
-    new Date(value[0]).toDateString() !== "Invalid Date"
-      ? new Date(value[0])
-      : new Date(value);
-  const fin =
-    new Date(value[1]).toDateString() !== "Invalid Date"
-      ? new Date(value[1])
-      : new Date(value);
+  ///////////////////////////////////////////////////////////
+  const handleSearchButtonClick = async () => {
+    // Llama a onSaveDates primero
+    onSaveDates();
 
-  if (inicio.toLocaleString() === fin.toLocaleString()) {
-    const fechaUnica =
-      new Date(value[0]).toDateString() === "Invalid Date"
-        ? new Date(value).toLocaleDateString()
-        : new Date(value[0]).toLocaleDateString();
-  } else {
-    // if the user selects a range of days
-    const date_1 = new Date(value[0]);
-    const date_2 = new Date(value[1]);
+    // Llama a hendleSearchFechas después de onSaveDates
+    handleSearchFechas();
+  };
 
-    // formula of total days selected for the range
-    const totalDays = (date_1, date_2) => {
-      const difference = date_1.getTime() - date_2.getTime();
-      const days = Math.ceil((difference / (1000 * 3600 * 24)) * -1);
-      setCantidadDiasBusqueda(days);
-      // console.log("CantidadDias", cantidadDias)
-      return days;
-    };
 
-    // total days selected to loop and save in the database
-    const td = totalDays(date_1, date_2);
 
-    for (let i = 0; i < td; i++) {
-      const date = new Date(value[0]);
-      date.setDate(date.getDate() + i);
-      arrayFechas.push(date.toLocaleDateString());
+
+  //////////////////////////////
+
+  const onSaveDates = useCallback(() => {
+    const inicio =
+      new Date(value[0]).toDateString() !== "Invalid Date"
+        ? new Date(value[0])
+        : new Date(value);
+    const fin =
+      new Date(value[1]).toDateString() !== "Invalid Date"
+        ? new Date(value[1])
+        : new Date(value);
+
+    if (inicio.toLocaleString() === fin.toLocaleString()) {
+      const fechaUnica =
+        new Date(value[0]).toDateString() === "Invalid Date"
+          ? new Date(value).toLocaleDateString()
+          : new Date(value[0]).toLocaleDateString();
+    } else {
+      // if the user selects a range of days
+      const date_1 = new Date(value[0]);
+      const date_2 = new Date(value[1]);
+
+      // formula of total days selected for the range
+      const totalDays = (date_1, date_2) => {
+        const difference = date_1.getTime() - date_2.getTime();
+        const days = Math.ceil((difference / (1000 * 3600 * 24)) * -1);
+        setCantidadDiasBusqueda(days);
+        // console.log("CantidadDias", cantidadDias)
+        return days;
+      };
+
+      // total days selected to loop and save in the database
+      const td = totalDays(date_1, date_2);
+
+      for (let i = 0; i < td; i++) {
+        const date = new Date(value[0]);
+        date.setDate(date.getDate() + i);
+        arrayFechas.push(date.toLocaleDateString());
+      }
     }
-  }
-  console.log(arrayFechas);
-  console.log("Fechas INICIO guardada en onSaveDates", inicio.toLocaleDateString());
-  console.log("Fechas FIN guardada en onSaveDates", fin.toLocaleDateString());
-  setFechaInicioBusqueda(inicio.toLocaleDateString());
-  setFechaFinBusqueda(fin.toLocaleDateString());
-  // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
-}, [value]);
-////////////////////////////////////////////
+    console.log(arrayFechas);
 
+    console.log("Fechas INICIO guardada en onSaveDates", inicio);
+    console.log("Fechas FIN guardada en onSaveDates", fin);
 
+    const inicioFormateado = formatearFecha(inicio);
+    const finFormateado = formatearFecha(fin);
 
-const hendleSearchFechas = async () => {
-  if (prodFiltrados.length > 0) {
-    console.log("prodFiltrados", prodFiltrados)
-    // Si hay productos filtrados, enviar solicitudes para cada idRecurso
-    for (const producto of prodFiltrados) {
-      await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+    console.log("inicioFormateado", inicioFormateado);
+    console.log("finFormateado", finFormateado);
+
+    setFechaInicioBusqueda(inicioFormateado);
+    setFechaFinBusqueda(finFormateado);
+    // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
+  }, [value]);
+  ////////////////////////////////////////////
+
+ 
+
+  const getFechasHabilitadasXIDRecurso = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://52.32.210.155:8080/auth/recurso/${id}/estadoFechas?fechaInicialBusqueda=${fechaInicioBusqueda}&fechaFinalBusqueda=${fechaFinBusqueda}`
+      );
+      const data = response.data;
+      // Realiza acciones con los datos obtenidos
+      console.log(`Datos para recurso ${id}:`, data);
+    } catch (error) {
+      // Maneja los errores adecuadamente
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
+ 
+  const handleSearchFechas = async () => {
+    let filteredProducts;
+    if (prodFiltrados.length > 0) {
+      console.log("prodFiltrados", prodFiltrados);
+      // Si hay productos filtrados, enviar solicitudes para cada idRecurso
+      for (const producto of prodFiltrados) {
+        await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+        console.log("Productos filtrados por fechas  if (prodFiltrados.length > 0):", filteredProducts);
+      }
+
+    } else {
+      // Si hay productos YA filtrados, enviar solicitudes para cada idRecurso
+      filteredProducts = await Promise.all(
+        productosBKLista.map(async (producto) => {
+          // Utiliza Promise.all para esperar todas las solicitudes en paralelo
+          await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+          console.log("Productos filtrados por fechas const filteredProducts = await Promise.all:", filteredProducts);
+          // Sumemos el criterio del filtro aca!!!
+          return (
+            producto.fecha >= fechaInicioBusqueda &&
+            producto.fecha <= fechaFinBusqueda
+          );
+        })
+      );
+
+      // Realiza acciones con los productos filtrados
       console.log("Productos filtrados por fechas:", filteredProducts);
     }
-  } else {
-    // Si no hay productos filtrados, aplicar el filtro sobre las fechas de productosBKLista
-    // Esto es un ejemplo, debes implementar la lógica de filtro adecuada
-    const filteredProducts = productosBKLista.filter((producto) => {
-      // Aplica el filtro según tus criterios
-      // Por ejemplo, si deseas filtrar por fechas
-      return (
-        producto.fecha >= fechaInicioBusqueda &&
-        producto.fecha <= fechaFinBusqueda
-      );
-    });
-
-    // Realiza acciones con los productos filtrados
-    console.log("Productos filtrados por fechas:", filteredProducts);
-  }
-};
-
-
-const getFechasHabilitadasXIDRecurso = async (id) => {
-  try {
-    const response = await axios.get(
-      `http://52.32.210.155:8080/auth/recurso/${id}/estadoFechas?fechaInicialBusqueda=${fechaInicioBusqueda}&fechaFinalBusqueda=${fechaFinBusqueda}`
-    );
-    const data = response.data;
-    // Realiza acciones con los datos obtenidos
-    console.log(`Datos para recurso ${id}:`, data);
-  } catch (error) {
-    // Maneja los errores adecuadamente
-    console.error("Error al obtener datos:", error);
-  }
-};
-
-getFechasHabilitadasXIDRecurso(1)
+  };
 
 
   return (
-
     <Stack
-    direction="row"
-    spacing={2}
-    style={{
-      width: "400px",
-      border: "1px solid grey",
-      alignContent: "center",
-      justifyContent: "space-between",
-      height: "42px",
-      padding: "0 5px 0 10px",
-      borderRadius: "20px",
-      borderColor: "white",
-      color: "white",
-    }}
-  >
-    <Stack>
+      direction="row"
+      spacing={2}
+      style={{
+        width: "400px",
+        border: "1px solid grey",
+        alignContent: "center",
+        justifyContent: "space-between",
+        height: "42px",
+        padding: "0 5px 0 10px",
+        borderRadius: "20px",
+        borderColor: "white",
+        color: "white",
+      }}
+    >
+      <Stack>
+        <div className="input-container">
+          <input
+            className="busqueda"
+            id="buscarXSede"
+            list="paises"
+            type="text"
+            placeholder="Sede o nombre"
+            onKeyUp={handleSearch}
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              setBusquedaCero(false);
+            }}
+            options={filteredSedes.map((sede) => sede.nombre)}
+            sx={{ color: "white" }}
+          ></input>
 
+          <datalist id="paises">
+            {combineNames().map((valores, index) => (
+              <option key={index} value={valores}></option>
+            ))}
+          </datalist>
 
-    <div className="input-container">
-      <input
-        className="busqueda"
-        id="buscarXSede"
-        list="paises"
-        type="text"
-        placeholder="Sede o nombre"
-        onKeyUp={handleSearch}
-        value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          setBusquedaCero(false);
-        }}
-        options={filteredSedes.map((sede) => sede.nombre)}
-      
-        sx={{color:"white"}}
-      
-      ></input>
-
-      <datalist id="paises">
-        {combineNames().map((valores, index) => (
-          <option key={index} value={valores}></option>
-        ))}
-      </datalist>
-
-      <Dialog
-        open={openModal}
-        onClose={() => {
-          setOpenModal(false);
-          setInputValue(""); // Establecer el valor del input en blanco
-        }}
-        onKeyDown={(e) => {
-          setOpenModal(false);
-        }}
-      >
-        <DialogTitle>
-          No se encontraron productos asociados a su búsqueda
-        </DialogTitle>
-        <DialogContent></DialogContent>
-        <Button variant="contained" onClick={() => setOpenModal(false)}>
-          Cerrar
-        </Button>
-      </Dialog>
-    </div>
-    </Stack>
-    
+          <Dialog
+            open={openModal}
+            onClose={() => {
+              setOpenModal(false);
+              setInputValue(""); // Establecer el valor del input en blanco
+            }}
+            onKeyDown={(e) => {
+              setOpenModal(false);
+            }}
+          >
+            <DialogTitle>
+              No se encontraron productos asociados a su búsqueda
+            </DialogTitle>
+            <DialogContent></DialogContent>
+            <Button variant="contained" onClick={() => setOpenModal(false)}>
+              Cerrar
+            </Button>
+          </Dialog>
+        </div>
+      </Stack>
 
       <Stack
         direction="row"
@@ -348,7 +359,7 @@ getFechasHabilitadasXIDRecurso(1)
               </div>
             </div>
           ) : (
-            <CalendarMonthIcon  style={{fontSize:"38px"}}/>
+            <CalendarMonthIcon style={{ fontSize: "38px" }} />
           )}
         </div>
 
@@ -359,7 +370,6 @@ getFechasHabilitadasXIDRecurso(1)
               overflowY: "auto",
             },
           }}
-          
           open={isDateDropdownOpen}
           onClose={handleDateDropdownClose}
           anchorEl={anchorEl}
@@ -371,60 +381,58 @@ getFechasHabilitadasXIDRecurso(1)
             vertical: "top",
             horizontal: "center",
           }}
-        
         >
-           {/* <CalendarioBuscador></CalendarioBuscador> */}
-           <div>
-      <Calendar
-        calendarType="gregory"
-        returnValue="range"
-        showDoubleView={true}
-        selectRange={true}
-        // onChange={(date) => setValue(date)}
-        // onChange={setValue}
-        onChange={handleDateChange}
-        value={value}
-        onClickDay={handleDateChange}
-        style={{ backgroundColor: "red" }}
-        // tileDisabled={tileDisabled}
-      />
-      <Stack>
-        <Button
-          sx={{
-            width: "100%",
-            color: "white",
-            backgroundColor: "#7cc598",
-            ":hover": {
-              backgroundColor: "#3c9960",
-            },
-          }}
-          onClick={onSaveDates}
-        >
-          Buscar
-        </Button>
-        <Stack
-          flexDirection={{ lg: "row" }}
-          style={{justifyContent:"space-around", alignItems:"center"}}>
-          <Typography>
-            {" "}
-            {new Date(value[0]).toDateString() !== "Invalid Date" && (
-              <p>Inicio de reserva:  {new Date(value[0]).toDateString()}</p>
-            )}
-          </Typography>
-          <Divider></Divider>
-          <Typography>
-            {new Date(value[0]).toDateString() !== "Invalid Date" && (
-              <p>Fin de reserva: {new Date(value[1]).toDateString()}</p>
-            )}
-          </Typography>
-        </Stack>
-      </Stack>
-    </div>
-
-
-
+          {/* <CalendarioBuscador></CalendarioBuscador> */}
+          <div>
+            <Calendar
+              calendarType="gregory"
+              returnValue="range"
+              showDoubleView={true}
+              selectRange={true}
+              // onChange={(date) => setValue(date)}
+              // onChange={setValue}
+              onChange={handleDateChange}
+              value={value}
+              onClickDay={handleDateChange}
+              style={{ backgroundColor: "red" }}
+              // tileDisabled={tileDisabled}
+            />
+            <Stack>
+              <Button
+                sx={{
+                  width: "100%",
+                  color: "white",
+                  backgroundColor: "#7cc598",
+                  ":hover": {
+                    backgroundColor: "#3c9960",
+                  },
+                }}
+                onClick={handleSearchButtonClick}
+              >
+                Buscar
+              </Button>
+              <Stack
+                flexDirection={{ lg: "row" }}
+                style={{ justifyContent: "space-around", alignItems: "center" }}
+              >
+                <Typography>
+                  {" "}
+                  {new Date(value[0]).toDateString() !== "Invalid Date" && (
+                    <p>
+                      Inicio de reserva: {new Date(value[0]).toDateString()}
+                    </p>
+                  )}
+                </Typography>
+                <Divider></Divider>
+                <Typography>
+                  {new Date(value[0]).toDateString() !== "Invalid Date" && (
+                    <p>Fin de reserva: {new Date(value[1]).toDateString()}</p>
+                  )}
+                </Typography>
+              </Stack>
+            </Stack>
+          </div>
         </Popover>
-
       </Stack>
     </Stack>
   );
