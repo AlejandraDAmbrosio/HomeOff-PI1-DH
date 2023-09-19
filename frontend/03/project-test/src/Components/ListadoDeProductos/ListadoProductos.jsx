@@ -121,8 +121,8 @@ const ListadoProductos = ({ CantidadCards }) => {
         })
       ) : (
         <>
-          <h3> No encontramos productos para recomendar </h3>
-          <h3>Los datos del carga son {productosBKLista.ListadoProductos}</h3>
+          <h3> No encontramos productos por el momento intente más tarde </h3>
+          <h3>Los datos de son {productosBKLista.ListadoProductos}</h3>
         </>
       )}
     </div>

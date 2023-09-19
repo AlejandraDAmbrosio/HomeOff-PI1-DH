@@ -437,7 +437,7 @@ const getPoliticas = async () => {
           `Resultados de tu búsqueda ${prodFiltrados.length} productos`
         );
       } else if (
-        prodFiltrados.length ===
+        prodFiltrados.length ==
         0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/
       ) {
         setTituloListadoProductos("Productos");
@@ -586,9 +586,6 @@ const getPoliticas = async () => {
 const [ reservasPorRecurso, setReservasPorRecurso] = useState([]);
 
 
- const [fechaInicioBusqueda, setFechaInicioBusqueda]= useState(new Date());
- const [fechaFinBusqueda, setFechaFinBusqueda]= useState(new Date());
- const [cantidadDiasBusqueda, setCantidadDiasBusqueda]=  useState(null);
 
 
 
@@ -637,7 +634,11 @@ const getArrayFechasReservasXRecurso = async (id) => {
 };
 // console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
+const [fechaInicioBusqueda, setFechaInicioBusqueda]= useState(new Date());
+const [fechaFinBusqueda, setFechaFinBusqueda]= useState(new Date());
+const [cantidadDiasBusqueda, setCantidadDiasBusqueda]=  useState(null);
 
 
 
