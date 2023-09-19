@@ -157,7 +157,6 @@ const BuscarXSede = () => {
     setValue(date);
   };
 
-
   ///////////////////////////////////////////////////////////
   const handleSearchButtonClick = async () => {
     // Llama a onSaveDates primero
@@ -166,9 +165,6 @@ const BuscarXSede = () => {
     // Llama a hendleSearchFechas después de onSaveDates
     handleSearchFechas();
   };
-
-
-
 
   //////////////////////////////
 
@@ -227,7 +223,6 @@ const BuscarXSede = () => {
   }, [value]);
   ////////////////////////////////////////////
 
- 
   let estaDisponible = true;
   const getFechasHabilitadasXIDRecurso = async (id) => {
     try {
@@ -237,48 +232,63 @@ const BuscarXSede = () => {
       const data = response.data;
       // Realiza acciones con los datos obtenidos
       console.log(`Datos para recurso ${id}:`, data);
- 
+
       for (const fecha in data.estadoPorFechas) {
         // Accede al valor "DISPONIBLE"
         if (data.estadoPorFechas[fecha] !== "DISPONIBLE") {
           // console.log(`Fecha: ${fecha}, Estado: DISPONIBLE`);
-          estaDisponible = false; 
+          estaDisponible = false;
           break;
-        }else{
-          estaDisponible = true; 
+        } else {
+          estaDisponible = true;
         }
       }
       console.log(` el producto ${id}  estaDiponible? ${estaDisponible}`);
-
-
     } catch (error) {
       // Maneja los errores adecuadamente
       console.error("Error al obtener datos:", error);
     }
   };
 
-  let filteredProducts= [];
+  let filteredProducts = [];
   const handleSearchFechas = async () => {
-   
     if (prodFiltrados.length > 0) {
       console.log("prodFiltrados", prodFiltrados);
       // Si hay productos filtrados, enviar solicitudes para cada idRecurso//// OK
-      for (const producto of prodFiltrados) {
-        await getFechasHabilitadasXIDRecurso(producto.idRecurso);
-        
-        
-        console.log("Productos filtrados por fechas  if (prodFiltrados.length > 0):", filteredProducts);
-      
-      
-      }
 
+      // Si no tienes productos filtrados, realiza la búsqueda y filtro aquí
+
+        prodFiltrados.map(async (producto) => {
+          // Realiza la llamada a getFechasHabilitadasXIDRecurso para cada producto
+          await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+
+          // Verifica si el producto está disponible
+          if (estaDisponible) {
+            // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
+            console.log("estaDisponible", producto)
+            filteredProducts.push(producto)
+            return producto;
+          } else {
+            return null; // No agregues el producto si no está disponible
+          }
+        })
+
+      // Filtra los productos no nulos (es decir, disponibles)
+      filteredProducts = filteredProducts.filter(
+        (producto) => producto !== null
+      );
+      console.log("filteredProducts", filteredProducts)
+      setProdFiltrados(filteredProducts);
+
+      // Realiza acciones con los productos filtrados
+      console.log("Productos filtrados por fechas  if (prodFiltrados.length > 0):", filteredProducts);
     } else {
       // Si no tienes productos filtrados, realiza la búsqueda y filtro aquí
       filteredProducts = await Promise.all(
         productosBKLista.map(async (producto) => {
           // Realiza la llamada a getFechasHabilitadasXIDRecurso para cada producto
           await getFechasHabilitadasXIDRecurso(producto.idRecurso);
-  
+
           // Verifica si el producto está disponible
           if (estaDisponible) {
             // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
@@ -288,17 +298,19 @@ const BuscarXSede = () => {
           }
         })
       );
-  
+
       // Filtra los productos no nulos (es decir, disponibles)
-      filteredProducts = filteredProducts.filter((producto) => producto !== null);
-    
-  setProdFiltrados(filteredProducts);
+      filteredProducts = filteredProducts.filter(
+        (producto) => producto !== null
+      );
 
+     
+      setProdFiltrados(filteredProducts);
       // Realiza acciones con los productos filtrados
-      console.log("Productos filtrados por fechas:", filteredProducts);
+      console.log("Productos filtrados por fechas   } else {:", filteredProducts);
     }
+   console.log(prodFiltrados)
   };
-
 
   return (
     <Stack
