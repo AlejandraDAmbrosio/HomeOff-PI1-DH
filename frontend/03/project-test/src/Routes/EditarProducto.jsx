@@ -578,7 +578,7 @@ const EditarProducto = () => {
                 </div>
 
                 {/* -/////////////////////////////////////// */}
-                <FormGroup
+                {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
@@ -604,7 +604,7 @@ const EditarProducto = () => {
                       </li>
                     ))}
                   </div>
-                </FormGroup>
+                </FormGroup> */}
                 {/* /////////--------------------------------////// */}
                 <div
                   style={{
