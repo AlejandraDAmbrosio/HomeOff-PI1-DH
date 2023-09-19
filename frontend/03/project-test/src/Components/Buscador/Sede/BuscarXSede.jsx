@@ -237,6 +237,18 @@ const BuscarXSede = () => {
       const data = response.data;
       // Realiza acciones con los datos obtenidos
       console.log(`Datos para recurso ${id}:`, data);
+      let estaDiponible = true;
+      for (const fecha in data.estadoPorFechas) {
+        // Accede al valor "DISPONIBLE"
+        if (data.estadoPorFechas[fecha] !== "DISPONIBLE") {
+          // console.log(`Fecha: ${fecha}, Estado: DISPONIBLE`);
+          estaDiponible = false; 
+          break;
+        }
+      }
+      console.log(` el producto ${id}  estaDiponible? ${estaDiponible}`);
+
+
     } catch (error) {
       // Maneja los errores adecuadamente
       console.error("Error al obtener datos:", error);
