@@ -57,17 +57,12 @@ const TablaProductos = () => {
   
 
   const eliminarRecurso = async (idRecurso) => {
+    console.log( "eliminarRecurso idRecurso" ,idRecurso)
     try {
       const response = await axios.post(
-        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`,
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-  
-      if (response.status === 200) {
+        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`);
+      
+      if (response.status == 200) {
         
         const updatedRecursos = productosBKLista.filter(
           (productoXId) => productoXId.idRecurso !== idRecurso

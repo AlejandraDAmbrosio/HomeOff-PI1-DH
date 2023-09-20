@@ -171,7 +171,7 @@ const TablaCategorias = () => {
 
   const handleClickEliminar = (e, categoria_id, categoria) => {
     setIdCategoriaXBorrar(categoria_id);
-    setNombreCategoriaXBorrar(`${categoria.name}`);
+    setNombreCategoriaXBorrar(categoria.name);
     console.log(nombreCategoriaXBorrar);
     setOpenDialog(true);
   };
@@ -191,7 +191,7 @@ const TablaCategorias = () => {
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Estás seguro que deseas eliminar esta categoría ?
+            ¿Estás seguro que deseas eliminar esta categoría " {nombreCategoriaXBorrar} "?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
