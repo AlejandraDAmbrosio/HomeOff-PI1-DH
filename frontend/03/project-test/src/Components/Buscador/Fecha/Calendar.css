@@ -107,8 +107,9 @@
   }
 
   .react-calendar__tile {
-    max-width: 100%;
-    padding: 14px 6px;
+    max-width: 80%;
+    /* padding: 10px 6=5px; */
+    padding: 17px 0px;
     background: none;
     text-align: center;
     line-height: 12px;
