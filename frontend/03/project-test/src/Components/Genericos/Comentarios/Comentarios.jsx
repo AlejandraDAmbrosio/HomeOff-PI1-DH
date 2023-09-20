@@ -23,29 +23,35 @@ const Comentarios = ({ id }) => {
   }, [id]);
 
   return (
-    <Paper
-      style={{
+    <Stack
+    direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
+      sx={{
         // overflowY: "auto",
         maxHeight: "400px",
-        margin: "0",
+        margin: "auto",
         display: "flex",
         width: "100%",
-        maxWidth: "370px",
-        flexDirection: "column",
+       flexWrap:"wrap",
+        justifyContent:"space-around",
         alignItems: "flex-start",
         gap: "1rem",
-        // border: "1px solid green",
+        border: "1px solid #dfdfdf",
       }}
+      
     >
       <Stack
-        style={{
+          direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
+        sx={{
           overflowY: "auto",
           maxHeight: "400px",
           display: "flex",
-          width: "100%",
+          maxWidth:"1400px",
+          margin:"1rem 2rem",
+          width: "90%",
           alignItems: "center",
+          // flexDirection: "row",
           padding: "1rem 0.2rem 1rem 0.2rem",
-          // border: "1px solid yellow",
+         
         }}
       >
         <Stack
@@ -56,6 +62,7 @@ const Comentarios = ({ id }) => {
             padding: "1rem 1rem 1rem 1rem",
             width: "100%",
             alignItems: "center",
+            // border: "1px solid red",
           }}
         >
           <Stack
@@ -65,9 +72,10 @@ const Comentarios = ({ id }) => {
               gap: "1.5rem",
               justifyContent: "space-between",
               alignItems: "center",
+              // border: "1px solid red",
             }}
           >
-            <Typography variant="h4">Opiniones</Typography>
+            <Typography variant="h4">Valoraciones</Typography>
 
             {puntosPromedioXIDRecurso ? (
               <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
@@ -93,7 +101,10 @@ const Comentarios = ({ id }) => {
             overflowY: "auto",
             width: "100%",
             height: "230px",
-            // border: "1px solid violet",
+            borderRadius: "20px 0px 0px 20px",
+            border: "1px solid #dfdfdf",
+            // boxShadow:"3px 3px 3px 3px #b6b5b5",
+            display:"flex"
           }}
         >
           {/* Verifica que puntosComentXIDRecurso tenga datos antes de renderizar */}
@@ -103,10 +114,10 @@ const Comentarios = ({ id }) => {
                 key={idPuntuacion}
                 sx={{
                   width: "100%",
-                  // border: "1px solid blue",
+                  //  border: "1px solid blue",
                   height: "200px",
 
-                  padding: "0.1rem 5px 0.1rem 5px",
+                  padding: "0.8rem 20px 0.1rem 5px",
                   "&::-webkit-scrollbar": {
                     width: "40px",
                   },
@@ -122,11 +133,11 @@ const Comentarios = ({ id }) => {
                 <Paper
                   direction="column"
                   spacing={1}
-                  style={{
+                  sx={{
                     marginBottom: "1rem",
                     overflowY: "auto",
                     width: "100%",
-                    padding: "1px",
+                    padding: "10px",
                     // border: "1px solid green",
                     maxHeight: "300px",
                   }}
@@ -174,7 +185,7 @@ const Comentarios = ({ id }) => {
           )}
         </Stack>
       </Stack>
-    </Paper>
+    </Stack>
   );
 };
 

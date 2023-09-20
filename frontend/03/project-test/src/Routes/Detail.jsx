@@ -731,16 +731,10 @@ const Detail = () => {
             </Box>
           </Dialog>
         </Stack>
-        <Stack
-          item
-          xs={12}
-          md={5}
-          lg={5}
-          xl={5}
-          style={{ placeItems: "center", margin: "auto" }}
-        >
+        {/* <Stack 
+        > */}
           <Comentarios id={id} style={{ placeItems: "center" }} />
-        </Stack>
+        {/* </Stack> */}
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
