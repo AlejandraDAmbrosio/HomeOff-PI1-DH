@@ -640,12 +640,12 @@ const Detail = () => {
         </div>
 
         <Stack
-          spacing={2}
+          spacing={3}
           flexDirection={{ lg: "row" }}
           style={{
             display: "flex",
 
-            gap: "3rem",
+            
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
@@ -654,11 +654,12 @@ const Detail = () => {
         >
           <Stack
             item
+            spacing={1}
             xs={12}
             md={5}
             lg={5}
             xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
+            sx={{ placeItems: "center", margin: "auto" ,  }}
           >
             {/* //////////////////////////////////////// */}
 
@@ -667,10 +668,11 @@ const Detail = () => {
               fechaFin={fechaFin}
               onChange={{ handleDateChange }}
               idRecurso={id}
+              precio={recursoXID.precioUnitario}
+              capacidad={recursoXID.capacidadMáxima}
             />
 
             {/* //////////////////////////////////////// */}
-
             <Button
               sx={{
                 width: "100%",
@@ -684,8 +686,9 @@ const Detail = () => {
             >
               Reservar
             </Button>
+          
           </Stack>
-
+         
           <Dialog
             open={openLogIn}
             onClose={handleCloseLogIn}
@@ -722,7 +725,7 @@ const Detail = () => {
               </Stack>
             </Box>
           </Dialog>
-
+          </Stack>
           <Stack
             item
             xs={12}
@@ -733,7 +736,7 @@ const Detail = () => {
           >
             <Comentarios id={id} style={{ placeItems: "center" }} />
           </Stack>
-        </Stack>
+        
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

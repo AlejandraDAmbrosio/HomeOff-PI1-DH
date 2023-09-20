@@ -61,7 +61,7 @@ const TablaProductos = () => {
     try {
       const response = await axios.post(
         `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`);
-  
+      
       if (response.status == 200) {
         
         const updatedRecursos = productosBKLista.filter(
