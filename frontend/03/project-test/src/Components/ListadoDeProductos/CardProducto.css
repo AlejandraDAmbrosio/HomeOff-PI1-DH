@@ -14,8 +14,26 @@
   transition: color 0.2s, transform 0.2s;
 }
 
-.caja-texto-card{
+.caja-texto-card {
   height: 200px;
+}
+
+.heart-icon {
+  transition: transform 5s ease-in-out; 
+}
+
+.heart-icon:hover {
+  transform: scale(
+    1.2
+  );
+}
+
+.heart-icon:hover::after {
+  box-shadow: none;
+  transform: translate(-100%, 0) rotate(1deg);
+  transform-origin: top;
+  transition: 0.15s transform ease;
+  will-change: transform;
 }
 
 .textos-card {
@@ -38,7 +56,6 @@
   align-items: center;
 }
 
-
 .servicios {
   display: flex;
   flex-direction: row;
@@ -52,13 +69,11 @@
   height: 240px;
   border-radius: 10px 10px 10px 10px;
   margin-right: 0px;
-  object-fit: cover; 
-
+  object-fit: cover;
 }
 
 .imagen-back-home {
   background-image: url("/images/240_F_610971454_DBLcfDXBVOeIJQMGBNbE0r5Szfx3e9OL.jpg");
-
 }
 
 .tipo-recurso-card {
@@ -127,9 +142,9 @@
   color: var(--colorGrey1);
   margin-top: 4px;
   /* ----------- Borrar despues de poner dinamicas las categorias */
-   /* white-space: wrap;   */
-  overflow: hidden;/* Oculta el contenido que excede el ancho */
-  text-overflow: ellipsis; 
+  /* white-space: wrap;   */
+  overflow: hidden; /* Oculta el contenido que excede el ancho */
+  text-overflow: ellipsis;
 }
 
 .precio-card-home {
@@ -150,9 +165,7 @@
 
 @media (max-width: 600px) {
   .card-body-producto {
-    
     width: 90%;
     margin-left: 0;
-    
   }
 }

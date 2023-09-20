@@ -68,17 +68,17 @@ const TablaProductos = () => {
       );
   
       if (response.status === 200) {
-        // La solicitud se realizó con éxito, puedes continuar con el código
+        
         const updatedRecursos = productosBKLista.filter(
           (productoXId) => productoXId.idRecurso !== idRecurso
         );
         setProductosBKLista(updatedRecursos);
       } else {
-        // El servidor respondió con un estado diferente de 200, maneja el error aquí
+
         console.error("Error al eliminar el recurso. Estado de respuesta:", response.status);
       }
     } catch (error) {
-      // Error en la solicitud o cualquier otro error
+      
       console.error("Error al eliminar el usuario:", error);
     }
   };

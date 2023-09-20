@@ -8,9 +8,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 //////////////////////////
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CardProducto.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Puntuacion from "../Genericos/Puntuaciones/Puntuacion";
 import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
@@ -30,16 +30,21 @@ const CardProducto = ({
   // servicio2,
   // servicio3,
   puntuacion,
- 
-  
 }) => {
+
+  const navigate = useNavigate();
+
   const {
     getPuntosPromedioXIDRecurso,
     getListaFavXUserID,
     listaFavXUserId,
+    guardarFavorito,
   } = useContext(ContextGlobal);
+ 
+  const [iconSize, setIconSize] = useState(1); 
 
   const userId = localStorage.getItem("idUsuario");
+  console.log("idUsuario",  userId);
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
@@ -47,40 +52,71 @@ const CardProducto = ({
 
   useEffect(() => {
     getListaFavXUserID(userId);
-  }, [userId]);
+  }, [listaFavXUserId]);
+
+
 
   const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
 
 
-  // console.log("idUsuario", userIdLogIn);
-  // console.log("idRecurso", id);
-  // console.log("listaFavXUserId", listaFavXUserId);
 
-  // console.log("esFav", esFav, ". id producto: ",id , ". id User: ", userIdLogIn );
-  // const estrellas = puntosPromedioXIDRecurso;
+  const handleClick = () => {
+    // Realiza alguna acción cuando se hace clic en CardMedia
+    // Por ejemplo, puedes cambiar el estado de esFav
+
+    // if (!esFav) {
+    //   guardarFavorito(userId, id);
+    // }
+    navigate(`/producto/${id}`);
+  };
+
+  
+  const handleIconClick = (e) => {
+    e.stopPropagation();
+    if (!esFav) {
+      guardarFavorito(userId, id);
+    }
+    setIconSize(iconSize === 1 ? 1.05 : 1);
+    getListaFavXUserID(userId)
+  };
+
+
+
 
   return (
-    <Link to={"/producto/" + id}>
+    // <Link to={"/producto/" + id}>
       <Card
         sx={{
           width: 315,
           borderRadius: " 11px 11px 11px 11px",
           boxShadow: "1px 1px 6px #979797",
+           cursor:"pointer"
         }}
       >
-        <CardMedia sx={{ height: 240 }} image={url} title="imagen">
+        <CardMedia
+          sx={{ height: 240}}
+          image={url}
+          title="imagen"
+         
+          
+        >
+          
           {esFav ? (
             <FavoriteIcon
+            className="heart-icon" 
               style={{
                 position: "relative",
                 fontSize: "30px",
                 color: "red",
                 top: "5%",
                 left: "88%",
+                cursor:"hand"
               }}
             />
           ) : (
             <FavoriteIcon
+            className="heart-icon" 
+              onClick={handleIconClick}
               style={{
                 position: "relative",
                 fontSize: "30px",
@@ -92,9 +128,9 @@ const CardProducto = ({
           )}
         </CardMedia>
 
-        <div className="caja-texto-card">
-          <CardContent style={{ height: "120px" }}>
-            <Stack direction="row"  justifyContent="space-between">
+        <div className="caja-texto-card" onClick={handleClick}>
+          <CardContent style={{ height: "120px" }} onClick={handleClick} >
+            <Stack direction="row" justifyContent="space-between">
               <Typography
                 gutterBottom
                 variant="body2"
@@ -161,6 +197,7 @@ const CardProducto = ({
               display: "flex",
               flexDirection: "row",
             }}
+            onClick={handleClick}
           >
             {/* <Button size="small">Share</Button> */}
             <Typography
@@ -178,7 +215,7 @@ const CardProducto = ({
           </CardActions>
         </div>
       </Card>
-    </Link>
+    // </Link>
     // </div>
   );
 };

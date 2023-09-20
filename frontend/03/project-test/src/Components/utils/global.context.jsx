@@ -366,15 +366,7 @@ const getPoliticas = async () => {
     setFavoritosXID(newArray);
   };
 
-  // const getIsFav = async (id) => {
-  //   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
-  //   const data = await res.json();
-  //   console.log("Data antes de inyectarse ///getIsFav/////////////", data);
-  //   const esFav = data.setNombreCompleto((item) => item.idUsuario === userIdLogIn);
 
-  //   console.log("esFav", esFav);
-  //   setIsFav(esFav);
-  // };
   const [listaFavXUserId, setListaFavXUserId] = useState([]);
 
   const getListaFavXUserID = async (id) => {
@@ -386,14 +378,115 @@ const getPoliticas = async () => {
   const getFavoritos = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    // console.log("Data antes de inyectarse /////////// getFavoritos", data);
 
     setFavoritos(data);
   };
 
+///////// Guardar Favoritos
+// auth/favoritos/save
+const [errorFavoritos, setErrorFavoritos] = useState("")
+const [favorito, setFavorito] = useState({
+idUsuario:0,
+idRecurso:0,
+favorito:1,
+vigente:1,
+fecha_MarcacionFavorito:"2023-09-14",
+})
+
+const guardarFavorito = async (idUsuario, iDRecursos) => {
+  
+  setFavorito({
+    idUsuario:idUsuario,
+    idRecurso:iDRecursos,
+    favorito:1,
+    vigente:1,
+    fecha_MarcacionFavorito:"2023-09-14",
+  })
+
+  
+
+  // solicitud POST a la API
+  const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/save";
+  const body = JSON.stringify(favorito);
+  console.log("Body ", body);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body,
+  };
+  console.log("options ", options);
+  try {
+    const response = await fetch(urlBaseGuardar, options);
+    setErrorFavoritos("Intentando conectar");
+    if (response.ok) {
+      // setErrorLogueo(`Gracias por ingresar ${username}`);
+      const data = await response.json();
+      console.log(data);
+      
+    } else if (response.status === 401) {
+      setErrorFavoritos("Datos incorrectos");
+    } else {
+      setErrorFavoritos("Pruebe más tarde");
+    }
+  } catch (error) {
+    console.error("Error al realizar la solicitud:", error);
+    setErrorLogueo(
+      "Error al realizar la acción. Por favor, revisa tus credenciales."
+    );
+  }
+};
 
 
 
+
+/////////////////////Actualizar Favortos
+// auth/favoritos/update
+
+// const [actualizarFavorito, setActualizarFavorito] = useState({
+//   "id":66,
+//   "favorito":0,
+//   "vigente":1
+//   })
+  
+//   const guardarFavorito = async () => {
+    
+  
+//     // solicitud POST a la API
+//     const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/save";
+//     const body = JSON.stringify(favorito);
+//     console.log("Body ", body);
+//     const options = {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: body,
+//     };
+//     console.log("options ", options);
+//     try {
+//       const response = await fetch(urlBaseGuardar, options);
+//       setErrorFavoritos("Intentando conectar");
+//       if (response.ok) {
+//         // setErrorLogueo(`Gracias por ingresar ${username}`);
+//         const data = await response.json();
+//         console.log(data);
+        
+//       } else if (response.status === 401) {
+//         setErrorFavoritos("Datos incorrectos");
+//       } else {
+//         setErrorFavoritos("Pruebe más tarde");
+//       }
+//     } catch (error) {
+//       console.error("Error al realizar la solicitud:", error);
+//       setErrorLogueo(
+//         "Error al realizar la acción. Por favor, revisa tus credenciales."
+//       );
+//     }
+//   };
+  
+  
 
 
   ///////////////////////////////// Puntajes y comentarios por IdRecurso
@@ -692,6 +785,7 @@ const [cantidadDiasBusqueda, setCantidadDiasBusqueda]=  useState(null);
         busquedaCero,
         setBusquedaCero,
         tituloListadoProductos,
+        guardarFavorito,
         favoritos,
         setFavoritos,
         // getIsFav,
