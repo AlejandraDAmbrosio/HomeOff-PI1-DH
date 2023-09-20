@@ -21,6 +21,7 @@ build_homeoff-fe:
     - npm i react-datepicker
     - npm i react-calendar
     - npm i react-alice-carousel
+    - npm i react-simply-carousel
     - ls
     - cd project-test
     - npm run build
