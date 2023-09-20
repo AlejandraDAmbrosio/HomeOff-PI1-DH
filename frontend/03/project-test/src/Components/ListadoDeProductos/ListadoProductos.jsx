@@ -121,13 +121,14 @@ const ListadoProductos = ({ CantidadCards }) => {
           })
         ) : (
           <>
-            <Container >
+            <Container sx={{placeItems:"center"}}>
               <Stack style={{margin:"auto",display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", width:"60vw"}}>
-                <Typography variant="h3">
+                <Typography variant="h4">
                   {" "}
                   No encontramos productos por el momento.{" "}
                 </Typography>
-                <Typography  variant="h3">Por favor, intente más tarde</Typography>
+                <Typography  variant="h4">Por favor, intente más tarde</Typography>
+                
               </Stack>
             </Container>
           </>
