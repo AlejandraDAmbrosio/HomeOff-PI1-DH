@@ -35,7 +35,7 @@ const Comentarios = ({ id }) => {
         justifyContent:"space-around",
         alignItems: "flex-start",
         gap: "1rem",
-        border: "1px solid #dfdfdf",
+       
       }}
       
     >
@@ -51,6 +51,7 @@ const Comentarios = ({ id }) => {
           alignItems: "center",
           // flexDirection: "row",
           padding: "1rem 0.2rem 1rem 0.2rem",
+          // border: "1px solid #dfdfdf",
          
         }}
       >
@@ -72,10 +73,11 @@ const Comentarios = ({ id }) => {
               gap: "1.5rem",
               justifyContent: "space-between",
               alignItems: "center",
+              
               // border: "1px solid red",
             }}
           >
-            <Typography variant="h4">Valoraciones</Typography>
+            <Typography variant="h4">Valoraciones de huéspedes</Typography>
 
             {puntosPromedioXIDRecurso ? (
               <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
@@ -101,7 +103,7 @@ const Comentarios = ({ id }) => {
             overflowY: "auto",
             width: "100%",
             height: "230px",
-            borderRadius: "20px 0px 0px 20px",
+            borderRadius: "8px",
             border: "1px solid #dfdfdf",
             // boxShadow:"3px 3px 3px 3px #b6b5b5",
             display:"flex"
@@ -117,7 +119,7 @@ const Comentarios = ({ id }) => {
                   //  border: "1px solid blue",
                   height: "200px",
 
-                  padding: "0.8rem 20px 0.1rem 5px",
+                  padding: "1rem 1rem 0rem 1rem",
                   "&::-webkit-scrollbar": {
                     width: "40px",
                   },
