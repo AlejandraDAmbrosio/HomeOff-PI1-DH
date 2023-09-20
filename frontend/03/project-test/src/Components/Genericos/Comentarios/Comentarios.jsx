@@ -13,8 +13,10 @@ const Comentarios = ({ id }) => {
     puntosComentXIDRecurso,
     getPuntosComentXIDRecurso,
     getPuntosPromedioXIDRecurso,
+    usuarioLogueado,
+    userIdLogIn,
   } = useContext(ContextGlobal);
-
+  const user = localStorage.getItem("nombreCompleto");
   useEffect(() => {
     getPuntosComentXIDRecurso(id);
     getPuntosPromedioXIDRecurso(id);
@@ -73,7 +75,7 @@ const Comentarios = ({ id }) => {
               <EstrellaValor />
             )}
           </Stack>
-
+          {(usuarioLogueado ||  userIdLogIn || user) &&(
           <Button
             className="boton-generico"
             sx={{
@@ -84,7 +86,7 @@ const Comentarios = ({ id }) => {
             }}
           >
             Comentar
-          </Button>
+          </Button> )}
         </Stack>
         <Stack
           style={{
