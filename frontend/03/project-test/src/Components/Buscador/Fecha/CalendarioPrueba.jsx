@@ -135,10 +135,12 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
     // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
   }, [value]);
   return (
-    <Stack direction={"column"} spacing={2}>
+    <Stack spacing={2} sx={{display:"flex", justifyContent:"space-around", margin:"auto",alignItems:"center", }}>
       <Stack
         direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
         spacing={2}
+        sx={{display:"flex", justifyContent:"space-around", margin:"auto",alignItems:"center",}}
+  
       >
         <Stack style={{ borderRadius: "20px" }} spacing={2}>
           <Calendar
@@ -170,7 +172,7 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                 alignItems: "center",
                 borderRadius: "20px",
                 backgroundColor: "white",
-                padding: "0.5rem 0.5rem",
+                padding: "0.8rem 0.5rem",
                 alignItems: "center",
                 width: "370px",
                 border: "1px solid #b6b5b5",
@@ -265,17 +267,17 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                 }}
               >
                 {cantidadDias > 1 ? (
-                  <Typography style={{ color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
                     Capacidad maxima{capacidad} personas
                   </Typography>
                 ) : (
-                  <Typography style={{ color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
                     Capacidad {capacidad} persona
                   </Typography>
                 )}
                 <Stack direction={"row"} spacing={1}>
                   {/* <Typography>Precio total</Typography> */}
-                  <Typography style={{ fontSize: "1rem", color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
                     Precio por dia por persona ${precio / capacidad}
                   </Typography>{" "}
                 </Stack>
