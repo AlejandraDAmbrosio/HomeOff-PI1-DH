@@ -54,30 +54,7 @@ const TablaProductos = () => {
   /////////////// Metodo Eliminar Producto
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
-  // console.log("-------------- > tokenUser", tokenUser);
-
-  // const headers={}
-
-  // const eliminarCategoria = async (categoria_id) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `http://52.32.210.155:8080/auth/categoria/delete/${categoria_id}`,
-  //       {
-  //         headers: {
-  //           "Access-Control-Allow-Origin": "*",
-  //         },
-  //       }
-  //     );
-
-  //     const updatedCategorias = categoriasLista.filter(
-  //       (categoriasListaXId) => categoriasListaXId.categoria_id !== categoria_id
-  //     );
-  //     setCategoriasLista(updatedCategorias);
-  //   } catch (error) {
-  //     console.error("Error al eliminar caracteristicas:", error);
-  //   }
-  // };
-
+  
 
   const eliminarRecurso = async (idRecurso) => {
     try {
