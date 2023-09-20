@@ -31,7 +31,7 @@ const CalendarioPrueba = ({ id }) => {
     getArrayFechasReservasXRecurso,
   } = useContext(ContextGlobal);
 
-  if (id !== undefined) {
+  if (id != undefined) {
     getArrayFechasReservasXRecurso(id);
   }
 
@@ -49,6 +49,10 @@ const CalendarioPrueba = ({ id }) => {
       );
     }
   }
+  useEffect(() => {
+    getArrayFechasReservasXRecurso(id)
+  }, []);
+
 
   useEffect(() => {
     console.log("USEEFFECT ---> ", value);
