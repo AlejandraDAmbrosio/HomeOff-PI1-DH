@@ -255,7 +255,7 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                   padding: "0.2rem 1rem",
                   alignItems: "center",
                   lineHeight: "15px",
-                  border: "1px solid #b6b5b5",
+                  border: "1px solid #dfdfdf",
                   borderRadius: "28px 28px 0px 0px",
                   width: "370px",
                   // c
@@ -277,7 +277,7 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                 direction={"row"}
                 sx={{
                   padding: "0.2rem 1rem",
-                  border: "1px solid #b6b5b5",
+                  border: "1px solid #dfdfdf",
                   borderRadius: "0px 0px 0px 0px",
                   width: "370px",
                 }}
@@ -290,7 +290,7 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
               <Stack
                 sx={{
                   padding: "0.2rem 1rem",
-                  border: "1px solid #b6b5b5",
+                  border: "1px solid #dfdfdf",
                   borderRadius: "0px 0px 28px 28px",
                   width: "370px",
                 }}
