@@ -14,6 +14,7 @@ import AccountMenu from "../MenuDropDown/AccountMenu";
 
 import { useParams } from "react-router-dom";
 import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
+import BarraCategorias from "../Categorias/BarraCategorias";
 
 const Navbar = () => {
   const { id } = useParams();
@@ -69,7 +70,8 @@ const Navbar = () => {
           ""
         ) : (
           <div className="banda-categorias">
-            <Categorias />
+            {/* <Categorias /> */}
+            <BarraCategorias></BarraCategorias>
           </div>
         )}
       </div>
