@@ -110,7 +110,7 @@ const Detail = () => {
     getArrayFechasReservasXRecurso,
     reservasPorRecurso,
   } = useContext(ContextGlobal);
-
+  const caracteristicaSet = new Set();
   const [copied, setCopied] = useState(false);
   const [openSnack, setOpenSnack] = React.useState(false);
   const [publicacionRedes, setPublicacionRedes] = useState("");
@@ -587,53 +587,62 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto"
-                >
-                  <div className="icono-caracteristica-texto">
-                    {" "}
-                    {caracteristica.logoCaracteristica != "" ? (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: "250px",
-                          padding: "7px 5px",
-                          justifyContent: "center",
-                          gap: "15px",
-                          borderRadius: " 11px 11px 11px 11px",
-                          boxShadow: "1px 1px 6px #979797",
-                        }}
-                      >
-                        <img
-                          className="icono-caracteristica"
-                          src={logoXIDCaracteristica(
-                            caracteristica.idCaracteristica,
-                            caracteristicasLista
-                          )}
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        <div>{caracteristica.nombreCaracteristica}</div>
-                      </Paper>
-                    ) : (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "3px 10px",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <CheckOutlinedIcon style={{ color: "green" }} />
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => {
+                // Verificar si el ID de la característica ya se ha procesado
+                if (!caracteristicaSet.has(caracteristica.idCaracteristica)) {
+                  // Agregar el ID de la característica al conjunto
+                  caracteristicaSet.add(caracteristica.idCaracteristica);
 
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    )}
-                  </div>
-                </div>
-              ))}
+                  return (
+                    <div
+                      key={idCaracteristica}
+                      className="container-icono-caracteristica-texto"
+                    >
+                      <div className="icono-caracteristica-texto">
+                        {" "}
+                        {caracteristica.logoCaracteristica !== "" ? (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              width: "250px",
+                              padding: "7px 5px",
+                              justifyContent: "center",
+                              gap: "15px",
+                              borderRadius: " 11px 11px 11px 11px",
+                              boxShadow: "1px 1px 6px #979797",
+                            }}
+                          >
+                            <img
+                              className="icono-caracteristica"
+                              src={logoXIDCaracteristica(
+                                caracteristica.idCaracteristica,
+                                caracteristicasLista
+                              )}
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                            <div>{caracteristica.nombreCaracteristica}</div>
+                          </Paper>
+                        ) : (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "3px 10px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CheckOutlinedIcon style={{ color: "green" }} />
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                // Si el ID de la característica ya se ha procesado, no se renderiza de nuevo.
+                return null;
+              })}
             </div>
           </Stack>
           {/* </div> */}
@@ -645,7 +654,6 @@ const Detail = () => {
           style={{
             display: "flex",
 
-            
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
@@ -659,7 +667,7 @@ const Detail = () => {
             md={5}
             lg={5}
             xl={5}
-            sx={{ placeItems: "center", margin: "auto" ,  }}
+            sx={{ placeItems: "center", margin: "auto" }}
           >
             {/* //////////////////////////////////////// */}
 
@@ -686,9 +694,8 @@ const Detail = () => {
             >
               Reservar
             </Button>
-          
           </Stack>
-         
+
           <Dialog
             open={openLogIn}
             onClose={handleCloseLogIn}
@@ -699,8 +706,7 @@ const Detail = () => {
               <Stack
                 style={{ alignItems: "center", justifyContent: "space-around" }}
               >
-                <Paper 
-                sx={{width:"320px"}}>
+                <Paper sx={{ width: "320px" }}>
                   <Typography
                     style={{
                       margin: "1rem 0 0 0",
@@ -721,22 +727,20 @@ const Detail = () => {
                   </Typography>
                   <FormIngreso />
                 </Paper>
-                
               </Stack>
             </Box>
           </Dialog>
-          </Stack>
-          <Stack
-            item
-            xs={12}
-            md={5}
-            lg={5}
-            xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
-          >
-            <Comentarios id={id} style={{ placeItems: "center" }} />
-          </Stack>
-        
+        </Stack>
+        <Stack
+          item
+          xs={12}
+          md={5}
+          lg={5}
+          xl={5}
+          style={{ placeItems: "center", margin: "auto" }}
+        >
+          <Comentarios id={id} style={{ placeItems: "center" }} />
+        </Stack>
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

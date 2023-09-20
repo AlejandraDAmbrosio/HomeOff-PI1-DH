@@ -135,10 +135,24 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
     // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
   }, [value]);
   return (
-    <Stack direction={"column"} spacing={2}>
+    <Stack
+      spacing={2}
+      sx={{
+        display: "flex",
+        justifyContent: "space-around",
+        margin: "auto",
+        alignItems: "center",
+      }}
+    >
       <Stack
         direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
         spacing={2}
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          margin: "auto",
+          alignItems: "center",
+        }}
       >
         <Stack style={{ borderRadius: "20px" }} spacing={2}>
           <Calendar
@@ -157,72 +171,83 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
             prev2Label=""
           />
         </Stack>
-        <Stack direction={"column"} spacing={2} sx={{margin:"auto",  width: "370px",}}>
-          <Stack sx={{ height:"90%" }}>
-
-            {textoDia?(
-            <Stack
-             
-            >
-              <Stack  flexDirection={{ xs: "column", sm: "row", md: "row", lg: "row" }}
-              style={{
-                justifyContent: "space-around",
-                alignItems: "center",
-                borderRadius: "20px",
-                backgroundColor: "white",
-                padding: "0.5rem 0.5rem",
-                alignItems: "center",
-                width: "370px",
-                border: "1px solid #b6b5b5",
-                
-              }}>
+        <Stack
+          direction={"column"}
+          spacing={2}
+          sx={{ margin: "auto", width: "370px" }}
+        >
+          <Stack sx={{ height: "90%" }}>
+            {textoDia ? (
               <Stack >
-                {new Date(value[0]).toDateString() !== "Invalid Date" ? (
-                  <Typography>
-                    Check-in :{" "}
-                    {formateoFechas(new Date(value[0]).toDateString())}
-                  </Typography>
-                ) : (
-                  <Typography> Fecha de inicio</Typography>
-                )}
-              </Stack>
+                <Stack
+                  flexDirection={{
+                    xs: "column",
+                    sm: "row",
+                    md: "row",
+                    lg: "row",
+                  }}
+                  style={{
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    borderRadius: "20px",
+                    backgroundColor: "white",
+                    padding: "0.8rem 0.5rem",
+                    alignItems: "center",
+                    width: "370px",
+                    border: "1px solid #b6b5b5",
+                    boxShadow:"3px 3px 3px #b6b5b5"
+                  }}
+                >
+                  <Stack>
+                    {new Date(value[0]).toDateString() !== "Invalid Date" ? (
+                      <Typography>
+                        Check-in :{" "}
+                        {formateoFechas(new Date(value[0]).toDateString())}
+                      </Typography>
+                    ) : (
+                      <Typography> Fecha de inicio</Typography>
+                    )}
+                  </Stack>
 
-              <Stack>
-                {new Date(value[0]).toDateString() !== "Invalid Date" ? (
-                  <Typography>
-                    Check-out :{" "}
-                    {formateoFechas(new Date(value[1]).toDateString())}
-                  </Typography>
-                ) : (
-                  <Typography> Fecha de fin</Typography>
-                )}
+                  <Stack>
+                    {new Date(value[0]).toDateString() !== "Invalid Date" ? (
+                      <Typography>
+                        Check-out :{" "}
+                        {formateoFechas(new Date(value[1]).toDateString())}
+                      </Typography>
+                    ) : (
+                      <Typography> Fecha de fin</Typography>
+                    )}
+                  </Stack>
+                </Stack>
+                <Stack
+                  style={{ margin: "0.5rem 0rem 0.5rem 0rem" }}
+                  sx={{ textAlign: "center", color: "#424242" }}
+                >
+                  {textoDia ? (
+                    cantidadDias > 1 ? (
+                      <Typography>Tiempo: {cantidadDias} días</Typography>
+                    ) : (
+                      <Typography>Tiempo: {cantidadDias} día</Typography>
+                    )
+                  ) : null}
+                </Stack>
               </Stack>
-            </Stack>
-            <Stack style={{margin:"0.5rem 0rem 0.5rem 0rem"}} sx={{textAlign:"center", color:"#424242"}}>
-                {textoDia ? (
-                  cantidadDias > 1 ? (
-                    <Typography>Tiempo: {cantidadDias} días</Typography>
-                  ) : (
-                    <Typography>Tiempo: {cantidadDias} día</Typography>
-                  )
-                ) : null}
-              </Stack>
-            </Stack>
-):null }
+            ) : null}
 
-
-            <Stack style={{
-              
-                display:"flex", 
-                flexDirection:"column",
-                alignItems:"center",
+            <Stack
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 width: "370px",
-                maxWidth:"370px",
-                justifyContent:"center"
+                maxWidth: "370px",
+                justifyContent: "center",
+                borderRadius: "28px 28px 28px 28px",
+                boxShadow:"3px 3px 3px #b6b5b5"
 
-                
-              }}>
-             
+              }}
+            >
               <Stack
                 direction={"row"}
                 spacing={1}
@@ -236,7 +261,13 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                   // c
                 }}
               >
-                <Typography style={{ fontSize: "1.8rem", color: "#424242", fontWeight:"600"  }}>
+                <Typography
+                  style={{
+                    fontSize: "1.8rem",
+                    color: "#424242",
+                    fontWeight: "600",
+                  }}
+                >
                   ${precio}
                 </Typography>
                 <Typography> /por día</Typography>
@@ -265,17 +296,17 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                 }}
               >
                 {cantidadDias > 1 ? (
-                  <Typography style={{ color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
                     Capacidad maxima{capacidad} personas
                   </Typography>
                 ) : (
-                  <Typography style={{ color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
                     Capacidad {capacidad} persona
                   </Typography>
                 )}
                 <Stack direction={"row"} spacing={1}>
                   {/* <Typography>Precio total</Typography> */}
-                  <Typography style={{ fontSize: "1rem", color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
                     Precio por dia por persona ${precio / capacidad}
                   </Typography>{" "}
                 </Stack>
@@ -285,7 +316,6 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
           {/* </Stack> */}
           <Button
             sx={{
-              
               width: "100%",
               color: "white",
               backgroundColor: "#b6b5b5",
@@ -294,7 +324,6 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
               },
             }}
             onClick={onSaveDates}
-
           >
             Consultar Fechas
           </Button>
