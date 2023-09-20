@@ -140,6 +140,9 @@ const CalendarioPrueba = ({ id }) => {
         onClickDay={handleDateChange}
         style={{ backgroundColor: "red" }}
         tileDisabled={tileDisabled}
+        next2Label=""
+        prev2Label=""
+        // defaultActiveStartDate
       />
       <Stack>
         <Button
