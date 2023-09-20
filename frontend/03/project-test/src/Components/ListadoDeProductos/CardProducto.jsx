@@ -39,24 +39,47 @@ const CardProducto = ({
     getListaFavXUserID,
     listaFavXUserId,
     guardarFavorito,
+    postActualizarFavorito,
+    actualizarFavorito, setActualizarFavorito,
+    errorActFavoritos, setErrorActFavoritos,
   } = useContext(ContextGlobal);
+  const tieneRegFav = listaFavXUserId.some((item) => item.id);
+  const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
+  console.log(`Recurso ${id} es`, esFav);
+
+  console.log(tieneRegFav);
  
   const [iconSize, setIconSize] = useState(1); 
 
   const userId = localStorage.getItem("idUsuario");
-  console.log("idUsuario",  userId);
+  // console.log("idUsuario",  userId);
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
-  }, [id]);
+  }, []);
+
+  const handleIconClick = (e) => {
+    e.stopPropagation();
+
+    if (!esFav) {
+      console.log("handleIconClick  -  > !esFav")
+      guardarFavorito(userId, id);
+    }else if(tieneRegFav) {
+      console.log("handleIconClick  -  > tieneRegFav")
+      postActualizarFavorito(69, 0)
+    } else{
+      console.log("handleIconClick  -  > !esFav")
+      postActualizarFavorito(69, 1)
+    }
+    setIconSize(iconSize === 1 ? 1.05 : 1);
+   
+  };
+
 
   useEffect(() => {
     getListaFavXUserID(userId);
-  }, [listaFavXUserId]);
+  }, []);
 
-
-
-  const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
 
 
 
@@ -71,16 +94,7 @@ const CardProducto = ({
   };
 
   
-  const handleIconClick = (e) => {
-    e.stopPropagation();
-    if (!esFav) {
-      guardarFavorito(userId, id);
-    }
-    setIconSize(iconSize === 1 ? 1.05 : 1);
-    getListaFavXUserID(userId)
-  };
-
-
+ 
 
 
   return (
@@ -103,6 +117,7 @@ const CardProducto = ({
           
           {esFav ? (
             <FavoriteIcon
+            onClick={handleIconClick}
             className="heart-icon" 
               style={{
                 position: "relative",

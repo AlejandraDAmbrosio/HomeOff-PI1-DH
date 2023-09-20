@@ -19,20 +19,17 @@
 }
 
 .heart-icon {
-  transition: transform 5s ease-in-out; 
+  transition: transform 3s cubic-bezier(4, 1, 1, 1.0); 
 }
 
 .heart-icon:hover {
-  transform: scale(
-    1.2
-  );
+  /* transform: scale(1.2, 1.15); */
+  /* filter: filter-image(linear-gradient(to bottom, transparent 0%, #000 100%), blur(2px)); */
+  transform: translate(0, -3px) scale(1.15, 1.1);
 }
 
 .heart-icon:hover::after {
-  box-shadow: none;
-  transform: translate(-100%, 0) rotate(1deg);
-  transform-origin: top;
-  transition: 0.15s transform ease;
+  transition: transform 3s cubic-bezier(0.42, 0, 1, 1.0);
   will-change: transform;
 }
 

@@ -432,7 +432,7 @@ const guardarFavorito = async (idUsuario, iDRecursos) => {
     }
   } catch (error) {
     console.error("Error al realizar la solicitud:", error);
-    setErrorLogueo(
+    setErrorFavoritos(
       "Error al realizar la acción. Por favor, revisa tus credenciales."
     );
   }
@@ -442,49 +442,56 @@ const guardarFavorito = async (idUsuario, iDRecursos) => {
 
 
 /////////////////////Actualizar Favortos
-// auth/favoritos/update
-
-// const [actualizarFavorito, setActualizarFavorito] = useState({
-//   "id":66,
-//   "favorito":0,
-//   "vigente":1
-//   })
+// postActualizarFavorito
+// actualizarFavorito, setActualizarFavorito
+// errorActFavoritos, setErrorActFavoritos
+const [errorActFavoritos, setErrorActFavoritos] = useState("")
+const [actualizarFavorito, setActualizarFavorito] = useState({
+  "id":0,
+  "favorito":0,
+  "vigente":1
+  })
   
-//   const guardarFavorito = async () => {
+  const postActualizarFavorito = async (id, favorito) => {
     
+    setActualizarFavorito({
+      "id":id,
+      "favorito":favorito,
+      "vigente":1
+    })
   
 //     // solicitud POST a la API
-//     const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/save";
-//     const body = JSON.stringify(favorito);
-//     console.log("Body ", body);
-//     const options = {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: body,
-//     };
-//     console.log("options ", options);
-//     try {
-//       const response = await fetch(urlBaseGuardar, options);
-//       setErrorFavoritos("Intentando conectar");
-//       if (response.ok) {
-//         // setErrorLogueo(`Gracias por ingresar ${username}`);
-//         const data = await response.json();
-//         console.log(data);
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/update";
+    const body = JSON.stringify(favorito);
+    console.log("Body ", body);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+    console.log("options ", options);
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+      setErrorActFavoritos("Intentando conectar");
+      if (response.ok) {
+        // setErrorLogueo(`Gracias por ingresar ${username}`);
+        const data = await response.json();
+        console.log(data);
         
-//       } else if (response.status === 401) {
-//         setErrorFavoritos("Datos incorrectos");
-//       } else {
-//         setErrorFavoritos("Pruebe más tarde");
-//       }
-//     } catch (error) {
-//       console.error("Error al realizar la solicitud:", error);
-//       setErrorLogueo(
-//         "Error al realizar la acción. Por favor, revisa tus credenciales."
-//       );
-//     }
-//   };
+      } else if (response.status === 401) {
+        setErrorActFavoritos("Datos incorrectos");
+      } else {
+        setErrorActFavoritos("Pruebe más tarde");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setErrorActFavoritos(
+        "Error al realizar la acción. Por favor, revisa tus credenciales."
+      );
+    }
+  };
   
   
 
@@ -740,6 +747,9 @@ const [cantidadDiasBusqueda, setCantidadDiasBusqueda]=  useState(null);
   return (
     <ContextGlobal.Provider
       value={{
+        postActualizarFavorito,
+actualizarFavorito, setActualizarFavorito,
+errorActFavoritos, setErrorActFavoritos,
         fechaFinBusqueda, setFechaFinBusqueda,
         cantidadDiasBusqueda, setCantidadDiasBusqueda,
         fechaInicioBusqueda, setFechaInicioBusqueda,
