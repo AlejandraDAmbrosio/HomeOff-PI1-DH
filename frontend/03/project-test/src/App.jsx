@@ -28,7 +28,7 @@ import AdministrarPoliticas from "./Routes/AdministrarPoliticas";
 
 function App() {
   ////////////////// Segmento Logueo
-  const { setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin, getDatosUsersXID } =
+  const {setIsAdmin , setNombreCompleto,  setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin, getDatosUsersXID, setUserIdLogIn,setRol, setUsuarios, setEmail } =
     useContext(ContextGlobal);
   /////////////////
 
@@ -49,7 +49,14 @@ function App() {
       // console.log("token en Local Storage", token);
       // console.log("user en Local Storage", user);
       // console.log("userId en Local Storage", userId);
+      if (rol === "ADMINISTRADOR") {
+        setIsAdmin(true);
+      }
       setUsuarioLogueado(user);
+      setUserIdLogIn(userId);
+      setRol(rol);
+      setNombreCompleto(user);
+      setEmail(emailStorage);
     }
   }, []);
 
