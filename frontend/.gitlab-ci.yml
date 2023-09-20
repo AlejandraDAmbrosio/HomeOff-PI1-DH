@@ -19,6 +19,7 @@ build_homeoff-fe:
     - npm install dayjs
     - npm install react-share --save
     - npm i react-datepicker
+    - npm i react-alice-carousel
     - ls
     - cd project-test
     - npm run build
