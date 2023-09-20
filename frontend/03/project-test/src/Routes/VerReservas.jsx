@@ -60,22 +60,21 @@ const VerReservas = () => {
     }
 
     const newSortedReservas = [...sortedReservas].sort((a, b) => {
+      const factor = sortDirection === "asc" ? 1 : -1;
+
       if (column === "nombreRecurso") {
-        return sortDirection === "asc"
-          ? a.nombreRecurso.localeCompare(b.nombreRecurso)
-          : b.nombreRecurso.localeCompare(a.nombreRecurso);
+        return a.nombreRecurso.localeCompare(b.nombreRecurso) * factor;
       } else if (column === "inicioReserva") {
-        return sortDirection === "asc"
-          ? a.inicioReserva.localeCompare(b.inicioReserva)
-          : b.inicioReserva.localeCompare(a.inicioReserva);
+        return a.inicioReserva.localeCompare(b.inicioReserva) * factor;
       } else if (column === "finalizacionReserva") {
-        return sortDirection === "asc"
-          ? a.finalizacionReserva.localeCompare(b.finalizacionReserva)
-          : b.finalizacionReserva.localeCompare(a.finalizacionReserva);
+        return a.finalizacionReserva.localeCompare(b.finalizacionReserva) * factor;
       } else if (column === "fechaRealizacionReserva") {
-        return sortDirection === "asc"
-          ? a.fechaRealizacionReserva.localeCompare(b.fechaRealizacionReserva)
-          : b.fechaRealizacionReserva.localeCompare(a.fechaRealizacionReserva);
+        return a.fechaRealizacionReserva.localeCompare(b.fechaRealizacionReserva) * factor;
+      } else if (column === "Dias") {
+        return a.Dias.localeCompare(b.Dias) * factor;
+        //  return (a.dias - b.dias) * factor;
+      } else if (column === "precio") {
+        return (a.precio - b.precio) * factor;
       } else {
         return 0; // Si no se ordena por ninguna columna específica, no se cambia el orden
       }
@@ -84,6 +83,8 @@ const VerReservas = () => {
     // Actualiza la copia ordenada de las reservas
     setSortedReservas(newSortedReservas);
   };
+    // Actualiza la copia ordenada de las reservas
+  
 
   const getSortIcon = (column) => {
     if (column === sortColumn) {
@@ -93,17 +94,21 @@ const VerReservas = () => {
   };
 
   return (
-    <Container>
+    // <Container sx={{width:"70vw"}}>
       <Stack
         style={{
-          marginTop: "7rem",
-          marginBottom: "2rem",
+          display:"flex",
+          flexDirection:"column",
+          margin:"7rem auto 2rem auto",
+          justifyContent:"space-evenly",
           minHeight: "730px",
           maxWidth: "1900px",
+          width:"90%",
+          
         }}
       >
         <Typography variant="h3">Ver historial Reservas</Typography>
-<Paper>
+<Paper sx={{width:"100%"}}>
         <TableContainer sx={{ maxHeight: 500, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -116,13 +121,13 @@ const VerReservas = () => {
                 }}
               >
               <TableCell style={{fontSize:"1.1rem"}}>Imagen</TableCell>
-                <TableCell onClick={() => sortData("idRecurso")} style={{cursor:"pointer", fontSize:"1.1rem", width:"80px"}}>Id {getSortIcon("idRecurso")}</TableCell>
+                <TableCell style={{ fontSize:"1.1rem", width:"80px"}}>Id </TableCell>
                 <TableCell onClick={() => sortData("nombreRecurso")} style={{cursor:"pointer", fontSize:"1.1rem", width:"100px"}}>Nombre  {getSortIcon("nombreRecurso")}</TableCell>
-                <TableCell onClick={() => sortData("inicioReserva")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Fecha de inicio {getSortIcon("inicioReserva")}</TableCell>
-                <TableCell onClick={() => sortData("finalizacionReserva")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Fecha de fin {getSortIcon("finalizacionReserva")}</TableCell>
-                <TableCell onClick={() => sortData("fechaRealizacionReserva") } style={{cursor:"pointer", fontSize:"1.1rem"}}>Fecha reserva {getSortIcon("fechaRealizacionReserva")}</TableCell>
-                <TableCell onClick={() => sortData("dias")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Días {getSortIcon("dias")}</TableCell>
-                <TableCell onClick={() => sortData("precio")} style={{cursor:"pointer", fontSize:"1.1rem"}}>Precio  {getSortIcon("precio")}</TableCell>
+                <TableCell onClick={() => sortData("inicioReserva")} style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha de inicio {getSortIcon("inicioReserva")}</TableCell>
+                <TableCell onClick={() => sortData("finalizacionReserva")} style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha de fin {getSortIcon("finalizacionReserva")}</TableCell>
+                <TableCell onClick={() => sortData("fechaRealizacionReserva") } style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha reserva {getSortIcon("fechaRealizacionReserva")}</TableCell>
+                <TableCell onClick={() => sortData("dias")} style={{cursor:"pointer", fontSize:"1.1rem", width:"90px"}}>Días {getSortIcon("dias")}</TableCell>
+                <TableCell onClick={() => sortData("precio")} style={{cursor:"pointer", fontSize:"1.1rem", width:"90px"}}>Precio  {getSortIcon("precio")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -182,7 +187,7 @@ const VerReservas = () => {
         </TableContainer>
         </Paper>
       </Stack>
-    </Container>
+    // </Container>
   );
 };
 

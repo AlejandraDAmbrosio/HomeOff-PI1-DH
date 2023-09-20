@@ -22,12 +22,13 @@ const BarraCategorias = ({ NombreCategoria }) => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", marginRight:"1rem" }}>
       <Carousel
         containerProps={{
           style: {
          width: "100%",
-         maxWidth:"1300px",
+         maxWidth:"1400px",
+         maxHeight:"120px",
          margin:"auto",
             justifyContent: "space-between",
             userSelect: "none",
@@ -45,6 +46,9 @@ const BarraCategorias = ({ NombreCategoria }) => {
             height: 60,
             minWidth: 60,
             alignSelf: "center",
+            backgroundColor:"white",
+            border:"1px solid #dfdfdf",
+            borderRadius:"28px"
           },
         }}
         backwardBtnProps={{
@@ -54,6 +58,9 @@ const BarraCategorias = ({ NombreCategoria }) => {
             height: 60,
             minWidth: 60,
             alignSelf: "center",
+            backgroundColor:"white",
+            border:"1px solid #dfdfdf",
+            borderRadius:"28px"
           },
         }}
         width="90%"
@@ -73,24 +80,26 @@ const BarraCategorias = ({ NombreCategoria }) => {
 
         >
 
-          <div /*className="card-categoria"*/ style={{
+          <div /*className="card-categoria"*/ 
+          className="card-categoria"
+          style={{
             // background: "yellow",
-            width: 170,
-            height: 120,
-            border: "5px solid white",
+            width: 190,
+            height: 90,
+            border: "1px solid white",
             textAlign: "center",
-            lineHeight: "90px",
+            // lineHeight: "90px",
             boxSizing: "border-box",
           }}>
           
               <img
                 src={buscadorIconoCategoria(categoria.categoria_id)}
                 alt={`Imagen de ${categoria.name}`}
-                style={{overflow:"covers", maxWidth:"80px", maxHeight:"50px"}}
+                style={{overflow:"covers", maxWidth:"70px", maxHeight:"50px"}}
 
               />
          
-            <Typography variant="body1">{categoria.name}</Typography>
+            <Typography sx={{fontWeight:"500", color:"#424242", fontSize:"1.1rem" }}>{categoria.name}</Typography>
           </div>
         </Link>
 

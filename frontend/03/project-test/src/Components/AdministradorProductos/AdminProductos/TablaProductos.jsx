@@ -54,9 +54,7 @@ const TablaProductos = () => {
   /////////////// Metodo Eliminar Producto
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
-  // console.log("-------------- > tokenUser", tokenUser);
-
-  // const headers={}
+  
 
   const eliminarRecurso = async (idRecurso) => {
     try {
@@ -64,16 +62,23 @@ const TablaProductos = () => {
         `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
-
-      const updatedRecursos = productosBKLista.filter(
-        (productoXId) => productoXId.idRecurso !== idRecurso
-      );
-      setProductosBKLista(updatedRecursos);
+  
+      if (response.status === 200) {
+        // La solicitud se realizó con éxito, puedes continuar con el código
+        const updatedRecursos = productosBKLista.filter(
+          (productoXId) => productoXId.idRecurso !== idRecurso
+        );
+        setProductosBKLista(updatedRecursos);
+      } else {
+        // El servidor respondió con un estado diferente de 200, maneja el error aquí
+        console.error("Error al eliminar el recurso. Estado de respuesta:", response.status);
+      }
     } catch (error) {
+      // Error en la solicitud o cualquier otro error
       console.error("Error al eliminar el usuario:", error);
     }
   };
