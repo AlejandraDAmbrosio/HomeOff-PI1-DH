@@ -129,7 +129,7 @@ const CardProducto = ({
     setIconSize(iconSize === 1 ? 1.05 : 1);
     getListaFavXUserID(userId);
     setEsFav(!esFav);
-        console.log("listaFavXUserId HANDLECLICK", listaFavXUserId);
+        console.log("listaFavXUserId", listaFavXUserId);
   };
 
   const handleClick = () => {
