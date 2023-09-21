@@ -22,15 +22,20 @@ const ListadoProductos = ({ CantidadCards }) => {
     getPuntosPromedioXIDRecurso,
     userIdLogIn,
     getListaFavXUserID,
-    listaFavXUserId
+    listaFavXUserId,
   } = useContext(ContextGlobal);
 
-  // useEffect(() => {
-  //   getListaFavXUserID(userIdLogIn);
-  // }, [userIdLogIn ]);
-
+  const [listadoFavoritosHome, setListadoFavoritosHome] = useState([]);
   
-console.log("listaFavXUserId", listaFavXUserId)
+  useEffect(() => {
+    getListaFavXUserID(userIdLogIn);
+    if (listaFavXUserId.length < 1) {
+      setListadoFavoritosHome(listaFavXUserId);
+    }
+  }, [listadoFavoritosHome]);
+
+  // console.log("listaFavXUserId", listaFavXUserId)
+
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
@@ -57,7 +62,6 @@ console.log("listaFavXUserId", listaFavXUserId)
 
     obtenerPuntuacionesPromedio();
   }, [productsToRender]);
-
 
   useEffect(() => {
     const paginatedArray = chunk(productsToRender, CantidadCards);
@@ -120,20 +124,30 @@ console.log("listaFavXUserId", listaFavXUserId)
                   productosBKLista,
                   categoriasLista
                 )}
-                listaFavoritosXID={listaFavXUserId}
+                listaFavXUserId={listaFavXUserId}
               />
             );
           })
         ) : (
           <>
-            <Container sx={{placeItems:"center"}}>
-              <Stack style={{margin:"auto",display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", width:"60vw"}}>
+            <Container sx={{ placeItems: "center" }}>
+              <Stack
+                style={{
+                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "60vw",
+                }}
+              >
                 <Typography variant="h4">
                   {" "}
                   No encontramos productos por el momento.{" "}
                 </Typography>
-                <Typography  variant="h4">Por favor, intente más tarde</Typography>
-                
+                <Typography variant="h4">
+                  Por favor, intente más tarde
+                </Typography>
               </Stack>
             </Container>
           </>
