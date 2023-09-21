@@ -24,19 +24,13 @@ const ListadoProductos = ({ CantidadCards }) => {
     getListaFavXUserID,
     listaFavXUserId
   } = useContext(ContextGlobal);
-  const userId = localStorage.getItem("idUsuario");
-  const [listadoFavoritosHome, setListadoFavoritosHome] = useState([]);
 
-  useEffect(() => {
-    getListaFavXUserID(userId);
-    if (listaFavXUserId.length < 1 ) {
-      setListadoFavoritosHome(listaFavXUserId);
-    }
-  }, [listadoFavoritosHome ]);
+  // useEffect(() => {
+  //   getListaFavXUserID(userIdLogIn);
+  // }, [userIdLogIn ]);
+
   
 console.log("listaFavXUserId", listaFavXUserId)
-  
-
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
@@ -126,7 +120,7 @@ console.log("listaFavXUserId", listaFavXUserId)
                   productosBKLista,
                   categoriasLista
                 )}
-                listaFavXUserId={listaFavXUserId}
+                listaFavoritosXID={listaFavXUserId}
               />
             );
           })
