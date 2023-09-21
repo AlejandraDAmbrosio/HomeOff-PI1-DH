@@ -63,8 +63,8 @@ public class FavoritoRepository implements IFavoritoRepository {
 
     @Override
     public int update(Favorito favorito) {
-        String SQL = "UPDATE offi_Favoritos SET  favorito=?, vigente=? WHERE id=?";
-        return jdbcTemplate.update(SQL, favorito.getFavorito(), favorito.getVigente(), favorito.getId());
+        String SQL = "UPDATE offi_Favoritos SET idUsuario=?, idRecurso=?, favorito=?, vigente=?, fecha_MarcacionFavorito=? WHERE id=?";
+        return jdbcTemplate.update(SQL, favorito.getIdUsuario(), favorito.getIdRecurso(), favorito.getFavorito(), favorito.getVigente(), favorito.getFecha_MarcacionFavorito(), favorito.getId());
     }
 
     @Override
