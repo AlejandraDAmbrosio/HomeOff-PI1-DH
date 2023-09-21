@@ -22,14 +22,19 @@ const ListadoProductos = ({ CantidadCards }) => {
     getPuntosPromedioXIDRecurso,
     userIdLogIn,
     getListaFavXUserID,
-    listaFavXUserId
+    listaFavXUserId,
   } = useContext(ContextGlobal);
 
+  const [listadoFavoritosHome, setListadoFavoritosHome] = useState([]);
+  
   useEffect(() => {
     getListaFavXUserID(userIdLogIn);
-  }, [userIdLogIn ]);
-console.log("listaFavXUserId", listaFavXUserId)
-  
+    if (listaFavXUserId.length < 1) {
+      setListadoFavoritosHome(listaFavXUserId);
+    }
+  }, [listadoFavoritosHome]);
+
+  // console.log("listaFavXUserId", listaFavXUserId)
 
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
@@ -57,7 +62,6 @@ console.log("listaFavXUserId", listaFavXUserId)
 
     obtenerPuntuacionesPromedio();
   }, [productsToRender]);
-
 
   useEffect(() => {
     const paginatedArray = chunk(productsToRender, CantidadCards);
@@ -126,14 +130,24 @@ console.log("listaFavXUserId", listaFavXUserId)
           })
         ) : (
           <>
-            <Container sx={{placeItems:"center"}}>
-              <Stack style={{margin:"auto",display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", width:"60vw"}}>
+            <Container sx={{ placeItems: "center" }}>
+              <Stack
+                style={{
+                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "60vw",
+                }}
+              >
                 <Typography variant="h4">
                   {" "}
                   No encontramos productos por el momento.{" "}
                 </Typography>
-                <Typography  variant="h4">Por favor, intente más tarde</Typography>
-                
+                <Typography variant="h4">
+                  Por favor, intente más tarde
+                </Typography>
               </Stack>
             </Container>
           </>

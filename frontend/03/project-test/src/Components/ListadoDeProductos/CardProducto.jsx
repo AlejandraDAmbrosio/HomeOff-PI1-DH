@@ -49,23 +49,41 @@ const CardProducto = ({
     // userIdLogIn,
   } = useContext(ContextGlobal);
   const userId = localStorage.getItem("idUsuario");
-console.log("userId", userId)
-   
+  // console.log("userId", userId)
+
   const [listadoFavoritos, setListadoFavoritos] = useState([]);
   const [esFav, setEsFav] = useState(false);
   const [esFavResult, setEsFavResult] = useState(null);
   const [idFavorito, setIdFavorito] = useState(0);
   const [existeFav, setExisteFav] = useState(false);
+  const [tarjetaActualizada, setTarjetaActualizada] = useState(false);
+  const [updateTrigger, setUpdateTrigger] = useState(false); // Nuevo estado
 
   useEffect(() => {
     // // getListaFavXUserID(userIdLogIn);
-    if (listaFavXUserId.length < 1 ) {
+    if (listaFavXUserId.length < 1) {
       setListadoFavoritos(listaFavXUserId);
+      setEsFav(esFavorito(id, listaFavXUserId));
+      setTarjetaActualizada(true);
     }
   }, [listadoFavoritos]);
 
+  useEffect(() => {
+    // Esta función se ejecutará cuando "esFav" cambie
+    const handleEsFavChange = () => {
+      // Actualiza el estado "updateTrigger" para forzar la renderización
+      setUpdateTrigger((prev) => !prev);
+    };
 
+    // Suscribir la función al cambio de "esFav"
+    handleEsFavChange();
 
+    return () => {
+      // Al desmontar el componente, elimina la suscripción para evitar fugas de memoria
+      // Esto se llama limpieza del efecto
+      handleEsFavChange();
+    };
+  }, [esFav]);
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
@@ -85,25 +103,33 @@ console.log("userId", userId)
     };
 
     fetchData();
-  }, [listadoFavoritos]);
+  }, [listadoFavoritos, tarjetaActualizada]);
 
   const [iconSize, setIconSize] = useState(1);
 
   const handleIconClick = (e) => {
     e.stopPropagation();
-
+    console.log("handleIconClick  --- esFav", esFav);
     if (!existeFav) {
       guardarFavorito(userId, id);
       getListaFavXUserID(userId);
+      setEsFav(!esFav)
+      console.log("listaFavXUserId", listaFavXUserId);
     } else if (esFav) {
       postActualizarFavorito(idFavorito, 0, userId, id);
       getListaFavXUserID(userId);
+      setEsFav(!esFav)
+      console.log("listaFavXUserId", listaFavXUserId);
     } else {
       postActualizarFavorito(idFavorito, 1, userId, id);
       getListaFavXUserID(userId);
+      setEsFav(!esFav)
+      console.log("listaFavXUserId", listaFavXUserId);
     }
     setIconSize(iconSize === 1 ? 1.05 : 1);
     getListaFavXUserID(userId);
+    setEsFav(!esFav);
+        console.log("listaFavXUserId", listaFavXUserId);
   };
 
   const handleClick = () => {
@@ -121,7 +147,7 @@ console.log("userId", userId)
       }}
     >
       <CardMedia sx={{ height: 240 }} image={url} title="imagen">
-        {esFav ? (
+        {esFav ===true ? (
           <FavoriteIcon
             onClick={handleIconClick}
             className="heart-icon"
