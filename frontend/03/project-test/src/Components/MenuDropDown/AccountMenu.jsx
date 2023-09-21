@@ -187,7 +187,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <PersonAddIcon />
             </ListItemIcon>
-            <Link to="/formaltauser/">Crear Cuenta</Link>
+            <Link to="/formaltauser/">Crear cuenta</Link>
           </MenuItem>
         )}
 

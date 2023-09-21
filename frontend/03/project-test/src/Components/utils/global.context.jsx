@@ -448,8 +448,12 @@ export const ContextProvider = ({ children }) => {
 
     //     // solicitud POST a la API
     const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/update";
-    const body = JSON.stringify(favorito);
-    console.log("Body ", body);
+    const body = JSON.stringify({
+       id: id,
+      favorito: favorito,
+      vigente: 1,
+    });
+   
     const options = {
       method: "POST",
       headers: {
@@ -486,6 +490,70 @@ export const ContextProvider = ({ children }) => {
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
+  };
+
+  //////////////////////////////// Guardar Comentario y puntos
+  const [datosPuntuarComentar, setDatosPuntuarComentar] = useState([]);
+  const [mensajePostComentario, setMensajePostComentario] = useState("");
+  const fechaActualPuntuacion = new Date();
+  const fechaFormateada = fechaActualPuntuacion.toISOString().split("T")[0];
+
+  const postPuntuarComentar = async (
+    idUsuario,
+    idRecurso,
+    puntuacion,
+    comentario
+  ) => {
+    // preparacion de datos
+    setDatosPuntuarComentar({
+      idUsuario: idUsuario,
+      idRecurso: idRecurso,
+      puntuacion: puntuacion,
+      comentario: comentario,
+      fecha_valoracion: fechaFormateada,
+    });
+    console.log(datosPuntuarComentar);
+
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/puntaje/save";
+
+    const body = JSON.stringify({
+      idUsuario: idUsuario,
+      idRecurso: idRecurso,
+      puntuacion: puntuacion,
+      comentario: comentario,
+      fecha_valoracion: fechaFormateada,
+    });
+
+    console.log("datosPuntuarComentar BODY JSON.stringify", body);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+
+      if (response.ok) {
+        setMensajePostComentario(
+          `Gracias por valorar nuestros servicios`
+        );
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setMensajePostComentario("Datos incorrectos");
+      } else {
+        setErrorLogueo(
+          "Error al intentar realizar la operación. Por favor, intente más tarde."
+        );
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setMensajePostComentario(`Error al realizar la solicitud: ${error}`);
+    }
   };
 
   //////////////////////////////////////////////////////////////
@@ -731,6 +799,7 @@ export const ContextProvider = ({ children }) => {
   return (
     <ContextGlobal.Provider
       value={{
+        postPuntuarComentar,
         postActualizarFavorito,
         actualizarFavorito,
         setActualizarFavorito,

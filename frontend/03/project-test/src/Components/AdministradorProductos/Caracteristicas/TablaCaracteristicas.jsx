@@ -128,10 +128,15 @@ const TablaCaracteristicas = () => {
           },
         });
   
-        if (response.status === 200) {
+        if (response.ok) {
           const responseData = await response.data;
           console.log("Respuesta:", responseData);
+          console.log(" handleClose();:");
+
+          handleClose();
           getCaracteristicasLista();
+          setEditDialogOpen(false); 
+        
         } else {
           console.error(
             "Error en la respuesta:",
@@ -142,9 +147,7 @@ const TablaCaracteristicas = () => {
       } catch (error) {
         console.error("Error:", error);
       }
-  
-      // Cierra el diálogo de edición
-      setEditDialogOpen(false);
+     
     }
   };
   
@@ -252,6 +255,7 @@ const TablaCaracteristicas = () => {
       });
       /////////////// VER ERROR ///////
     }
+    handleClose
   };
   ///////////////////Eliminar Caracteristica
 

@@ -47,7 +47,7 @@ const CardProducto = ({
   const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
   console.log(`Recurso ${id} es`, esFav);
 
-  console.log(tieneRegFav);
+  console.log("listaFavXUserId en DETALLE ---> ", listaFavXUserId);
  
   const [iconSize, setIconSize] = useState(1); 
 
@@ -61,15 +61,18 @@ const CardProducto = ({
   const handleIconClick = (e) => {
     e.stopPropagation();
 
+    const idFavorito = listaFavXUserId.id;
+    console.log("idFavorito",  userId);
+
     if (!esFav) {
       console.log("handleIconClick  -  > !esFav")
       guardarFavorito(userId, id);
     }else if(tieneRegFav) {
       console.log("handleIconClick  -  > tieneRegFav")
-      postActualizarFavorito(69, 0)
+      postActualizarFavorito(idFavorito, 0)
     } else{
       console.log("handleIconClick  -  > !esFav")
-      postActualizarFavorito(69, 1)
+      postActualizarFavorito(idFavorito, 1)
     }
     setIconSize(iconSize === 1 ? 1.05 : 1);
    

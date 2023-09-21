@@ -52,7 +52,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "320px",
+  width: "100%",
+  maxWidth:"900px",
   height: "auto",
   bgcolor: "background.paper",
   border: "12px solid white",
@@ -61,7 +62,7 @@ const style = {
 };
 
 const styleModalInicio = {
-  position: "relative",
+  position: "fixed",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -704,7 +705,7 @@ const Detail = () => {
           >
             <Box sx={styleModalInicio}>
               <Stack
-                style={{ alignItems: "center", justifyContent: "space-around" }}
+                style={{ alignItems: "center", justifyContent: "space-around", }}
               >
                 <Paper sx={{ width: "320px" }}>
                   <Typography

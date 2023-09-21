@@ -29,14 +29,14 @@ const BannerPrincipal = () => {
       <div className={flexingClassName}>
         <div className="section section--yellow">
           <Link to={"/paginafiltrado/2"}>
-            <h3 className="title">Co Working</h3>
+            <h3 className="title">Coworking</h3>
             <h3 className="precio">10%Off</h3>
           </Link>
         </div>
 
         <div className="section section--pink">
           <Link to={"/paginafiltrado/5"}>
-            <h3 className="title">Officina Set</h3>
+            <h3 className="title">Oficina Set</h3>
             <h3 className="precio">15%Off</h3>
           </Link>
         </div>

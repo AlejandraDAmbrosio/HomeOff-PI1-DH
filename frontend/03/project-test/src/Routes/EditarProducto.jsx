@@ -144,18 +144,18 @@ const EditarProducto = () => {
   const sedesArray = [
     {
       id: 1,
-      nombre: "Argentina",
-      direccion: "Libertador 2100, Capital Federal.",
+      nombre: "Colombia",
+      direccion: "CARRERA 100 # 15",
     },
     {
       id: 2,
-      nombre: "Colombia",
-      direccion: "CR 2 #5-27, Bogota.",
+      nombre: "Argentina",
+      direccion: "Calle 1 y 60 La Plata",
     },
     {
       id: 3,
       nombre: "Chile",
-      direccion: "Avenida Presidente Kennedy 4420. Santiago de Chile.",
+      direccion: "Av. Libertador Bernardo O'Higgins 1449, Torre",
     },
   ];
 

@@ -184,7 +184,7 @@ const TableroPoliticas = () => {
       );
 
       const updatedPolitica = politicas.filter(
-        (politica) => politica.idPolitica !== idPolitica
+        (politica) => politica.idPoliticas !== idPolitica
       );
       setPoliticas(updatedPolitica);
       getPoliticas();
@@ -234,7 +234,7 @@ const TableroPoliticas = () => {
         politica_cambio_fecha: editedItem.politica_cambio_fecha,
         politica_cancelacion: editedItem.politica_cancelacion,
         idRecurso: editedItem.idRecurso,
-        idPolitica: editedItem.idRecurso,
+        idPoliticas: editedItem.idRecurso,
       };
       console.log("editedItemData", editedItemData);
 
