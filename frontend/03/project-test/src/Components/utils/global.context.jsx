@@ -448,8 +448,12 @@ export const ContextProvider = ({ children }) => {
 
     //     // solicitud POST a la API
     const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/update";
-    const body = JSON.stringify(favorito);
-    console.log("Body ", body);
+    const body = JSON.stringify({
+       id: id,
+      favorito: favorito,
+      vigente: 1,
+    });
+   
     const options = {
       method: "POST",
       headers: {
@@ -535,7 +539,7 @@ export const ContextProvider = ({ children }) => {
 
       if (response.ok) {
         setMensajePostComentario(
-          `Gracias ${username} por valorar nuestros servicios`
+          `Gracias por valorar nuestros servicios`
         );
         const data = await response.json();
         console.log(data);

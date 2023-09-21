@@ -296,17 +296,17 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                 }}
               >
                 {cantidadDias > 1 ? (
-                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
-                    Capacidad maxima{capacidad} personas
+                  <Typography style={{ fontSize: "0.8rem", color: "#424242" }}>
+                    Capacidad maxima: {capacidad} personas
                   </Typography>
                 ) : (
-                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
-                    Capacidad {capacidad} persona
+                  <Typography style={{ fontSize: "0.8rem", color: "#424242" }}>
+                    Capacidad: {capacidad} persona
                   </Typography>
                 )}
                 <Stack direction={"row"} spacing={1}>
                   {/* <Typography>Precio total</Typography> */}
-                  <Typography style={{ fontSize: "0.8rem", color: "#979797" }}>
+                  <Typography style={{ fontSize: "0.8rem", color: "#424242" }}>
                     Precio por dia por persona ${precio / capacidad}
                   </Typography>{" "}
                 </Stack>
