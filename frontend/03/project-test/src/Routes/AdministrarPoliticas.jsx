@@ -8,7 +8,7 @@ const AdministrarPoliticas = () => {
   return (
     <div className="administracion-car">
       <div className="administracion-car-titulo">
-        Administracion Características
+        Administración Políticas
       </div>
       <div className="paneles-car">
         <PanelAdminUser />
