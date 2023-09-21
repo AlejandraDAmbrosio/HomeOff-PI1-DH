@@ -42,8 +42,8 @@ const BarraCategorias = ({ NombreCategoria }) => {
         forwardBtnProps={{
           children: ">",
           style: {
-            width: 40,
-            height: 60,
+            width: 20,
+            height: 50,
             minWidth: 60,
             alignSelf: "center",
             backgroundColor:"white",
@@ -54,8 +54,8 @@ const BarraCategorias = ({ NombreCategoria }) => {
         backwardBtnProps={{
           children: "<",
           style: {
-            width: 40,
-            height: 60,
+            width: 20,
+            height: 50,
             minWidth: 60,
             alignSelf: "center",
             backgroundColor:"white",

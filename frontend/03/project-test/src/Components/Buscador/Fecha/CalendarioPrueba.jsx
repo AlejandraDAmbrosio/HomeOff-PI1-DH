@@ -192,7 +192,6 @@ const CalendarioPrueba = ({ id, precio, capacidad }) => {
                     borderRadius: "20px",
                     backgroundColor: "white",
                     padding: "0.8rem 0.5rem",
-                    alignItems: "center",
                     width: "370px",
                     border: "1px solid #b6b5b5",
                     boxShadow:"3px 3px 3px #b6b5b5"

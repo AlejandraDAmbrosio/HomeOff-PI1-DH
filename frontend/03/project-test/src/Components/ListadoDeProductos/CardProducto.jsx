@@ -158,7 +158,7 @@ const CardProducto = ({
             style={{
               fontWeight: "600",
               color: "#383B58",
-              alignItems: "center",
+              alignItem: "center",
               lineHeight: "15px",
             }}
           >

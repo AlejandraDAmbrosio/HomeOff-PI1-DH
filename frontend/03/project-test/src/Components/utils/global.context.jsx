@@ -440,8 +440,6 @@ export const ContextProvider = ({ children }) => {
     vigente: 1,
     fecha_MarcacionFavorito: "2023-09-14",
     id: 0,
-    favorito: 0,
-    vigente: 1,
   });
 
   const postActualizarFavorito = async (
@@ -455,9 +453,6 @@ export const ContextProvider = ({ children }) => {
       favorito: favorito,
       vigente: 1,
       fecha_MarcacionFavorito: "2023-09-14",
-      id: 0,
-      favorito: 0,
-      vigente: 1,
     });
 
     //     // solicitud POST a la API

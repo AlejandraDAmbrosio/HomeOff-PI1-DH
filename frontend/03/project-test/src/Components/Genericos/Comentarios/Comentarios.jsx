@@ -15,6 +15,7 @@ import Puntuacion from "../Puntuaciones/Puntuacion";
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import EstrellaValor from "../../Genericos/Puntuaciones/EstrellaValor";
 import formatearFecha from "../../utils/formatearFechaParaVisualizar";
+import Puntuar from "../Puntuaciones/Puntuar";
 
 const Comentarios = ({ id }) => {
   const {
@@ -169,14 +170,16 @@ const Comentarios = ({ id }) => {
                 value={comentario}
                 onChange={(e) => setComentario(e.target.value)}
               />
-              <TextField
+              {/* <TextField
                 label="Puntuación"
                 variant="outlined"
                 fullWidth
                 type="number"
                 value={puntuacion}
                 onChange={(e) => setPuntuacion(e.target.value)}
-              />
+              /> */}
+
+              <Puntuar></Puntuar>
               <Box mt={2}>
                 <Button
                   variant="contained"
@@ -307,6 +310,7 @@ const Comentarios = ({ id }) => {
           </Stack>
         </Stack>
       </Stack>
+      <Puntuar></Puntuar>
     </Stack>
   );
 };
