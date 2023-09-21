@@ -19,8 +19,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private final JavaMailSender mail;
-
     @PostMapping(value = "login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
     {
@@ -33,21 +31,5 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
 
     }
-
-
-    @PostMapping("correo")
-    public ResponseEntity<?> enviar_correo(){
-
-        SimpleMailMessage email= new SimpleMailMessage();
-        email.setTo("halconrn1@gmail.com");
-        email.setFrom("homeoff.noreply@gmail.com");
-        email.setSubject("Bienvenido");
-        email.setText("texto del mensaje aca va el link");
-        mail.send(email);
-
-        return new ResponseEntity<>(true, HttpStatus.OK);
-
-    }
-
 
 }
