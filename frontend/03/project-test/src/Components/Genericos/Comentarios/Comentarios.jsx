@@ -116,11 +116,17 @@ const Comentarios = ({ id }) => {
               Valoraciones de huéspedes
             </Typography>
 
+            <Stack spacing={1} direction={"row"} sx={{padding:"5px"}}>
+
+            
             {puntosPromedioXIDRecurso ? (
               <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
             ) : (
               <EstrellaValor />
             )}
+
+            <Typography  style={{  fontSize:"18px" }}>/ {puntosComentXIDRecurso.length} evaluaciones</Typography>
+            </Stack>
           </Stack>
           {(usuarioLogueado || userIdLogIn || user) && (
             <Button

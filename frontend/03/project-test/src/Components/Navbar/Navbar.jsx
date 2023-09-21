@@ -25,6 +25,7 @@ const Navbar = () => {
     location.pathname === "/agregarproducto/" ||
     location.pathname === "/administradorproductos/" ||
     location.pathname === "/administracioncaracteristicas/" ||
+    location.pathname === "/administrarpoliticas/" ||
     location.pathname === "/administrarcategorias/" ||
     location.pathname === "/administracionusers/" ||
     location.pathname === "/paginafiltrado/" ||
@@ -43,7 +44,7 @@ const Navbar = () => {
       <div className={`header ${isPanelSinCategorias ? "admin-header" : ""}`}>
         <nav>
           <ul className="ul-nav">
-            <li>
+            <li >
               <Logo />
             </li>
             {/* <li>

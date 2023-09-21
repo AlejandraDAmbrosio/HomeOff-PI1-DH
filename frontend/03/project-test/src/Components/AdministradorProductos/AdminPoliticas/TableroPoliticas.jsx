@@ -373,7 +373,6 @@ const TableroPoliticas = () => {
         </DialogActions>
       </Dialog>
 
-      <div>TableroPoliticas</div>
       <Paper
         sx={{ width: "100%", overflow: "hidden" }}
         style={{ margin: "0 20px 0 0" }}
