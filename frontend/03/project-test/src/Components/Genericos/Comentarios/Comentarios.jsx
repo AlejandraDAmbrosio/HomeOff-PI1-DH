@@ -53,10 +53,12 @@ const Comentarios = ({ id }) => {
 
   // Función para manejar el envío del comentario
   const handleGuardarComentario = () => {
+
     setPuntuacion(rating);
     postPuntuarComentar(userIdLogIn, id, puntuacion, comentario);
     getPuntosComentXIDRecurso(id);
     getPuntosPromedioXIDRecurso(id);
+    setComentario("");
     handleCloseModal();
   };
 
@@ -92,63 +94,72 @@ const Comentarios = ({ id }) => {
           alignItems: "center",
           // flexDirection: "row",
           padding: "1rem 0.2rem 1rem 0.2rem",
-          // border: "1px solid #dfdfdf",
+
           borderRadius: "28px",
         }}
       >
         <Stack
           style={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
             gap: "1.5rem",
             padding: "1rem 1rem 1rem 1rem",
             width: "100%",
             alignItems: "center",
-            // border: "1px solid red",
+            // height: "50px",
           }}
         >
           <Stack
+            direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
             style={{
               display: "flex",
-              flexDirection: "row",
-              gap: "1.5rem",
               justifyContent: "space-between",
-              alignItems: "center",
 
-              // border: "1px solid red",
+              width: "100%",
+              alignItems: "center",
             }}
           >
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
-              Valoraciones de huéspedes
-            </Typography>
-
-            <Stack spacing={1} direction={"row"} sx={{ padding: "5px" }}>
-              {puntosPromedioXIDRecurso ? (
-                <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
-              ) : (
-                <EstrellaValor />
-              )}
-
-              <Typography style={{ fontSize: "18px" }}>
-                / {puntosComentXIDRecurso.length} evaluaciones
-              </Typography>
-            </Stack>
-          </Stack>
-          {(usuarioLogueado || userIdLogIn || user) && (
-            <Button
-              className="boton-generico"
-              sx={{
-                color: "#47a169",
-                padding: "1.2rem 0.5rem",
+            <Stack
+              direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
+              style={{
+                display: "flex",
+                gap: "1rem",
+                justifyContent: "flex-start",
+                alignItems: "center",
                 width: "100%",
-                borderRadius: "20px",
               }}
-              onClick={handleOpenModal}
             >
-              Comentar
-            </Button>
-          )}
+              <Typography variant="h4" sx={{ textAlign: "center" }}>
+                Valoraciones de huéspedes
+              </Typography>
 
+              <Stack spacing={1} direction={"row"} sx={{ padding: "5px" }}>
+                {puntosPromedioXIDRecurso ? (
+                  <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
+                ) : (
+                  <EstrellaValor />
+                )}
+
+                <Typography style={{ fontSize: "18px" }}>
+                  / {puntosComentXIDRecurso.length} evaluaciones
+                </Typography>
+              </Stack>
+            </Stack>
+            {(usuarioLogueado || userIdLogIn || user) && (
+              <Button
+                className="boton-generico"
+                sx={{
+                  color: "#47a169",
+                  padding: "1.2rem 0.5rem",
+                  width: "100%",
+                  borderRadius: "20px",
+                }}
+                onClick={handleOpenModal}
+              >
+                Comentar
+              </Button>
+            )}
+          </Stack>
           {/* Modal para Comentar */}
           <Modal open={modalOpen} onClose={handleCloseModal}>
             <Paper
@@ -176,22 +187,22 @@ const Comentarios = ({ id }) => {
                   value={comentario}
                   onChange={(e) => setComentario(e.target.value)}
                 />
-                {/* <TextField
-                label="Puntuación"
-                variant="outlined"
-                fullWidth
-                type="number"
-                value={puntuacion}
-                onChange={(e) => setPuntuacion(e.target.value)}
-              /> */}
+             
 
                 <StarRating></StarRating>
                 <Typography>Tu valoración es: {rating}</Typography>
-                <Box mt={2} sx={{display:"flex", flexDirection:"row", alignItems:'center',  justifyContent:"space-around"}}>
+                <Box
+                  mt={2}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
                   <Button
                     variant="outlined"
                     color="primary"
-                    // sx={{borderColor:"#47a169", color:"#47a169"}}
                     onClick={handleGuardarComentario}
                   >
                     Guardar
@@ -285,11 +296,20 @@ const Comentarios = ({ id }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                         width: "100%",
-                        
+
                         height: "fit-content",
                       }}
                     >
-                      <Stack direction={{lg:"row", md:"row", sx:"column"}} spacing={2} alignItems={"center"} justifyContent={{lg:"flex-start", md:"flex-start", sx:"flex-start"}} >
+                      <Stack
+                        direction={{ lg: "row", md: "row", sx: "column" }}
+                        spacing={2}
+                        alignItems={"center"}
+                        justifyContent={{
+                          lg: "flex-start",
+                          md: "flex-start",
+                          sx: "flex-start",
+                        }}
+                      >
                         <Stack direction="row" spacing={2}>
                           <AvatarNav
                             Iniciales={comentario.nombreUsuario}

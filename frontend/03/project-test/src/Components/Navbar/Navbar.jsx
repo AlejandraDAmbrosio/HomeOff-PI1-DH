@@ -36,7 +36,8 @@ const Navbar = () => {
     location.pathname.startsWith("/verreservas/") ||
     location.pathname.startsWith("/reservas/") ||
     location.pathname.startsWith("/reserva/") ||
-    location.pathname === "/formaltauser/";
+    location.pathname === "/formaltauser/" ||
+    location.pathname.startsWith("/formingreso");
   location.pathname === "/favoritos/";
 
   return (

@@ -47,6 +47,21 @@ import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
 import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
 import FormIngreso from "./FormIngreso";
 
+
+const styleModalCompartir = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "100%",
+  maxWidth:"350px",
+  height: "auto",
+  bgcolor: "background.paper",
+  border: "12px solid white",
+  boxShadow: 24,
+  p: 1,
+};
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -68,6 +83,7 @@ const styleModalInicio = {
   transform: "translate(-50%, -50%)",
   width: 360,
 
+  
   bgcolor: "background.paper",
   border: "1px solid #ffff",
   boxShadow: 24,
@@ -109,12 +125,15 @@ const Detail = () => {
     getReservasPorRecurso,
     arrayFechasReservasXRecurso,
     getArrayFechasReservasXRecurso,
+    getPuntosPromedioXIDRecurso,
     reservasPorRecurso,
   } = useContext(ContextGlobal);
   const caracteristicaSet = new Set();
   const [copied, setCopied] = useState(false);
   const [openSnack, setOpenSnack] = React.useState(false);
   const [publicacionRedes, setPublicacionRedes] = useState("");
+
+
   const [openShareModal, setOpenShareModal] = useState(false);
   // const [fechaInicio, setFechaInicio] = useState(dayjs());
   // const [fechaFin, setFechaFin] = useState(dayjs());
@@ -183,6 +202,7 @@ const Detail = () => {
 
   const [openLogIn, setOpenLogIn] = useState(false);
   const handleOpenLogIn = () => {
+    console.log("COMPARTIr")
     setOpenLogIn(true);
   };
 
@@ -200,12 +220,14 @@ const Detail = () => {
       getRecursoXID(id);
       getCaracteristicasXID(id);
       getPuntosComentXIDRecurso(id);
+      getPuntosPromedioXIDRecurso(id);
       getArrayFechasReservasXRecurso(id);
     },
     [id],
-    { max: 2 }
+    { max: 3 }
   );
 
+ 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
   }
@@ -248,7 +270,7 @@ const Detail = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={styleModalCompartir}>
           <div>
             <IconButton
               aria-label="close"
@@ -705,9 +727,10 @@ const Detail = () => {
           >
             <Box sx={styleModalInicio}>
               <Stack
-                style={{ alignItems: "center", justifyContent: "space-around", }}
+                style={{ alignItems: "center", justifyContent: "center", height:"550px"}}
               >
                 <Paper sx={{ width: "320px" }}>
+                  <Stack>
                   <Typography
                     style={{
                       margin: "1rem 0 0 0",
@@ -726,6 +749,7 @@ const Detail = () => {
                   >
                     Si no esta registrado, debe crear su usuario para continuar.
                   </Typography>
+                  </Stack>
                   <FormIngreso />
                 </Paper>
               </Stack>

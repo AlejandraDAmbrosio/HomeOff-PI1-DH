@@ -812,10 +812,17 @@ export const ContextProvider = ({ children }) => {
   const [fechaFinBusqueda, setFechaFinBusqueda] = useState(new Date());
   const [cantidadDiasBusqueda, setCantidadDiasBusqueda] = useState(null);
 
+
+
+//////////////////////////////////////////
+const [openLogIn, setOpenLogIn] = useState(false);
+
+
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        openLogIn, setOpenLogIn,
         rating, setRating,
         postPuntuarComentar,
         postActualizarFavorito,

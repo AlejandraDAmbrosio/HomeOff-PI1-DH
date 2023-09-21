@@ -159,6 +159,8 @@ const BuscarXSede = () => {
 
   ///////////////////////////////////////////////////////////
   const handleSearchButtonClick = async () => {
+ 
+    setBusquedaCero(false);
     // Llama a onSaveDates primero
     onSaveDates();
 
@@ -258,30 +260,39 @@ const BuscarXSede = () => {
 
       // Si no tienes productos filtrados, realiza la búsqueda y filtro aquí
 
-        prodFiltrados.map(async (producto) => {
-          // Realiza la llamada a getFechasHabilitadasXIDRecurso para cada producto
-          await getFechasHabilitadasXIDRecurso(producto.idRecurso);
+      prodFiltrados.map(async (producto) => {
+        // Realiza la llamada a getFechasHabilitadasXIDRecurso para cada producto
+        await getFechasHabilitadasXIDRecurso(producto.idRecurso);
 
-          // Verifica si el producto está disponible
-          if (estaDisponible) {
-            // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
-            console.log("estaDisponible", producto)
-            filteredProducts.push(producto)
-            return producto;
-          } else {
-            return null; // No agregues el producto si no está disponible
-          }
-        })
+        // Verifica si el producto está disponible
+        if (estaDisponible) {
+          // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
+          console.log("estaDisponible", producto);
+          filteredProducts.push(producto);
+          return producto;
+        } else {
+          return null; // No agregues el producto si no está disponible
+        }
+      });
 
       // Filtra los productos no nulos (es decir, disponibles)
       filteredProducts = filteredProducts.filter(
         (producto) => producto !== null
       );
-      console.log("filteredProducts", filteredProducts)
+
+      if (filteredProducts.length == 0) {
+        setProdFiltrados([]);
+        setBusquedaCero(false);
+      }
+
+      console.log("filteredProducts", filteredProducts);
       setProdFiltrados(filteredProducts);
 
       // Realiza acciones con los productos filtrados
-      console.log("Productos filtrados por fechas  if (prodFiltrados.length > 0):", filteredProducts);
+      console.log(
+        "Productos filtrados por fechas  if (prodFiltrados.length > 0):",
+        filteredProducts
+      );
     } else {
       // Si no tienes productos filtrados, realiza la búsqueda y filtro aquí
       filteredProducts = await Promise.all(
@@ -291,10 +302,12 @@ const BuscarXSede = () => {
 
           // Verifica si el producto está disponible
           if (estaDisponible) {
-            // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
+          
             return producto;
           } else {
-            return null; // No agregues el producto si no está disponible
+     
+
+            return null;
           }
         })
       );
@@ -304,16 +317,16 @@ const BuscarXSede = () => {
         (producto) => producto !== null
       );
 
-     
       setProdFiltrados(filteredProducts);
       // Realiza acciones con los productos filtrados
-      console.log("Productos filtrados por fechas   } else {:", filteredProducts);
-      console.log("prodFiltrados.length", prodFiltrados.length)
+      console.log(
+        "Productos filtrados por fechas   } else {:",
+        filteredProducts
+      );
+      console.log("prodFiltrados.length", prodFiltrados.length);
     }
-   console.log(prodFiltrados)
-   console.log("prodFiltrados.length", prodFiltrados.length)
-
-
+    console.log(prodFiltrados);
+    console.log("prodFiltrados.length", prodFiltrados.length);
   };
 
   return (
