@@ -17,7 +17,6 @@ import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
 import { Stack } from "@mui/material";
 import { ContextGlobal } from "../utils/global.context";
 import { maxHeight } from "@mui/system";
-import esFavorito from "../utils/esFavorito";
 
 const CardProducto = ({
   title,
@@ -51,7 +50,6 @@ const CardProducto = ({
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
   }, []);
-
   let esFavResult;
   useEffect(() => {
     const fetchData = async () => {
@@ -61,9 +59,7 @@ const CardProducto = ({
     };
     fetchData();
   }, []);
-
-  const esFav = esFavorito(id, listaFavXUserId);
-  const existeFav = listaFavXUserId.find((item) => item.idRecurso === id);
+  const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
 
   esFavResult = listaFavXUserId.find((item) => item.idRecurso === id);
   const idFavorito = esFavResult ? esFavResult.id : undefined;
@@ -75,15 +71,18 @@ const CardProducto = ({
   const handleIconClick = (e) => {
     e.stopPropagation();
 
-    if (!existeFav) {
+    if (!esFav) {
+      console.log("handleIconClick  -  > !esFav");
       guardarFavorito(userId, id);
-    } else if (esFav) {
+    } else if (tieneRegFav) {
+      console.log("handleIconClick  -  > tieneRegFav");
       postActualizarFavorito(idFavorito, 0, userId, id);
     } else {
+      console.log("handleIconClick  -  > !esFav");
       postActualizarFavorito(idFavorito, 1, userId, id);
     }
     setIconSize(iconSize === 1 ? 1.05 : 1);
-    getListaFavXUserID(userId);
+    // // getListaFavXUserID(userId);
   };
 
   const handleClick = () => {
@@ -159,7 +158,7 @@ const CardProducto = ({
             style={{
               fontWeight: "600",
               color: "#383B58",
-              alignItem: "center",
+              alignItems: "center",
               lineHeight: "15px",
             }}
           >

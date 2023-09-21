@@ -25,9 +25,9 @@ const ListadoProductos = ({ CantidadCards }) => {
     listaFavXUserId
   } = useContext(ContextGlobal);
 
-  // useEffect(() => {
-  //   getListaFavXUserID(userIdLogIn);
-  // }, [userIdLogIn ]);
+  useEffect(() => {
+    getListaFavXUserID(userIdLogIn);
+  }, [userIdLogIn ]);
 
   
 console.log("listaFavXUserId", listaFavXUserId)
