@@ -47,6 +47,8 @@ const ListadoProductos = ({ CantidadCards }) => {
 
   
 console.log("listaFavXUserId", listaFavXUserId)
+  
+
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
@@ -136,7 +138,7 @@ console.log("listaFavXUserId", listaFavXUserId)
                   productosBKLista,
                   categoriasLista
                 )}
-                listaFavoritosXID={listaFavXUserId}
+                listaFavXUserId={listaFavXUserId}
               />
             );
           })

@@ -82,8 +82,6 @@ const styleModalInicio = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 360,
-
-  
   bgcolor: "background.paper",
   border: "1px solid #ffff",
   boxShadow: 24,
@@ -104,29 +102,18 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
-    // puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
-    // getCaracteristicasLista,
-    // usuarioLogueado,
-    // infoRecursoAReservar,
     setInfoRecursoAReservar,
-    // email,
-    // setEmail,
     userIdLogIn,
     fechaInicio,
     setFechaInicio,
-    usuarioLogueado,
     fechaFin,
     setFechaFin,
     cantidadDias,
-    setCantidadDias,
-    getReservasPorRecurso,
-    arrayFechasReservasXRecurso,
     getArrayFechasReservasXRecurso,
     getPuntosPromedioXIDRecurso,
-    reservasPorRecurso,
   } = useContext(ContextGlobal);
   const caracteristicaSet = new Set();
   const [copied, setCopied] = useState(false);
