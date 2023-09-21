@@ -118,7 +118,11 @@ const TablaCaracteristicas = () => {
         idCaracteristica: editedItem.idCaracteristica,
       };
   
+<<<<<<< HEAD
       const urlBaseEditar = "http://52.88.220.184:8080/auth/caracteristicas/update";
+=======
+      const urlBaseEditar = "http://52.32.210.155:8080/auth/caracteristicas/update";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   
       try {
         const jsonDataEdicion = JSON.stringify(editedItemData);
@@ -128,10 +132,22 @@ const TablaCaracteristicas = () => {
           },
         });
   
+<<<<<<< HEAD
         if (response.status === 200) {
           const responseData = await response.data;
           console.log("Respuesta:", responseData);
           getCaracteristicasLista();
+=======
+        if (response.ok) {
+          const responseData = await response.data;
+          console.log("Respuesta:", responseData);
+          console.log(" handleClose();:");
+
+          handleClose();
+          getCaracteristicasLista();
+          setEditDialogOpen(false); 
+        
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         } else {
           console.error(
             "Error en la respuesta:",
@@ -142,9 +158,13 @@ const TablaCaracteristicas = () => {
       } catch (error) {
         console.error("Error:", error);
       }
+<<<<<<< HEAD
   
       // Cierra el diálogo de edición
       setEditDialogOpen(false);
+=======
+     
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     }
   };
   
@@ -178,7 +198,11 @@ const TablaCaracteristicas = () => {
       };
 
       const urlBaseGuardar =
+<<<<<<< HEAD
         "http://52.88.220.184:8080/auth/caracteristicas/save";
+=======
+        "http://52.32.210.155:8080/auth/caracteristicas/save";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       // const token = localStorage.getItem("token");
       // console.log("token previo a agregar caracteristicas", token);
@@ -252,13 +276,18 @@ const TablaCaracteristicas = () => {
       });
       /////////////// VER ERROR ///////
     }
+    handleClose
   };
   ///////////////////Eliminar Caracteristica
 
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
       const response = await axios.post(
+<<<<<<< HEAD
         `http://52.88.220.184:8080/auth/caracteristicas/delete/${idCaracteristica}`,
+=======
+        `http://52.32.210.155:8080/auth/caracteristicas/delete/${idCaracteristica}`,
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         {
           headers: {
             "Access-Control-Allow-Origin": "*",

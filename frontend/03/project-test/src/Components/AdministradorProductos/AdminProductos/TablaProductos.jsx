@@ -54,12 +54,18 @@ const TablaProductos = () => {
   /////////////// Metodo Eliminar Producto
   const [openDialog, setOpenDialog] = useState(false);
   const [idRecursoToDelete, setIdRecursoToDelete] = useState(null);
+<<<<<<< HEAD
   // console.log("-------------- > tokenUser", tokenUser);
 
   // const headers={}
+=======
+  
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const eliminarRecurso = async (idRecurso) => {
+    console.log( "eliminarRecurso idRecurso" ,idRecurso)
     try {
+<<<<<<< HEAD
       const response = await axios.delete(
         `http://52.88.220.184:8080/auth/recurso/delete/${idRecurso}`,
         {
@@ -73,7 +79,23 @@ const TablaProductos = () => {
         (productoXId) => productoXId.idRecurso !== idRecurso
       );
       setProductosBKLista(updatedRecursos);
+=======
+      const response = await axios.post(
+        `http://52.32.210.155:8080/auth/recursos/delete/${idRecurso}`);
+      
+      if (response.status == 200) {
+        
+        const updatedRecursos = productosBKLista.filter(
+          (productoXId) => productoXId.idRecurso !== idRecurso
+        );
+        setProductosBKLista(updatedRecursos);
+      } else {
+
+        console.error("Error al eliminar el recurso. Estado de respuesta:", response.status);
+      }
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     } catch (error) {
+      
       console.error("Error al eliminar el usuario:", error);
     }
   };

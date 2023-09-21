@@ -23,11 +23,19 @@ import AgregarCaracteristicas from "./Routes/AgregarCaracteristicas";
 import VerReservas from "./Routes/VerReservas";
 import Reservas from "./Routes/Reservas";
 import ReservarXIDRecurso from "./Routes/ReservarXIDRecurso";
+<<<<<<< HEAD
+=======
+import AdministrarPoliticas from "./Routes/AdministrarPoliticas";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
   ////////////////// Segmento Logueo
+<<<<<<< HEAD
   const { setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin, getDatosUsersXID } =
+=======
+  const {setIsAdmin , setNombreCompleto,  setUsuarioLogueado, usuarioLogueado, userIdLogIn, isAdmin, getDatosUsersXID, setUserIdLogIn,setRol, setUsuarios, setEmail } =
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     useContext(ContextGlobal);
   /////////////////
 
@@ -48,7 +56,18 @@ function App() {
       // console.log("token en Local Storage", token);
       // console.log("user en Local Storage", user);
       // console.log("userId en Local Storage", userId);
+<<<<<<< HEAD
       setUsuarioLogueado(user);
+=======
+      if (rol === "ADMINISTRADOR") {
+        setIsAdmin(true);
+      }
+      setUsuarioLogueado(user);
+      setUserIdLogIn(userId);
+      setRol(rol);
+      setNombreCompleto(user);
+      setEmail(emailStorage);
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     }
   }, []);
 
@@ -91,8 +110,24 @@ function App() {
               adminOnly={true}
             />
           }
+<<<<<<< HEAD
         />
 
+=======
+        />
+
+<Route
+          path="/AdministrarPoliticas/"
+          element={
+            <PrivateRoute
+              component={AdministrarPoliticas}
+              adminOnly={true}
+            />
+          }
+        />
+
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         <Route
           path="/administradorproductos/"
           element={
@@ -134,6 +169,7 @@ function App() {
 
         <Route path="/verreservas/" element={<VerReservas />}>
           <Route path="/verreservas/:id" element={<VerReservas />} />
+<<<<<<< HEAD
         </Route>
 
 
@@ -148,6 +184,22 @@ function App() {
         </Route>
 
 
+=======
+        </Route>
+
+
+        {/* <Route path="/reservas/" element={<Reservas />}>
+          <Route path="/reservas/:id" element={<Reservas />} />
+        </Route> */}
+
+
+
+        <Route path="/reserva/" element={<ReservarXIDRecurso />}>
+          <Route path="/reserva/:id" element={<ReservarXIDRecurso />} />
+        </Route>
+
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         {/* <Route
           path="/administrarcategorias/"
           element={<AdministrarCategorias />}

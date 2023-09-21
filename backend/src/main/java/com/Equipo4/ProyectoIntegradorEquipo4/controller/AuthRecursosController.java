@@ -52,6 +52,15 @@ public class AuthRecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
+    @PostMapping("recursos/delete/{id}")
+    public ResponseEntity<ServiceResponse> update(@PathVariable int id){
+        ServiceResponse serviceResponse = new ServiceResponse();
+        int result = iRecursosService.deleteById(id);
+        if(result ==1){
+            serviceResponse.setMessage("Registro Borrado con exito");
+        }
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
+    }
 
 
 }

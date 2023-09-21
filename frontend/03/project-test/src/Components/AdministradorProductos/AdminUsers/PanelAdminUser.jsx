@@ -12,7 +12,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ListDivider from "@mui/joy/ListDivider";
 import { Link } from "react-router-dom";
 
-// import { NextLinkComposed } from '../src/Link';
 
 const PanelAdminUser = () => {
   return (
@@ -71,6 +70,13 @@ const PanelAdminUser = () => {
         <Link to="/administracionusers/">
           <ListItem>
             <ListItemButton>Usuarios</ListItemButton>
+          </ListItem>
+        </Link>
+
+        
+        <Link to="/administrarpoliticas/">
+          <ListItem>
+            <ListItemButton>Políticas</ListItemButton>
           </ListItem>
         </Link>
 {/* 

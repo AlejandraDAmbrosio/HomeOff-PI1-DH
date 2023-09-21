@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
+// import dayjs, { Dayjs } from "dayjs";
 import {
   useNavigate,
   useParams,
   useLocation,
-  Link,
+  // Link,
   useResolvedPath,
 } from "react-router-dom";
+<<<<<<< HEAD
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
 import formateoFechas from "../Components/utils/formateoFechas"
 
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+=======
+// import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
+// import formateoFechas from "../Components/utils/formateoFechas";
+
+// import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
-  Container,
+  // Container,
   Box,
   Paper,
   Modal,
@@ -24,18 +32,21 @@ import {
   Snackbar,
   IconButton,
   Grid,
+<<<<<<< HEAD
+=======
+  Dialog,
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
-import Compartir from "../Components/CompartirEnRedes/Compartir";
+// import Compartir from "../Components/CompartirEnRedes/Compartir";
 import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
 import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
-import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
 import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
 import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
@@ -43,45 +54,45 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+<<<<<<< HEAD
+=======
+import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
+import FormIngreso from "./FormIngreso";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  Width: "320px",
+  width: "100%",
+  maxWidth:"900px",
+  height: "auto",
   bgcolor: "background.paper",
   border: "12px solid white",
   boxShadow: 24,
   p: 1,
 };
 
+const styleModalInicio = {
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 360,
+
+  bgcolor: "background.paper",
+  border: "1px solid #ffff",
+  boxShadow: 24,
+  pt: 0,
+  px: 0,
+  pb: 3,
+};
+
 const Detail = () => {
-  const [copied, setCopied] = useState(false);
-  const [openSnack, setOpenSnack] = React.useState(false);
-
-  const handleClickSnack = () => {
-    setOpenSnack(true);
-  };
-
-  const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenSnack(false);
-  };
-
   const navigate = useNavigate();
-  const resolvedPath = useResolvedPath();
-  const [publicacionRedes, setPublicacionRedes] = useState("");
-
   const currentURL = window.location.href;
-
-  const onChangeCopy = (event) => {
-    setPublicacionRedes(event.target.value);
-  };
-
+  const resolvedPath = useResolvedPath();
   const { id } = useParams();
   const location = useLocation();
   const {
@@ -90,6 +101,7 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
+<<<<<<< HEAD
     puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
@@ -99,17 +111,42 @@ const Detail = () => {
     infoRecursoAReservar, setInfoRecursoAReservar,fechasResDetalle,
     email, setEmail,
     userIdLogIn
+=======
+    // puntosComentXIDRecurso,
+    categoriasLista,
+    caracteristicasXID,
+    getCaracteristicasXID,
+    // getCaracteristicasLista,
+    // usuarioLogueado,
+    // infoRecursoAReservar,
+    setInfoRecursoAReservar,
+    // email,
+    // setEmail,
+    userIdLogIn,
+    fechaInicio,
+    setFechaInicio,
+    usuarioLogueado,
+    fechaFin,
+    setFechaFin,
+    cantidadDias,
+    setCantidadDias,
+    getReservasPorRecurso,
+    arrayFechasReservasXRecurso,
+    getArrayFechasReservasXRecurso,
+    reservasPorRecurso,
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   } = useContext(ContextGlobal);
-
+  const caracteristicaSet = new Set();
+  const [copied, setCopied] = useState(false);
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [publicacionRedes, setPublicacionRedes] = useState("");
   const [openShareModal, setOpenShareModal] = useState(false);
+  // const [fechaInicio, setFechaInicio] = useState(dayjs());
+  // const [fechaFin, setFechaFin] = useState(dayjs());
+  const [fechaRealizacionReserva, setFechaRealizacionReserva] = useState(Date);
 
-  const handleOpenShare = () => {
-    setOpenShareModal(true);
-  };
-
-  const handleCloseShareModal = () => {
-    setOpenShareModal(false);
-  };
+  // const [fechaInicio, setFechaInicio] = useState(new Date());
+  // const [fechaFin, setFechaFin] = useState(new Date());
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -130,19 +167,43 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
+<<<<<<< HEAD
   useEffect(() => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
     getPuntosComentXIDRecurso(id);
     
   }, [id]);
+=======
+  ///////////////MODAL  Compartir  ////////////////////////
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
-  if (!recursoXID) {
-    return <div>Producto no encontrado</div>;
-  }
+  const onChangeCopy = (event) => {
+    setPublicacionRedes(event.target.value);
+  };
 
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
+
+<<<<<<< HEAD
   // console.log(`reservas del producto ${recursoXID}`, reservas)
   /////////////////////////
+=======
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
+  };
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const handleCopyClick = (e) => {
     e.preventDefault();
@@ -156,17 +217,59 @@ const Detail = () => {
         console.error("Error al copiar la URL: ", error);
       });
   };
+<<<<<<< HEAD
   ///////////////
   // // console.log(
   // //   " resolvedPath.pathname --------------------",
   // //   resolvedPath.pathname
   // // );
   // // console.log("URL completa:", currentURL);
+=======
+  ///////////////FIN MODAL  Compartir  ////////////////////////
+  ////////////////Derivacion a Inicio en caso de reservar y no estar logueado
+
+  const [openLogIn, setOpenLogIn] = useState(false);
+  const handleOpenLogIn = () => {
+    setOpenLogIn(true);
+  };
+
+  const handleCloseLogIn = () => {
+    setOpenLogIn(false);
+  };
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
+  //////////////// Traer info del Contexto ////////////////////////
+
+  useEffect(
+    () => {
+      getRecursoXID(id);
+      getCaracteristicasXID(id);
+      getPuntosComentXIDRecurso(id);
+      getArrayFechasReservasXRecurso(id);
+    },
+    [id],
+    { max: 2 }
+  );
+
+  if (!recursoXID) {
+    return <div>Producto no encontrado</div>;
+  }
+
+  /////////////// INICIO Carga de Datos para reservar  ////////////////////////
+
+  const handleDateChange = (date) => {
+    setFechaInicio(date.startDate);
+    setFechaFin(date.endDate);
+  };
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     setInfoRecursoAReservar({
       idRecurso:recursoXID.idRecurso,
       fechaInicio:fechasInicioDetalle,
@@ -181,6 +284,26 @@ const Detail = () => {
     navigate(`/reserva/${id}`);
   };
   // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
+=======
+
+    if (idUserParse == 0) {
+      handleOpenLogIn();
+    } else {
+      setInfoRecursoAReservar({
+        idRecurso: recursoXID.idRecurso,
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        fechaRealizacionReserva: fechaRealizacionReserva,
+        idUser: idUserParse,
+        precioProducto: recursoXID.precioUnitario,
+        precioTotal: 0,
+        dias: cantidadDias,
+      });
+
+      navigate(`/reserva/${id}`);
+    }
+  };
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   return (
     <>
@@ -530,6 +653,7 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
+<<<<<<< HEAD
               {caracteristicasXID.map((caracteristica, idCaracteristica) => (
                 <div
                   key={idCaracteristica}
@@ -577,18 +701,83 @@ const Detail = () => {
                   </div>
                 </div>
               ))}
+=======
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => {
+                // Verificar si el ID de la característica ya se ha procesado
+                if (!caracteristicaSet.has(caracteristica.idCaracteristica)) {
+                  // Agregar el ID de la característica al conjunto
+                  caracteristicaSet.add(caracteristica.idCaracteristica);
+
+                  return (
+                    <div
+                      key={idCaracteristica}
+                      className="container-icono-caracteristica-texto"
+                    >
+                      <div className="icono-caracteristica-texto">
+                        {" "}
+                        {caracteristica.logoCaracteristica !== "" ? (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              width: "250px",
+                              padding: "7px 5px",
+                              justifyContent: "center",
+                              gap: "15px",
+                              borderRadius: " 11px 11px 11px 11px",
+                              boxShadow: "1px 1px 6px #979797",
+                            }}
+                          >
+                            <img
+                              className="icono-caracteristica"
+                              src={logoXIDCaracteristica(
+                                caracteristica.idCaracteristica,
+                                caracteristicasLista
+                              )}
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                            <div>{caracteristica.nombreCaracteristica}</div>
+                          </Paper>
+                        ) : (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "3px 10px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CheckOutlinedIcon style={{ color: "green" }} />
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                // Si el ID de la característica ya se ha procesado, no se renderiza de nuevo.
+                return null;
+              })}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             </div>
           </Stack>
           {/* </div> */}
         </div>
 
         <Stack
+<<<<<<< HEAD
           spacing={2}
+=======
+          spacing={3}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           flexDirection={{ lg: "row" }}
           style={{
             display: "flex",
 
+<<<<<<< HEAD
             gap: "3rem",
+=======
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
@@ -597,10 +786,15 @@ const Detail = () => {
         >
           <Stack
             item
+<<<<<<< HEAD
+=======
+            spacing={1}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             xs={12}
             md={5}
             lg={5}
             xl={5}
+<<<<<<< HEAD
             style={{ placeItems: "center", margin: "auto" }}
           >
             <CalendarioXId style={{ placeItems: "center" }} />
@@ -630,6 +824,76 @@ const Detail = () => {
             <Comentarios id={id} style={{ placeItems: "center" }} />
           </Stack>
         </Stack>
+=======
+            sx={{ placeItems: "center", margin: "auto" }}
+          >
+            {/* //////////////////////////////////////// */}
+
+            <CalendarioPrueba
+              fechaInicio={fechaInicio}
+              fechaFin={fechaFin}
+              onChange={{ handleDateChange }}
+              idRecurso={id}
+              precio={recursoXID.precioUnitario}
+              capacidad={recursoXID.capacidadMáxima}
+            />
+
+            {/* //////////////////////////////////////// */}
+            <Button
+              sx={{
+                width: "100%",
+                color: "white",
+                backgroundColor: "#7cc598",
+                ":hover": {
+                  backgroundColor: "#3c9960",
+                },
+              }}
+              onClick={handleSubmit}
+            >
+              Reservar
+            </Button>
+          </Stack>
+
+          <Dialog
+            open={openLogIn}
+            onClose={handleCloseLogIn}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={styleModalInicio}>
+              <Stack
+                style={{ alignItems: "center", justifyContent: "space-around", }}
+              >
+                <Paper sx={{ width: "320px" }}>
+                  <Typography
+                    style={{
+                      margin: "1rem 0 0 0",
+                      textAlign: "center",
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    Inicie su sesion para reservar.{" "}
+                  </Typography>
+                  <Typography
+                    style={{
+                      margin: "1rem 0 0 0",
+                      textAlign: "center",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Si no esta registrado, debe crear su usuario para continuar.
+                  </Typography>
+                  <FormIngreso />
+                </Paper>
+              </Stack>
+            </Box>
+          </Dialog>
+        </Stack>
+        {/* <Stack 
+        > */}
+          <Comentarios id={id} style={{ placeItems: "center" }} />
+        {/* </Stack> */}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

@@ -205,7 +205,11 @@ const FormAltaUser = () => {
 
       try {
         const response = await axios.post(
+<<<<<<< HEAD
           "http://52.88.220.184:8080/auth/register",
+=======
+          "http://52.32.210.155:8080/auth/register",
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           nuevoUserData
         );
 
@@ -486,11 +490,19 @@ const FormAltaUser = () => {
             </h5>
           )}
         </form>
+<<<<<<< HEAD
         <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
  
           <p>¿Se te olvidó tu contraseña?</p>
       
         </Stack>
+=======
+        {/* <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
+ 
+          <p>¿Se te olvidó tu contraseña?</p>
+      
+        </Stack> */}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       </Stack>
     </Container>
   );

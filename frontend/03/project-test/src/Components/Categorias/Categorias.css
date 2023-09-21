@@ -2,6 +2,7 @@
   padding-top: 1px;
   width: inherit;
   height: 100%;
+<<<<<<< HEAD
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,13 +37,35 @@
   align-items: center;
   cursor: pointer;
   /* border: 1px solid rgb(72, 255, 0); */
+=======
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 }
 
-.txt-titulo-servicio {
-  font-size: 12px;
-  color: #275ca8;
-  margin: 0px;
+
+
+.badge-categorias {
+  position: relative;
+  padding: 0 20px 0 20px;
+  height: 95px;
+  width: 100vw;
+  gap: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  /* border: 1px solid red; */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  /* scroll-snap-type: mandatory; */
+  scroll-snap-align: start;
 }
+
+
 
 .nombre-icono-categoria {
   line-height: 19px;

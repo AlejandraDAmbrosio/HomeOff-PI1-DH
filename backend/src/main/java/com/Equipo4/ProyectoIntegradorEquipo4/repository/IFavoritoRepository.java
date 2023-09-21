@@ -11,7 +11,9 @@ public interface IFavoritoRepository {
 
     public List<FavoritoRespuesta> findAllByUsuario(int idRecurso);
 
-    public int guardarFavorito(Favorito favorito);
+    public int save(Favorito favorito);
+
+    public int update(Favorito favorito);
 
     public Optional<Favorito> findById(int id);
 }

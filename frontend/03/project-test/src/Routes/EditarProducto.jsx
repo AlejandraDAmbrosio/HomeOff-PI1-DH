@@ -28,7 +28,11 @@ import { useParams } from "react-router-dom";
 const EditarProducto = () => {
   const { id } = useParams();
 
+<<<<<<< HEAD
   const urlBase = "http://52.88.220.184:8080/auth/recursos/update";
+=======
+  const urlBase = "http://52.32.210.155:8080/auth/recursos/update";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const {
     productosBKLista,
@@ -144,18 +148,18 @@ const EditarProducto = () => {
   const sedesArray = [
     {
       id: 1,
-      nombre: "Argentina",
-      direccion: "Libertador 2100, Capital Federal.",
+      nombre: "Colombia",
+      direccion: "CARRERA 100 # 15",
     },
     {
       id: 2,
-      nombre: "Colombia",
-      direccion: "CR 2 #5-27, Bogota.",
+      nombre: "Argentina",
+      direccion: "Calle 1 y 60 La Plata",
     },
     {
       id: 3,
       nombre: "Chile",
-      direccion: "Avenida Presidente Kennedy 4420. Santiago de Chile.",
+      direccion: "Av. Libertador Bernardo O'Higgins 1449, Torre",
     },
   ];
 
@@ -371,7 +375,11 @@ const EditarProducto = () => {
       //////// Envio de info a Caracteristicas///////////////////
 
       const urlCaracteristicasXIdRec =
+<<<<<<< HEAD
         "http://52.88.220.184:8080/auth/inter/save";
+=======
+        "http://52.32.210.155:8080/auth/inter/save";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       const caracteristicasParaEnviar = Object.keys(
         caracteristicasSeleccionadas
@@ -578,7 +586,7 @@ const EditarProducto = () => {
                 </div>
 
                 {/* -/////////////////////////////////////// */}
-                <FormGroup
+                {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
@@ -604,7 +612,7 @@ const EditarProducto = () => {
                       </li>
                     ))}
                   </div>
-                </FormGroup>
+                </FormGroup> */}
                 {/* /////////--------------------------------////// */}
                 <div
                   style={{

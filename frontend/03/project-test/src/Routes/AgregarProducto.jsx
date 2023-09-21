@@ -257,7 +257,11 @@ const AgregarProducto = () => {
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
+<<<<<<< HEAD
       const urlBase = "http://52.88.220.184:8080/auth/recursos/save";
+=======
+      const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       ///////////////Envio de datos
 
@@ -458,7 +462,7 @@ const AgregarProducto = () => {
                     <option className="item-grid" value={1}>
                       OFICINA ESPACIO ABIERTO
                     </option>
-                    <option className="item-grid" value={0}>
+                    <option className="item-grid" value={2}>
                       OFICINA ESPACIO CERRADO
                     </option>
                   </TextField>
@@ -466,6 +470,7 @@ const AgregarProducto = () => {
                   {/* //////////////////// */}
                 </div>
                 {/* -/////////////////////////////////////// */}
+<<<<<<< HEAD
                 {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
@@ -494,6 +499,10 @@ const AgregarProducto = () => {
                   </div>
                 </FormGroup> */}
                 {/* /////////--------------------------------////// */}
+=======
+               
+        
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                 <div
                   style={{
                     display: "flex",

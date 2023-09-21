@@ -13,9 +13,17 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 
+<<<<<<< HEAD
 import { useParams } from "react-router-dom";
 
 const AgregarCaracteristicas = () => {
+=======
+import { useNavigate, useParams } from "react-router-dom";
+
+const AgregarCaracteristicas = () => {
+  const navigate = useNavigate();
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   const { id } = useParams();
 
   const {
@@ -62,6 +70,7 @@ const AgregarCaracteristicas = () => {
     }
   }, [recursoXID]);
 
+<<<<<<< HEAD
   //////////////////OnChanges///////////////
 
 // const handleOptionChange = (caracteristica) => {
@@ -196,11 +205,18 @@ const AgregarCaracteristicas = () => {
   //     setForm(false);
   //   }
   // };
+=======
+  
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const handleOptionChange = async (caracteristica) => {
     try {
       const urlCaracteristicasXIdRec =
+<<<<<<< HEAD
         "http://52.88.220.184:8080/auth/inter/save";
+=======
+        "http://52.32.210.155:8080/auth/inter/save";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       const caracteristicasParaEnviar = {
         idCaracteristica: caracteristica.idCaracteristica,
@@ -297,9 +313,15 @@ const AgregarCaracteristicas = () => {
                 className="boton"
                 type="reset"
                 variant="outlined"
+<<<<<<< HEAD
                 color="error"
               >
                 Cancelar
+=======
+                onClick={() => navigate(-1)}
+              >
+                Guardar
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
               </Button>
             </div>
           </FormControl>

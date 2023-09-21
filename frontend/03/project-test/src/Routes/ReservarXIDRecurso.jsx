@@ -5,6 +5,10 @@ import {
   useLocation,
   useResolvedPath,
 } from "react-router-dom";
+<<<<<<< HEAD
+=======
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
   Container,
@@ -24,9 +28,16 @@ import "../Components/ReservarXIDRecurso.css";
 import { MdArrowBackIosNew } from "react-icons/md";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+<<<<<<< HEAD
 import formateoFechas from "../Components/utils/formateoFechas"
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
+=======
+import formateoFechas from "../Components/utils/formateoFechas";
+import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
+import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
+import formatearFechaParaEnvioBE from "../Components/utils/formatearFechaParaEnvioBE";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 const style = {
   position: "absolute",
@@ -62,6 +73,7 @@ const ReservarXIDRecurso = () => {
     getDatosUsersXID,
     usersXID,
     userIdLogIn,
+<<<<<<< HEAD
     setGuardarReserva,
     guardarReserva,
     fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
@@ -72,6 +84,25 @@ const ReservarXIDRecurso = () => {
     username: "",
   });
 
+=======
+    // userNameStorage,
+    setGuardarReserva,
+    guardarReserva,
+    cantidadDias,
+    setCantidadDias,
+    // fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
+  } = useContext(ContextGlobal);
+
+  const [usuario, setUsuario] = useState({
+    username: "",
+  });
+  const [mensaje, setInfoMensaje] = useState({
+    cuerpo:"",
+    idReserva:"",
+    error:"",
+    final:"",
+  });
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   const idUserParse = parseInt(userIdLogIn);
 
   // console.log("usersXID", usersXID);
@@ -91,12 +122,25 @@ const ReservarXIDRecurso = () => {
   const handleCloseImage1 = () => setOpenImage1(false);
   ///////
 
+<<<<<<< HEAD
   useEffect(() => {
     getRecursoXID(id);
     getCaracteristicasXID(id);
     getPuntosComentXIDRecurso(id);
     getDatosUsersXID(idUserParse);
   }, [infoRecursoAReservar], { max: 2});
+=======
+  useEffect(
+    () => {
+      getRecursoXID(id);
+      getCaracteristicasXID(id);
+      getPuntosComentXIDRecurso(id);
+      getDatosUsersXID(idUserParse);
+    },
+    [infoRecursoAReservar],
+    { max: 2 }
+  );
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   if (!recursoXID) {
     return <div>Producto no encontrado</div>;
@@ -110,6 +154,7 @@ const ReservarXIDRecurso = () => {
 
   ///////////////
 
+<<<<<<< HEAD
   const validarFormulario = () => {
     return (
       // validarNombre(usuario.nombre) &&
@@ -130,6 +175,40 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
 ////////////////////
 
 
+=======
+  const validarEmailReg = (e) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{3}$/;
+    if (regex.test(e)) {
+      setEmailValido(true);
+      return true;
+    } else {
+      setEmailValido(false);
+      return false;
+    }
+  };
+
+  ///////////
+  const validarFormulario = () => {
+    return (
+      // validarNombre(usuario.nombre) &&
+      validarEmailReg(usuario.username)
+    );
+  };
+  ////////////////////////////////////
+
+  const nombreReserva = usersXID.nombre;
+  const inicio = infoRecursoAReservar.fechaInicio;
+  const fin = infoRecursoAReservar.fechaFin;
+  const emailReserva = usersXID.username == "" ? eMailLocal : usersXID.username;
+  const apellidoReserva = usersXID.apellido;
+  const idRecursoReserva = recursoXID.idRecurso;
+  const fechaReserva = infoRecursoAReservar.fechaRealizacionReserva;
+  const estadoRes = 1;
+  const userIdVariable = parseInt(
+    infoRecursoAReservar.idUser == 0 ? userId : infoRecursoAReservar.idUser
+  );
+  ////////////////////
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -139,6 +218,7 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
       apellido: apellidoReserva,
       idUsuario: userIdVariable,
       idRecurso: idRecursoReserva,
+<<<<<<< HEAD
       inicioReserva: inicio,
       estadoReserva: estadoRes,
       email: emailReserva,
@@ -153,6 +233,23 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
     try {
       const urlReserva = "http://52.88.220.184:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
       const jsonDataReserva = JSON.stringify(guardarReserva);
+=======
+      inicioReserva: formatearFechaParaEnvioBE(inicio),
+      estadoReserva: estadoRes,
+      email: emailReserva,
+      finalizacionReserva: formatearFechaParaEnvioBE(fin),
+      fechaRealizacionReserva: formatearFechaParaEnvioBE(fechaReserva),
+    };
+    console.log("guardarReserva", guardarReserva);
+    // setGuardarReserva(guardarReserva);
+
+    // postReserva(guardarReserva);
+
+    try {
+      const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+      const jsonDataReserva = JSON.stringify(guardarReserva);
+      console.log("jsonDataReserva", jsonDataReserva)
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       console.log("datosReserva", jsonDataReserva);
       const response = await fetch(urlReserva, {
         method: "POST",
@@ -164,18 +261,36 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
 
       if (response.ok) {
         const responseData = await response.json();
+<<<<<<< HEAD
         console.log("Respuesta:", responseData);
+=======
+        // console.log("Respuesta:", responseData);
+        setInfoMensaje({cuerpo:" Ha realizado una reserva con éxito",idReserva:`Su numero de reserva es el ${responseData.idReserva} .`, final:"Gracias por reservar con HomeOff" })
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       } else {
         console.error(
           "Error en la respuesta:",
           response.status,
           response.statusText
         );
+<<<<<<< HEAD
+=======
+        setInfoMensaje(
+          {
+            cuerpo:"No se ha podido realizar la reserva. Por favor revise los datos:",
+            error:` - Nombre: ${nombreReserva}. - Apellido: ${apellidoReserva}.`,
+            final:`Disculpe las molestias`,
+          }
+         
+        );
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       }
     } catch (error) {
       console.error("Error:", error);
     }
 
+<<<<<<< HEAD
 
 
 
@@ -184,6 +299,42 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
     console.log(" ------------ infoRecursoAReservar  -----------------> ", infoRecursoAReservar)
   return (
     <Container>
+=======
+    handleOpenShare();
+  };
+
+  console.log(
+    " ------------ infoRecursoAReservar  -----------------> ",
+    infoRecursoAReservar
+  );
+  return (
+    <><Modal
+    open={openShareModal}
+    onClose={handleCloseShareModal}
+    aria-labelledby="modal-modal-title"
+    aria-describedby="modal-modal-description"
+    >
+    <box sx={style}>  
+      <Paper>
+        <Typography> {mensaje.cuerpo}</Typography>
+      <Typography>
+        {mensaje.idReserva}
+        {mensaje.error}
+        </Typography>
+        <Typography>
+          {mensaje.final}
+        <Button onClick={() =>
+           navigate("/")}>
+          Volver a la página de inicio
+        </Button>
+      </Typography>
+      </Paper>
+    </box>
+    </Modal>
+    <Container>
+     
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       <Stack
         style={{
           marginTop: "5.5rem",
@@ -199,6 +350,10 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
           gap: "2rem",
         }}
       >
+<<<<<<< HEAD
+=======
+        
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         <Stack direction={{ xs: "column", sm: "column" }}>
           <div className="encabezado-descripcion">
             <Stack>
@@ -213,10 +368,15 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                 <Stack direction={"column"}>
                   {/* <Typography variant="h5">Resumen de reservas</Typography> */}
                   <Typography variant="h4" style={{ textAlign: "center" }}>
+<<<<<<< HEAD
                       Confirmá tu reserva
                     </Typography>
 
                 
+=======
+                    Confirmá tu reserva
+                  </Typography>
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                 </Stack>
                 <Stack
                   direction="row"
@@ -320,7 +480,11 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                       alignItems: "center",
                     }}
                   >
+<<<<<<< HEAD
                       <Typography variant="h4">{recursoXID.nombre}</Typography>
+=======
+                    <Typography variant="h4">{recursoXID.nombre}</Typography>
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                     {/* <Typography variant="h4" style={{ textAlign: "center" }}>
                       Confirmá tu reserva
                     </Typography> */}
@@ -361,7 +525,11 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                           >
                             <Typography>Check-in</Typography>
                             <Typography style={{ fontWeight: "800" }}>
+<<<<<<< HEAD
                             {formateoFechas(infoRecursoAReservar.fechaInicio)}
+=======
+                              {formateoFechas(infoRecursoAReservar.fechaInicio)}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                             </Typography>
                           </Stack>
                           <Divider orientation="vertical" />
@@ -376,12 +544,23 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                           >
                             <Typography>Check-out</Typography>
                             <Typography style={{ fontWeight: "800" }}>
+<<<<<<< HEAD
                             {formateoFechas(infoRecursoAReservar.fechaFin)}
+=======
+                              {formateoFechas(infoRecursoAReservar.fechaFin)}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                             </Typography>
                           </Stack>
                         </Stack>
 
+<<<<<<< HEAD
                         <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography>
+=======
+                        {/* <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography> */}
+                        <Typography>
+                          Tiempo reservado: {cantidadDias} día/s
+                        </Typography>
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                       </Stack>
 
                       <Stack
@@ -432,7 +611,13 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                         >
                           <Typography variant="h6">Precio x día</Typography>
                           {/* <Typography variant="h6">$300</Typography> */}
+<<<<<<< HEAD
                           <Typography variant="h6">$ {infoRecursoAReservar.precioProducto}</Typography>
+=======
+                          <Typography variant="h6">
+                            $ {infoRecursoAReservar.precioProducto}
+                          </Typography>
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                         </Stack>
                         <Stack
                           spacing={3}
@@ -440,7 +625,23 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                           style={{ justifyContent: "space-between" }}
                         >
                           <Typography variant="h6">Total</Typography>
+<<<<<<< HEAD
                           <Typography variant="h6">${obtenerPrecioXIdRecurso(recursoXID.idRecurso, productosBKLista, calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  ))} </Typography>
+=======
+                          <Typography variant="h6">
+                            $
+                            {obtenerPrecioXIdRecurso(
+                              recursoXID.idRecurso,
+                              productosBKLista,
+                              calculoDiasEntreFechas(
+                                formateoFechas(
+                                  infoRecursoAReservar.fechaInicio
+                                ),
+                                formateoFechas(infoRecursoAReservar.fechaFin)
+                              )
+                            )}{" "}
+                          </Typography>
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                         </Stack>
                       </Stack>
                     </Stack>
@@ -462,8 +663,11 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
                 />
               </Box>
             </Modal>
+<<<<<<< HEAD
 
             
+=======
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           </Stack>
           <Button
             sx={{
@@ -611,6 +815,10 @@ const userIdVariable = parseInt(infoRecursoAReservar.idUser == 0? userId : infoR
         </Stack>
       </Stack>
     </Container>
+<<<<<<< HEAD
+=======
+    </>
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   );
 };
 

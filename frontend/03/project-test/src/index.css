@@ -20,10 +20,12 @@
 
   --color: #111;
   --colorGrey1: #424242;
+  --coloreGrey6:#5f5f60;
   --colorGrey2: #979797;
   --colorGrey3: #b6b5b5;
   --colorGrey4: #dfdfdf;
   --coloreGrey5:#383B58;
+
   --BGrey:#DDDDDD;
   --red: #ff385c;
   --blue: rgb(3, 141, 165);
@@ -44,7 +46,7 @@
   --bRadiusButton:11px;
   --bRadImg: 20px;
 
-
+ 
   --hoverSinBShadow: 0 0px 0px;
   --speed:500ms;
   --nav-size: 60px;

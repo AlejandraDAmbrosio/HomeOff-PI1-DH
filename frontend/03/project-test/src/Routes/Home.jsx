@@ -9,9 +9,32 @@ import { Typography } from "@mui/material";
 import { SegmentoBuscador } from "../Components/Buscador/SegmentoBuscador";
 
 const Home = () => {
+<<<<<<< HEAD
   const { prodFiltrados, tituloListadoProductos } = useContext(ContextGlobal);
 
 
+=======
+  const { prodFiltrados } = useContext(ContextGlobal);
+  const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
+
+
+  useEffect(() => {
+    async function actualizarTitulo() {
+      if (prodFiltrados.length > 0) {
+        setTituloListadoProductos(
+          `Resultados de tu búsqueda ${prodFiltrados.length} productos`
+        );
+      } else if (
+        prodFiltrados.length ==
+        0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/
+      ) {
+        setTituloListadoProductos("Productos");
+      }
+    }
+
+    actualizarTitulo();
+  }, [prodFiltrados.length]);
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
  
   return (

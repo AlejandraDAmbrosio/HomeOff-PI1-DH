@@ -32,7 +32,11 @@ export const ContextProvider = ({ children }) => {
     }
 
     // solicitud POST a la API
+<<<<<<< HEAD
     const urlBaseGuardar = "http://52.88.220.184:8080/auth/login";
+=======
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     const body = JSON.stringify({
       username,
       password,
@@ -203,7 +207,11 @@ export const ContextProvider = ({ children }) => {
   };
 
   const getDatosUsers = async () => {
+<<<<<<< HEAD
     const urlUsers = "http://52.88.220.184:8080/auth/usuario/list";
+=======
+    const urlUsers = "http://52.32.210.155:8080/auth/usuario/list";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     // console.log("-------------- > getTokenUser", tokenUserState);
     // console.log("-------------- > urlUsers", urlUsers);
 
@@ -235,7 +243,11 @@ export const ContextProvider = ({ children }) => {
   const [usersXID, setUsersXID] = useState([]);
 
   const getDatosUsersXID = async (id) => {
+<<<<<<< HEAD
     const urlUsers = `http://52.88.220.184:8080/auth/usuario/${id}`;
+=======
+    const urlUsers = `http://52.32.210.155:8080/auth/usuario/${id}`;
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
     const headers = {
       "Content-Type": "application/json",
@@ -289,7 +301,11 @@ export const ContextProvider = ({ children }) => {
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
 
   const getCaracteristicasXID = async (id) => {
+<<<<<<< HEAD
     const res = await fetch(`http://52.88.220.184:8080/auth/inter/${id}`);
+=======
+    const res = await fetch(`http://52.32.210.155:8080/auth/inter/${id}`);
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     const data = await res.json();
     setCaracteristicasXID(data);
   };
@@ -303,12 +319,17 @@ export const ContextProvider = ({ children }) => {
   const [politicasXID, setPoliticasXID] = useState([]);
 
   const getPoliticasXID = async (id) => {
+<<<<<<< HEAD
     const res = await fetch(`http://52.88.220.184:8080/auth/politicas/${id}`);
+=======
+    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     const data = await res.json();
 
     setPoliticasXID(data);
   };
 
+<<<<<<< HEAD
   /////////////////////////////////// Puntaje promedio por IDRecurso
 
   const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
@@ -322,10 +343,123 @@ export const ContextProvider = ({ children }) => {
       if (response.status === 404 || isNaN(response.data)) {
         setPuntosPromedioXIDRecurso(0);
         return 0; // Devuelve 0 si la respuesta es 404 o no es un número válido
+=======
+  ////////////////////////////////
+
+  const [politicas, setPoliticas] = useState([]);
+
+  const getPoliticas = async () => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/list`);
+    const data = await res.json();
+
+    setPoliticas(data);
+  };
+
+  /////////////////////////////////// Puntaje promedio por IDRecurso
+
+  const [puntosPromedioXIDRecurso, setPuntosPromedioXIDRecurso] = useState([]);
+
+  const getPuntosPromedioXIDRecurso = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://52.32.210.155:8080/auth/puntaje/${id}/promedio`
+      );
+
+      if (response.status === 404 || isNaN(response.data)) {
+        setPuntosPromedioXIDRecurso(0);
+        return 0; // Devuelve 0 si la respuesta es 404 o no es un número válido
       }
       setPuntosPromedioXIDRecurso(Number(response.data));
       return Number(response.data);
     } catch (error) {
+      console.error("Error al obtener puntos promedio:", error);
+      return 0; // Devuelve 0 en caso de error
+    }
+  };
+
+  //// If response.data === 0  setPuntosPromedioXIDRecurso(0);
+
+  ////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////Favoritos X ID
+
+  const [favoritosXID, setFavoritosXID] = useState([]);
+  const [isFav, setIsFav] = useState(false);
+  const [favoritos, setFavoritos] = useState([]);
+
+  const getFavoritosXID = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const data = await res.json();
+
+    const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
+
+    setFavoritosXID(newArray);
+  };
+
+  const [listaFavXUserId, setListaFavXUserId] = useState([]);
+
+  const getListaFavXUserID = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+    const data = await res.json();
+    setListaFavXUserId(data);
+  };
+
+  // const getFavoritos = async (id) => {
+  //   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+  //   const data = await res.json();
+
+  //   setFavoritos(data);
+  // };
+
+  ///////// Guardar Favoritos
+  // auth/favoritos/save
+  const [errorFavoritos, setErrorFavoritos] = useState("");
+  const [favorito, setFavorito] = useState({
+    idUsuario: 0,
+    idRecurso: 0,
+    favorito: 1,
+    vigente: 1,
+    fecha_MarcacionFavorito: "2023-09-14",
+  });
+
+  const guardarFavorito = async (idUsuario, iDRecursos) => {
+    setFavorito({
+      idUsuario: idUsuario,
+      idRecurso: iDRecursos,
+      favorito: 1,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+    });
+
+    // solicitud POST a la API
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/save";
+    const body = JSON.stringify(favorito);
+    console.log("Body ", body);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+    console.log("options ", options);
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+      setErrorFavoritos("Intentando conectar");
+      if (response.ok) {
+        // setErrorLogueo(`Gracias por ingresar ${username}`);
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setErrorFavoritos("Datos incorrectos");
+      } else {
+        setErrorFavoritos("Pruebe más tarde");
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
+      }
+      setPuntosPromedioXIDRecurso(Number(response.data));
+      return Number(response.data);
+    } catch (error) {
+<<<<<<< HEAD
       console.error("Error al obtener puntos promedio:", error);
       return 0; // Devuelve 0 en caso de error
     }
@@ -388,6 +522,161 @@ export const ContextProvider = ({ children }) => {
   //////////////////////////////////////////////////////////////
   const [nuevoUsuario, setNuevoUsuario] = useState([]);
 
+=======
+      console.error("Error al realizar la solicitud:", error);
+      setErrorFavoritos(
+        "Error al realizar la acción. Por favor, revisa tus credenciales."
+      );
+    }
+  };
+
+  /////////////////////Actualizar Favortos
+  // postActualizarFavorito
+  // actualizarFavorito, setActualizarFavorito
+  // errorActFavoritos, setErrorActFavoritos
+  const [errorActFavoritos, setErrorActFavoritos] = useState("");
+  const [actualizarFavorito, setActualizarFavorito] = useState({
+    idUsuario: 0,
+    idRecurso: 0,
+    favorito: 1,
+    vigente: 1,
+    fecha_MarcacionFavorito: "2023-09-14",
+    id: 0,
+    favorito: 0,
+    vigente: 1,
+  });
+
+  const postActualizarFavorito = async (
+    idFavorito,
+    favorito,
+    userId,
+    idRecurso
+  ) => {
+    setActualizarFavorito({
+      id: idFavorito,
+      favorito: favorito,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+      id: 0,
+      favorito: 0,
+      vigente: 1,
+    });
+
+    //     // solicitud POST a la API
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/update";
+    const body = JSON.stringify({
+      idUsuario: userId,
+      idRecurso: idRecurso,
+      favorito: favorito,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+      id: idFavorito,
+    });
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+    console.log("options ", options);
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+      setErrorActFavoritos("Intentando conectar");
+      if (response.ok) {
+        // setErrorLogueo(`Gracias por ingresar ${username}`);
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setErrorActFavoritos("Datos incorrectos");
+      } else {
+        setErrorActFavoritos("Pruebe más tarde");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setErrorActFavoritos(
+        "Error al realizar la acción. Por favor, revisa tus credenciales."
+      );
+    }
+  };
+
+  ///////////////////////////////// Puntajes y comentarios por IdRecurso
+  const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
+
+  const getPuntosComentXIDRecurso = async (id) => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
+    const data = await res.json();
+
+    setPuntosComentXIDRecurso(data);
+  };
+
+  //////////////////////////////// Guardar Comentario y puntos
+  const [datosPuntuarComentar, setDatosPuntuarComentar] = useState([]);
+  const [mensajePostComentario, setMensajePostComentario] = useState("");
+  const fechaActualPuntuacion = new Date();
+  const fechaFormateada = fechaActualPuntuacion.toISOString().split("T")[0];
+
+  const postPuntuarComentar = async (
+    idUsuario,
+    idRecurso,
+    puntuacion,
+    comentario
+  ) => {
+    // preparacion de datos
+    setDatosPuntuarComentar({
+      idUsuario: idUsuario,
+      idRecurso: idRecurso,
+      puntuacion: puntuacion,
+      comentario: comentario,
+      fecha_valoracion: fechaFormateada,
+    });
+    console.log(datosPuntuarComentar);
+
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/puntaje/save";
+
+    const body = JSON.stringify({
+      idUsuario: idUsuario,
+      idRecurso: idRecurso,
+      puntuacion: puntuacion,
+      comentario: comentario,
+      fecha_valoracion: fechaFormateada,
+    });
+
+    console.log("datosPuntuarComentar BODY JSON.stringify", body);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+
+      if (response.ok) {
+        setMensajePostComentario(`Gracias por valorar nuestros servicios`);
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setMensajePostComentario("Datos incorrectos");
+      } else {
+        setErrorLogueo(
+          "Error al intentar realizar la operación. Por favor, intente más tarde."
+        );
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setMensajePostComentario(`Error al realizar la solicitud: ${error}`);
+    }
+  };
+
+  //////////////////////////////////////////////////////////////
+  const [nuevoUsuario, setNuevoUsuario] = useState([]);
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   //////////////////////////////////////////// FECHAS ////////////////////////
   const [fechasBusqueda, setFechasBusqueda] = useState([null, null]);
 
@@ -416,7 +705,11 @@ export const ContextProvider = ({ children }) => {
           `Resultados de tu búsqueda ${prodFiltrados.length} productos`
         );
       } else if (
+<<<<<<< HEAD
         prodFiltrados.length ===
+=======
+        prodFiltrados.length ==
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/
       ) {
         setTituloListadoProductos("Productos");
@@ -427,6 +720,7 @@ export const ContextProvider = ({ children }) => {
   }, [prodFiltrados, tituloListadoProductos]);
 
   ////////////////////////////////////// Reservas
+<<<<<<< HEAD
 
   const [reservas, setReservas] = useState([]);
 
@@ -558,14 +852,243 @@ export const ContextProvider = ({ children }) => {
   const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
   const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
 
+=======
+
+  const [reservas, setReservas] = useState([]);
+
+  const getReservas = async (id) => {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/reserva/usuario/${id}`
+    );
+    const data = response.data;
+    console.log(data);
+    setReservas(data);
+  };
+
+  ////////////////////////////////////// Guardar Reservas
+
+  const [guardarReserva, setGuardarReserva] = useState({
+    nombre: "",
+    apellido: "",
+    idUsuario: 0,
+    idRecurso: 0,
+    inicioReserva: "",
+    estadoReserva: 0,
+    email: "",
+    finalizacionReserva: "",
+    fechaRealizacionReserva: "",
+  });
+
+  // const postReserva = async (
+  // nombre,
+  // apellido,
+  // idUsuario,
+  // idRecurso,
+  // inicioReserva,
+  // estadoReserva,
+  // email,
+  // finalizacionReserva,
+  // fechaRealizacionReserva
+  // ) => {
+  // const datosReserva2 = {
+  //   nombre: "Eduardo",
+  //   apellido: "Gonzales",
+  //   idUsuario: 56,
+  //   idRecurso: 176,
+  //   inicioReserva: "2023-09-12",
+  //   estadoReserva: 1,
+  //   email: "prueba15@gmail.com",
+  //   finalizacionReserva: "2023-09-14",
+  //   fechaRealizacionReserva: "2023-09-10"
+
+  // setGuardarReserva({
+  //   nombre: nombre,
+  // apellido:apellido,
+  // idUsuario: idUsuario,
+  // idRecurso: idRecurso,
+  // inicioReserva: inicioReserva,
+  // estadoReserva: estadoReserva,
+  // email: email,
+  // finalizacionReserva:finalizacionReserva,
+  // fechaRealizacionReserva: fechaRealizacionReserva,
+  // })
+  // }
+
+  // try {
+  //   const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+  //   const jsonDataReserva = JSON.stringify(guardarReserva);
+  //   console.log("datosReserva", jsonDataReserva);
+  //   const response = await fetch(urlReserva, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: jsonDataReserva,
+  //   });
+
+  //   if (response.ok) {
+  //     const responseData = await response.json();
+  //     console.log("Respuesta:", responseData);
+  //   } else {
+  //     console.error(
+  //       "Error en la respuesta:",
+  //       response.status,
+  //       response.statusText
+  //     );
+  //   }
+  // } catch (error) {
+  //   console.error("Error:", error);
+  // }
+  ///////////////datosReserva stringify///////////////////
+
+  // try {
+  //   const jsonDataReserva = JSON.stringify(datosReserva);
+  //   console.log("jsonDataReserva ---------- > ", jsonDataReserva)
+
+  //   const response = await axios.post(urlReserva, datosReserva, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+
+  //   if (response.status === 200) {
+  //     const responseData = await response.data;
+  //     console.log("Respuesta:", responseData);
+  //   } else {
+  //     console.error(
+  //       "Error en la respuesta:",
+  //       response.status,
+  //       response.statusText
+  //     );
+  //   }
+  // } catch (error) {
+  //   console.error("Error:", error);
+  // }
+  // };
+
+  ///////////////////////////////////
+
+  const [infoRecursoAReservar, setInfoRecursoAReservar] = useState({
+    idRecurso: 0,
+    fechaInicio: "2023-08-31T00:00:00.000+00:00",
+    fechaFin: "2023-09-05T00:00:00.000+00:00",
+    idUser: 0,
+    precioProducto: 0,
+    precioTotal: 0,
+    dias: 0,
+    fechaRealizacionReserva: "2023-09-05T00:00:00.000+00:00",
+  });
+
+  // const [fechasInicioDetalle, setFechasInicioDetalle] = useState([null, null]);
+  // const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
+  // const [fechasResDetalle, setFechasResDetalle] = useState([null, null]);
+
+  const [fechaInicio, setFechaInicio] = useState(new Date());
+  const [fechaFin, setFechaFin] = useState(new Date());
+  const [cantidadDias, setCantidadDias] = useState(null);
+
+  const [reservasPorRecurso, setReservasPorRecurso] = useState([]);
+
+  const getReservasPorRecurso = async (id) => {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/reserva/recurso/${id}`
+    );
+    const data = response.data;
+
+    setReservasPorRecurso(data);
+    // console.log(`reservasPorRecurso ${id}`, data   )
+  };
+
+  const [arrayFechasReservasXRecurso, setArrayFechasReservasXRecurso] =
+    useState([]);
+
+  const getArrayFechasReservasXRecurso = async (id) => {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/reserva/recurso/${id}`
+    );
+    const data = response.data;
+
+    const fechas = [];
+
+    for (const objeto of data) {
+      const inicioReserva = new Date(objeto.inicioReserva);
+      const finalizacionReserva = new Date(objeto.finalizacionReserva);
+      console.log("finalizacionReserva", finalizacionReserva);
+
+      const ultimaFecha = new Date(finalizacionReserva);
+      ultimaFecha.setDate(finalizacionReserva.getDate() + 1);
+
+      const primeraFecha = new Date(inicioReserva);
+      primeraFecha.setDate(inicioReserva.getDate() + 1);
+
+      if (inicioReserva.toDateString() !== finalizacionReserva.toDateString()) {
+        // Si las fechas no son iguales, agregamos todas las fechas intermedias
+        const fechaActual = new Date(inicioReserva);
+
+        while (primeraFecha <= ultimaFecha) {
+          fechas.push(new Date(primeraFecha));
+          primeraFecha.setDate(primeraFecha.getDate() + 1);
+        }
+      } else {
+        // Si las fechas son iguales, agregamos solo una vez la fecha de inicio
+        fechas.push(primeraFecha);
+      }
+    }
+
+    // Luego de procesar los datos y crear el array de fechas, lo asignamos al estado
+    setArrayFechasReservasXRecurso(fechas);
+
+    // console.log(`reservasPorRecurso ${id}`, data);
+    // console.log("inicioReserva ---------Context---", inicioReserva)
+    // console.log("finalizacionReserva -----------Context---", finalizacionReserva)
+  };
+  // console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const [fechaInicioBusqueda, setFechaInicioBusqueda] = useState(new Date());
+  const [fechaFinBusqueda, setFechaFinBusqueda] = useState(new Date());
+  const [cantidadDiasBusqueda, setCantidadDiasBusqueda] = useState(null);
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+<<<<<<< HEAD
         fechasResDetalle, setFechasResDetalle,
         fechasFinDetalle, setFechasFinDetalle,
         fechasInicioDetalle, setFechasInicioDetalle,
+=======
+        postPuntuarComentar,
+        postActualizarFavorito,
+        actualizarFavorito,
+        setActualizarFavorito,
+        errorActFavoritos,
+        setErrorActFavoritos,
+        fechaFinBusqueda,
+        setFechaFinBusqueda,
+        cantidadDiasBusqueda,
+        setCantidadDiasBusqueda,
+        fechaInicioBusqueda,
+        setFechaInicioBusqueda,
+        politicas,
+        setPoliticas,
+        getPoliticas,
+        arrayFechasReservasXRecurso,
+        getArrayFechasReservasXRecurso,
+        getReservasPorRecurso,
+        reservasPorRecurso,
+        cantidadDias,
+        setCantidadDias,
+        fechaInicio,
+        setFechaInicio,
+        fechaFin,
+        setFechaFin,
+        // fechasResDetalle, setFechasResDetalle,
+        // fechasFinDetalle, setFechasFinDetalle,
+        // fechasInicioDetalle, setFechasInicioDetalle,
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         email,
         setEmail,
         infoRecursoAReservar,
@@ -590,16 +1113,27 @@ export const ContextProvider = ({ children }) => {
         setNombreCompleto,
         rol,
         setRol,
+<<<<<<< HEAD
+=======
+        setUsuarios,
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         loginSuccess,
         setLoginSuccess,
         // userNameStorage,
         busquedaCero,
         setBusquedaCero,
         tituloListadoProductos,
+<<<<<<< HEAD
         favoritos,
         setFavoritos,
         // getIsFav,
         getFavoritos,
+=======
+        guardarFavorito,
+        favoritos,
+        setFavoritos,
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         isFav,
         setIsFav,
         favoritosXID,

@@ -106,7 +106,11 @@ const TablaCategorias = () => {
       console.log(nuevaCategoriaData);
 
       // enviarDatos
+<<<<<<< HEAD
       const urlBaseGuardar = "http://52.88.220.184:8080/api/v1/categorias/save";
+=======
+      const urlBaseGuardar = "http://52.32.210.155:8080/auth/categoria/save";
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       try {
         const jsonData = JSON.stringify(nuevaCategoriaData);
@@ -151,8 +155,13 @@ const TablaCategorias = () => {
 
   const eliminarCategoria = async (categoria_id) => {
     try {
+<<<<<<< HEAD
       const response = await axios.get(
         `http://52.88.220.184:8080/api/v1/categorias/delete/${categoria_id}`,
+=======
+      const response = await axios.post(
+        `http://52.32.210.155:8080/auth/categoria/delete/${categoria_id}`,
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -171,7 +180,7 @@ const TablaCategorias = () => {
 
   const handleClickEliminar = (e, categoria_id, categoria) => {
     setIdCategoriaXBorrar(categoria_id);
-    setNombreCategoriaXBorrar(`${categoria.name}`);
+    setNombreCategoriaXBorrar(categoria.name);
     console.log(nombreCategoriaXBorrar);
     setOpenDialog(true);
   };
@@ -191,7 +200,7 @@ const TablaCategorias = () => {
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Estás seguro que deseas eliminar esta categoría ?
+            ¿Estás seguro que deseas eliminar esta categoría " {nombreCategoriaXBorrar} "?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -317,6 +326,19 @@ const TablaCategorias = () => {
             type="text"
             value={nuevaCategoria.icono_Categoria}
             onChange={onChangeIconoCat}
+            fullWidth
+            variant="standard"
+          />
+           <TextField
+            autoFocus
+            margin="dense"
+            multiline
+            rows={3}
+            id="descripcion"
+            label="Descripción Característica"
+            type="text"
+            value={nuevaCategoria.description}
+            onChange={onChangeDescription}
             fullWidth
             variant="standard"
           />

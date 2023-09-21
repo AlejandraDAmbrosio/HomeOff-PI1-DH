@@ -24,6 +24,7 @@ const renderDay = (day) => {
   );
 };
 
+<<<<<<< HEAD
 const CalendarioXId = () => {
   const {
     fechasInicioDetalle,
@@ -42,6 +43,23 @@ const CalendarioXId = () => {
   setFechasResDetalle(dayjs());
   const [fechaInicio, setFechaInicio] = useState(null);
   const [fechaFin, setFechaFin] = useState(null);
+=======
+const CalendarioXId = (
+  fechaInicio,
+  fechaFin,
+  fechaRealizacionReserva,
+  setFechaInicio,
+  setFechaFin,
+  setFechaRealizacionReserva
+) => {
+  const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
+  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 30]);
+
+
+  // Convierte las fechas de inicio y fin a objetos Date
+  const fechaInicioDate = fechaInicio ? fechaInicio.toDate() : null;
+  const fechaFinDate = fechaFin ? fechaFin.toDate() : null;
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const inicioFechas = () => {
     if (fechaInicio == null) {
@@ -74,7 +92,16 @@ const CalendarioXId = () => {
   ];
 
   // console.log(fechaInicio);
+  const handleFechaInicioChange = (newValue) => {
+    setFechaInicio(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+    setFechasInicioDetalle(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+  };
 
+  const handleFechaFinChange = (newValue) => {
+    setFechaFin(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+    setFechasFinDetalle(dayjs(newValue)); // Convierte el valor a Dayjs si es necesario
+  };
+  
   function ServerDay(props) {
     const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
@@ -172,7 +199,11 @@ const CalendarioXId = () => {
             >
               <DateCalendar
                 label="Fin"
+<<<<<<< HEAD
                 value={fechaInicio}
+=======
+                value={fechaFin}
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                 onChange={handleFechaFinChange}
                 showDaysOutsideCurrentMonth={false}
                 minDate={dayjs()}

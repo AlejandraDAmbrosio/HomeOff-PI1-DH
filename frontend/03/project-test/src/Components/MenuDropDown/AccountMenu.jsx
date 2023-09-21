@@ -39,6 +39,11 @@ export default function AccountMenu() {
     nombreCompleto,
     userIdLogIn,
   } = useContext(ContextGlobal);
+<<<<<<< HEAD
+=======
+  const user = localStorage.getItem("nombreCompleto");
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -57,9 +62,9 @@ export default function AccountMenu() {
   const handleCloseLogIn = () => {
     setOpenLogIn(false);
   };
-  const handleModalClick = (e) => {
-    e.stopPropagation();
-  };
+  // const handleModalClick = (e) => {
+  //   e.stopPropagation();
+  // };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -185,7 +190,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <PersonAddIcon />
             </ListItemIcon>
-            <Link to="/formaltauser/">Crear Cuenta</Link>
+            <Link to="/formaltauser/">Crear cuenta</Link>
           </MenuItem>
         )}
 
@@ -210,6 +215,11 @@ export default function AccountMenu() {
             </MenuItem>
           </Link>
         )}
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 
         {isAdmin && (
@@ -239,9 +249,9 @@ export default function AccountMenu() {
       </Menu>
 
       <Modal open={openLogIn} onClose={handleCloseLogIn} BackdropClick={true}>
-        <div onClick={handleModalClick} onMouseDown={handleModalClick}>
+        {/* <div onClick={handleModalClick} onMouseDown={handleModalClick}> */}
           <FormIngreso />
-        </div>
+        {/* </div> */}
       </Modal>
 
       <Dialog
