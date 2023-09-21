@@ -106,11 +106,7 @@ const TablaCategorias = () => {
       console.log(nuevaCategoriaData);
 
       // enviarDatos
-<<<<<<< HEAD
-      const urlBaseGuardar = "http://52.88.220.184:8080/api/v1/categorias/save";
-=======
       const urlBaseGuardar = "http://52.32.210.155:8080/auth/categoria/save";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       try {
         const jsonData = JSON.stringify(nuevaCategoriaData);
@@ -155,13 +151,8 @@ const TablaCategorias = () => {
 
   const eliminarCategoria = async (categoria_id) => {
     try {
-<<<<<<< HEAD
-      const response = await axios.get(
-        `http://52.88.220.184:8080/api/v1/categorias/delete/${categoria_id}`,
-=======
       const response = await axios.post(
         `http://52.32.210.155:8080/auth/categoria/delete/${categoria_id}`,
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
         {
           headers: {
             "Access-Control-Allow-Origin": "*",

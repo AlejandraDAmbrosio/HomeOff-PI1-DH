@@ -9,11 +9,6 @@ import { Typography } from "@mui/material";
 import { SegmentoBuscador } from "../Components/Buscador/SegmentoBuscador";
 
 const Home = () => {
-<<<<<<< HEAD
-  const { prodFiltrados, tituloListadoProductos } = useContext(ContextGlobal);
-
-
-=======
   const { prodFiltrados } = useContext(ContextGlobal);
   const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
 
@@ -34,7 +29,6 @@ const Home = () => {
 
     actualizarTitulo();
   }, [prodFiltrados.length]);
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
  
   return (

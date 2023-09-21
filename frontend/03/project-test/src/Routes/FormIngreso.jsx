@@ -36,12 +36,8 @@ const FormIngreso = () => {
     loginSuccess,
     setLoginSuccess,
   } = useContext(ContextGlobal);
-<<<<<<< HEAD
-
-=======
   const navigate = useNavigate();
   console.log("FORM INICIO ABREEEEEEE")
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   // Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
   const [emailValido, setEmailValido] = useState(true);
@@ -59,34 +55,6 @@ const FormIngreso = () => {
     setOpen(false);
   };
 
-<<<<<<< HEAD
-  // const handleOpen = () => {
-  //   setOpen(true);
-  //   if (modalTimeout) {
-  //     console.log("clearTimeout(modalTimeout);")
-  //     clearTimeout(modalTimeout);
-  //   }
-  // };
-
-  // const handleClose = () => {
-  //   if (!loginSuccess) {
-  //     setOpen(false);
-  //   }
-  // };
-
-  // const handleCloseWithTimeout = () => {
-
-  //     setModalTimeout(
-  //       setTimeout(() => {
-  //         console.log("setTimeout")
-  //         handleClose();
-  //         clearTimeout(modalTimeout);
-  //       }, 10000)
-  //     );
-
-  // };
-=======
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   /////////// Definicion de User/Objeto
   const [usuario, setUsuario] = useState({
@@ -112,22 +80,15 @@ const FormIngreso = () => {
     setUsuario({ ...usuario, username: newValue });
     setUserLogIn({ ...usuario, username: newValue });
     setErrorLogueo("");
-<<<<<<< HEAD
-    validarEmail(newValue);
-=======
     // validarEmail(newValue);
     setEmailValido(true)
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   };
 
   const onChangePass = (e) => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
     setUserLogIn({ ...usuario, password: newValue });
-<<<<<<< HEAD
-=======
     setPasswordValido(true);
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     setErrorLogueo("");
     validarPassword(newValue);
   };
@@ -219,72 +180,13 @@ const FormIngreso = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Cerrar</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {errorLogueo && (
-              <h5 className="msj-form-guardado">{errorLogueo}</h5>
-            )}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cerrar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {/* <Paper
-          sx={{
-            width: "320px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-          style={{
-            placeItems: "center",
-            margin: "auto",
-            justifyContent: "spaceBetween",
-            height: "100px",
-            marginTop: "10rem",
-          }}
-        >
-       
-          <IconButton
-            aria-label="cerrar"
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>
-
-          <div>
-            {errorLogueo && (
-              <h5 className="msj-form-guardado">{errorLogueo}</h5>
-            )}
-          </div>
-        </Paper>
-      </Modal> */}
-
-=======
     
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       {!usuarioLogueado ? (
         <Paper
           sx={{
             width: "auto",
             maxWidth: "320px",
             margin: "auto",
-<<<<<<< HEAD
-            overflow: "hidden",
-            height: "fitContent",
-            justifyContent: "spaceAround",
-            padding: "1rem",
-=======
             marginTop: "1rem",
             overflow: "hidden",
             height: "fitContent",
@@ -292,30 +194,19 @@ const FormIngreso = () => {
             justifyContent: "spaceBetween",
             padding: "1rem",
             alignContent: "center",
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           }}
           style={{
             // margin: "auto",
             justifyContent: "spaceBetween",
-<<<<<<< HEAD
-            marginTop: "5rem",
-            height: "fitContent",
-            alignContent: "center",
-=======
             // marginTop: "1rem",
             // height: "fitContent",
             // alignContent: "center",
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           }}
         >
           <div className="pagina-formulario-Ingreso">
             <Typography style={{ fontSize: "30px" }}>
               {" "}
-<<<<<<< HEAD
-              Inicia sesión ahora
-=======
               Inicia sesión
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             </Typography>
 
             <FormControl
@@ -388,18 +279,10 @@ const FormIngreso = () => {
             </FormControl>
 
             <div className="acceso-cuenta-o-usuarionuevo">
-<<<<<<< HEAD
-              <div onClick={() => window.location.replace("/formaltauser")}>
-                No tenés cuenta?
-              </div>
-              {/* <div>No tenés cuenta?</div> */}
-              <div>Se te olvidó tu contraseña?</div>
-=======
               <div onClick={() =>   navigate(`/formaltauser/`)} style={{cursor:"pointer"}}>
                 No tenés cuenta? 
               </div>
        
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             </div>
           </div>
         </Paper>

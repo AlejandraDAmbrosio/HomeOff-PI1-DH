@@ -53,11 +53,7 @@ nav {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-start;
-<<<<<<< HEAD
-  height: 140px;
-=======
   height: 100px;
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   width: 100%;
   z-index: 1;
   /* border: 1px solid green; */

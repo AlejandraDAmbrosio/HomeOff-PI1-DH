@@ -257,11 +257,7 @@ const AgregarProducto = () => {
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
-<<<<<<< HEAD
-      const urlBase = "http://52.88.220.184:8080/auth/recursos/save";
-=======
       const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       ///////////////Envio de datos
 
@@ -470,39 +466,8 @@ const AgregarProducto = () => {
                   {/* //////////////////// */}
                 </div>
                 {/* -/////////////////////////////////////// */}
-<<<<<<< HEAD
-                {/* <FormGroup
-                  className="formgroup-check-boxs"
-                  label="Elija las caracteristicas"
-                  component="fieldset"
-                  style={{ maxWidth: "480px", height: "fit-content" }}
-                >
-                  <FormLabel component="legend">Características</FormLabel>
-                  <div className="container-check-boxs">
-                    {caracteristicasLista.map((caracteristica) => (
-                      <li
-                        key={caracteristica.idCaracteristica}
-                        style={{ listStyle: "none" }}
-                        className="item-grid-check"
-                      >
-                        <label>
-                          <Checkbox
-                            type="checkbox"
-                           // className="item-grid-check"
-                            checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
-                            onChange={() => handleOptionChange(caracteristica)}
-                          />
-                          {caracteristica.nombre}
-                        </label>
-                      </li>
-                    ))}
-                  </div>
-                </FormGroup> */}
-                {/* /////////--------------------------------////// */}
-=======
                
         
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                 <div
                   style={{
                     display: "flex",

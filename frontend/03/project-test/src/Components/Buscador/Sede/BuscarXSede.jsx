@@ -34,8 +34,6 @@ const BuscarXSede = () => {
     setProdFiltrados,
     busquedaCero,
     setBusquedaCero,
-<<<<<<< HEAD
-=======
     fechasBusqueda,
     fechaInicioBusqueda,
     setFechaInicioBusqueda,
@@ -43,7 +41,6 @@ const BuscarXSede = () => {
     setFechaFinBusqueda,
     cantidadDiasBusqueda,
     setCantidadDiasBusqueda,
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   } = useContext(ContextGlobal);
   /////////////////////////////States para Buscar por fecha
   const [value, setValue] = useState(new Date());
@@ -53,8 +50,6 @@ const BuscarXSede = () => {
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-<<<<<<< HEAD
-=======
   ////////// Segmento visual Calendario ///////////////
   const [anchorEl, setAnchorEl] = useState(null);
   const isDateDropdownOpen = Boolean(anchorEl);
@@ -66,7 +61,6 @@ const BuscarXSede = () => {
   const handleDateDropdownClose = () => {
     setAnchorEl(null);
   };
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const sedesArray = [
     {
@@ -151,13 +145,6 @@ const BuscarXSede = () => {
     if (filteredSedesAndProductos.length === 0) {
       //  setOpenModal(true);
       setBusquedaCero(true);
-<<<<<<< HEAD
-     } 
-
-    if (inputValue.length === 0) {
-      setProdFiltrados([]);
-      setBusquedaCero(false)
-=======
     }
 
     if (inputValue.length === 0) {
@@ -322,7 +309,6 @@ const BuscarXSede = () => {
       // Realiza acciones con los productos filtrados
       console.log("Productos filtrados por fechas   } else {:", filteredProducts);
       console.log("prodFiltrados.length", prodFiltrados.length)
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
     }
    console.log(prodFiltrados)
    console.log("prodFiltrados.length", prodFiltrados.length)
@@ -331,39 +317,6 @@ const BuscarXSede = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="input-container">
-      <input
-        className="busqueda"
-        id="buscarXSede"
-        list="paises"
-        type="text"
-        placeholder="Sede o nombre"
-        onKeyUp={handleSearch}
-        value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          setBusquedaCero(false);
-        }}
-        options={filteredSedes.map((sede) => sede.nombre)}
-      ></input>
-
-      <datalist id="paises">
-        {combineNames().map((valores, index) => (
-          <option key={index} value={valores}></option>
-        ))}
-      </datalist>
-
-      <Dialog
-        open={openModal}
-        onClose={() => {
-          setOpenModal(false);
-          setInputValue(""); // Establecer el valor del input en blanco
-        }}
-        onKeyDown={(e) => {
-          setOpenModal(false);
-        }}
-=======
     <Stack
       direction="row"
       spacing={2}
@@ -428,7 +381,6 @@ const BuscarXSede = () => {
         direction="row"
         spacing={2}
         style={{ marginBottom: "1rem" /*, height:"40px"*/ }}
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
       >
         <div onClick={handleDateDropdownOpen}>
           {fechasBusqueda[0] && fechasBusqueda[1] ? (

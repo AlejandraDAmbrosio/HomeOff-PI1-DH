@@ -39,11 +39,8 @@ export default function AccountMenu() {
     nombreCompleto,
     userIdLogIn,
   } = useContext(ContextGlobal);
-<<<<<<< HEAD
-=======
   const user = localStorage.getItem("nombreCompleto");
 
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -215,11 +212,8 @@ export default function AccountMenu() {
             </MenuItem>
           </Link>
         )}
-<<<<<<< HEAD
-=======
 
 
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 
         {isAdmin && (

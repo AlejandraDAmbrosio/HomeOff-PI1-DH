@@ -7,17 +7,10 @@ import {
   // Link,
   useResolvedPath,
 } from "react-router-dom";
-<<<<<<< HEAD
-import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso"
-import formateoFechas from "../Components/utils/formateoFechas"
-
-import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas"
-=======
 // import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
 // import formateoFechas from "../Components/utils/formateoFechas";
 
 // import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
@@ -32,10 +25,7 @@ import {
   Snackbar,
   IconButton,
   Grid,
-<<<<<<< HEAD
-=======
   Dialog,
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
@@ -54,11 +44,8 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
-<<<<<<< HEAD
-=======
 import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
 import FormIngreso from "./FormIngreso";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 const style = {
   position: "absolute",
@@ -101,17 +88,6 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
-<<<<<<< HEAD
-    puntosComentXIDRecurso,
-    categoriasLista,
-    caracteristicasXID,
-    getCaracteristicasXID,
-    getCaracteristicasLista,
-    usuarioLogueado,
-    infoRecursoAReservar, setInfoRecursoAReservar,fechasResDetalle,
-    email, setEmail,
-    userIdLogIn
-=======
     // puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
@@ -134,7 +110,6 @@ const Detail = () => {
     arrayFechasReservasXRecurso,
     getArrayFechasReservasXRecurso,
     reservasPorRecurso,
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   } = useContext(ContextGlobal);
   const caracteristicaSet = new Set();
   const [copied, setCopied] = useState(false);
@@ -167,16 +142,7 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-<<<<<<< HEAD
-  useEffect(() => {
-    getRecursoXID(id);
-    getCaracteristicasXID(id);
-    getPuntosComentXIDRecurso(id);
-    
-  }, [id]);
-=======
   ///////////////MODAL  Compartir  ////////////////////////
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const onChangeCopy = (event) => {
     setPublicacionRedes(event.target.value);
@@ -190,10 +156,6 @@ const Detail = () => {
     setOpenShareModal(false);
   };
 
-<<<<<<< HEAD
-  // console.log(`reservas del producto ${recursoXID}`, reservas)
-  /////////////////////////
-=======
   const handleClickSnack = () => {
     setOpenSnack(true);
   };
@@ -203,7 +165,6 @@ const Detail = () => {
     }
     setOpenSnack(false);
   };
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const handleCopyClick = (e) => {
     e.preventDefault();
@@ -217,14 +178,6 @@ const Detail = () => {
         console.error("Error al copiar la URL: ", error);
       });
   };
-<<<<<<< HEAD
-  ///////////////
-  // // console.log(
-  // //   " resolvedPath.pathname --------------------",
-  // //   resolvedPath.pathname
-  // // );
-  // // console.log("URL completa:", currentURL);
-=======
   ///////////////FIN MODAL  Compartir  ////////////////////////
   ////////////////Derivacion a Inicio en caso de reservar y no estar logueado
 
@@ -263,28 +216,11 @@ const Detail = () => {
     setFechaInicio(date.startDate);
     setFechaFin(date.endDate);
   };
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const idUserParse = +userIdLogIn;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    setInfoRecursoAReservar({
-      idRecurso:recursoXID.idRecurso,
-      fechaInicio:fechasInicioDetalle,
-      fechaFin:fechasFinDetalle,
-      idUser:idUserParse,
-      precioProducto:recursoXID.precioUnitario,
-      precioTotal:0 , 
-      dias:0,
-      fechaRealizacionReserva:fechasResDetalle,
-    })
-
-    navigate(`/reserva/${id}`);
-  };
-  // // {calculoDiasEntreFechas( (formateoFechas(reserva.inicioReserva)),  (formateoFechas(reserva.finalizacionReserva))  )}
-=======
 
     if (idUserParse == 0) {
       handleOpenLogIn();
@@ -303,7 +239,6 @@ const Detail = () => {
       navigate(`/reserva/${id}`);
     }
   };
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   return (
     <>
@@ -653,55 +588,6 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-<<<<<<< HEAD
-              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto"
-                >
-                  <div className="icono-caracteristica-texto">
-                    {" "}
-                    {caracteristica.logoCaracteristica != "" ? (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: "250px",
-                          padding: "7px 5px",
-                          justifyContent: "center",
-                          gap: "15px",
-                          borderRadius: " 11px 11px 11px 11px",
-                          boxShadow: "1px 1px 6px #979797",
-                        }}
-                      >
-                        <img
-                          className="icono-caracteristica"
-                          src={logoXIDCaracteristica(
-                            caracteristica.idCaracteristica,
-                            caracteristicasLista
-                          )}
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        <div>{caracteristica.nombreCaracteristica}</div>
-                      </Paper>
-                    ) : (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "3px 10px",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <CheckOutlinedIcon style={{ color: "green" }} />
-
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    )}
-                  </div>
-                </div>
-              ))}
-=======
               {caracteristicasXID.map((caracteristica, idCaracteristica) => {
                 // Verificar si el ID de la característica ya se ha procesado
                 if (!caracteristicaSet.has(caracteristica.idCaracteristica)) {
@@ -758,26 +644,17 @@ const Detail = () => {
                 // Si el ID de la característica ya se ha procesado, no se renderiza de nuevo.
                 return null;
               })}
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             </div>
           </Stack>
           {/* </div> */}
         </div>
 
         <Stack
-<<<<<<< HEAD
-          spacing={2}
-=======
           spacing={3}
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           flexDirection={{ lg: "row" }}
           style={{
             display: "flex",
 
-<<<<<<< HEAD
-            gap: "3rem",
-=======
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
@@ -786,45 +663,11 @@ const Detail = () => {
         >
           <Stack
             item
-<<<<<<< HEAD
-=======
             spacing={1}
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
             xs={12}
             md={5}
             lg={5}
             xl={5}
-<<<<<<< HEAD
-            style={{ placeItems: "center", margin: "auto" }}
-          >
-            <CalendarioXId style={{ placeItems: "center" }} />
-            <Button
-            sx={{
-              width: "100%",
-              color: "white",
-              backgroundColor: "#7cc598",
-              ":hover": {
-                backgroundColor: "#3c9960",
-              },
-            }}
-            onClick={handleSubmit}
-          >
-            Reservar
-          </Button>
-          </Stack>
-
-          <Stack
-            item
-            xs={12}
-            md={5}
-            lg={5}
-            xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
-          >
-            <Comentarios id={id} style={{ placeItems: "center" }} />
-          </Stack>
-        </Stack>
-=======
             sx={{ placeItems: "center", margin: "auto" }}
           >
             {/* //////////////////////////////////////// */}
@@ -893,7 +736,6 @@ const Detail = () => {
         > */}
           <Comentarios id={id} style={{ placeItems: "center" }} />
         {/* </Stack> */}
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

@@ -24,26 +24,6 @@ const renderDay = (day) => {
   );
 };
 
-<<<<<<< HEAD
-const CalendarioXId = () => {
-  const {
-    fechasInicioDetalle,
-    setFechasInicioDetalle,
-    fechasFinDetalle,
-    setFechasFinDetalle,
-    fechasResDetalle,
-    setFechasResDetalle,
-  } = useContext(ContextGlobal);
-
-  const { fechasBusqueda, setFechasBusqueda } = useContext(ContextGlobal);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15, 30]);
-
-  // console.log({ fechasBusqueda });
-  // console.log(fechasBusqueda[0]);
-  setFechasResDetalle(dayjs());
-  const [fechaInicio, setFechaInicio] = useState(null);
-  const [fechaFin, setFechaFin] = useState(null);
-=======
 const CalendarioXId = (
   fechaInicio,
   fechaFin,
@@ -59,7 +39,6 @@ const CalendarioXId = (
   // Convierte las fechas de inicio y fin a objetos Date
   const fechaInicioDate = fechaInicio ? fechaInicio.toDate() : null;
   const fechaFinDate = fechaFin ? fechaFin.toDate() : null;
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const inicioFechas = () => {
     if (fechaInicio == null) {
@@ -137,16 +116,6 @@ const CalendarioXId = (
     );
   }
 
-  const handleFechaInicioChange = (newValue) => {
-    setFechaInicio(newValue);
-    setFechasInicioDetalle(newValue);
-  };
-  
-  const handleFechaFinChange = (newValue) => {
-    setFechaFin(newValue);
-    setFechasFinDetalle(newValue);
-  };
-
   return (
     <Paper>
       <Stack
@@ -199,11 +168,7 @@ const CalendarioXId = (
             >
               <DateCalendar
                 label="Fin"
-<<<<<<< HEAD
-                value={fechaInicio}
-=======
                 value={fechaFin}
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
                 onChange={handleFechaFinChange}
                 showDaysOutsideCurrentMonth={false}
                 minDate={dayjs()}

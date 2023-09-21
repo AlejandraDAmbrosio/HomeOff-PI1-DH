@@ -28,11 +28,7 @@ import { useParams } from "react-router-dom";
 const EditarProducto = () => {
   const { id } = useParams();
 
-<<<<<<< HEAD
-  const urlBase = "http://52.88.220.184:8080/auth/recursos/update";
-=======
   const urlBase = "http://52.32.210.155:8080/auth/recursos/update";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
   const {
     productosBKLista,
@@ -375,11 +371,7 @@ const EditarProducto = () => {
       //////// Envio de info a Caracteristicas///////////////////
 
       const urlCaracteristicasXIdRec =
-<<<<<<< HEAD
-        "http://52.88.220.184:8080/auth/inter/save";
-=======
         "http://52.32.210.155:8080/auth/inter/save";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       const caracteristicasParaEnviar = Object.keys(
         caracteristicasSeleccionadas

@@ -71,12 +71,8 @@ const Navbar = () => {
           ""
         ) : (
           <div className="banda-categorias">
-<<<<<<< HEAD
-            <Categorias />
-=======
             {/* <Categorias /> */}
             <BarraCategorias></BarraCategorias>
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
           </div>
         )}
       </div>

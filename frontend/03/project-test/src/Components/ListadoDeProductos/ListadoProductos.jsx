@@ -8,10 +8,7 @@ import CardProducto from "./CardProducto";
 import "../ListadoDeProductos/CardProducto.css";
 import "./ListadoProductos.css";
 import obtenerNombreCategoriaPorId from "../utils/obtenerNombreCategoriaPorId";
-<<<<<<< HEAD
-=======
 import { Container, Stack, Typography } from "@mui/material";
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
 const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
@@ -25,10 +22,6 @@ const ListadoProductos = ({ CantidadCards }) => {
     getPuntosPromedioXIDRecurso,
     userIdLogIn,
     getListaFavXUserID,
-<<<<<<< HEAD
-  } = useContext(ContextGlobal);
-
-=======
     listaFavXUserId
   } = useContext(ContextGlobal);
 
@@ -38,7 +31,6 @@ const ListadoProductos = ({ CantidadCards }) => {
 
   
 console.log("listaFavXUserId", listaFavXUserId)
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
   const shouldUseFilteredProducts = prodFiltrados.length > 0;
@@ -47,29 +39,6 @@ console.log("listaFavXUserId", listaFavXUserId)
   const productsToRender = shouldUseFilteredProducts
     ? prodFiltrados
     : productosBKLista;
-
-    useEffect(() => {
-      const obtenerPuntuacionesPromedio = async () => {
-        const puntuaciones = {};
-        const idsRecurso = productsToRender.map((producto) => producto.idRecurso);
-        const puntuacionesArray = await Promise.all(
-          idsRecurso.map((idRecurso) => getPuntosPromedioXIDRecurso(idRecurso))
-        );
-    
-        idsRecurso.forEach((idRecurso, index) => {
-          puntuaciones[idRecurso] = puntuacionesArray[index];
-        });
-    
-        setPuntuacionesPromedio(puntuaciones);
-      };
-    
-      obtenerPuntuacionesPromedio();
-    }, [productsToRender]);
-  
-    useEffect(() => {
-      getListaFavXUserID(userIdLogIn)
-    }, [userIdLogIn]);
-
 
   useEffect(() => {
     const obtenerPuntuacionesPromedio = async () => {
@@ -126,43 +95,6 @@ console.log("listaFavXUserId", listaFavXUserId)
   return (
     <div className="segmento-listado-productos">
       <div className="grid-container-listado-home">
-<<<<<<< HEAD
-      {paginatedProducts.length ? (
-        paginatedProducts[currentPage].map((producto, idRecurso) => {
-          // const puntos = getPuntosPromedioXIDRecurso(idRecurso);
-          // console.log("PUNTOS EN RENDERIZADO")
-          // console.log(puntos)
-
-          // const estrellas = puntos >= 1 && puntos <= 5 ? puntos : 0;
-
-          return (
-            <CardProducto
-              className=".item-grid-listado"
-              key={producto.idRecurso}
-              title={producto.nombre}
-              descripcion={producto.descripción}
-              url={producto.imagenURL}
-              precio={producto.precioUnitario}
-              puntuacion={puntuacionesPromedio[producto.idRecurso] || 0}
-              estrellas={producto.idRecurso}
-              sede={buscadorSedeXIDSede(producto.idSede)}
-              id={producto.idRecurso}
-              categoria={obtenerNombreCategoriaPorId(
-                producto.categoria_id,
-                productosBKLista,
-                categoriasLista
-              )}
-            />
-          );
-        })
-      ) : (
-        <>
-          <h3> No encontramos productos para recomendar </h3>
-          <h3>Los datos del carga son {productosBKLista.ListadoProductos}</h3>
-        </>
-      )}
-    </div>
-=======
         {paginatedProducts.length ? (
           paginatedProducts[currentPage].map((producto, idRecurso) => {
             // const puntos = getPuntosPromedioXIDRecurso(idRecurso);
@@ -207,7 +139,6 @@ console.log("listaFavXUserId", listaFavXUserId)
           </>
         )}
       </div>
->>>>>>> ecba9aee4dab27332505f7150a57e77da5a70825
 
       <div className="paginacion">
         {currentPage > 0 ? (
