@@ -15,6 +15,7 @@ import Puntuacion from "../Puntuaciones/Puntuacion";
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import EstrellaValor from "../../Genericos/Puntuaciones/EstrellaValor";
 import formatearFecha from "../../utils/formatearFechaParaVisualizar";
+import Puntuar from "../Puntuaciones/Puntuar";
 
 const Comentarios = ({ id }) => {
   const {
@@ -24,10 +25,11 @@ const Comentarios = ({ id }) => {
     getPuntosPromedioXIDRecurso,
     usuarioLogueado,
     userIdLogIn,
-    postPuntuarComentar
+    postPuntuarComentar,
   } = useContext(ContextGlobal);
   const user = localStorage.getItem("nombreCompleto");
-  // Define el estado para controlar la apertura y cierre del modal
+  const [rating, setRating] = useState(0);
+  const [rating2, setRating2] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
   // Define los estados para los valores de comentario y puntuación
@@ -46,11 +48,9 @@ const Comentarios = ({ id }) => {
 
   // Función para manejar el envío del comentario
   const handleGuardarComentario = () => {
-
-
     postPuntuarComentar(userIdLogIn, id, puntuacion, comentario);
-    getPuntosComentXIDRecurso(id)
-    getPuntosPromedioXIDRecurso(id)
+    getPuntosComentXIDRecurso(id);
+    getPuntosPromedioXIDRecurso(id);
     handleCloseModal();
   };
 
@@ -116,16 +116,16 @@ const Comentarios = ({ id }) => {
               Valoraciones de huéspedes
             </Typography>
 
-            <Stack spacing={1} direction={"row"} sx={{padding:"5px"}}>
+            <Stack spacing={1} direction={"row"} sx={{ padding: "5px" }}>
+              {puntosPromedioXIDRecurso ? (
+                <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
+              ) : (
+                <EstrellaValor />
+              )}
 
-            
-            {puntosPromedioXIDRecurso ? (
-              <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
-            ) : (
-              <EstrellaValor />
-            )}
-
-            <Typography  style={{  fontSize:"18px" }}>/ {puntosComentXIDRecurso.length} evaluaciones</Typography>
+              <Typography style={{ fontSize: "18px" }}>
+                / {puntosComentXIDRecurso.length} evaluaciones
+              </Typography>
             </Stack>
           </Stack>
           {(usuarioLogueado || userIdLogIn || user) && (
@@ -169,14 +169,17 @@ const Comentarios = ({ id }) => {
                 value={comentario}
                 onChange={(e) => setComentario(e.target.value)}
               />
-              <TextField
+              {/* <TextField
                 label="Puntuación"
                 variant="outlined"
                 fullWidth
                 type="number"
                 value={puntuacion}
                 onChange={(e) => setPuntuacion(e.target.value)}
-              />
+              /> */}
+
+              <Puntuar></Puntuar>
+        <Puntuacion>hola</Puntuacion>
               <Box mt={2}>
                 <Button
                   variant="contained"
@@ -307,6 +310,7 @@ const Comentarios = ({ id }) => {
           </Stack>
         </Stack>
       </Stack>
+      <Puntuar></Puntuar>
     </Stack>
   );
 };
