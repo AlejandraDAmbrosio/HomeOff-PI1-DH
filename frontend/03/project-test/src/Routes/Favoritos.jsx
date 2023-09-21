@@ -26,10 +26,14 @@ const Favoritos = () => {
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
   const [recursosFavoritos, setRecursosFavoritos] = useState([]);
-
+  const [listadoFavoritosFavo, setListadoFavoritosHomeFavo] = useState([]);
+console.log("listaFavXUserId", listaFavXUserId)
   useEffect(() => {
     getListaFavXUserID(id);
-  }, [listaFavXUserId]);
+    if (listaFavXUserId.length < 1) {
+      setListadoFavoritosHomeFavo(listaFavXUserId);
+    }
+  }, [listadoFavoritosFavo]);
 
   const idRecursos = listaFavXUserId
   .filter((favorito) => favorito.favorito === 1)
@@ -117,6 +121,7 @@ const Favoritos = () => {
                       productosBKLista,
                       categoriasLista
                     )}
+                    listaFavXUserId={listaFavXUserId}
                   />
                 );
               })
