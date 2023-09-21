@@ -1,7 +1,7 @@
 
 function esFavorito(idRecurso, data) {
     const favoritoEncontrado = data.find(
-      (item) => item.idRecurso === idRecurso
+      (item) => item.idRecurso == idRecurso
     );
   
     if (favoritoEncontrado.favorito == 1) {

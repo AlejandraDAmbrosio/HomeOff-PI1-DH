@@ -22,19 +22,20 @@ const ListadoProductos = ({ CantidadCards }) => {
     getPuntosPromedioXIDRecurso,
     userIdLogIn,
     getListaFavXUserID,
-    listaFavXUserId,
+    listaFavXUserId
   } = useContext(ContextGlobal);
-
+  const userId = localStorage.getItem("idUsuario");
   const [listadoFavoritosHome, setListadoFavoritosHome] = useState([]);
-  
+
   useEffect(() => {
-    getListaFavXUserID(userIdLogIn);
-    if (listaFavXUserId.length < 1) {
+    getListaFavXUserID(userId);
+    if (listaFavXUserId.length < 1 ) {
       setListadoFavoritosHome(listaFavXUserId);
     }
-  }, [listadoFavoritosHome]);
-
-  // console.log("listaFavXUserId", listaFavXUserId)
+  }, [listadoFavoritosHome ]);
+  
+console.log("listaFavXUserId", listaFavXUserId)
+  
 
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
@@ -62,6 +63,7 @@ const ListadoProductos = ({ CantidadCards }) => {
 
     obtenerPuntuacionesPromedio();
   }, [productsToRender]);
+
 
   useEffect(() => {
     const paginatedArray = chunk(productsToRender, CantidadCards);
@@ -130,24 +132,14 @@ const ListadoProductos = ({ CantidadCards }) => {
           })
         ) : (
           <>
-            <Container sx={{ placeItems: "center" }}>
-              <Stack
-                style={{
-                  margin: "auto",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "60vw",
-                }}
-              >
+            <Container sx={{placeItems:"center"}}>
+              <Stack style={{margin:"auto",display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", width:"60vw"}}>
                 <Typography variant="h4">
                   {" "}
                   No encontramos productos por el momento.{" "}
                 </Typography>
-                <Typography variant="h4">
-                  Por favor, intente más tarde
-                </Typography>
+                <Typography  variant="h4">Por favor, intente más tarde</Typography>
+                
               </Stack>
             </Container>
           </>
