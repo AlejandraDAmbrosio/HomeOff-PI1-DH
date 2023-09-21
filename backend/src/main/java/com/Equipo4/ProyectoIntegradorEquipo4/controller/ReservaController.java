@@ -54,9 +54,6 @@ public class ReservaController {
         }
     }
 
-<<<<<<< HEAD
-
-=======
     @GetMapping("recurso/{idRecurso}/estadoFechas")
     public ResponseEntity<?> consultarFechasDisponibles(@PathVariable Integer idRecurso,
                                                         @RequestParam String fechaInicialBusqueda, @RequestParam String fechaFinalBusqueda) {
@@ -77,7 +74,6 @@ public class ReservaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }
->>>>>>> 65f9a4239e4be3f90f2472c83cb66c6f03dcd7a5
 
 
     @PostMapping("/save")

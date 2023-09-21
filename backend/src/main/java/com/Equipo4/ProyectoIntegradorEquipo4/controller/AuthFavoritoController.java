@@ -44,8 +44,6 @@ public class AuthFavoritoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }
-<<<<<<< HEAD
-=======
     @PostMapping("favoritos/update")
     public ResponseEntity<ServiceResponse> update(@RequestBody Favorito favorito){
         ServiceResponse serviceResponse = new ServiceResponse();
@@ -55,7 +53,6 @@ public class AuthFavoritoController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
->>>>>>> 65f9a4239e4be3f90f2472c83cb66c6f03dcd7a5
 
 
 }

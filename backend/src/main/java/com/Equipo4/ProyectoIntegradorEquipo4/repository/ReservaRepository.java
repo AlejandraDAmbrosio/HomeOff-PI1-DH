@@ -41,8 +41,6 @@ public class ReservaRepository implements IReservaRepository {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public List<Reserva> findAllByRecursoInDatesRange(int idRecurso, Date fechaInicio, Date fechaFin) {
         String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva "+
                 "FROM offi_Reservas p  "+
@@ -54,7 +52,6 @@ public class ReservaRepository implements IReservaRepository {
     }
 
     @Override
->>>>>>> 65f9a4239e4be3f90f2472c83cb66c6f03dcd7a5
     public List<ReservaRespuesta> findReservaRecurso(int idRecurso) {
         String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
                 "FROM offi_Reservas p " +
