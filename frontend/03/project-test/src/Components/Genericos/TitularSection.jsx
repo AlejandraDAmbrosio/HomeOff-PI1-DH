@@ -17,8 +17,9 @@ const TitularSection = ({ titulo, estilo }) => {
               fontSize: "22px",
               padding: "5px 20px 5px 10px",
               borderRadius:"20px",
+              border:"1px solid #979797",
               margin: "0 2rem 5px 3rem",
-              backgroundColor: "#DDDDDD",
+              backgroundColor: "white",
               alignItems: "center",
               display:"flex",
               flexDirection:"row",
@@ -30,7 +31,7 @@ const TitularSection = ({ titulo, estilo }) => {
               style={{
                 fontSize: "30px",
                 margin: "0rem 1rem 0 0rem",
-                color: "yellow",
+                color: "red",
               }}
             />
             No se encontraron productos relacionados con su búsqueda.
