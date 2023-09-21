@@ -15,12 +15,21 @@ const Puntuar = () => {
         {Array(5)
           .fill()
           .map((_, index) => (
-            <AiOutlineStar
-              className={index < calificacion ? "full" : "empty"}
-              key={index}
-              onClick={() => calificar(index)}
-              style={{ fontSize: "35px", cursor: "pointer" }}
-            />
+            index % 2 === 0 ? (
+              <AiFillStar
+                className={index <= calificacion ? "full" : "empty"}
+                key={index}
+                onClick={() => calificar(index)}
+                style={{ fontSize: "35px", cursor: "pointer", color: "#FFD700" }}
+              />
+            ) : (
+              <AiOutlineStar
+                className={index <= calificacion ? "full" : "empty"}
+                key={index}
+                onClick={() => calificar(index)}
+                style={{ fontSize: "35px", cursor: "pointer", color: "#FFD700" }}
+              />
+            )
           ))}
       </div>
       <p>Calificación: {calificacion}</p>
