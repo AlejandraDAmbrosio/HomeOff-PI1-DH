@@ -813,7 +813,7 @@ export const ContextProvider = ({ children }) => {
   const [cantidadDiasBusqueda, setCantidadDiasBusqueda] = useState(null);
 
 
-
+  const[resultadoBusqueda, setResultadoBusqueda] = useState(true);
 //////////////////////////////////////////
 const [openLogIn, setOpenLogIn] = useState(false);
 
@@ -822,6 +822,7 @@ const [openLogIn, setOpenLogIn] = useState(false);
   return (
     <ContextGlobal.Provider
       value={{
+        resultadoBusqueda, setResultadoBusqueda,
         openLogIn, setOpenLogIn,
         rating, setRating,
         postPuntuarComentar,

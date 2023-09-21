@@ -6,12 +6,12 @@ import { useContext } from "react";
 import { MdClose } from "react-icons/md";
 
 const TitularSection = ({ titulo, estilo }) => {
-  const { busquedaCero } = useContext(ContextGlobal);
+  const { busquedaCero, resultadoBusqueda } = useContext(ContextGlobal);
   return (
     <div className={estilo} >
       <div>{titulo}</div>{" "}
       <div>
-        {busquedaCero ? (
+        {(busquedaCero || (resultadoBusqueda == false)) ?  (
           <div
             style={{
               fontSize: "22px",

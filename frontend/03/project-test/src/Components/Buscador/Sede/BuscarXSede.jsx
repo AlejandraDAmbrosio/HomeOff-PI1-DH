@@ -15,10 +15,11 @@ import {
   Button,
   Autocomplete,
   TextField,
+  resultadoBusqueda, setResultadoBusqueda,
 } from "@mui/material";
 
 import "./BuscarXSede.css";
-import CalendarioBuscador from "../Fecha/CalendarioBuscador";
+// import CalendarioBuscador from "../Fecha/CalendarioBuscador";
 import formatearFecha from "../../utils/formatearFecha";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
@@ -240,10 +241,15 @@ const BuscarXSede = () => {
         if (data.estadoPorFechas[fecha] !== "DISPONIBLE") {
           // console.log(`Fecha: ${fecha}, Estado: DISPONIBLE`);
           estaDisponible = false;
+          setResultadoBusqueda(False)
           break;
         } else {
+          setResultadoBusqueda(true)
           estaDisponible = true;
         }
+      }
+      if(resultadoBusqueda == False){
+        setProdFiltrados([]);
       }
       console.log(` el producto ${id}  estaDiponible? ${estaDisponible}`);
     } catch (error) {
@@ -255,9 +261,8 @@ const BuscarXSede = () => {
   let filteredProducts = [];
   const handleSearchFechas = async () => {
     if (prodFiltrados.length > 0) {
-      console.log("prodFiltrados", prodFiltrados);
+      // console.log("prodFiltrados", prodFiltrados);
       // Si hay productos filtrados, enviar solicitudes para cada idRecurso//// OK
-
       // Si no tienes productos filtrados, realiza la búsqueda y filtro aquí
 
       prodFiltrados.map(async (producto) => {
@@ -269,8 +274,11 @@ const BuscarXSede = () => {
           // Puedes agregar cualquier otra lógica de filtro aquí si es necesario
           console.log("estaDisponible", producto);
           filteredProducts.push(producto);
+          setResultadoBusqueda(true);
           return producto;
         } else {
+          setResultadoBusqueda(false);
+            setProdFiltrados([]);
           return null; // No agregues el producto si no está disponible
         }
       });
@@ -283,6 +291,7 @@ const BuscarXSede = () => {
       if (filteredProducts.length == 0) {
         setProdFiltrados([]);
         setBusquedaCero(false);
+        setResultadoBusqueda(false);
       }
 
       console.log("filteredProducts", filteredProducts);
@@ -305,7 +314,7 @@ const BuscarXSede = () => {
           
             return producto;
           } else {
-     
+            setResultadoBusqueda(false);
 
             return null;
           }
@@ -318,6 +327,9 @@ const BuscarXSede = () => {
       );
 
       setProdFiltrados(filteredProducts);
+      if((filteredProducts == 0 )|| (filteredProducts == []) ||(filteredProducts == undefined)){
+        setResultadoBusqueda(false);
+      }
       // Realiza acciones con los productos filtrados
       console.log(
         "Productos filtrados por fechas   } else {:",

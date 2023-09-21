@@ -43,7 +43,7 @@ const ListadoProductos = ({ CantidadCards }) => {
         setListadoFavoritosHome(listaFavXUserId);
       }
     }
-  }, [userId, listaFavXUserId]);
+  }, [userId, listadoFavoritosHome]);
 
   
 console.log("listaFavXUserId", listaFavXUserId)
