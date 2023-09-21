@@ -29,52 +29,33 @@ const CalendarioBuscador = ({ id }) => {
     setCantidadDias,
     arrayFechasReservasXRecurso,
     getArrayFechasReservasXRecurso,
+    fechaInicioBusqueda, setFechaInicioBusqueda,
+    fechaFinBusqueda, setFechaFinBusqueda,
+    cantidadDiasBusqueda, setCantidadDiasBusqueda,
   } = useContext(ContextGlobal);
 
-  if (id !== undefined) {
-    getArrayFechasReservasXRecurso(id);
-  }
 
-  const fechasDeshabilitadas = obtenerFechasDeshabilitadas(
-    arrayFechasReservasXRecurso
-  );
-
-  function tileDisabled({ date, view }) {
-    // Disable tiles in month view only
-    if (view === "month") {
-      // Check if a date React-Calendar wants to check is on the list of disabled dates
-      return fechasDeshabilitadas.some(
-        (deshabilitada) =>
-          date.toLocaleDateString() === deshabilitada.toLocaleDateString()
-      );
-    }
-  }
-
-  useEffect(() => {
-    console.log("USEEFFECT ---> ", value);
-    const inicio =
-      new Date(value[0]).toDateString() !== "Invalid Date"
-        ? new Date(value[0]).toDateString()
-        : new Date(value).toLocaleDateString();
-    const fin =
-      new Date(value[1]).toDateString() !== "Invalid Date"
-        ? new Date(value[1]).toDateString()
-        : new Date(value).toLocaleDateString();
-    console.log("USEEFFECT  inicio---> ", inicio);
-    console.log("USEEFFECT  fin---> ", fin);
-    setFechaInicio(inicio);
-    setFechaFin(fin);
-  }, [value]);
+  // useEffect(() => {
+  //   console.log("USEEFFECT ---> ", value);
+  //   const inicio =
+  //     new Date(value[0]).toDateString() !== "Invalid Date"
+  //       ? new Date(value[0]).toDateString()
+  //       : new Date(value).toLocaleDateString();
+  //   const fin =
+  //     new Date(value[1]).toDateString() !== "Invalid Date"
+  //       ? new Date(value[1]).toDateString()
+  //       : new Date(value).toLocaleDateString();
+  //   console.log("USEEFFECT  inicio---> ", inicio);
+  //   console.log("USEEFFECT  fin---> ", fin);
+  //   setFechaInicioBusqueda(inicio);
+  //   setFechaFinBusqueda(fin);
+  // }, [value]);
 
   const handleDateChange = (date) => {
     setValue(date);
   };
 
   const onSaveDates = useCallback(() => {
-    // const inicio =
-    //   new Date(value[0]).toDateString() !== "Invalid Date"
-    //     ? new Date(value[0]).toDateString()
-    //     : new Date(value).toLocaleDateString();
     const inicio =
       new Date(value[0]).toDateString() !== "Invalid Date"
         ? new Date(value[0])
@@ -83,19 +64,12 @@ const CalendarioBuscador = ({ id }) => {
       new Date(value[1]).toDateString() !== "Invalid Date"
         ? new Date(value[1])
         : new Date(value);
-    // const fin =
-    //   new Date(value[1]).toDateString() !== "Invalid Date"
-    //     ? new Date(value[1]).toDateString()
-    //     : new Date(value).toLocaleDateString();
 
     if (inicio.toLocaleString() === fin.toLocaleString()) {
       const fechaUnica =
         new Date(value[0]).toDateString() === "Invalid Date"
           ? new Date(value).toLocaleDateString()
           : new Date(value[0]).toLocaleDateString();
-
-      arrayFechas.push(fechaUnica);
-      arrayFechas.push(fechaUnica);
     } else {
       // if the user selects a range of days
       const date_1 = new Date(value[0]);
@@ -105,7 +79,7 @@ const CalendarioBuscador = ({ id }) => {
       const totalDays = (date_1, date_2) => {
         const difference = date_1.getTime() - date_2.getTime();
         const days = Math.ceil((difference / (1000 * 3600 * 24)) * -1);
-        setCantidadDias(days);
+        setCantidadDiasBusqueda(days);
         // console.log("CantidadDias", cantidadDias)
         return days;
       };
@@ -120,10 +94,10 @@ const CalendarioBuscador = ({ id }) => {
       }
     }
     console.log(arrayFechas);
-    console.log("Fechas INICIO guardada en onSaveDates", inicio);
-    console.log("Fechas FIN guardada en onSaveDates", fin);
-    setFechaInicio(inicio);
-    setFechaFin(fin);
+    console.log("Fechas INICIO guardada en onSaveDates", inicio.toLocaleDateString());
+    console.log("Fechas FIN guardada en onSaveDates", fin.toLocaleDateString());
+    setFechaInicioBusqueda(inicio.toLocaleDateString());
+    setFechaFinBusqueda(fin.toLocaleDateString());
     // Aquí puedes ver las fechas seleccionadas en el array `arrayFechas`.
   }, [value]);
   return (
@@ -155,7 +129,7 @@ const CalendarioBuscador = ({ id }) => {
         >
           Buscar
         </Button>
-        {/* <Stack
+        <Stack
           flexDirection={{ lg: "row" }}
           style={{justifyContent:"space-around", alignItems:"center"}}>
           <Typography>
@@ -170,7 +144,7 @@ const CalendarioBuscador = ({ id }) => {
               <p>Fin de reserva: {new Date(value[1]).toDateString()}</p>
             )}
           </Typography>
-        </Stack> */}
+        </Stack>
       </Stack>
     </div>
   );

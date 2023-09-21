@@ -176,7 +176,7 @@ const ReservarXIDRecurso = () => {
     // postReserva(guardarReserva);
 
     try {
-      const urlReserva = "http://44.231.66.124:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+      const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
       const jsonDataReserva = JSON.stringify(guardarReserva);
       console.log("jsonDataReserva", jsonDataReserva)
       console.log("datosReserva", jsonDataReserva);
@@ -190,7 +190,7 @@ const ReservarXIDRecurso = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Respuesta:", responseData);
+        // console.log("Respuesta:", responseData);
         setInfoMensaje({cuerpo:" Ha realizado una reserva con éxito",idReserva:`Su numero de reserva es el ${responseData.idReserva} .`, final:"Gracias por reservar con HomeOff" })
 
       } else {

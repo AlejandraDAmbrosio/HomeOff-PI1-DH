@@ -118,7 +118,7 @@ const TablaCaracteristicas = () => {
         idCaracteristica: editedItem.idCaracteristica,
       };
   
-      const urlBaseEditar = "http://44.231.66.124:8080/auth/caracteristicas/update";
+      const urlBaseEditar = "http://52.32.210.155:8080/auth/caracteristicas/update";
   
       try {
         const jsonDataEdicion = JSON.stringify(editedItemData);
@@ -128,10 +128,15 @@ const TablaCaracteristicas = () => {
           },
         });
   
-        if (response.status === 200) {
+        if (response.ok) {
           const responseData = await response.data;
           console.log("Respuesta:", responseData);
+          console.log(" handleClose();:");
+
+          handleClose();
           getCaracteristicasLista();
+          setEditDialogOpen(false); 
+        
         } else {
           console.error(
             "Error en la respuesta:",
@@ -142,9 +147,7 @@ const TablaCaracteristicas = () => {
       } catch (error) {
         console.error("Error:", error);
       }
-  
-      // Cierra el diálogo de edición
-      setEditDialogOpen(false);
+     
     }
   };
   
@@ -178,7 +181,7 @@ const TablaCaracteristicas = () => {
       };
 
       const urlBaseGuardar =
-        "http://44.231.66.124:8080/auth/caracteristicas/save";
+        "http://52.32.210.155:8080/auth/caracteristicas/save";
 
       // const token = localStorage.getItem("token");
       // console.log("token previo a agregar caracteristicas", token);
@@ -252,13 +255,14 @@ const TablaCaracteristicas = () => {
       });
       /////////////// VER ERROR ///////
     }
+    handleClose
   };
   ///////////////////Eliminar Caracteristica
 
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
       const response = await axios.post(
-        `http://44.231.66.124:8080/auth/caracteristicas/delete/${idCaracteristica}`,
+        `http://52.32.210.155:8080/auth/caracteristicas/delete/${idCaracteristica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",

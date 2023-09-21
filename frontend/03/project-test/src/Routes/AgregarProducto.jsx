@@ -257,7 +257,7 @@ const AgregarProducto = () => {
         "------------------Info paquete enviado en nuevoProductoData ------------------"
       );
       console.log(nuevoProductoData);
-      const urlBase = "http://44.231.66.124:8080/auth/recursos/save";
+      const urlBase = "http://52.32.210.155:8080/auth/recursos/save";
 
       ///////////////Envio de datos
 
@@ -458,7 +458,7 @@ const AgregarProducto = () => {
                     <option className="item-grid" value={1}>
                       OFICINA ESPACIO ABIERTO
                     </option>
-                    <option className="item-grid" value={0}>
+                    <option className="item-grid" value={2}>
                       OFICINA ESPACIO CERRADO
                     </option>
                   </TextField>
@@ -466,34 +466,8 @@ const AgregarProducto = () => {
                   {/* //////////////////// */}
                 </div>
                 {/* -/////////////////////////////////////// */}
-                {/* <FormGroup
-                  className="formgroup-check-boxs"
-                  label="Elija las caracteristicas"
-                  component="fieldset"
-                  style={{ maxWidth: "480px", height: "fit-content" }}
-                >
-                  <FormLabel component="legend">Características</FormLabel>
-                  <div className="container-check-boxs">
-                    {caracteristicasLista.map((caracteristica) => (
-                      <li
-                        key={caracteristica.idCaracteristica}
-                        style={{ listStyle: "none" }}
-                        className="item-grid-check"
-                      >
-                        <label>
-                          <Checkbox
-                            type="checkbox"
-                           // className="item-grid-check"
-                            checked={caracteristica.checked} // Asumo que cada objeto tiene una propiedad "checked"
-                            onChange={() => handleOptionChange(caracteristica)}
-                          />
-                          {caracteristica.nombre}
-                        </label>
-                      </li>
-                    ))}
-                  </div>
-                </FormGroup> */}
-                {/* /////////--------------------------------////// */}
+               
+        
                 <div
                   style={{
                     display: "flex",

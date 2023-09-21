@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,6 +41,20 @@ public class ReservaRepository implements IReservaRepository {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public List<Reserva> findAllByRecursoInDatesRange(int idRecurso, Date fechaInicio, Date fechaFin) {
+        String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva "+
+                "FROM offi_Reservas p  "+
+                "INNER JOIN offi_recursos r ON p.IdRecurso = r.IdRecurso "+
+                "WHERE p.IdRecurso = ? "+
+                "AND (p.InicioReserva <= ? AND p.FinalizacionReserva >= ?)";
+
+        return jdbcTemplate.query(SQL, new Object[]{idRecurso, fechaFin, fechaInicio}, BeanPropertyRowMapper.newInstance(Reserva.class));
+    }
+
+    @Override
+>>>>>>> 65f9a4239e4be3f90f2472c83cb66c6f03dcd7a5
     public List<ReservaRespuesta> findReservaRecurso(int idRecurso) {
         String SQL = "SELECT p.IdReserva, p.IdUsuario, p.InicioReserva, p.FinalizacionReserva, p.EstadoReserva, p.IdRecurso, p.nombre, p.apellido, p.Email, p.FechaRealizacionReserva , u.nombrecompleto AS nombreUsuario, r.Nombre AS nombreRecurso " +
                 "FROM offi_Reservas p " +

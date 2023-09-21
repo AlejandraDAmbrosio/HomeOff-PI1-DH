@@ -88,6 +88,7 @@ const FormIngreso = () => {
     const newValue = e.target.value;
     setUsuario({ ...usuario, password: newValue });
     setUserLogIn({ ...usuario, password: newValue });
+    setPasswordValido(true);
     setErrorLogueo("");
     validarPassword(newValue);
   };
@@ -186,17 +187,20 @@ const FormIngreso = () => {
             width: "auto",
             maxWidth: "320px",
             margin: "auto",
+            marginTop: "1rem",
             overflow: "hidden",
             height: "fitContent",
-            justifyContent: "spaceAround",
+            // justifyContent: "spaceAround",
+            justifyContent: "spaceBetween",
             padding: "1rem",
+            alignContent: "center",
           }}
           style={{
-            margin: "auto",
+            // margin: "auto",
             justifyContent: "spaceBetween",
-            marginTop: "1rem",
-            height: "fitContent",
-            alignContent: "center",
+            // marginTop: "1rem",
+            // height: "fitContent",
+            // alignContent: "center",
           }}
         >
           <div className="pagina-formulario-Ingreso">
@@ -251,10 +255,10 @@ const FormIngreso = () => {
                   style={{ borderColor: passwordValido ? "" : "red" }}
                 />
                 {!passwordValido ? (
-                  <p className="error-form-inicio">
-                    La contraseña debe tener al menos 8 caracteres, incluir una
+                      <Typography variant="body2" style={{ color: "red" }}>
+                        La contraseña debe tener al menos 8 caracteres, incluir una
                     letra mayúscula y un carácter no alfanumérico.
-                  </p>
+                    </Typography>
                 ) : (
                   ""
                 )}

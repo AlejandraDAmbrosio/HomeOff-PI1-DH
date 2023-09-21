@@ -12,5 +12,5 @@ public interface IFavoritoService {
 
     public List<FavoritoRespuesta> devolverFavoritoPorUsuario(Integer idRecurso) throws Exception;
 
-
+    public int update(Favorito favorito);
 }

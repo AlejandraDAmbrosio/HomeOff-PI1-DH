@@ -32,7 +32,7 @@ export const ContextProvider = ({ children }) => {
     }
 
     // solicitud POST a la API
-    const urlBaseGuardar = "http://44.231.66.124:8080/auth/login";
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/login";
     const body = JSON.stringify({
       username,
       password,
@@ -157,7 +157,7 @@ export const ContextProvider = ({ children }) => {
   const [productosBKLista, setProductosBKLista] = useState([]);
 
   const getDatosBKLista = async () => {
-    const res = await fetch("http://44.231.66.124:8080/auth/recursos/list");
+    const res = await fetch("http://52.32.210.155:8080/auth/recursos/list");
     const data = await res.json();
 
     setProductosBKLista(data);
@@ -172,7 +172,7 @@ export const ContextProvider = ({ children }) => {
 
   const getRecursoXID = async (id) => {
     const response = await axios.get(
-      `http://44.231.66.124:8080/auth/recursos/${id}`
+      `http://52.32.210.155:8080/auth/recursos/${id}`
     );
     const data = response.data;
 
@@ -203,7 +203,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   const getDatosUsers = async () => {
-    const urlUsers = "http://44.231.66.124:8080/auth/usuario/list";
+    const urlUsers = "http://52.32.210.155:8080/auth/usuario/list";
     // console.log("-------------- > getTokenUser", tokenUserState);
     // console.log("-------------- > urlUsers", urlUsers);
 
@@ -235,7 +235,7 @@ export const ContextProvider = ({ children }) => {
   const [usersXID, setUsersXID] = useState([]);
 
   const getDatosUsersXID = async (id) => {
-    const urlUsers = `http://44.231.66.124:8080/auth/usuario/${id}`;
+    const urlUsers = `http://52.32.210.155:8080/auth/usuario/${id}`;
 
     const headers = {
       "Content-Type": "application/json",
@@ -264,7 +264,7 @@ export const ContextProvider = ({ children }) => {
   const [categoriasLista, setCategoriasLista] = useState([]);
 
   const getCategoriasLista = async () => {
-    const res = await fetch("http://44.231.66.124:8080/auth/categoria/list");
+    const res = await fetch("http://52.32.210.155:8080/auth/categoria/list");
     const data = await res.json();
 
     // console.log(data);
@@ -275,7 +275,7 @@ export const ContextProvider = ({ children }) => {
 
   const getCaracteristicasLista = async () => {
     const res = await fetch(
-      "http://44.231.66.124:8080/auth/caracteristicas/list"
+      "http://52.32.210.155:8080/auth/caracteristicas/list"
     );
     const data = await res.json();
     setCaracteristicasLista(data);
@@ -289,7 +289,7 @@ export const ContextProvider = ({ children }) => {
   const [caracteristicasXID, setCaracteristicasXID] = useState([]);
 
   const getCaracteristicasXID = async (id) => {
-    const res = await fetch(`http://44.231.66.124:8080/auth/inter/${id}`);
+    const res = await fetch(`http://52.32.210.155:8080/auth/inter/${id}`);
     const data = await res.json();
     setCaracteristicasXID(data);
   };
@@ -303,27 +303,22 @@ export const ContextProvider = ({ children }) => {
   const [politicasXID, setPoliticasXID] = useState([]);
 
   const getPoliticasXID = async (id) => {
-    const res = await fetch(`http://44.231.66.124:8080/auth/politicas/${id}`);
+    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/${id}`);
     const data = await res.json();
 
     setPoliticasXID(data);
   };
 
-////////////////////////////////
+  ////////////////////////////////
 
+  const [politicas, setPoliticas] = useState([]);
 
-const [politicas, setPoliticas] = useState([]);
+  const getPoliticas = async () => {
+    const res = await fetch(`http://52.32.210.155:8080/auth/politicas/list`);
+    const data = await res.json();
 
-const getPoliticas = async () => {
-  const res = await fetch(`http://44.231.66.124:8080/auth/politicas/list`);
-  const data = await res.json();
-
-  setPoliticas(data);
-};
-
-
-
-
+    setPoliticas(data);
+  };
 
   /////////////////////////////////// Puntaje promedio por IDRecurso
 
@@ -332,7 +327,7 @@ const getPoliticas = async () => {
   const getPuntosPromedioXIDRecurso = async (id) => {
     try {
       const response = await axios.get(
-        `http://44.231.66.124:8080/auth/puntaje/${id}/promedio`
+        `http://52.32.210.155:8080/auth/puntaje/${id}/promedio`
       );
 
       if (response.status === 404 || isNaN(response.data)) {
@@ -358,52 +353,222 @@ const getPoliticas = async () => {
   const [favoritos, setFavoritos] = useState([]);
 
   const getFavoritosXID = async (id) => {
-    const res = await fetch(`http://44.231.66.124:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    // console.log("Data antes de inyectarse getFavoritosXID", data);
+
     const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
-    // console.log("newArray", newArray);
+
     setFavoritosXID(newArray);
   };
 
-  // const getIsFav = async (id) => {
-  //   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
-  //   const data = await res.json();
-  //   console.log("Data antes de inyectarse ///getIsFav/////////////", data);
-  //   const esFav = data.setNombreCompleto((item) => item.idUsuario === userIdLogIn);
-
-  //   console.log("esFav", esFav);
-  //   setIsFav(esFav);
-  // };
   const [listaFavXUserId, setListaFavXUserId] = useState([]);
 
   const getListaFavXUserID = async (id) => {
-    const res = await fetch(`http://44.231.66.124:8080/auth/favoritos/${id}`);
+    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
     setListaFavXUserId(data);
   };
 
-  const getFavoritos = async (id) => {
-    const res = await fetch(`http://44.231.66.124:8080/auth/favoritos/${id}`);
-    const data = await res.json();
-    // console.log("Data antes de inyectarse /////////// getFavoritos", data);
+  // const getFavoritos = async (id) => {
+  //   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+  //   const data = await res.json();
 
-    setFavoritos(data);
+  //   setFavoritos(data);
+  // };
+
+  ///////// Guardar Favoritos
+  // auth/favoritos/save
+  const [errorFavoritos, setErrorFavoritos] = useState("");
+  const [favorito, setFavorito] = useState({
+    idUsuario: 0,
+    idRecurso: 0,
+    favorito: 1,
+    vigente: 1,
+    fecha_MarcacionFavorito: "2023-09-14",
+  });
+
+  const guardarFavorito = async (idUsuario, iDRecursos) => {
+    setFavorito({
+      idUsuario: idUsuario,
+      idRecurso: iDRecursos,
+      favorito: 1,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+    });
+
+    // solicitud POST a la API
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/save";
+    const body = JSON.stringify(favorito);
+    console.log("Body ", body);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+    console.log("options ", options);
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+      setErrorFavoritos("Intentando conectar");
+      if (response.ok) {
+        // setErrorLogueo(`Gracias por ingresar ${username}`);
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setErrorFavoritos("Datos incorrectos");
+      } else {
+        setErrorFavoritos("Pruebe más tarde");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setErrorFavoritos(
+        "Error al realizar la acción. Por favor, revisa tus credenciales."
+      );
+    }
   };
 
+  /////////////////////Actualizar Favortos
+  // postActualizarFavorito
+  // actualizarFavorito, setActualizarFavorito
+  // errorActFavoritos, setErrorActFavoritos
+  const [errorActFavoritos, setErrorActFavoritos] = useState("");
+  const [actualizarFavorito, setActualizarFavorito] = useState({
+    idUsuario: 0,
+    idRecurso: 0,
+    favorito: 1,
+    vigente: 1,
+    fecha_MarcacionFavorito: "2023-09-14",
+    id: 0,
+    favorito: 0,
+    vigente: 1,
+  });
 
+  const postActualizarFavorito = async (
+    idFavorito,
+    favorito,
+    userId,
+    idRecurso
+  ) => {
+    setActualizarFavorito({
+      id: idFavorito,
+      favorito: favorito,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+      id: 0,
+      favorito: 0,
+      vigente: 1,
+    });
 
+    //     // solicitud POST a la API
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/update";
+    const body = JSON.stringify({
+      idUsuario: userId,
+      idRecurso: idRecurso,
+      favorito: favorito,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+      id: idFavorito,
+    });
 
-
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+    console.log("options ", options);
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+      setErrorActFavoritos("Intentando conectar");
+      if (response.ok) {
+        // setErrorLogueo(`Gracias por ingresar ${username}`);
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setErrorActFavoritos("Datos incorrectos");
+      } else {
+        setErrorActFavoritos("Pruebe más tarde");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setErrorActFavoritos(
+        "Error al realizar la acción. Por favor, revisa tus credenciales."
+      );
+    }
+  };
 
   ///////////////////////////////// Puntajes y comentarios por IdRecurso
   const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 
   const getPuntosComentXIDRecurso = async (id) => {
-    const res = await fetch(`http://44.231.66.124:8080/auth/puntaje/${id}`);
+    const res = await fetch(`http://52.32.210.155:8080/auth/puntaje/${id}`);
     const data = await res.json();
 
     setPuntosComentXIDRecurso(data);
+  };
+
+  //////////////////////////////// Guardar Comentario y puntos
+  const [datosPuntuarComentar, setDatosPuntuarComentar] = useState([]);
+  const [mensajePostComentario, setMensajePostComentario] = useState("");
+  const fechaActualPuntuacion = new Date();
+  const fechaFormateada = fechaActualPuntuacion.toISOString().split("T")[0];
+
+  const postPuntuarComentar = async (
+    idUsuario,
+    idRecurso,
+    puntuacion,
+    comentario
+  ) => {
+    // preparacion de datos
+    setDatosPuntuarComentar({
+      idUsuario: idUsuario,
+      idRecurso: idRecurso,
+      puntuacion: puntuacion,
+      comentario: comentario,
+      fecha_valoracion: fechaFormateada,
+    });
+    console.log(datosPuntuarComentar);
+
+    const urlBaseGuardar = "http://52.32.210.155:8080/auth/puntaje/save";
+
+    const body = JSON.stringify({
+      idUsuario: idUsuario,
+      idRecurso: idRecurso,
+      puntuacion: puntuacion,
+      comentario: comentario,
+      fecha_valoracion: fechaFormateada,
+    });
+
+    console.log("datosPuntuarComentar BODY JSON.stringify", body);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    };
+
+    try {
+      const response = await fetch(urlBaseGuardar, options);
+
+      if (response.ok) {
+        setMensajePostComentario(`Gracias por valorar nuestros servicios`);
+        const data = await response.json();
+        console.log(data);
+      } else if (response.status === 401) {
+        setMensajePostComentario("Datos incorrectos");
+      } else {
+        setErrorLogueo(
+          "Error al intentar realizar la operación. Por favor, intente más tarde."
+        );
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setMensajePostComentario(`Error al realizar la solicitud: ${error}`);
+    }
   };
 
   //////////////////////////////////////////////////////////////
@@ -437,7 +602,7 @@ const getPoliticas = async () => {
           `Resultados de tu búsqueda ${prodFiltrados.length} productos`
         );
       } else if (
-        prodFiltrados.length ===
+        prodFiltrados.length ==
         0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/
       ) {
         setTituloListadoProductos("Productos");
@@ -453,7 +618,7 @@ const getPoliticas = async () => {
 
   const getReservas = async (id) => {
     const response = await axios.get(
-      `http://44.231.66.124:8080/auth/reserva/usuario/${id}`
+      `http://52.32.210.155:8080/auth/reserva/usuario/${id}`
     );
     const data = response.data;
     console.log(data);
@@ -463,117 +628,116 @@ const getPoliticas = async () => {
   ////////////////////////////////////// Guardar Reservas
 
   const [guardarReserva, setGuardarReserva] = useState({
-    nombre:"",
-    apellido:"",
+    nombre: "",
+    apellido: "",
     idUsuario: 0,
     idRecurso: 0,
-    inicioReserva:"",
-    estadoReserva:0,
-    email:"",
+    inicioReserva: "",
+    estadoReserva: 0,
+    email: "",
     finalizacionReserva: "",
     fechaRealizacionReserva: "",
   });
 
   // const postReserva = async (
-    // nombre,
-    // apellido,
-    // idUsuario,
-    // idRecurso,
-    // inicioReserva,
-    // estadoReserva,
-    // email,
-    // finalizacionReserva,
-    // fechaRealizacionReserva
+  // nombre,
+  // apellido,
+  // idUsuario,
+  // idRecurso,
+  // inicioReserva,
+  // estadoReserva,
+  // email,
+  // finalizacionReserva,
+  // fechaRealizacionReserva
   // ) => {
-    // const datosReserva2 = {
-    //   nombre: "Eduardo",
-    //   apellido: "Gonzales",
-    //   idUsuario: 56,
-    //   idRecurso: 176,
-    //   inicioReserva: "2023-09-12",
-    //   estadoReserva: 1,
-    //   email: "prueba15@gmail.com",
-    //   finalizacionReserva: "2023-09-14",
-    //   fechaRealizacionReserva: "2023-09-10"
+  // const datosReserva2 = {
+  //   nombre: "Eduardo",
+  //   apellido: "Gonzales",
+  //   idUsuario: 56,
+  //   idRecurso: 176,
+  //   inicioReserva: "2023-09-12",
+  //   estadoReserva: 1,
+  //   email: "prueba15@gmail.com",
+  //   finalizacionReserva: "2023-09-14",
+  //   fechaRealizacionReserva: "2023-09-10"
 
-    // setGuardarReserva({
-    //   nombre: nombre,
-    // apellido:apellido,
-    // idUsuario: idUsuario,
-    // idRecurso: idRecurso,
-    // inicioReserva: inicioReserva,
-    // estadoReserva: estadoReserva,
-    // email: email,
-    // finalizacionReserva:finalizacionReserva,
-    // fechaRealizacionReserva: fechaRealizacionReserva,
-    // })
-    // }
+  // setGuardarReserva({
+  //   nombre: nombre,
+  // apellido:apellido,
+  // idUsuario: idUsuario,
+  // idRecurso: idRecurso,
+  // inicioReserva: inicioReserva,
+  // estadoReserva: estadoReserva,
+  // email: email,
+  // finalizacionReserva:finalizacionReserva,
+  // fechaRealizacionReserva: fechaRealizacionReserva,
+  // })
+  // }
 
-    // try {
-    //   const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
-    //   const jsonDataReserva = JSON.stringify(guardarReserva);
-    //   console.log("datosReserva", jsonDataReserva);
-    //   const response = await fetch(urlReserva, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: jsonDataReserva,
-    //   });
+  // try {
+  //   const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
+  //   const jsonDataReserva = JSON.stringify(guardarReserva);
+  //   console.log("datosReserva", jsonDataReserva);
+  //   const response = await fetch(urlReserva, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: jsonDataReserva,
+  //   });
 
-    //   if (response.ok) {
-    //     const responseData = await response.json();
-    //     console.log("Respuesta:", responseData);
-    //   } else {
-    //     console.error(
-    //       "Error en la respuesta:",
-    //       response.status,
-    //       response.statusText
-    //     );
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
-    ///////////////datosReserva stringify///////////////////
+  //   if (response.ok) {
+  //     const responseData = await response.json();
+  //     console.log("Respuesta:", responseData);
+  //   } else {
+  //     console.error(
+  //       "Error en la respuesta:",
+  //       response.status,
+  //       response.statusText
+  //     );
+  //   }
+  // } catch (error) {
+  //   console.error("Error:", error);
+  // }
+  ///////////////datosReserva stringify///////////////////
 
-    // try {
-    //   const jsonDataReserva = JSON.stringify(datosReserva);
-    //   console.log("jsonDataReserva ---------- > ", jsonDataReserva)
+  // try {
+  //   const jsonDataReserva = JSON.stringify(datosReserva);
+  //   console.log("jsonDataReserva ---------- > ", jsonDataReserva)
 
-    //   const response = await axios.post(urlReserva, datosReserva, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
+  //   const response = await axios.post(urlReserva, datosReserva, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
 
-    //   if (response.status === 200) {
-    //     const responseData = await response.data;
-    //     console.log("Respuesta:", responseData);
-    //   } else {
-    //     console.error(
-    //       "Error en la respuesta:",
-    //       response.status,
-    //       response.statusText
-    //     );
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+  //   if (response.status === 200) {
+  //     const responseData = await response.data;
+  //     console.log("Respuesta:", responseData);
+  //   } else {
+  //     console.error(
+  //       "Error en la respuesta:",
+  //       response.status,
+  //       response.statusText
+  //     );
+  //   }
+  // } catch (error) {
+  //   console.error("Error:", error);
+  // }
   // };
 
   ///////////////////////////////////
 
   const [infoRecursoAReservar, setInfoRecursoAReservar] = useState({
-    idRecurso:0,
-    fechaInicio:"2023-08-31T00:00:00.000+00:00",
-    fechaFin:"2023-09-05T00:00:00.000+00:00",
-    idUser:0,
-    precioProducto:0,
-    precioTotal:0 , 
-    dias:0,
-    fechaRealizacionReserva:"2023-09-05T00:00:00.000+00:00",
+    idRecurso: 0,
+    fechaInicio: "2023-08-31T00:00:00.000+00:00",
+    fechaFin: "2023-09-05T00:00:00.000+00:00",
+    idUser: 0,
+    precioProducto: 0,
+    precioTotal: 0,
+    dias: 0,
+    fechaRealizacionReserva: "2023-09-05T00:00:00.000+00:00",
   });
-
 
   // const [fechasInicioDetalle, setFechasInicioDetalle] = useState([null, null]);
   // const [fechasFinDetalle, setFechasFinDetalle] = useState([null, null]);
@@ -583,74 +747,98 @@ const getPoliticas = async () => {
   const [fechaFin, setFechaFin] = useState(new Date());
   const [cantidadDias, setCantidadDias] = useState(null);
 
-const [ reservasPorRecurso, setReservasPorRecurso] = useState([]);
+  const [reservasPorRecurso, setReservasPorRecurso] = useState([]);
 
+  const getReservasPorRecurso = async (id) => {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/reserva/recurso/${id}`
+    );
+    const data = response.data;
 
- 
+    setReservasPorRecurso(data);
+    // console.log(`reservasPorRecurso ${id}`, data   )
+  };
 
-const getReservasPorRecurso = async (id) => {
-  const response = await axios.get(
-    `http://44.231.66.124:8080/auth/reserva/recurso/${id}`
-  );
-  const data = response.data;
+  const [arrayFechasReservasXRecurso, setArrayFechasReservasXRecurso] =
+    useState([]);
 
-  setReservasPorRecurso(data);
-  // console.log(`reservasPorRecurso ${id}`, data   )
-};
+  const getArrayFechasReservasXRecurso = async (id) => {
+    const response = await axios.get(
+      `http://52.32.210.155:8080/auth/reserva/recurso/${id}`
+    );
+    const data = response.data;
 
+    const fechas = [];
 
-const [ arrayFechasReservasXRecurso, setArrayFechasReservasXRecurso] = useState([]);
+    for (const objeto of data) {
+      const inicioReserva = new Date(objeto.inicioReserva);
+      const finalizacionReserva = new Date(objeto.finalizacionReserva);
+      console.log("finalizacionReserva", finalizacionReserva);
 
-const getArrayFechasReservasXRecurso = async (id) => {
-  const response = await axios.get(`http://44.231.66.124:8080/auth/reserva/recurso/${id}`);
-  const data = response.data;
-  
-  const fechas = [];
+      const ultimaFecha = new Date(finalizacionReserva);
+      ultimaFecha.setDate(finalizacionReserva.getDate() + 1);
 
-  for (const objeto of data) {
-    const inicioReserva = new Date(objeto.inicioReserva);
-    const finalizacionReserva = new Date(objeto.finalizacionReserva);
+      const primeraFecha = new Date(inicioReserva);
+      primeraFecha.setDate(inicioReserva.getDate() + 1);
 
-    if (inicioReserva.toDateString() !== finalizacionReserva.toDateString()) {
-      // Si las fechas no son iguales, agregamos todas las fechas intermedias
-      const fechaActual = new Date(inicioReserva);
-      while (fechaActual <= finalizacionReserva) {
-        fechas.push(new Date(fechaActual));
-        fechaActual.setDate(fechaActual.getDate() + 1);
+      if (inicioReserva.toDateString() !== finalizacionReserva.toDateString()) {
+        // Si las fechas no son iguales, agregamos todas las fechas intermedias
+        const fechaActual = new Date(inicioReserva);
+
+        while (primeraFecha <= ultimaFecha) {
+          fechas.push(new Date(primeraFecha));
+          primeraFecha.setDate(primeraFecha.getDate() + 1);
+        }
+      } else {
+        // Si las fechas son iguales, agregamos solo una vez la fecha de inicio
+        fechas.push(primeraFecha);
       }
-    } else {
-      // Si las fechas son iguales, agregamos solo una vez la fecha de inicio
-      fechas.push(inicioReserva);
     }
-  }
 
-  // Luego de procesar los datos y crear el array de fechas, lo asignamos al estado
-  setArrayFechasReservasXRecurso(fechas);
+    // Luego de procesar los datos y crear el array de fechas, lo asignamos al estado
+    setArrayFechasReservasXRecurso(fechas);
 
-  // console.log(`reservasPorRecurso ${id}`, data);
-  // console.log("inicioReserva ---------Context---", inicioReserva)
-  // console.log("finalizacionReserva -----------Context---", finalizacionReserva)
-};
-// console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
+    // console.log(`reservasPorRecurso ${id}`, data);
+    // console.log("inicioReserva ---------Context---", inicioReserva)
+    // console.log("finalizacionReserva -----------Context---", finalizacionReserva)
+  };
+  // console.log(`reservasPorRecurso arrayFechasReservasXRecurso`, arrayFechasReservasXRecurso);
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
+  const [fechaInicioBusqueda, setFechaInicioBusqueda] = useState(new Date());
+  const [fechaFinBusqueda, setFechaFinBusqueda] = useState(new Date());
+  const [cantidadDiasBusqueda, setCantidadDiasBusqueda] = useState(null);
 
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
-        politicas, setPoliticas,
+        postPuntuarComentar,
+        postActualizarFavorito,
+        actualizarFavorito,
+        setActualizarFavorito,
+        errorActFavoritos,
+        setErrorActFavoritos,
+        fechaFinBusqueda,
+        setFechaFinBusqueda,
+        cantidadDiasBusqueda,
+        setCantidadDiasBusqueda,
+        fechaInicioBusqueda,
+        setFechaInicioBusqueda,
+        politicas,
+        setPoliticas,
         getPoliticas,
         arrayFechasReservasXRecurso,
         getArrayFechasReservasXRecurso,
         getReservasPorRecurso,
         reservasPorRecurso,
-        cantidadDias, setCantidadDias,
-        fechaInicio, setFechaInicio,
-        fechaFin, setFechaFin,
+        cantidadDias,
+        setCantidadDias,
+        fechaInicio,
+        setFechaInicio,
+        fechaFin,
+        setFechaFin,
         // fechasResDetalle, setFechasResDetalle,
         // fechasFinDetalle, setFechasFinDetalle,
         // fechasInicioDetalle, setFechasInicioDetalle,
@@ -678,16 +866,17 @@ const getArrayFechasReservasXRecurso = async (id) => {
         setNombreCompleto,
         rol,
         setRol,
+        setUsuarios,
         loginSuccess,
         setLoginSuccess,
         // userNameStorage,
         busquedaCero,
         setBusquedaCero,
         tituloListadoProductos,
+        guardarFavorito,
         favoritos,
         setFavoritos,
-        // getIsFav,
-        getFavoritos,
+
         isFav,
         setIsFav,
         favoritosXID,

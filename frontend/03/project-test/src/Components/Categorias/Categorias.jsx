@@ -43,7 +43,15 @@ const Categorias = ({ NombreCategoria }) => {
 
         >
 
-          <div className="card-categoria">
+          <div className="card-categoria" style={{
+            // background: "yellow",
+            width: 140,
+            height: 120,
+            border: "10px solid white",
+            textAlign: "center",
+            lineHeight: "90px",
+            boxSizing: "border-box",
+          }}>
             <div className="fondo-icono">
               <img
                 src={buscadorIconoCategoria(categoria.categoria_id)}

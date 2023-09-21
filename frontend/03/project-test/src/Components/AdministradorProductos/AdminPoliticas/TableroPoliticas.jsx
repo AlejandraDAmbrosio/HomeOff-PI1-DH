@@ -117,7 +117,7 @@ const TableroPoliticas = () => {
 
 
       try {
-        const urlBaseGuardar = "http://44.231.66.124:8080/auth/politicas/save";
+        const urlBaseGuardar = "http://52.32.210.155:8080/auth/politicas/save";
         const jsonDataPoliticas = JSON.stringify(nuevaPoliticaData);
         console.log("jsonDataReserva", jsonDataPoliticas);
         console.log("nuevaPoliticaData", nuevaPoliticaData);
@@ -175,7 +175,7 @@ const TableroPoliticas = () => {
   const eliminarPolitica = async (idPolitica) => {
     try {
       const response = await axios.post(
-        `http://44.231.66.124:8080/auth/politicas/delete/${idPolitica}`,
+        `http://52.32.210.155:8080/auth/politicas/delete/${idPolitica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -184,7 +184,7 @@ const TableroPoliticas = () => {
       );
 
       const updatedPolitica = politicas.filter(
-        (politica) => politica.idPolitica !== idPolitica
+        (politica) => politica.idPoliticas !== idPolitica
       );
       setPoliticas(updatedPolitica);
       getPoliticas();
@@ -227,14 +227,14 @@ const TableroPoliticas = () => {
       setPoliticasValida(true);
 
       const urlUpdatePoliticas =
-        "http://44.231.66.124:8080/auth/politicas/update";
+        "http://52.32.210.155:8080/auth/politicas/update";
 
       const editedItemData = {
         politica_uso_conducta: editedItem.politica_uso_conducta,
         politica_cambio_fecha: editedItem.politica_cambio_fecha,
         politica_cancelacion: editedItem.politica_cancelacion,
         idRecurso: editedItem.idRecurso,
-        idPolitica: editedItem.idRecurso,
+        idPoliticas: editedItem.idRecurso,
       };
       console.log("editedItemData", editedItemData);
 
@@ -373,7 +373,6 @@ const TableroPoliticas = () => {
         </DialogActions>
       </Dialog>
 
-      <div>TableroPoliticas</div>
       <Paper
         sx={{ width: "100%", overflow: "hidden" }}
         style={{ margin: "0 20px 0 0" }}

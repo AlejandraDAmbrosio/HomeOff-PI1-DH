@@ -28,21 +28,7 @@
   scroll-snap-align: start;
 }
 
-.arrow {
-  display: flex;
-  justify-content: center;
-  width: 40px;
-  height: inherit;
-  align-items: center;
-  cursor: pointer;
-  /* border: 1px solid rgb(72, 255, 0); */
-}
 
-.txt-titulo-servicio {
-  font-size: 12px;
-  color: #275ca8;
-  margin: 0px;
-}
 
 .nombre-icono-categoria {
   line-height: 19px;

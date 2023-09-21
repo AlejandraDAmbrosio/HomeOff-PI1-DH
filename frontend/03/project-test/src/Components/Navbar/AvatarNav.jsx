@@ -20,8 +20,8 @@ const user = localStorage.getItem("nombreCompleto");
           variant="solid"
           size="lg"
           style={{
-            backgroundColor: "#9dd6b3",
-            color: "black",
+            backgroundColor: "#7cc598",
+            color: "white",
           }}
         > {Iniciales ? (obtenerIniciales(Iniciales)) :(obtenerIniciales(user)) }
           
@@ -32,7 +32,7 @@ const user = localStorage.getItem("nombreCompleto");
           size="lg"
           style={{
             backgroundColor: "white",
-            color: "#9dd6b3",
+            color: "#b6b5b5",
             
           }}
         >

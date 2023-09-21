@@ -25,6 +25,7 @@ import {
   Snackbar,
   IconButton,
   Grid,
+  Dialog,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
@@ -51,7 +52,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "320px",
+  width: "100%",
+  maxWidth:"900px",
   height: "auto",
   bgcolor: "background.paper",
   border: "12px solid white",
@@ -60,7 +62,7 @@ const style = {
 };
 
 const styleModalInicio = {
-  position: "relative",
+  position: "fixed",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -109,7 +111,7 @@ const Detail = () => {
     getArrayFechasReservasXRecurso,
     reservasPorRecurso,
   } = useContext(ContextGlobal);
-
+  const caracteristicaSet = new Set();
   const [copied, setCopied] = useState(false);
   const [openSnack, setOpenSnack] = React.useState(false);
   const [publicacionRedes, setPublicacionRedes] = useState("");
@@ -586,65 +588,73 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto"
-                >
-                  <div className="icono-caracteristica-texto">
-                    {" "}
-                    {caracteristica.logoCaracteristica != "" ? (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: "250px",
-                          padding: "7px 5px",
-                          justifyContent: "center",
-                          gap: "15px",
-                          borderRadius: " 11px 11px 11px 11px",
-                          boxShadow: "1px 1px 6px #979797",
-                        }}
-                      >
-                        <img
-                          className="icono-caracteristica"
-                          src={logoXIDCaracteristica(
-                            caracteristica.idCaracteristica,
-                            caracteristicasLista
-                          )}
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        <div>{caracteristica.nombreCaracteristica}</div>
-                      </Paper>
-                    ) : (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "3px 10px",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <CheckOutlinedIcon style={{ color: "green" }} />
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => {
+                // Verificar si el ID de la característica ya se ha procesado
+                if (!caracteristicaSet.has(caracteristica.idCaracteristica)) {
+                  // Agregar el ID de la característica al conjunto
+                  caracteristicaSet.add(caracteristica.idCaracteristica);
 
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    )}
-                  </div>
-                </div>
-              ))}
+                  return (
+                    <div
+                      key={idCaracteristica}
+                      className="container-icono-caracteristica-texto"
+                    >
+                      <div className="icono-caracteristica-texto">
+                        {" "}
+                        {caracteristica.logoCaracteristica !== "" ? (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              width: "250px",
+                              padding: "7px 5px",
+                              justifyContent: "center",
+                              gap: "15px",
+                              borderRadius: " 11px 11px 11px 11px",
+                              boxShadow: "1px 1px 6px #979797",
+                            }}
+                          >
+                            <img
+                              className="icono-caracteristica"
+                              src={logoXIDCaracteristica(
+                                caracteristica.idCaracteristica,
+                                caracteristicasLista
+                              )}
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                            <div>{caracteristica.nombreCaracteristica}</div>
+                          </Paper>
+                        ) : (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "3px 10px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CheckOutlinedIcon style={{ color: "green" }} />
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                // Si el ID de la característica ya se ha procesado, no se renderiza de nuevo.
+                return null;
+              })}
             </div>
           </Stack>
           {/* </div> */}
         </div>
 
         <Stack
-          spacing={2}
+          spacing={3}
           flexDirection={{ lg: "row" }}
           style={{
             display: "flex",
 
-            gap: "3rem",
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
@@ -653,11 +663,12 @@ const Detail = () => {
         >
           <Stack
             item
+            spacing={1}
             xs={12}
             md={5}
             lg={5}
             xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
+            sx={{ placeItems: "center", margin: "auto" }}
           >
             {/* //////////////////////////////////////// */}
 
@@ -666,10 +677,11 @@ const Detail = () => {
               fechaFin={fechaFin}
               onChange={{ handleDateChange }}
               idRecurso={id}
+              precio={recursoXID.precioUnitario}
+              capacidad={recursoXID.capacidadMáxima}
             />
 
             {/* //////////////////////////////////////// */}
-
             <Button
               sx={{
                 width: "100%",
@@ -685,7 +697,7 @@ const Detail = () => {
             </Button>
           </Stack>
 
-          <Modal
+          <Dialog
             open={openLogIn}
             onClose={handleCloseLogIn}
             aria-labelledby="modal-modal-title"
@@ -693,10 +705,9 @@ const Detail = () => {
           >
             <Box sx={styleModalInicio}>
               <Stack
-                style={{ alignItems: "center", justifyContent: "space-around" }}
+                style={{ alignItems: "center", justifyContent: "space-around", }}
               >
-                <Paper 
-                sx={{width:"320px"}}>
+                <Paper sx={{ width: "320px" }}>
                   <Typography
                     style={{
                       margin: "1rem 0 0 0",
@@ -715,23 +726,16 @@ const Detail = () => {
                   >
                     Si no esta registrado, debe crear su usuario para continuar.
                   </Typography>
+                  <FormIngreso />
                 </Paper>
-                <FormIngreso />
               </Stack>
             </Box>
-          </Modal>
-
-          <Stack
-            item
-            xs={12}
-            md={5}
-            lg={5}
-            xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
-          >
-            <Comentarios id={id} style={{ placeItems: "center" }} />
-          </Stack>
+          </Dialog>
         </Stack>
+        {/* <Stack 
+        > */}
+          <Comentarios id={id} style={{ placeItems: "center" }} />
+        {/* </Stack> */}
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>
