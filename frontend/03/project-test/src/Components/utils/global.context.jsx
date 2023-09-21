@@ -355,9 +355,9 @@ export const ContextProvider = ({ children }) => {
   const getFavoritosXID = async (id) => {
     const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
     const data = await res.json();
-    // console.log("Data antes de inyectarse getFavoritosXID", data);
+
     const newArray = data.map((item) => ({ idRecurso: item.idRecurso }));
-    // console.log("newArray", newArray);
+
     setFavoritosXID(newArray);
   };
 
@@ -369,12 +369,12 @@ export const ContextProvider = ({ children }) => {
     setListaFavXUserId(data);
   };
 
-  const getFavoritos = async (id) => {
-    const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
-    const data = await res.json();
+  // const getFavoritos = async (id) => {
+  //   const res = await fetch(`http://52.32.210.155:8080/auth/favoritos/${id}`);
+  //   const data = await res.json();
 
-    setFavoritos(data);
-  };
+  //   setFavoritos(data);
+  // };
 
   ///////// Guardar Favoritos
   // auth/favoritos/save
@@ -434,26 +434,43 @@ export const ContextProvider = ({ children }) => {
   // errorActFavoritos, setErrorActFavoritos
   const [errorActFavoritos, setErrorActFavoritos] = useState("");
   const [actualizarFavorito, setActualizarFavorito] = useState({
+    idUsuario: 0,
+    idRecurso: 0,
+    favorito: 1,
+    vigente: 1,
+    fecha_MarcacionFavorito: "2023-09-14",
     id: 0,
     favorito: 0,
     vigente: 1,
   });
 
-  const postActualizarFavorito = async (id, favorito) => {
+  const postActualizarFavorito = async (
+    idFavorito,
+    favorito,
+    userId,
+    idRecurso
+  ) => {
     setActualizarFavorito({
-      id: id,
+      id: idFavorito,
       favorito: favorito,
+      vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+      id: 0,
+      favorito: 0,
       vigente: 1,
     });
 
     //     // solicitud POST a la API
     const urlBaseGuardar = "http://52.32.210.155:8080/auth/favoritos/update";
     const body = JSON.stringify({
-       id: id,
+      idUsuario: userId,
+      idRecurso: idRecurso,
       favorito: favorito,
       vigente: 1,
+      fecha_MarcacionFavorito: "2023-09-14",
+      id: idFavorito,
     });
-   
+
     const options = {
       method: "POST",
       headers: {
@@ -538,9 +555,7 @@ export const ContextProvider = ({ children }) => {
       const response = await fetch(urlBaseGuardar, options);
 
       if (response.ok) {
-        setMensajePostComentario(
-          `Gracias por valorar nuestros servicios`
-        );
+        setMensajePostComentario(`Gracias por valorar nuestros servicios`);
         const data = await response.json();
         console.log(data);
       } else if (response.status === 401) {
@@ -861,8 +876,7 @@ export const ContextProvider = ({ children }) => {
         guardarFavorito,
         favoritos,
         setFavoritos,
-        // getIsFav,
-        getFavoritos,
+
         isFav,
         setIsFav,
         favoritosXID,
