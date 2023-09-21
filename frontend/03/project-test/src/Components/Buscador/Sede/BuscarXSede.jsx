@@ -15,7 +15,7 @@ import {
   Button,
   Autocomplete,
   TextField,
-  resultadoBusqueda, setResultadoBusqueda,
+  
 } from "@mui/material";
 
 import "./BuscarXSede.css";
@@ -42,6 +42,7 @@ const BuscarXSede = () => {
     setFechaFinBusqueda,
     cantidadDiasBusqueda,
     setCantidadDiasBusqueda,
+    resultadoBusqueda, setResultadoBusqueda
   } = useContext(ContextGlobal);
   /////////////////////////////States para Buscar por fecha
   const [value, setValue] = useState(new Date());

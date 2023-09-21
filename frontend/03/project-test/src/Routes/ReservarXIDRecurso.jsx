@@ -29,6 +29,7 @@ import formateoFechas from "../Components/utils/formateoFechas";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 import formatearFechaParaEnvioBE from "../Components/utils/formatearFechaParaEnvioBE";
+import { width } from "@mui/system";
 
 // const style = {
 //   position: "absolute",
@@ -83,6 +84,7 @@ const ReservarXIDRecurso = () => {
     guardarReserva,
     cantidadDias,
     setCantidadDias,
+    usuarioLogueado,
     // fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
   } = useContext(ContextGlobal);
 
@@ -129,11 +131,13 @@ const ReservarXIDRecurso = () => {
     return <div>Producto no encontrado</div>;
   }
 
-  const onChangeEmail = (e) => {
-    const newValue = e.target.value;
-    setUsuario({ ...usuario, username: newValue });
-    setEmailValido(true);
-  };
+  // const onChangeEmail = (e) => {
+  //   const newValue = e.target.value;
+  //   setUsuario({ ...usuario, username: newValue });
+  //   setEmailValido(true);
+  // };
+
+
 
   ///////////////
 
@@ -246,27 +250,24 @@ const ReservarXIDRecurso = () => {
           <Box sx={style}>
             <Paper sx={{ padding: "0.5rem" }}>
               <Stack spacing={3}>
-              <Stack
-                spacing={1}
-                direction={"column"}
-                alignItems={"center"}
-                sx={{ display: "flex" }}
-              >
-
-                <Typography variant="h6"> {mensaje.cuerpo}</Typography>
-                <Typography>{mensaje.idReserva}</Typography>
-                <Typography>{mensaje.error}</Typography>
-                <Typography>{mensaje.final}</Typography>
+                <Stack
+                  spacing={1}
+                  direction={"column"}
+                  alignItems={"center"}
+                  sx={{ display: "flex" }}
+                >
+                  <Typography variant="h6"> {mensaje.cuerpo}</Typography>
+                  <Typography>{mensaje.idReserva}</Typography>
+                  <Typography>{mensaje.error}</Typography>
+                  <Typography>{mensaje.final}</Typography>
                 </Stack>
                 <Button
                   variant="outlined"
                   color="primary"
-                
                   onClick={() => navigate("/")}
                 >
                   Volver a la página de inicio
                 </Button>
-            
               </Stack>
             </Paper>
           </Box>
@@ -574,19 +575,6 @@ const ReservarXIDRecurso = () => {
                   </Box>
                 </Modal>
               </Stack>
-              <Button
-                sx={{
-                  width: "100%",
-                  color: "white",
-                  backgroundColor: "#7cc598",
-                  ":hover": {
-                    backgroundColor: "#3c9960",
-                  },
-                }}
-                onClick={handleSubmit}
-              >
-                Reservar
-              </Button>
               <Paper
                 spacing={0}
                 style={{
@@ -601,36 +589,86 @@ const ReservarXIDRecurso = () => {
                   gap: "1rem",
                 }}
               >
-                <Stack>
-                  <Typography>Tus datos</Typography>
-                  <FormControl sx={{ gap: "1rem" }}>
-                    <TextField
-                      id="email"
-                      label="Email"
-                      variant="standard"
-                      className="campo-formulario"
-                      type="email"
-                      placeholder="Ingresa tu email"
-                      value={email}
-                      onChange={onChangeEmail}
-                      required
-                      margin="normal"
-                      style={{ borderColor: emailValido ? "" : "red" }}
-                    />
-                    {!emailValido ? (
-                      <Typography variant="body2" style={{ color: "red" }}>
-                        Ingresar al menos 3 caracteres antes del arroba y tener
-                        un formato válido.
-                      </Typography>
-                    ) : (
-                      ""
-                    )}
-                  </FormControl>
+                <Stack
+                  direction={{ lg: "column" }}
+                  sx={{ width: "100%", alignItems: "center" }}
+                >
+                  <Stack
+                    direction={{ lg: "column" }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-around",
+
+                      alignItems: "center",
+                      gap: "1rem",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography variant="h5" textAlign={"center"}>
+                      Chequea tus datos antes de confirmar la reserva
+                    </Typography>
+                    <Stack
+                      direction={{ lg: "column" }}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        // border: "1px solid red",
+                        width: "100%",
+                        alignItems: "center",
+                        height: "90px",
+                        margin:"1rem"
+                      }}
+                    >
+                     
+                      <Stack direction={"row"} spacing={1}>
+                        <Typography variant="h6">Nombre y apellido: </Typography>{" "}
+                        <Typography variant="h6">{usuarioLogueado}</Typography>
+                      </Stack>
+
+                      <FormControl sx={{ gap: "1rem" }}>
+                        <TextField
+                          id="email"
+                          label="Email"
+                          variant="standard"
+                          className="campo-formulario"
+                          type="email"
+                          placeholder="Ingresa tu email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)} 
+                          required
+                          margin="normal"
+                          sx={{width:"350px"}}
+                          style={{ borderColor: emailValido ? "" : "red" }}
+                        />
+                        {!emailValido ? (
+                          <Typography variant="body2" style={{ color: "red" }}>
+                            Ingresar al menos 3 caracteres antes del arroba y
+                            tener un formato válido.
+                          </Typography>
+                        ) : (
+                          ""
+                        )}
+                      </FormControl>
+                    </Stack>
+                  </Stack>
+                  <Typography>
+                    Vamos a enviarte un mensaje para confirmar tu reservación
+                  </Typography>
                 </Stack>
-                <Typography>
-                  Vamos a enviarte un mensaje para confirmar tu reservación
-                </Typography>
               </Paper>
+              <Button
+                sx={{
+                  width: "100%",
+                  color: "white",
+                  backgroundColor: "#7cc598",
+                  ":hover": {
+                    backgroundColor: "#3c9960",
+                  },
+                }}
+                onClick={handleSubmit}
+              >
+                Reservar
+              </Button>
 
               <Paper
                 spacing={0}

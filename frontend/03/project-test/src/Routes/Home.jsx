@@ -11,8 +11,8 @@ import FormIngreso from "./FormIngreso";
 
 const Home = () => {
   const { prodFiltrados } = useContext(ContextGlobal);
-  const [tituloListadoProductos, setTituloListadoProductos] =
-    useState("Productos");
+  const [tituloListadoProductos, setTituloListadoProductos] = useState("Productos");
+
 
   useEffect(() => {
     async function actualizarTitulo() {
@@ -20,7 +20,10 @@ const Home = () => {
         setTituloListadoProductos(
           `Resultados de tu búsqueda ${prodFiltrados.length} productos`
         );
-      } else if (prodFiltrados == 0) {
+      } else if (
+        prodFiltrados.length ==
+        0 
+      ) {
         setTituloListadoProductos("Productos");
       }
     }
@@ -28,6 +31,7 @@ const Home = () => {
     actualizarTitulo();
   }, [prodFiltrados.length]);
 
+ 
   return (
     <>
       <section style={{ marginTop: "12rem" }}>
@@ -40,11 +44,13 @@ const Home = () => {
         <TitularSection
           estilo={"titulo-section-productos"}
           // titulo={prodFiltrados.length > 0 ? tituloListadoProductos : "Productos"}
-          titulo={prodFiltrados ? tituloListadoProductos : "Productos"}
-        />
+          titulo={prodFiltrados? tituloListadoProductos :"Productos"}
 
+        />
+        
         <ListadoProductos CantidadCards={10} />
       </section>
+     
     </>
   );
 };

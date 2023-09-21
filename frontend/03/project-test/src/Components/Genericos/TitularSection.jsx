@@ -11,7 +11,7 @@ const TitularSection = ({ titulo, estilo }) => {
     <div className={estilo} >
       <div>{titulo}</div>{" "}
       <div>
-        {(busquedaCero || (resultadoBusqueda == false)) ?  (
+        {(busquedaCero || (resultadoBusqueda == false)  ) ?  (
           <div
             style={{
               fontSize: "22px",
