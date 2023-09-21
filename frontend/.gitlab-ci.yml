@@ -44,7 +44,5 @@ deploy_homeoff-dev-fe:
   script:
     - aws s3 rm s3://$S3_DEV_HOMEOFF_FE --recursive
     - aws s3 sync frontend/03/project-test/dist/ s3://$S3_DEV_HOMEOFF_FE
-    - aws s3 rm s3://$S3_DEV_LEGACY_HOMEOFF_FE --recursive
-    - aws s3 sync frontend/03/project-test/dist/ s3://$S3_DEV_LEGACY_HOMEOFF_FE
   only:
     - develop
