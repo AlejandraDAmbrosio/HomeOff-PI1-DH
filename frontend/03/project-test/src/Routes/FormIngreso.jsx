@@ -19,10 +19,12 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Container,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import FormAltaUser from "./FormAltaUser";
+import { Stack } from "@mui/system";
 
 const FormIngreso = () => {
   const {
@@ -180,7 +182,16 @@ const FormIngreso = () => {
 
   return (
     <>
-    
+    <Container style={{ marginTop: "0rem", minHeight: "760px", maxWidth: "330px" }}>
+    <Stack
+      marginTop={{ xs: "8rem", sm: "8rem"}}
+        style={{
+          placeItems: "center",
+          gap: "0rem",
+          paddingBottom: "2rem",
+          minHeight: "760px",
+        }}
+      >
       {!usuarioLogueado ? (
         <Paper
           sx={{
@@ -304,6 +315,8 @@ const FormIngreso = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      </Stack>
+      </Container>
     </>
   );
 };

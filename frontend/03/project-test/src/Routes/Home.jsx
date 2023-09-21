@@ -5,8 +5,9 @@ import TitularSection from "../Components/Genericos/TitularSection";
 import { ContextGlobal } from "../Components/utils/global.context";
 import { useState, useEffect, useContext } from "react";
 import NuevoBuscador from "../Components/Buscador/NuevoBuscador/NuevoBuscador";
-import { Typography } from "@mui/material";
+import { Modal, Typography } from "@mui/material";
 import { SegmentoBuscador } from "../Components/Buscador/SegmentoBuscador";
+import FormIngreso from "./FormIngreso";
 
 const Home = () => {
   const { prodFiltrados } = useContext(ContextGlobal);
@@ -21,7 +22,7 @@ const Home = () => {
         );
       } else if (
         prodFiltrados.length ==
-        0 /*&& tituloListadoProductos !== "Resultados de tu búsqueda"*/
+        0 
       ) {
         setTituloListadoProductos("Productos");
       }
@@ -49,6 +50,7 @@ const Home = () => {
         
         <ListadoProductos CantidadCards={10} />
       </section>
+     
     </>
   );
 };

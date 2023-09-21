@@ -1,4 +1,5 @@
 function obtenerIniciales(nombreCompleto) {
+ 
   const nombreCompletoSinEspacios = nombreCompleto.trim();
   const partes = nombreCompletoSinEspacios.split(" ");
 

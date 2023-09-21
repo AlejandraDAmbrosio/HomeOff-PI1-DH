@@ -15,6 +15,8 @@ import Puntuacion from "../Puntuaciones/Puntuacion";
 import { alignProperty } from "@mui/material/styles/cssUtils";
 import EstrellaValor from "../../Genericos/Puntuaciones/EstrellaValor";
 import formatearFecha from "../../utils/formatearFechaParaVisualizar";
+import Puntuar from "../Puntuaciones/Puntuar";
+import StarRating from "../Puntuaciones/StarRating";
 
 const Comentarios = ({ id }) => {
   const {
@@ -24,10 +26,15 @@ const Comentarios = ({ id }) => {
     getPuntosPromedioXIDRecurso,
     usuarioLogueado,
     userIdLogIn,
-    postPuntuarComentar
+    postPuntuarComentar,
+    rating,
+    setRating,
+    formEnviadoComentario,
+    setFormEnviadoComentario,
   } = useContext(ContextGlobal);
   const user = localStorage.getItem("nombreCompleto");
-  // Define el estado para controlar la apertura y cierre del modal
+  // const [rating, setRating] = useState(0);
+  // const [rating2, setRating2] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
   // Define los estados para los valores de comentario y puntuación
@@ -47,24 +54,25 @@ const Comentarios = ({ id }) => {
   // Función para manejar el envío del comentario
   const handleGuardarComentario = () => {
 
-
+    setPuntuacion(rating);
     postPuntuarComentar(userIdLogIn, id, puntuacion, comentario);
-    getPuntosComentXIDRecurso(id)
-    getPuntosPromedioXIDRecurso(id)
+    getPuntosComentXIDRecurso(id);
+    getPuntosPromedioXIDRecurso(id);
+    setComentario("");
     handleCloseModal();
   };
 
   useEffect(() => {
     getPuntosComentXIDRecurso(id);
     getPuntosPromedioXIDRecurso(id);
-  }, [id]);
+  }, [id, formEnviadoComentario]);
 
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row", lg: "row" }}
       sx={{
         // overflowY: "auto",
-        maxHeight: "450px",
+        maxHeight: "600px",
         margin: "auto",
         display: "flex",
         width: "100%",
@@ -86,63 +94,72 @@ const Comentarios = ({ id }) => {
           alignItems: "center",
           // flexDirection: "row",
           padding: "1rem 0.2rem 1rem 0.2rem",
-          // border: "1px solid #dfdfdf",
+
           borderRadius: "28px",
         }}
       >
         <Stack
           style={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
             gap: "1.5rem",
             padding: "1rem 1rem 1rem 1rem",
             width: "100%",
             alignItems: "center",
-            // border: "1px solid red",
+            // height: "50px",
           }}
         >
           <Stack
+            direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
             style={{
               display: "flex",
-              flexDirection: "row",
-              gap: "1.5rem",
               justifyContent: "space-between",
-              alignItems: "center",
 
-              // border: "1px solid red",
+              width: "100%",
+              alignItems: "center",
             }}
           >
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
-              Valoraciones de huéspedes
-            </Typography>
-
-            <Stack spacing={1} direction={"row"} sx={{padding:"5px"}}>
-
-            
-            {puntosPromedioXIDRecurso ? (
-              <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
-            ) : (
-              <EstrellaValor />
-            )}
-
-            <Typography  style={{  fontSize:"18px" }}>/ {puntosComentXIDRecurso.length} evaluaciones</Typography>
-            </Stack>
-          </Stack>
-          {(usuarioLogueado || userIdLogIn || user) && (
-            <Button
-              className="boton-generico"
-              sx={{
-                color: "#47a169",
-                padding: "1.2rem 0.5rem",
+            <Stack
+              direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
+              style={{
+                display: "flex",
+                gap: "1rem",
+                justifyContent: "flex-start",
+                alignItems: "center",
                 width: "100%",
-                borderRadius: "20px",
               }}
-              onClick={handleOpenModal}
             >
-              Comentar
-            </Button>
-          )}
+              <Typography variant="h4" sx={{ textAlign: "center" }}>
+                Valoraciones de huéspedes
+              </Typography>
 
+              <Stack spacing={1} direction={"row"} sx={{ padding: "5px" }}>
+                {puntosPromedioXIDRecurso ? (
+                  <EstrellaValor puntuacion={puntosPromedioXIDRecurso} />
+                ) : (
+                  <EstrellaValor />
+                )}
+
+                <Typography style={{ fontSize: "18px" }}>
+                  / {puntosComentXIDRecurso.length} evaluaciones
+                </Typography>
+              </Stack>
+            </Stack>
+            {(usuarioLogueado || userIdLogIn || user) && (
+              <Button
+                className="boton-generico"
+                sx={{
+                  color: "#47a169",
+                  padding: "1.2rem 0.5rem",
+                  width: "100%",
+                  borderRadius: "20px",
+                }}
+                onClick={handleOpenModal}
+              >
+                Comentar
+              </Button>
+            )}
+          </Stack>
           {/* Modal para Comentar */}
           <Modal open={modalOpen} onClose={handleCloseModal}>
             <Paper
@@ -151,57 +168,63 @@ const Comentarios = ({ id }) => {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                width: 400,
+                width: 370,
                 bgcolor: "background.paper",
                 boxShadow: 24,
                 p: 4,
               }}
             >
-              <Typography variant="h6" gutterBottom>
-                Comentar
-              </Typography>
-              <TextField
-                label="Comentario"
-                variant="outlined"
-                fullWidth
-                multiline
-                rows={4}
-                value={comentario}
-                onChange={(e) => setComentario(e.target.value)}
-              />
-              <TextField
-                label="Puntuación"
-                variant="outlined"
-                fullWidth
-                type="number"
-                value={puntuacion}
-                onChange={(e) => setPuntuacion(e.target.value)}
-              />
-              <Box mt={2}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleGuardarComentario}
+              <Stack spacing={2}>
+                <Typography variant="h6" gutterBottom>
+                  Comentar
+                </Typography>
+                <TextField
+                  label="Comentario"
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  value={comentario}
+                  onChange={(e) => setComentario(e.target.value)}
+                />
+             
+
+                <StarRating></StarRating>
+                <Typography>Tu valoración es: {rating}</Typography>
+                <Box
+                  mt={2}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
                 >
-                  Guardar
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleCloseModal}
-                >
-                  Cancelar
-                </Button>
-              </Box>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleGuardarComentario}
+                  >
+                    Guardar
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={handleCloseModal}
+                  >
+                    Cancelar
+                  </Button>
+                </Box>
+              </Stack>
             </Paper>
           </Modal>
         </Stack>
 
         <Stack
-          style={{
+          sx={{
             overflowY: "auto",
             width: "100%",
-            height: "380px",
+            height: "700px",
             borderRadius: "8px",
             border: "1px solid #dfdfdf",
 
@@ -221,7 +244,7 @@ const Comentarios = ({ id }) => {
             style={{
               overflowY: "auto",
               width: "100%",
-              height: "80%",
+              height: "85%",
               borderRadius: "0px 0px 8px 8px",
               border: "1px solid #dfdfdf",
               // boxShadow:"3px 3px 3px 3px #b6b5b5",
@@ -235,6 +258,7 @@ const Comentarios = ({ id }) => {
                   key={idPuntuacion}
                   sx={{
                     width: "100%",
+
                     //  border: "1px solid blue",
                     height: "200px",
 
@@ -272,30 +296,48 @@ const Comentarios = ({ id }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                         width: "100%",
-                        height: "70px",
+
+                        height: "fit-content",
                       }}
                     >
-                      <Stack direction="row" spacing={2}>
-                        <AvatarNav
-                          Iniciales={comentario.nombreUsuario}
-                        ></AvatarNav>
-                        <Stack direction="column" spacing={0.4}>
-                          <Typography variant="h6">
-                            {comentario.nombreUsuario}
-                          </Typography>
-                          <Typography variant="body2">
-                            {formatearFecha(
-                              new Date(comentario.fecha_valoracion)
-                            )}
-                          </Typography>
+                      <Stack
+                        direction={{ lg: "row", md: "row", sx: "column" }}
+                        spacing={2}
+                        alignItems={"center"}
+                        justifyContent={{
+                          lg: "flex-start",
+                          md: "flex-start",
+                          sx: "flex-start",
+                        }}
+                      >
+                        <Stack direction="row" spacing={2}>
+                          <AvatarNav
+                            Iniciales={comentario.nombreUsuario}
+                          ></AvatarNav>
+                          <Stack direction="column" spacing={0.4}>
+                            <Typography variant="h6">
+                              {comentario.nombreUsuario}
+                            </Typography>
+                            <Typography variant="body2">
+                              {formatearFecha(
+                                new Date(comentario.fecha_valoracion)
+                              )}
+                            </Typography>
+                          </Stack>
                         </Stack>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            alignItems: "center",
+                            margin: "2rem, 0rem 0.5rem 1rem",
+                          }}
+                        >
+                          {comentario.comentario}
+                        </Typography>
                       </Stack>
                       {/* <Puntuacion></Puntuacion> */}
                       <EstrellaValor puntuacion={comentario.puntuacion} />
                     </Stack>
-                    <Typography variant="body2">
-                      {comentario.comentario}
-                    </Typography>
                   </Paper>
                 </Box>
               ))

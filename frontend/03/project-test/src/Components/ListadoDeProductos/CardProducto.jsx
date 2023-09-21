@@ -46,25 +46,67 @@ const CardProducto = ({
     setErrorActFavoritos,
   } = useContext(ContextGlobal);
   const userId = localStorage.getItem("idUsuario");
+  // console.log("userId", userId)
+
+  const [listadoFavoritos, setListadoFavoritos] = useState([]);
+  const [esFav, setEsFav] = useState(false);
+  const [esFavResult, setEsFavResult] = useState(null);
+  const [idFavorito, setIdFavorito] = useState(0);
+  const [existeFav, setExisteFav] = useState(false);
+  const [tarjetaActualizada, setTarjetaActualizada] = useState(false);
+  const [updateTrigger, setUpdateTrigger] = useState(false); // Nuevo estado
+
+  useEffect(() => {
+    if (userId) {
+      // // getListaFavXUserID(userIdLogIn);
+      if (listaFavXUserId.length < 1) {
+        setListadoFavoritos(listaFavXUserId);
+        setEsFav(esFavorito(id, listaFavXUserId));
+        setTarjetaActualizada(true);
+      }
+    }
+  }, [listadoFavoritos]);
+
+  useEffect(() => {
+    if (userId) {
+      // Esta función se ejecutará cuando "esFav" cambie
+      const handleEsFavChange = () => {
+        // Actualiza el estado "updateTrigger" para forzar la renderización
+        setUpdateTrigger((prev) => !prev);
+      };
+
+      // Suscribir la función al cambio de "esFav"
+      handleEsFavChange();
+
+      return () => {
+        // Al desmontar el componente, elimina la suscripción para evitar fugas de memoria
+        // Esto se llama limpieza del efecto
+        handleEsFavChange();
+      };
+    }
+  }, [esFav]);
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
   }, []);
   let esFavResult;
   useEffect(() => {
-    const fetchData = async () => {
-      // Obtener la lista de favoritos del usuario
-      getListaFavXUserID(userId);
-      esFavResult = listaFavXUserId.find((item) => item.idRecurso === id);
-    };
-    fetchData();
-  }, []);
-  const esFav = listaFavXUserId.find((item) => item.idRecurso === id);
+    if (userId) {
+      const fetchData = async () => {
+        // Obtener la lista de favoritos del usuario
+        await getListaFavXUserID(userId);
+        const favResult = listaFavXUserId.find((item) => item.idRecurso === id);
 
-  esFavResult = listaFavXUserId.find((item) => item.idRecurso === id);
-  const idFavorito = esFavResult ? esFavResult.id : undefined;
-  const tieneRegFav = listaFavXUserId.some((item) => item.id);
-  console.log("idFavorito  ---------- >", idFavorito);
+        // Actualiza los estados con los valores obtenidos
+        setEsFavResult(favResult);
+        setIdFavorito(favResult ? favResult.id : undefined);
+        setExisteFav(listaFavXUserId.some((item) => item.idRecurso === id));
+        setEsFav(esFavorito(id, listaFavXUserId));
+      };
+
+      fetchData();
+    }
+  }, [listadoFavoritos, tarjetaActualizada]);
 
   const [iconSize, setIconSize] = useState(1);
 
@@ -74,15 +116,25 @@ const CardProducto = ({
     if (!esFav) {
       console.log("handleIconClick  -  > !esFav");
       guardarFavorito(userId, id);
-    } else if (tieneRegFav) {
-      console.log("handleIconClick  -  > tieneRegFav");
+      getListaFavXUserID(userId);
+      setEsFav(!esFav);
+      console.log("listaFavXUserId", listaFavXUserId);
+    } else if (esFav) {
       postActualizarFavorito(idFavorito, 0, userId, id);
+      getListaFavXUserID(userId);
+      setEsFav(!esFav);
+      console.log("listaFavXUserId", listaFavXUserId);
     } else {
       console.log("handleIconClick  -  > !esFav");
       postActualizarFavorito(idFavorito, 1, userId, id);
+      getListaFavXUserID(userId);
+      setEsFav(!esFav);
+      console.log("listaFavXUserId", listaFavXUserId);
     }
     setIconSize(iconSize === 1 ? 1.05 : 1);
-    // // getListaFavXUserID(userId);
+    getListaFavXUserID(userId);
+    setEsFav(!esFav);
+    console.log("listaFavXUserId", listaFavXUserId);
   };
 
   const handleClick = () => {
@@ -100,7 +152,7 @@ const CardProducto = ({
       }}
     >
       <CardMedia sx={{ height: 240 }} image={url} title="imagen">
-        {esFav ? (
+        {esFav === true ? (
           <FavoriteIcon
             onClick={handleIconClick}
             className="heart-icon"

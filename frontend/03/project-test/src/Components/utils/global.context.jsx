@@ -499,6 +499,10 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  ///////////////////////////////////////////////////////////
+
+  const [rating, setRating] = useState(null);
+
   ///////////////////////////////// Puntajes y comentarios por IdRecurso
   const [puntosComentXIDRecurso, setPuntosComentXIDRecurso] = useState([]);
 
@@ -514,7 +518,7 @@ export const ContextProvider = ({ children }) => {
   const [mensajePostComentario, setMensajePostComentario] = useState("");
   const fechaActualPuntuacion = new Date();
   const fechaFormateada = fechaActualPuntuacion.toISOString().split("T")[0];
-
+  const [formEnviadoComentario, setFormEnviadoComentario] = useState(false);
   const postPuntuarComentar = async (
     idUsuario,
     idRecurso,
@@ -558,6 +562,7 @@ export const ContextProvider = ({ children }) => {
         setMensajePostComentario(`Gracias por valorar nuestros servicios`);
         const data = await response.json();
         console.log(data);
+        setFormEnviadoComentario(true);
       } else if (response.status === 401) {
         setMensajePostComentario("Datos incorrectos");
       } else {
@@ -565,10 +570,12 @@ export const ContextProvider = ({ children }) => {
           "Error al intentar realizar la operación. Por favor, intente más tarde."
         );
       }
+      setFormEnviadoComentario(true);
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
       setMensajePostComentario(`Error al realizar la solicitud: ${error}`);
     }
+    setFormEnviadoComentario(true);
   };
 
   //////////////////////////////////////////////////////////////
@@ -810,10 +817,19 @@ export const ContextProvider = ({ children }) => {
   const [fechaFinBusqueda, setFechaFinBusqueda] = useState(new Date());
   const [cantidadDiasBusqueda, setCantidadDiasBusqueda] = useState(null);
 
+
+  const[resultadoBusqueda, setResultadoBusqueda] = useState(true);
+//////////////////////////////////////////
+const [openLogIn, setOpenLogIn] = useState(false);
+
+
   ///////////////////////////////////////
   return (
     <ContextGlobal.Provider
       value={{
+        resultadoBusqueda, setResultadoBusqueda,
+        openLogIn, setOpenLogIn,
+        rating, setRating,
         postPuntuarComentar,
         postActualizarFavorito,
         actualizarFavorito,

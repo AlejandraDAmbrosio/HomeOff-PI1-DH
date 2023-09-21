@@ -25,9 +25,25 @@ const ListadoProductos = ({ CantidadCards }) => {
     listaFavXUserId
   } = useContext(ContextGlobal);
 
+  const userId = localStorage.getItem("idUsuario");
+  const [listadoFavoritosHome, setListadoFavoritosHome] = useState([]);
+
+  // useEffect(() => {
+  //   getListaFavXUserID(userId);
+  //   if (listaFavXUserId.length < 1 ) {
+  //     setListadoFavoritosHome(listaFavXUserId);
+  //   }
+  // }, [listadoFavoritosHome ]);
+  
   useEffect(() => {
-    getListaFavXUserID(userIdLogIn);
-  }, [userIdLogIn ]);
+    if (userId) {
+      getListaFavXUserID(userId);
+      
+      if (listaFavXUserId.length < 1) {
+        setListadoFavoritosHome(listaFavXUserId);
+      }
+    }
+  }, [userId, listadoFavoritosHome]);
 
   
 console.log("listaFavXUserId", listaFavXUserId)

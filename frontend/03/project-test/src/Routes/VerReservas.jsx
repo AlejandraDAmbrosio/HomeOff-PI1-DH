@@ -15,8 +15,7 @@ import {
 } from "@mui/material";
 import obtenerImagenXIdRecurso from "../Components/utils/obtenerImagenXIdRecurso";
 import formatearFecha from "../Components/utils/formatearFechaParaVisualizar";
-import { BiSortDown,BiSortUp  } from 'react-icons/bi';
-
+import { BiSortDown, BiSortUp } from "react-icons/bi";
 
 import formateoFechas from "../Components/utils/formateoFechas";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
@@ -44,7 +43,6 @@ const VerReservas = () => {
     setSortedReservas([...reservas]);
   }, [reservas]);
 
-
   const toggleSortDirection = () => {
     setSortDirection((prevDirection) =>
       prevDirection === "asc" ? "desc" : "asc"
@@ -67,9 +65,14 @@ const VerReservas = () => {
       } else if (column === "inicioReserva") {
         return a.inicioReserva.localeCompare(b.inicioReserva) * factor;
       } else if (column === "finalizacionReserva") {
-        return a.finalizacionReserva.localeCompare(b.finalizacionReserva) * factor;
+        return (
+          a.finalizacionReserva.localeCompare(b.finalizacionReserva) * factor
+        );
       } else if (column === "fechaRealizacionReserva") {
-        return a.fechaRealizacionReserva.localeCompare(b.fechaRealizacionReserva) * factor;
+        return (
+          a.fechaRealizacionReserva.localeCompare(b.fechaRealizacionReserva) *
+          factor
+        );
       } else if (column === "Dias") {
         return a.Dias.localeCompare(b.Dias) * factor;
         //  return (a.dias - b.dias) * factor;
@@ -83,32 +86,34 @@ const VerReservas = () => {
     // Actualiza la copia ordenada de las reservas
     setSortedReservas(newSortedReservas);
   };
-    // Actualiza la copia ordenada de las reservas
-  
+  // Actualiza la copia ordenada de las reservas
 
   const getSortIcon = (column) => {
     if (column === sortColumn) {
-      return sortDirection === "asc" ? <BiSortDown fontSize={"20px"}/> : <BiSortUp  fontSize={"20px"}/>;
+      return sortDirection === "asc" ? (
+        <BiSortDown fontSize={"20px"} />
+      ) : (
+        <BiSortUp fontSize={"20px"} />
+      );
     }
     return null;
   };
 
   return (
     // <Container sx={{width:"70vw"}}>
-      <Stack
-        style={{
-          display:"flex",
-          flexDirection:"column",
-          margin:"7rem auto 2rem auto",
-          justifyContent:"space-evenly",
-          minHeight: "730px",
-          maxWidth: "1900px",
-          width:"90%",
-          
-        }}
-      >
-        <Typography variant="h3">Ver historial Reservas</Typography>
-<Paper sx={{width:"100%"}}>
+    <Stack
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        margin: "5rem auto 2rem auto",
+        justifyContent: "space-evenly",
+        minHeight: "730px",
+        maxWidth: "1900px",
+        width: "90%",
+      }}
+    >
+      <Typography variant="h3">Ver historial Reservas</Typography>
+      <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 500, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -120,14 +125,56 @@ const VerReservas = () => {
                   width: "100%",
                 }}
               >
-              <TableCell style={{fontSize:"1.1rem"}}>Imagen</TableCell>
-                <TableCell style={{ fontSize:"1.1rem", width:"80px"}}>Id </TableCell>
-                <TableCell onClick={() => sortData("nombreRecurso")} style={{cursor:"pointer", fontSize:"1.1rem", width:"100px"}}>Nombre  {getSortIcon("nombreRecurso")}</TableCell>
-                <TableCell onClick={() => sortData("inicioReserva")} style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha de inicio {getSortIcon("inicioReserva")}</TableCell>
-                <TableCell onClick={() => sortData("finalizacionReserva")} style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha de fin {getSortIcon("finalizacionReserva")}</TableCell>
-                <TableCell onClick={() => sortData("fechaRealizacionReserva") } style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha reserva {getSortIcon("fechaRealizacionReserva")}</TableCell>
-                <TableCell onClick={() => sortData("dias")} style={{cursor:"pointer", fontSize:"1.1rem", width:"90px"}}>Días {getSortIcon("dias")}</TableCell>
-                <TableCell onClick={() => sortData("precio")} style={{cursor:"pointer", fontSize:"1.1rem", width:"90px"}}>Precio  {getSortIcon("precio")}</TableCell>
+                <TableCell style={{ fontSize: "1.1rem" }}>Imagen</TableCell>
+                <TableCell style={{ fontSize: "1.1rem", width: "80px" }}>
+                  Id{" "}
+                </TableCell>
+                <TableCell
+                  onClick={() => sortData("nombreRecurso")}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "1.1rem",
+                    width: "100px",
+                  }}
+                >
+                  Nombre {getSortIcon("nombreRecurso")}
+                </TableCell>
+                <TableCell
+                  onClick={() => sortData("inicioReserva")}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "1.1rem",
+                    width: "200px",
+                  }}
+                >
+                  Fecha de inicio {getSortIcon("inicioReserva")}
+                </TableCell>
+                <TableCell
+                  onClick={() => sortData("finalizacionReserva")}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "1.1rem",
+                    width: "200px",
+                  }}
+                >
+                  Fecha de fin {getSortIcon("finalizacionReserva")}
+                </TableCell>
+                <TableCell
+                  onClick={() => sortData("fechaRealizacionReserva")}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "1.1rem",
+                    width: "200px",
+                  }}
+                >
+                  Fecha reserva {getSortIcon("fechaRealizacionReserva")}
+                </TableCell>
+                <TableCell style={{ fontSize: "1.1rem", width: "90px" }}>
+                  Días
+                </TableCell>
+                <TableCell style={{ fontSize: "1.1rem", width: "90px" }}>
+                  Precio
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -185,8 +232,8 @@ const VerReservas = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        </Paper>
-      </Stack>
+      </Paper>
+    </Stack>
     // </Container>
   );
 };

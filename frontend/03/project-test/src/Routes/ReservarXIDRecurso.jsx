@@ -29,13 +29,28 @@ import formateoFechas from "../Components/utils/formateoFechas";
 import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
 import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
 import formatearFechaParaEnvioBE from "../Components/utils/formatearFechaParaEnvioBE";
+import { width } from "@mui/system";
+
+// const style = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: "320px",
+//   bgcolor: "background.paper",
+//   border: "12px solid white",
+//   boxShadow: 24,
+//   p: 1,
+// };
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "320px",
+  width: "100%",
+  maxWidth: "370px",
+  height: "auto",
   bgcolor: "background.paper",
   border: "12px solid white",
   boxShadow: 24,
@@ -69,6 +84,7 @@ const ReservarXIDRecurso = () => {
     guardarReserva,
     cantidadDias,
     setCantidadDias,
+    usuarioLogueado,
     // fechasInicioDetalle, setFechasInicioDetalle,  fechasFinDetalle, setFechasFinDetalle,
   } = useContext(ContextGlobal);
 
@@ -76,10 +92,10 @@ const ReservarXIDRecurso = () => {
     username: "",
   });
   const [mensaje, setInfoMensaje] = useState({
-    cuerpo:"",
-    idReserva:"",
-    error:"",
-    final:"",
+    cuerpo: "",
+    idReserva: "",
+    error: "",
+    final: "",
   });
   const idUserParse = parseInt(userIdLogIn);
 
@@ -115,11 +131,13 @@ const ReservarXIDRecurso = () => {
     return <div>Producto no encontrado</div>;
   }
 
-  const onChangeEmail = (e) => {
-    const newValue = e.target.value;
-    setUsuario({ ...usuario, username: newValue });
-    setEmailValido(true);
-  };
+  // const onChangeEmail = (e) => {
+  //   const newValue = e.target.value;
+  //   setUsuario({ ...usuario, username: newValue });
+  //   setEmailValido(true);
+  // };
+
+
 
   ///////////////
 
@@ -178,7 +196,7 @@ const ReservarXIDRecurso = () => {
     try {
       const urlReserva = "http://52.32.210.155:8080/auth/reserva/save"; // Reemplaza esto con tu URL real
       const jsonDataReserva = JSON.stringify(guardarReserva);
-      console.log("jsonDataReserva", jsonDataReserva)
+      console.log("jsonDataReserva", jsonDataReserva);
       console.log("datosReserva", jsonDataReserva);
       const response = await fetch(urlReserva, {
         method: "POST",
@@ -191,22 +209,23 @@ const ReservarXIDRecurso = () => {
       if (response.ok) {
         const responseData = await response.json();
         // console.log("Respuesta:", responseData);
-        setInfoMensaje({cuerpo:" Ha realizado una reserva con éxito",idReserva:`Su numero de reserva es el ${responseData.idReserva} .`, final:"Gracias por reservar con HomeOff" })
-
+        setInfoMensaje({
+          cuerpo: " Ha realizado una reserva con éxito",
+          idReserva: `Su numero de reserva es el ${responseData.idReserva} .`,
+          final: "Gracias por reservar con HomeOff",
+        });
       } else {
         console.error(
           "Error en la respuesta:",
           response.status,
           response.statusText
         );
-        setInfoMensaje(
-          {
-            cuerpo:"No se ha podido realizar la reserva. Por favor revise los datos:",
-            error:` - Nombre: ${nombreReserva}. - Apellido: ${apellidoReserva}.`,
-            final:`Disculpe las molestias`,
-          }
-         
-        );
+        setInfoMensaje({
+          cuerpo:
+            "No se ha podido realizar la reserva. Por favor revise los datos:",
+          error: ` - Nombre: ${nombreReserva}. - Apellido: ${apellidoReserva}.`,
+          final: `Disculpe las molestias`,
+        });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -220,473 +239,528 @@ const ReservarXIDRecurso = () => {
     infoRecursoAReservar
   );
   return (
-    <><Modal
-    open={openShareModal}
-    onClose={handleCloseShareModal}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-    >
-    <box sx={style}>  
-      <Paper>
-        <Typography> {mensaje.cuerpo}</Typography>
-      <Typography>
-        {mensaje.idReserva}
-        {mensaje.error}
-        </Typography>
-        <Typography>
-          {mensaje.final}
-        <Button onClick={() =>
-           navigate("/")}>
-          Volver a la página de inicio
-        </Button>
-      </Typography>
-      </Paper>
-    </box>
-    </Modal>
-    <Container>
-     
-
-      <Stack
-        style={{
-          marginTop: "5.5rem",
-          paddingTop: "2rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          placeItems: "center",
-          paddingLeft: "0",
-          paddingRight: "0",
-          width: "100%",
-          gap: "2rem",
-        }}
-      >
-        
-        <Stack direction={{ xs: "column", sm: "column" }}>
-          <div className="encabezado-descripcion">
-            <Stack>
-              <Stack
-                direction={{ xs: "column", sm: "row" }}
-                useFlexGap
-                flexWrap="wrap"
-                spacing={2}
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Stack direction={"column"}>
-                  {/* <Typography variant="h5">Resumen de reservas</Typography> */}
-                  <Typography variant="h4" style={{ textAlign: "center" }}>
-                    Confirmá tu reserva
-                  </Typography>
-                </Stack>
+    <>
+      <div>
+        <Modal
+          open={openShareModal}
+          onClose={handleCloseShareModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Paper sx={{ padding: "0.5rem" }}>
+              <Stack spacing={3}>
                 <Stack
-                  direction="row"
-                  spacing={3}
-                  style={{
-                    marginLeft: "auto",
-                    display: "flex",
-                    alignSelf: "center",
-                    justifyContent: "flex-end",
-                  }}
+                  spacing={1}
+                  direction={"column"}
+                  alignItems={"center"}
+                  sx={{ display: "flex" }}
                 >
-                  <div onClick={() => navigate(-1)}>
-                    <MdArrowBackIosNew className="flecha" />
-                  </div>
+                  <Typography variant="h6"> {mensaje.cuerpo}</Typography>
+                  <Typography>{mensaje.idReserva}</Typography>
+                  <Typography>{mensaje.error}</Typography>
+                  <Typography>{mensaje.final}</Typography>
                 </Stack>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => navigate("/")}
+                >
+                  Volver a la página de inicio
+                </Button>
               </Stack>
-            </Stack>
-          </div>
-
+            </Paper>
+          </Box>
+        </Modal>
+        <Container>
           <Stack
-            direction={{
-              xs: "column",
-              sm: "column",
-              md: "row",
-              lg: "row",
-              xl: "row",
-            }}
             style={{
+              marginTop: "5.5rem",
+              paddingTop: "2rem",
               display: "flex",
+              flexDirection: "column",
               justifyContent: "space-between",
               alignItems: "center",
               placeItems: "center",
-              padding: "1rem",
-              border: "1px solid #dfdfdf",
-              flexWrap: "wrap",
+              paddingLeft: "0",
+              paddingRight: "0",
               width: "100%",
+              gap: "2rem",
             }}
           >
-            <Stack
-              direction={{
-                xs: "column",
-                sm: "column",
-                md: "column",
-                lg: "row",
-                xl: "row",
-              }}
-              style={{ alignItems: "center" }}
-            >
-              <div
-                className="item-grid-fotos-reserva-1"
-                onClick={handleOpenImage1}
-              >
-                <img
-                  className="/*foto-reserva1*/ foto block"
-                  src={recursoXID.imagenURL}
-                />
+            <Stack direction={{ xs: "column", sm: "column" }}>
+              <div className="encabezado-descripcion">
+                <Stack>
+                  <Stack
+                    direction={{ xs: "column", sm: "row" }}
+                    useFlexGap
+                    flexWrap="wrap"
+                    spacing={2}
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Stack direction={"column"}>
+                      {/* <Typography variant="h5">Resumen de reservas</Typography> */}
+                      <Typography variant="h4" style={{ textAlign: "center" }}>
+                        Confirmá tu reserva
+                      </Typography>
+                    </Stack>
+                    <Stack
+                      direction="row"
+                      spacing={3}
+                      style={{
+                        marginLeft: "auto",
+                        display: "flex",
+                        alignSelf: "center",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <div onClick={() => navigate(-1)}>
+                        <MdArrowBackIosNew className="flecha" />
+                      </div>
+                    </Stack>
+                  </Stack>
+                </Stack>
               </div>
 
-              <Divider
-                style={{ margin: "1rem" }}
-                orientation={{
-                  xs: "horizontal",
-                  sm: "horizontal",
-                  md: "vertical",
-                  lg: "vertical",
-                  xl: "vertical",
-                }}
-              />
-
               <Stack
-                spacing={2}
-                flexDirection={{ lg: "row" }}
+                direction={{
+                  xs: "column",
+                  sm: "column",
+                  md: "row",
+                  lg: "row",
+                  xl: "row",
+                }}
                 style={{
                   display: "flex",
-                  gap: "3rem",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  placeItems: "center",
+                  padding: "1rem",
+                  border: "1px solid #dfdfdf",
                   flexWrap: "wrap",
-                  justifyContent: "center",
-                  alignItems: "flex-start",
-                  justifyItems: "center",
+                  width: "100%",
                 }}
               >
                 <Stack
                   direction={{
                     xs: "column",
                     sm: "column",
-                    md: "row",
+                    md: "column",
                     lg: "row",
+                    xl: "row",
                   }}
-                  sx={{ height: "100%" }}
-                  style={{
-                    placeItems: "center",
-                    margin: "auto",
-                  }}
+                  style={{ alignItems: "center" }}
                 >
+                  <div
+                    className="item-grid-fotos-reserva-1"
+                    onClick={handleOpenImage1}
+                  >
+                    <img
+                      className="/*foto-reserva1*/ foto block"
+                      src={recursoXID.imagenURL}
+                    />
+                  </div>
+
+                  <Divider
+                    style={{ margin: "1rem" }}
+                    orientation={{
+                      xs: "horizontal",
+                      sm: "horizontal",
+                      md: "vertical",
+                      lg: "vertical",
+                      xl: "vertical",
+                    }}
+                  />
+
                   <Stack
                     spacing={2}
+                    flexDirection={{ lg: "row" }}
                     style={{
-                      width: "95%",
                       display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      gap: "3rem",
+                      flexWrap: "wrap",
+                      justifyContent: "center",
+                      alignItems: "flex-start",
+                      justifyItems: "center",
                     }}
                   >
-                    <Typography variant="h4">{recursoXID.nombre}</Typography>
-                    {/* <Typography variant="h4" style={{ textAlign: "center" }}>
-                      Confirmá tu reserva
-                    </Typography> */}
                     <Stack
-                      spacing={4}
                       direction={{
                         xs: "column",
                         sm: "column",
                         md: "row",
                         lg: "row",
                       }}
+                      sx={{ height: "100%" }}
                       style={{
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "100%" /* border:"1px solid red"*/,
+                        placeItems: "center",
+                        margin: "auto",
                       }}
                     >
-                      <Stack spacing={1} style={{ alignItems: "center" }}>
-                        <Stack
-                          spacing={2}
-                          direction={"row"}
-                          style={{
-                            borderRadius: "12px",
-                            backgroundColor: "#DDDDDD",
-                            padding: "0.5rem 0.5rem",
-                            alignItems: "center",
-                            width: "370px",
-                          }}
-                        >
-                          <Stack
-                            spacing={1}
-                            direction={{
-                              lg: "row",
-                              xs: "row",
-                              sm: "row",
-                              md: "row",
-                            }}
-                          >
-                            <Typography>Check-in</Typography>
-                            <Typography style={{ fontWeight: "800" }}>
-                              {formateoFechas(infoRecursoAReservar.fechaInicio)}
-                            </Typography>
-                          </Stack>
-                          <Divider orientation="vertical" />
-                          <Stack
-                            spacing={1}
-                            direction={{
-                              lg: "row",
-                              xs: "row",
-                              sm: "row",
-                              md: "row",
-                            }}
-                          >
-                            <Typography>Check-out</Typography>
-                            <Typography style={{ fontWeight: "800" }}>
-                              {formateoFechas(infoRecursoAReservar.fechaFin)}
-                            </Typography>
-                          </Stack>
-                        </Stack>
-
-                        {/* <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography> */}
-                        <Typography>
-                          Tiempo reservado: {cantidadDias} día/s
-                        </Typography>
-                      </Stack>
-
                       <Stack
+                        spacing={2}
                         style={{
-                          alignItems: "center",
-                          width: "65px" /* border:"1px solid red"*/,
-                        }}
-                        direction={{
-                          xs: "row",
-                          sm: "row",
-                          md: "row",
-                          lg: "row",
-                        }}
-                      >
-                        <ArrowForwardIosIcon
-                          sx={{
-                            fontSize: "45px",
-                            color: "#b6b5b5",
-                            margin: "-0.7rem",
-                          }}
-                        />
-                        <ArrowForwardIosIcon
-                          sx={{
-                            fontSize: "45px",
-                            color: "#979797",
-                            margin: "-0.7rem",
-                          }}
-                        />
-                        <ArrowForwardIosIcon
-                          sx={{
-                            fontSize: "45px",
-                            color: "#424242",
-                            margin: "-0.7rem",
-                          }}
-                        />
-                      </Stack>
-                      <Stack
-                        direction={{ lg: "column" }}
-                        style={{
+                          width: "95%",
+                          display: "flex",
                           justifyContent: "space-between",
-                          width: "230px" /* border:"1px solid red"*/,
+                          alignItems: "center",
                         }}
                       >
+                        <Typography variant="h4">
+                          {recursoXID.nombre}
+                        </Typography>
+                        {/* <Typography variant="h4" style={{ textAlign: "center" }}>
+                      Confirmá tu reserva
+                    </Typography> */}
                         <Stack
-                          spacing={3}
-                          direction={"row"}
-                          style={{ justifyContent: "space-between" }}
+                          spacing={4}
+                          direction={{
+                            xs: "column",
+                            sm: "column",
+                            md: "row",
+                            lg: "row",
+                          }}
+                          style={{
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%" /* border:"1px solid red"*/,
+                          }}
                         >
-                          <Typography variant="h6">Precio x día</Typography>
-                          {/* <Typography variant="h6">$300</Typography> */}
-                          <Typography variant="h6">
-                            $ {infoRecursoAReservar.precioProducto}
-                          </Typography>
-                        </Stack>
-                        <Stack
-                          spacing={3}
-                          direction={"row"}
-                          style={{ justifyContent: "space-between" }}
-                        >
-                          <Typography variant="h6">Total</Typography>
-                          <Typography variant="h6">
-                            $
-                            {obtenerPrecioXIdRecurso(
-                              recursoXID.idRecurso,
-                              productosBKLista,
-                              calculoDiasEntreFechas(
-                                formateoFechas(
-                                  infoRecursoAReservar.fechaInicio
-                                ),
-                                formateoFechas(infoRecursoAReservar.fechaFin)
-                              )
-                            )}{" "}
-                          </Typography>
+                          <Stack spacing={1} style={{ alignItems: "center" }}>
+                            <Stack
+                              spacing={2}
+                              direction={"row"}
+                              style={{
+                                borderRadius: "12px",
+                                backgroundColor: "#DDDDDD",
+                                padding: "0.5rem 0.5rem",
+                                alignItems: "center",
+                                width: "370px",
+                              }}
+                            >
+                              <Stack
+                                spacing={1}
+                                direction={{
+                                  lg: "row",
+                                  xs: "row",
+                                  sm: "row",
+                                  md: "row",
+                                }}
+                              >
+                                <Typography>Check-in</Typography>
+                                <Typography style={{ fontWeight: "800" }}>
+                                  {formateoFechas(
+                                    infoRecursoAReservar.fechaInicio
+                                  )}
+                                </Typography>
+                              </Stack>
+                              <Divider orientation="vertical" />
+                              <Stack
+                                spacing={1}
+                                direction={{
+                                  lg: "row",
+                                  xs: "row",
+                                  sm: "row",
+                                  md: "row",
+                                }}
+                              >
+                                <Typography>Check-out</Typography>
+                                <Typography style={{ fontWeight: "800" }}>
+                                  {formateoFechas(
+                                    infoRecursoAReservar.fechaFin
+                                  )}
+                                </Typography>
+                              </Stack>
+                            </Stack>
+
+                            {/* <Typography>Tiempo reservado:  {calculoDiasEntreFechas( (formateoFechas(infoRecursoAReservar.fechaInicio)),  (formateoFechas(infoRecursoAReservar.fechaFin))  )} día/s</Typography> */}
+                            <Typography>
+                              Tiempo reservado: {cantidadDias} día/s
+                            </Typography>
+                          </Stack>
+
+                          <Stack
+                            style={{
+                              alignItems: "center",
+                              width: "65px" /* border:"1px solid red"*/,
+                            }}
+                            direction={{
+                              xs: "row",
+                              sm: "row",
+                              md: "row",
+                              lg: "row",
+                            }}
+                          >
+                            <ArrowForwardIosIcon
+                              sx={{
+                                fontSize: "45px",
+                                color: "#b6b5b5",
+                                margin: "-0.7rem",
+                              }}
+                            />
+                            <ArrowForwardIosIcon
+                              sx={{
+                                fontSize: "45px",
+                                color: "#979797",
+                                margin: "-0.7rem",
+                              }}
+                            />
+                            <ArrowForwardIosIcon
+                              sx={{
+                                fontSize: "45px",
+                                color: "#424242",
+                                margin: "-0.7rem",
+                              }}
+                            />
+                          </Stack>
+                          <Stack
+                            direction={{ lg: "column" }}
+                            style={{
+                              justifyContent: "space-between",
+                              width: "230px" /* border:"1px solid red"*/,
+                            }}
+                          >
+                            <Stack
+                              spacing={3}
+                              direction={"row"}
+                              style={{ justifyContent: "space-between" }}
+                            >
+                              <Typography variant="h6">Precio x día</Typography>
+                              {/* <Typography variant="h6">$300</Typography> */}
+                              <Typography variant="h6">
+                                $ {infoRecursoAReservar.precioProducto}
+                              </Typography>
+                            </Stack>
+                            <Stack
+                              spacing={3}
+                              direction={"row"}
+                              style={{ justifyContent: "space-between" }}
+                            >
+                              <Typography variant="h6">Total</Typography>
+                              <Typography variant="h6">
+                                $
+                                {obtenerPrecioXIdRecurso(
+                                  recursoXID.idRecurso,
+                                  productosBKLista,
+                                  calculoDiasEntreFechas(
+                                    formateoFechas(
+                                      infoRecursoAReservar.fechaInicio
+                                    ),
+                                    formateoFechas(
+                                      infoRecursoAReservar.fechaFin
+                                    )
+                                  )
+                                )}{" "}
+                              </Typography>
+                            </Stack>
+                          </Stack>
                         </Stack>
                       </Stack>
                     </Stack>
                   </Stack>
                 </Stack>
-              </Stack>
-            </Stack>
 
-            <Modal
-              open={openImage1}
-              onClose={handleCloseImage1}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <img
-                  className="foto-producto block"
-                  src={recursoXID.imagenURL}
-                />
-              </Box>
-            </Modal>
-          </Stack>
-          <Button
-            sx={{
-              width: "100%",
-              color: "white",
-              backgroundColor: "#7cc598",
-              ":hover": {
-                backgroundColor: "#3c9960",
-              },
-            }}
-            onClick={handleSubmit}
-          >
-            Reservar
-          </Button>
-          <Paper
-            spacing={0}
-            style={{
-              padding: "0.5rem 1rem",
-              /* border:"1px solid red"*/ height: "100%",
-              width: "100%",
-              display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "column",
-              alignItems: "center",
-              marginTop: "2rem",
-              gap: "1rem",
-            }}
-          >
-            <Stack>
-              <Typography>Tus datos</Typography>
-              <FormControl sx={{ gap: "1rem" }}>
-                <TextField
-                  id="email"
-                  label="Email"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="email"
-                  placeholder="Ingresa tu email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  required
-                  margin="normal"
-                  style={{ borderColor: emailValido ? "" : "red" }}
-                />
-                {!emailValido ? (
-                  <Typography variant="body2" style={{ color: "red" }}>
-                    Ingresar al menos 3 caracteres antes del arroba y tener un
-                    formato válido.
-                  </Typography>
-                ) : (
-                  ""
-                )}
-              </FormControl>
-            </Stack>
-            <Typography>
-              Vamos a enviarte un mensaje para confirmar tu reservación
-            </Typography>
-          </Paper>
-
-          <Paper
-            spacing={0}
-            style={{
-              padding: "0.5rem 1rem",
-              /* border:"1px solid red"*/ height: "100%",
-              width: "100%",
-              display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: "2rem",
-              gap: "1.5rem",
-            }}
-          >
-            <Typography
-              variant="h4"
-              style={{ textAlign: "center", margin: "0.5rem 0 1rem 0" }}
-            >
-              Características
-            </Typography>
-            <Stack
-              spacing={2}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                gap: "1rem",
-                width: "100%",
-                marginLeft: "0.5rem",
-                marginRight: "0.5rem",
-              }}
-            >
-              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto-reserva"
+                <Modal
+                  open={openImage1}
+                  onClose={handleCloseImage1}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
                 >
-                  {/* <div className="icono-caracteristica-texto-reserva"> */}{" "}
-                  {caracteristica.logoCaracteristica != "" ? (
-                    <Paper
+                  <Box sx={style}>
+                    <img
+                      className="foto-producto block"
+                      src={recursoXID.imagenURL}
+                    />
+                  </Box>
+                </Modal>
+              </Stack>
+              <Paper
+                spacing={0}
+                style={{
+                  padding: "0.5rem 1rem",
+                  /* border:"1px solid red"*/ height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: "2rem",
+                  gap: "1rem",
+                }}
+              >
+                <Stack
+                  direction={{ lg: "column" }}
+                  sx={{ width: "100%", alignItems: "center" }}
+                >
+                  <Stack
+                    direction={{ lg: "column" }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-around",
+
+                      alignItems: "center",
+                      gap: "1rem",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography variant="h5" textAlign={"center"}>
+                      Chequea tus datos antes de confirmar la reserva
+                    </Typography>
+                    <Stack
+                      direction={{ lg: "column" }}
                       sx={{
                         display: "flex",
+                        justifyContent: "space-around",
+                        // border: "1px solid red",
+                        width: "100%",
                         alignItems: "center",
-                        width: "190px",
-                        padding: "7px 5px",
-                        justifyContent: "center",
-                        gap: "15px",
-                        borderRadius: "10px",
-                        boxShadow: "1px 1px 6px #979797",
+                        height: "90px",
+                        margin:"1rem"
                       }}
                     >
-                      <img
-                        className="icono-caracteristica"
-                        src={logoXIDCaracteristica(
-                          caracteristica.idCaracteristica,
-                          caracteristicasLista
+                     
+                      <Stack direction={"row"} spacing={1}>
+                        <Typography variant="h6">Nombre y apellido: </Typography>{" "}
+                        <Typography variant="h6">{usuarioLogueado}</Typography>
+                      </Stack>
+
+                      <FormControl sx={{ gap: "1rem" }}>
+                        <TextField
+                          id="email"
+                          label="Email"
+                          variant="standard"
+                          className="campo-formulario"
+                          type="email"
+                          placeholder="Ingresa tu email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)} 
+                          required
+                          margin="normal"
+                          sx={{width:"350px"}}
+                          style={{ borderColor: emailValido ? "" : "red" }}
+                        />
+                        {!emailValido ? (
+                          <Typography variant="body2" style={{ color: "red" }}>
+                            Ingresar al menos 3 caracteres antes del arroba y
+                            tener un formato válido.
+                          </Typography>
+                        ) : (
+                          ""
                         )}
-                        style={{ width: "25px", height: "25px" }}
-                      />
-                      <div>{caracteristica.nombreCaracteristica}</div>
-                    </Paper>
-                  ) : (
-                    <Paper
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        padding: "3px 10px",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <CheckOutlinedIcon style={{ color: "green" }} />
+                      </FormControl>
+                    </Stack>
+                  </Stack>
+                  <Typography>
+                    Vamos a enviarte un mensaje para confirmar tu reservación
+                  </Typography>
+                </Stack>
+              </Paper>
+              <Button
+                sx={{
+                  width: "100%",
+                  color: "white",
+                  backgroundColor: "#7cc598",
+                  ":hover": {
+                    backgroundColor: "#3c9960",
+                  },
+                }}
+                onClick={handleSubmit}
+              >
+                Reservar
+              </Button>
 
-                      <div>{caracteristica.nombre}</div>
-                    </Paper>
+              <Paper
+                spacing={0}
+                style={{
+                  padding: "0.5rem 1rem",
+                  /* border:"1px solid red"*/ height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: "2rem",
+                  gap: "1.5rem",
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  style={{ textAlign: "center", margin: "0.5rem 0 1rem 0" }}
+                >
+                  Características
+                </Typography>
+                <Stack
+                  spacing={2}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    gap: "1rem",
+                    width: "100%",
+                    marginLeft: "0.5rem",
+                    marginRight: "0.5rem",
+                  }}
+                >
+                  {caracteristicasXID.map(
+                    (caracteristica, idCaracteristica) => (
+                      <div
+                        key={idCaracteristica}
+                        className="container-icono-caracteristica-texto-reserva"
+                      >
+                        {/* <div className="icono-caracteristica-texto-reserva"> */}{" "}
+                        {caracteristica.logoCaracteristica != "" ? (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              width: "190px",
+                              padding: "7px 5px",
+                              justifyContent: "center",
+                              gap: "15px",
+                              borderRadius: "10px",
+                              boxShadow: "1px 1px 6px #979797",
+                            }}
+                          >
+                            <img
+                              className="icono-caracteristica"
+                              src={logoXIDCaracteristica(
+                                caracteristica.idCaracteristica,
+                                caracteristicasLista
+                              )}
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                            <div>{caracteristica.nombreCaracteristica}</div>
+                          </Paper>
+                        ) : (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "3px 10px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CheckOutlinedIcon style={{ color: "green" }} />
+
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        )}
+                        {/* </div> */}
+                      </div>
+                    )
                   )}
-                  {/* </div> */}
-                </div>
-              ))}
-            </Stack>
-          </Paper>
+                </Stack>
+              </Paper>
 
-          <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
-          <Politicas id={id}></Politicas>
-        </Stack>
-      </Stack>
-    </Container>
+              <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
+              <Politicas id={id}></Politicas>
+            </Stack>
+          </Stack>
+        </Container>
+      </div>
     </>
   );
 };
