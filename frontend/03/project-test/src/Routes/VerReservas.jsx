@@ -126,8 +126,8 @@ const VerReservas = () => {
                 <TableCell onClick={() => sortData("inicioReserva")} style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha de inicio {getSortIcon("inicioReserva")}</TableCell>
                 <TableCell onClick={() => sortData("finalizacionReserva")} style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha de fin {getSortIcon("finalizacionReserva")}</TableCell>
                 <TableCell onClick={() => sortData("fechaRealizacionReserva") } style={{cursor:"pointer", fontSize:"1.1rem", width:"200px"}}>Fecha reserva {getSortIcon("fechaRealizacionReserva")}</TableCell>
-                <TableCell onClick={() => sortData("dias")} style={{cursor:"pointer", fontSize:"1.1rem", width:"90px"}}>Días {getSortIcon("dias")}</TableCell>
-                <TableCell onClick={() => sortData("precio")} style={{cursor:"pointer", fontSize:"1.1rem", width:"90px"}}>Precio  {getSortIcon("precio")}</TableCell>
+                <TableCell style={{ fontSize:"1.1rem", width:"90px"}}>Días</TableCell>
+                <TableCell  style={{ fontSize:"1.1rem", width:"90px"}}>Precio</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
