@@ -29,11 +29,13 @@ const Favoritos = () => {
 
   useEffect(() => {
     getListaFavXUserID(id);
-  }, []);
+  }, [listaFavXUserId]);
 
   const idRecursos = listaFavXUserId
   .filter((favorito) => favorito.favorito === 1)
   .map((favorito) => favorito.idRecurso);
+
+
 
   console.log("idRecursos", idRecursos);
   console.log("listaFavXUserId", listaFavXUserId);

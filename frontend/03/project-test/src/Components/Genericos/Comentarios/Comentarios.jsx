@@ -179,7 +179,7 @@ const Comentarios = ({ id }) => {
               /> */}
 
               <Puntuar></Puntuar>
-        <Puntuacion>hola</Puntuacion>
+        
               <Box mt={2}>
                 <Button
                   variant="contained"

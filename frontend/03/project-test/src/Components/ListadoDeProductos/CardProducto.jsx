@@ -32,43 +32,60 @@ const CardProducto = ({
   // servicio2,
   // servicio3,
   puntuacion,
+  listaFavXUserId,
 }) => {
   const navigate = useNavigate();
 
   const {
     getPuntosPromedioXIDRecurso,
     getListaFavXUserID,
-    listaFavXUserId,
+    // listaFavXUserId,
     guardarFavorito,
     postActualizarFavorito,
     actualizarFavorito,
     setActualizarFavorito,
     errorActFavoritos,
     setErrorActFavoritos,
+    // userIdLogIn,
   } = useContext(ContextGlobal);
   const userId = localStorage.getItem("idUsuario");
+console.log("userId", userId)
+   
+  const [listadoFavoritos, setListadoFavoritos] = useState([]);
+  const [esFav, setEsFav] = useState(false);
+  const [esFavResult, setEsFavResult] = useState(null);
+  const [idFavorito, setIdFavorito] = useState(0);
+  const [existeFav, setExisteFav] = useState(false);
+
+  useEffect(() => {
+    // // getListaFavXUserID(userIdLogIn);
+    if (listaFavXUserId.length < 1 ) {
+      setListadoFavoritos(listaFavXUserId);
+    }
+  }, [listadoFavoritos]);
+
+
+
 
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
   }, []);
 
-  let esFavResult;
   useEffect(() => {
     const fetchData = async () => {
       // Obtener la lista de favoritos del usuario
-      getListaFavXUserID(userId);
-      esFavResult = listaFavXUserId.find((item) => item.idRecurso === id);
+      await getListaFavXUserID(userId);
+      const favResult = listaFavXUserId.find((item) => item.idRecurso === id);
+
+      // Actualiza los estados con los valores obtenidos
+      setEsFavResult(favResult);
+      setIdFavorito(favResult ? favResult.id : undefined);
+      setExisteFav(listaFavXUserId.some((item) => item.idRecurso === id));
+      setEsFav(esFavorito(id, listaFavXUserId));
     };
+
     fetchData();
-  }, []);
-
-  const esFav = esFavorito(id, listaFavXUserId);
-  const existeFav = listaFavXUserId.find((item) => item.idRecurso === id);
-
-  esFavResult = listaFavXUserId.find((item) => item.idRecurso === id);
-  const idFavorito = esFavResult ? esFavResult.id : undefined;
-  const tieneRegFav = listaFavXUserId.some((item) => item.id);
-  console.log("idFavorito  ---------- >", idFavorito);
+  }, [listadoFavoritos]);
 
   const [iconSize, setIconSize] = useState(1);
 
@@ -77,10 +94,13 @@ const CardProducto = ({
 
     if (!existeFav) {
       guardarFavorito(userId, id);
+      getListaFavXUserID(userId);
     } else if (esFav) {
       postActualizarFavorito(idFavorito, 0, userId, id);
+      getListaFavXUserID(userId);
     } else {
       postActualizarFavorito(idFavorito, 1, userId, id);
+      getListaFavXUserID(userId);
     }
     setIconSize(iconSize === 1 ? 1.05 : 1);
     getListaFavXUserID(userId);
