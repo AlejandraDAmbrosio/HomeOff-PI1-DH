@@ -1,0 +1,21 @@
+frontend_cicd:
+  trigger:
+    include:
+      - local: frontend/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      when: always
+      changes:
+        - frontend/**/**
+
+backend_cicd:
+  trigger:
+    include:
+      - local: backend/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      when: always
+      changes:
+        - backend/**/**

@@ -17,7 +17,6 @@ import EstrellaValor from "../Genericos/Puntuaciones/EstrellaValor";
 import { Stack } from "@mui/material";
 import { ContextGlobal } from "../utils/global.context";
 import { maxHeight } from "@mui/system";
-import esFavorito from "../utils/esFavorito";
 
 const CardProducto = ({
   title,
@@ -32,21 +31,19 @@ const CardProducto = ({
   // servicio2,
   // servicio3,
   puntuacion,
-  listaFavXUserId,
 }) => {
   const navigate = useNavigate();
 
   const {
     getPuntosPromedioXIDRecurso,
     getListaFavXUserID,
-    // listaFavXUserId,
+    listaFavXUserId,
     guardarFavorito,
     postActualizarFavorito,
     actualizarFavorito,
     setActualizarFavorito,
     errorActFavoritos,
     setErrorActFavoritos,
-    // userIdLogIn,
   } = useContext(ContextGlobal);
   const userId = localStorage.getItem("idUsuario");
   // console.log("userId", userId)
@@ -92,7 +89,7 @@ const CardProducto = ({
   useEffect(() => {
     getPuntosPromedioXIDRecurso(id);
   }, []);
-
+  let esFavResult;
   useEffect(() => {
     if (userId) {
       const fetchData = async () => {
@@ -115,8 +112,9 @@ const CardProducto = ({
 
   const handleIconClick = (e) => {
     e.stopPropagation();
-    console.log("handleIconClick  --- esFav", esFav);
-    if (!existeFav) {
+
+    if (!esFav) {
+      console.log("handleIconClick  -  > !esFav");
       guardarFavorito(userId, id);
       getListaFavXUserID(userId);
       setEsFav(!esFav);
@@ -127,6 +125,7 @@ const CardProducto = ({
       setEsFav(!esFav);
       console.log("listaFavXUserId", listaFavXUserId);
     } else {
+      console.log("handleIconClick  -  > !esFav");
       postActualizarFavorito(idFavorito, 1, userId, id);
       getListaFavXUserID(userId);
       setEsFav(!esFav);
@@ -211,7 +210,7 @@ const CardProducto = ({
             style={{
               fontWeight: "600",
               color: "#383B58",
-              alignItem: "center",
+              alignItems: "center",
               lineHeight: "15px",
             }}
           >
