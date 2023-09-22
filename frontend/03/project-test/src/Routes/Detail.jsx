@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
+// import dayjs, { Dayjs } from "dayjs";
 import {
   useNavigate,
   useParams,
   useLocation,
-  Link,
+  // Link,
   useResolvedPath,
+  Link,
 } from "react-router-dom";
+// import obtenerPrecioXIdRecurso from "../Components/utils/obtenerPrecioXIdRecurso";
+// import formateoFechas from "../Components/utils/formateoFechas";
+
+// import calculoDiasEntreFechas from "../Components/utils/calculoDiasEntreFechas";
+
 import { ContextGlobal } from "../Components/utils/global.context";
 import {
-  Container,
+  // Container,
   Box,
   Paper,
   Modal,
@@ -19,18 +26,18 @@ import {
   Snackbar,
   IconButton,
   Grid,
+  Dialog,
 } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import "../Components/Detail.css";
 import { MdArrowBackIosNew, MdShare, MdFacebook } from "react-icons/md";
-import Compartir from "../Components/CompartirEnRedes/Compartir";
+// import Compartir from "../Components/CompartirEnRedes/Compartir";
 import { BsInstagram, BsTwitter, BsLink45Deg } from "react-icons/bs";
 import CardProductoSimulado from "../Components/Genericos/CardProductoSimulado";
 import buscadorSedeXIDSede from "../Components/utils/buscadorSedeXIDSede";
 import obtenerNombreCategoriaPorId from "../Components/utils/obtenerNombreCategoriaPorId";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
-import CalendarioXId from "../Components/Genericos/Fecha/CalendarioXId";
 import Puntuacion from "../Components/Genericos/Puntuaciones/Puntuacion.jsx";
 import Comentarios from "../Components/Genericos/Comentarios/Comentarios";
 import Politicas from "../Components/Genericos/PoliticasXProducto/Politicas";
@@ -38,45 +45,56 @@ import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
 import CloseIcon from "@mui/icons-material/Close";
 import logoXIDCaracteristica from "../Components/utils/logoXIDCaracteristica";
+import CalendarioPrueba from "../Components/Buscador/Fecha/CalendarioPrueba";
+import FormIngreso from "./FormIngreso";
 
-const style = {
+const styleModalCompartir = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  Width: "320px",
+  width: "100%",
+  maxWidth: "350px",
+  height: "auto",
   bgcolor: "background.paper",
   border: "12px solid white",
   boxShadow: 24,
   p: 1,
 };
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "100%",
+  maxWidth: "900px",
+  height: "auto",
+  bgcolor: "background.paper",
+  border: "12px solid white",
+  boxShadow: 24,
+  p: 1,
+};
+
+const styleModalInicio = {
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 350,
+  height: 500,
+  bgcolor: "background.paper",
+  border: "1px solid #ffff",
+  boxShadow: 24,
+  pt: 0,
+  px: 0,
+  pb: 3,
+};
+
 const Detail = () => {
-  const [copied, setCopied] = useState(false);
-  const [openSnack, setOpenSnack] = React.useState(false);
-
-  const handleClickSnack = () => {
-    setOpenSnack(true);
-  };
-
-  const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenSnack(false);
-  };
-
   const navigate = useNavigate();
-  const resolvedPath = useResolvedPath();
-  const [publicacionRedes, setPublicacionRedes] = useState("");
-
   const currentURL = window.location.href;
-
-  const onChangeCopy = (event) => {
-    setPublicacionRedes(event.target.value);
-  };
-
+  const resolvedPath = useResolvedPath();
   const { id } = useParams();
   const location = useLocation();
   const {
@@ -85,22 +103,31 @@ const Detail = () => {
     caracteristicasLista,
     productosBKLista,
     getPuntosComentXIDRecurso,
-    puntosComentXIDRecurso,
     categoriasLista,
     caracteristicasXID,
     getCaracteristicasXID,
-    getCaracteristicasLista,
+    setInfoRecursoAReservar,
+    userIdLogIn,
+    fechaInicio,
+    setFechaInicio,
+    fechaFin,
+    setFechaFin,
+    cantidadDias,
+    getArrayFechasReservasXRecurso,
+    getPuntosPromedioXIDRecurso,
   } = useContext(ContextGlobal);
+  const caracteristicaSet = new Set();
+  const [copied, setCopied] = useState(false);
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [publicacionRedes, setPublicacionRedes] = useState("");
 
   const [openShareModal, setOpenShareModal] = useState(false);
+  // const [fechaInicio, setFechaInicio] = useState(dayjs());
+  // const [fechaFin, setFechaFin] = useState(dayjs());
+  const [fechaRealizacionReserva, setFechaRealizacionReserva] = useState(Date);
 
-  const handleOpenShare = () => {
-    setOpenShareModal(true);
-  };
-
-  const handleCloseShareModal = () => {
-    setOpenShareModal(false);
-  };
+  // const [fechaInicio, setFechaInicio] = useState(new Date());
+  // const [fechaFin, setFechaFin] = useState(new Date());
 
   /////////////////Config para modales
   const [openImage1, setOpenImage1] = useState(false);
@@ -121,17 +148,29 @@ const Detail = () => {
   const handleCloseImage5 = () => setOpenImage5(false);
   ///////
 
-  useEffect(() => {
-    getRecursoXID(id);
-    getCaracteristicasXID(id);
-    getPuntosComentXIDRecurso(id);
-  }, [id]);
+  ///////////////MODAL  Compartir  ////////////////////////
 
-  if (!recursoXID) {
-    return <div>Producto no encontrado</div>;
-  }
+  const onChangeCopy = (event) => {
+    setPublicacionRedes(event.target.value);
+  };
 
-  /////////////////////////
+  const handleOpenShare = () => {
+    setOpenShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setOpenShareModal(false);
+  };
+
+  const handleClickSnack = () => {
+    setOpenSnack(true);
+  };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
+  };
 
   const handleCopyClick = (e) => {
     e.preventDefault();
@@ -145,12 +184,69 @@ const Detail = () => {
         console.error("Error al copiar la URL: ", error);
       });
   };
-  ///////////////
-  console.log(
-    " resolvedPath.pathname --------------------",
-    resolvedPath.pathname
+  ///////////////FIN MODAL  Compartir  ////////////////////////
+  ////////////////Derivacion a Inicio en caso de reservar y no estar logueado
+
+  const [openLogIn, setOpenLogIn] = useState(false);
+  const handleOpenLogIn = () => {
+    console.log("COMPARTIr");
+    setOpenLogIn(true);
+  };
+
+  const handleCloseLogIn = () => {
+    setOpenLogIn(false);
+  };
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
+  //////////////// Traer info del Contexto ////////////////////////
+
+  useEffect(
+    () => {
+      getRecursoXID(id);
+      getCaracteristicasXID(id);
+      getPuntosComentXIDRecurso(id);
+      getPuntosPromedioXIDRecurso(id);
+      getArrayFechasReservasXRecurso(id);
+    },
+    [id],
+    { max: 3 }
   );
-  console.log("URL completa:", currentURL);
+
+  if (!recursoXID) {
+    return <div>Producto no encontrado</div>;
+  }
+
+  /////////////// INICIO Carga de Datos para reservar  ////////////////////////
+
+  const handleDateChange = (date) => {
+    setFechaInicio(date.startDate);
+    setFechaFin(date.endDate);
+  };
+
+  const idUserParse = +userIdLogIn;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (idUserParse == 0) {
+      navigate(`/formingreso`);
+    } else {
+      setInfoRecursoAReservar({
+        idRecurso: recursoXID.idRecurso,
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        fechaRealizacionReserva: fechaRealizacionReserva,
+        idUser: idUserParse,
+        precioProducto: recursoXID.precioUnitario,
+        precioTotal: 0,
+        dias: cantidadDias,
+      });
+
+      navigate(`/reserva/${id}`);
+    }
+  };
 
   return (
     <>
@@ -160,7 +256,7 @@ const Detail = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={styleModalCompartir}>
           <div>
             <IconButton
               aria-label="close"
@@ -211,11 +307,6 @@ const Detail = () => {
               }}
             />
           </div>
-
-          <Divider
-            orientation="horizontal"
-            style={{ margin: "1.5rem 0rem" }}
-          ></Divider>
 
           <Typography
             margin="1rem"
@@ -505,99 +596,74 @@ const Detail = () => {
             </div>
 
             <div className="segmento-icon-detalle">
-              {caracteristicasXID.map((caracteristica, idCaracteristica) => (
-                <div
-                  key={idCaracteristica}
-                  className="container-icono-caracteristica-texto"
-                >
-                  <div className="icono-caracteristica-texto">
-                    {" "}
-                    {caracteristica.logoCaracteristica != "" ? (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: "250px",
-                          padding: "7px 5px",
-                          justifyContent: "center",
-                          gap: "15px",
-                          borderRadius: " 11px 11px 11px 11px",
-                          boxShadow: "1px 1px 6px #979797",
-                        }}
-                      >
-                        <img
-                          className="icono-caracteristica"
-                          src={logoXIDCaracteristica(
-                            caracteristica.idCaracteristica,
-                            caracteristicasLista
-                          )}
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        <div>{caracteristica.nombreCaracteristica}</div>
-                      </Paper>
-                    ) : (
-                      <Paper
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "3px 10px",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <CheckOutlinedIcon style={{ color: "green" }} />
+              {caracteristicasXID.map((caracteristica, idCaracteristica) => {
+                // Verificar si el ID de la característica ya se ha procesado
+                if (!caracteristicaSet.has(caracteristica.idCaracteristica)) {
+                  // Agregar el ID de la característica al conjunto
+                  caracteristicaSet.add(caracteristica.idCaracteristica);
 
-                        <div>{caracteristica.nombre}</div>
-                      </Paper>
-                    )}
-                  </div>
-                </div>
-              ))}
+                  return (
+                    <div
+                      key={idCaracteristica}
+                      className="container-icono-caracteristica-texto"
+                    >
+                      <div className="icono-caracteristica-texto">
+                        {" "}
+                        {caracteristica.logoCaracteristica !== "" ? (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              width: "250px",
+                              padding: "7px 5px",
+                              justifyContent: "center",
+                              gap: "15px",
+                              borderRadius: " 11px 11px 11px 11px",
+                              boxShadow: "1px 1px 6px #979797",
+                            }}
+                          >
+                            <img
+                              className="icono-caracteristica"
+                              src={logoXIDCaracteristica(
+                                caracteristica.idCaracteristica,
+                                caracteristicasLista
+                              )}
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                            <div>{caracteristica.nombreCaracteristica}</div>
+                          </Paper>
+                        ) : (
+                          <Paper
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "3px 10px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <CheckOutlinedIcon style={{ color: "green" }} />
+                            <div>{caracteristica.nombre}</div>
+                          </Paper>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                // Si el ID de la característica ya se ha procesado, no se renderiza de nuevo.
+                return null;
+              })}
             </div>
           </Stack>
           {/* </div> */}
         </div>
-        {/* </Paper> */}
-        {/* <Stack
-        flexWrap={"wrap"}
-          gap={4}
-          alignItems={{ xl:"center", lg:"center", md: "center",  xs: "center" }}
-          margin={"auto"}
-          width={{
-            xl: "98%",
-            lg: "fit-content",
-          }}
-          direction={{
-            xl: "row",
-            lg: "row",
-            md: "column",
-            xs: "column",
-            sm: "column",
-          }}
-          style={{display:"flex", justifyContent:"center", border: "1px solid red",}}
-        >
-          <CalendarioXId></CalendarioXId>
-          <Divider
-            orientation={{
-              xl: "vertical",
-              lg: "vertical",
-              md: "vertical",
-              xs: "vertical",
-              sm: "horizontal",
-            }}
-          />
-          <Comentarios id={id}></Comentarios>
-        </Stack> */}
 
         <Stack
-          // container
-          spacing={2}
-          // margin={"auto"}
-          flexDirection={{lg:"row"}}
+          spacing={3}
+          flexDirection={{ lg: "row" }}
           style={{
-            display:"flex",
-            // border: "1px solid red",
-            gap:"3rem",
-            flexWrap:"wrap",
+            display: "flex",
+
+            flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "flex-start",
             justifyItems: "center",
@@ -605,26 +671,83 @@ const Detail = () => {
         >
           <Stack
             item
+            spacing={1}
             xs={12}
             md={5}
             lg={5}
             xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
+            sx={{ placeItems: "center", margin: "auto" }}
           >
-            <CalendarioXId style={{ placeItems: "center" }} />
+            {/* //////////////////////////////////////// */}
+
+            <CalendarioPrueba
+              fechaInicio={fechaInicio}
+              fechaFin={fechaFin}
+              onChange={{ handleDateChange }}
+              idRecurso={id}
+              precio={recursoXID.precioUnitario}
+              capacidad={recursoXID.capacidadMáxima}
+            />
+
+            {/* //////////////////////////////////////// */}
+            <Button
+              sx={{
+                width: "100%",
+                color: "white",
+                backgroundColor: "#7cc598",
+                ":hover": {
+                  backgroundColor: "#3c9960",
+                },
+              }}
+              onClick={handleSubmit}
+            >
+              Reservar
+            </Button>
           </Stack>
 
-          <Stack
-            item
-            xs={12}
-            md={5}
-            lg={5}
-            xl={5}
-            style={{ placeItems: "center", margin: "auto" }}
+          <Modal
+            open={openLogIn}
+            onClose={handleCloseLogIn}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <Comentarios id={id} style={{ placeItems: "center" }} />
-          </Stack>
+            <Box sx={styleModalInicio}>
+              <Stack
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "600px",
+                }}
+              >
+                <Stack>
+                  <Typography
+                    style={{
+                      margin: "1rem 0 0 0",
+                      textAlign: "center",
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    Inicie su sesion para reservar.{" "}
+                  </Typography>
+                  <Typography
+                    style={{
+                      margin: "1rem 0 0 0",
+                      textAlign: "center",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Si no esta registrado, debe crear su usuario para continuar.
+                  </Typography>
+                </Stack>
+                <FormIngreso />
+              </Stack>
+            </Box>
+          </Modal>
         </Stack>
+        {/* <Stack 
+        > */}
+        <Comentarios id={id} style={{ placeItems: "center" }} />
+        {/* </Stack> */}
 
         <Divider style={{ margin: "2rem 2rem 2rem 2rem" }} flexItem />
         <Politicas id={id}></Politicas>

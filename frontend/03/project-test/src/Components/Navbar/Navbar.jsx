@@ -14,6 +14,7 @@ import AccountMenu from "../MenuDropDown/AccountMenu";
 
 import { useParams } from "react-router-dom";
 import NuevoBuscador from "../Buscador/NuevoBuscador/NuevoBuscador";
+import BarraCategorias from "../Categorias/BarraCategorias";
 
 const Navbar = () => {
   const { id } = useParams();
@@ -24,13 +25,19 @@ const Navbar = () => {
     location.pathname === "/agregarproducto/" ||
     location.pathname === "/administradorproductos/" ||
     location.pathname === "/administracioncaracteristicas/" ||
+    location.pathname === "/administrarpoliticas/" ||
     location.pathname === "/administrarcategorias/" ||
     location.pathname === "/administracionusers/" ||
     location.pathname === "/paginafiltrado/" ||
     location.pathname.startsWith("/paginafiltrado/") ||
     location.pathname.startsWith("/editarproducto/") ||
     location.pathname.startsWith("/favoritos/") ||
-    location.pathname === "/formaltauser/";
+    location.pathname.startsWith("/agregarCaracteristicas/") ||
+    location.pathname.startsWith("/verreservas/") ||
+    location.pathname.startsWith("/reservas/") ||
+    location.pathname.startsWith("/reserva/") ||
+    location.pathname === "/formaltauser/" ||
+    location.pathname.startsWith("/formingreso");
   location.pathname === "/favoritos/";
 
   return (
@@ -38,7 +45,7 @@ const Navbar = () => {
       <div className={`header ${isPanelSinCategorias ? "admin-header" : ""}`}>
         <nav>
           <ul className="ul-nav">
-            <li>
+            <li >
               <Logo />
             </li>
             {/* <li>
@@ -65,7 +72,8 @@ const Navbar = () => {
           ""
         ) : (
           <div className="banda-categorias">
-            <Categorias />
+            {/* <Categorias /> */}
+            <BarraCategorias></BarraCategorias>
           </div>
         )}
       </div>
@@ -75,4 +83,4 @@ const Navbar = () => {
 
 export default Navbar;
 
-/////////////////////////////
+

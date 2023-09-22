@@ -28,8 +28,8 @@ import { useParams } from "react-router-dom";
 const EditarProducto = () => {
   const { id } = useParams();
 
-  const urlBase = "http://54.214.104.150:8080/api/v1/recursos/update";
-  const jwt = localStorage.getItem("jwt");
+  const urlBase = "http://52.32.210.155:8080/auth/recursos/update";
+
   const {
     productosBKLista,
     setProductosBKLista,
@@ -40,6 +40,8 @@ const EditarProducto = () => {
     caracteristicasLista,
     recursoXID,
     getRecursoXID,
+    caracteristicasXID,
+    getCaracteristicasXID,
   } = useContext(ContextGlobal);
 
   const datosRecursoXID = recursoXID;
@@ -63,8 +65,10 @@ const EditarProducto = () => {
   const [form, setForm] = useState(false);
 
   const [mensajeErrorAltaProd, setMensajeErrorAltaProd] = useState("");
-  /////// Preparar obbjeto para enviar al servidor    ///////
+  const [caracteristicasSeleccionadas, setCaracteristicasSeleccionadas] =
+    useState({});
 
+  /////// Preparar obbjeto para enviar al servidor    ///////
   const [nuevoProducto, setNuevoProducto] = useState({
     idRecurso: 0,
     nombre: "",
@@ -87,6 +91,14 @@ const EditarProducto = () => {
     tieneFotocopiadoraImpresion: 1,
     tieneEspacioDescanso: 1,
     tieneEstaciónCafeAguaAromatica: 1,
+  });
+
+  
+
+  const [formCaracteristicas, setFormCaracteristicas] = useState({
+    idCaracteristica: 0,
+    idRecurso: 0,
+    idCaracteristicas_x_Recurso: 0,
   });
 
   useEffect(() => {
@@ -132,18 +144,18 @@ const EditarProducto = () => {
   const sedesArray = [
     {
       id: 1,
-      nombre: "Argentina",
-      direccion: "Libertador 2100, Capital Federal.",
+      nombre: "Colombia",
+      direccion: "CARRERA 100 # 15",
     },
     {
       id: 2,
-      nombre: "Colombia",
-      direccion: "CR 2 #5-27, Bogota.",
+      nombre: "Argentina",
+      direccion: "Calle 1 y 60 La Plata",
     },
     {
       id: 3,
       nombre: "Chile",
-      direccion: "Avenida Presidente Kennedy 4420. Santiago de Chile.",
+      direccion: "Av. Libertador Bernardo O'Higgins 1449, Torre",
     },
   ];
 
@@ -179,6 +191,14 @@ const EditarProducto = () => {
   ];
 
   //////////////////OnChanges///////////////
+
+  const handleOptionChange = (caracteristica) => {
+    setCaracteristicasSeleccionadas((prevCaracteristicas) => ({
+      ...prevCaracteristicas,
+      [caracteristica.idCaracteristica]:
+        !prevCaracteristicas[caracteristica.idCaracteristica],
+    }));
+  };
 
   const onChangeNombre = (e) => {
     setNuevoProducto({ ...nuevoProducto, nombre: e.target.value });
@@ -229,12 +249,12 @@ const EditarProducto = () => {
     });
   };
 
-  const handleOptionChange = (servicio) => {
-    setServicios((prevServicios) => ({
-      ...prevServicios,
-      [servicio]: !prevServicios[servicio],
-    }));
-  };
+  // const handleOptionChange = (servicio) => {
+  //   setServicios((prevServicios) => ({
+  //     ...prevServicios,
+  //     [servicio]: !prevServicios[servicio],
+  //   }));
+  // };
 
   const onChangeFoto = (e) => {
     const fotos = e.target.files; // Obtener los archivos seleccionados
@@ -348,6 +368,58 @@ const EditarProducto = () => {
       //   getDatosBKLista();
       // }, []);
 
+      //////// Envio de info a Caracteristicas///////////////////
+
+      const urlCaracteristicasXIdRec =
+        "http://52.32.210.155:8080/auth/inter/save";
+
+      const caracteristicasParaEnviar = Object.keys(
+        caracteristicasSeleccionadas
+      ).map((idCaracteristica) => ({
+        idCaracteristica: parseInt(idCaracteristica),
+        idRecurso: recursoXID.idRecurso,
+        idCaracteristicas_x_Recurso: 0,
+      }));
+      console.log(
+        "----caracteristicasParaEnviar: --->",
+        caracteristicasParaEnviar
+      );
+
+      try {
+        console.log("segundo Try: ------------------------------------------------>");
+
+        // Vuelve a definir jsonData para la segunda llamada a axios.post
+        const jsonData2 = JSON.stringify(caracteristicasParaEnviar);
+        console.log("jsonData2", jsonData2)
+        console.log("caracteristicasParaEnviar", caracteristicasParaEnviar)
+        const response2 = await axios.post(
+          urlCaracteristicasXIdRec,
+          caracteristicasParaEnviar,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+         
+          console.log("caracteristicasParaEnviar-----------------", jsonData2)
+        if (response2.status === 200) {
+          const responseData2 = await response2.json();
+          console.log("Respuesta:", responseData2);
+          cleanForm();
+        } else {
+          console.error(
+            "Error en la segunda llamada a axios.post:",
+            response2.status,
+            response2.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error en la segunda llamada a axios.post:", error);
+      }
+
+      ///////////////////////////////////////////////////////////////
+
       /////ERROR ????////////////////////////
     } else {
       setForm(false);
@@ -382,37 +454,42 @@ const EditarProducto = () => {
       </div>
       <div className="paneles-agregar">
         <PanelAdminUser />
-        <div
-          className="division-form-preview"
-          style={{ padding: "0rem 2rem", maxWidth: "1500px" }}
-        >
+        <div className="division-form-preview">
           <div className="pagina-formulario-alta-producto">
             <FormControl
               onSubmit={handleSubmitCrearProducto}
-              style={{ padding: "1rem 2rem", width: "890px" }}
+              style={{ padding: "1rem 0rem", width: "500px" }}
             >
               <div className="formularioAgregarProducto">
-                <TextField
-                  id="nombreProducto"
-                  label="Nombre del producto"
-                  variant="standard"
-                  className="campo-formulario"
-                  type="text"
-                  placeholder="Ingresa el nombre del producto "
-                  value={nuevoProducto.nombre}
-                  onChange={onChangeNombre}
-                  required
-                  margin="normal"
-                />
-                {!nombreProductoValido ? (
-                  <p className="error-nombre-existe">
-                    Ingrese un nombre que tenga mas de 3 y menos de 30
-                    caracteres y solo letras.
-                  </p>
-                ) : (
-                  ""
-                )}
-                {/* {nombreYaExiste ? (
+                <div
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }}
+                >
+                  <TextField
+                    id="nombreProducto"
+                    label="Nombre del producto"
+                    variant="standard"
+                    className="campo-formulario"
+                    type="text"
+                    placeholder="Ingresa el nombre del producto "
+                    value={nuevoProducto.nombre}
+                    onChange={onChangeNombre}
+                    required
+                    margin="normal"
+                  />
+                  {!nombreProductoValido ? (
+                    <p className="error-nombre-existe">
+                      Ingrese un nombre que tenga mas de 3 y menos de 30
+                      caracteres y solo letras.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {/* {nombreYaExiste ? (
                   <p className="error-nombre-existe">
                     Ya existe un producto con el mismo nombre. Por favor,
                     indique un nuevo nombre.
@@ -420,6 +497,7 @@ const EditarProducto = () => {
                 ) : (
                   ""
                 )} */}
+                </div>
 
                 {/* /////////--------------------------------////// */}
 
@@ -434,7 +512,7 @@ const EditarProducto = () => {
                   onChange={onChangeDescripcion}
                   required
                   margin="normal"
-                  style={{ width: "700px" }}
+                  style={{ width: "400px" }}
                 />
                 {/* /////////--------------------------------////// */}
                 <div
@@ -442,6 +520,8 @@ const EditarProducto = () => {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "485px",
+                    gap: "0.5rem",
                   }}
                 >
                   <TextField
@@ -449,7 +529,7 @@ const EditarProducto = () => {
                     select
                     label="Categorias de productos"
                     defaultValue="OFICINAS PRIVADAS"
-                    style={{ width: "300px" }}
+                    style={{ width: "210px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -471,13 +551,13 @@ const EditarProducto = () => {
                     ))}
                   </TextField>
                   {/* /////////--------------------------------////// */}
-
                   <TextField
                     id="tipoEspacio"
                     select
                     type="number"
                     label="Tipo de Espacio"
-                    defaultValue="OFICINAS PRIVADAS"
+                    style={{ width: "224px" }}
+                    defaultValue="OFICINA ESPACIO ABIERTO"
                     SelectProps={{
                       native: true,
                     }}
@@ -495,45 +575,18 @@ const EditarProducto = () => {
                       OFICINA ESPACIO CERRADO
                     </option>
                   </TextField>
-
-                  {/* //////////////////// */}
-                  <TextField
-                    id="capacidad maxima"
-                    select
-                    type="number"
-                    value={nuevoProducto.capacidadMáxima}
-                    onChange={onChangeCapacidadMáxima}
-                    label="Capacidad máxima"
-                    defaultValue="1"
-                    style={{ width: "150px" }}
-                    margin="normal"
-                    SelectProps={{
-                      native: true,
-                    }}
-                    helperText="Elija una capacidad máxima"
-                    variant="standard"
-                    required
-                  >
-                    {capacidadArray.map((cant) => (
-                      <option
-                        key={cant.id}
-                        className="item-grid"
-                        value={cant.cantidad}
-                      >
-                        {cant.cantidad}{" "}
-                      </option>
-                    ))}
-                  </TextField>
                 </div>
+
                 {/* -/////////////////////////////////////// */}
-                <FormGroup
+                {/* <FormGroup
                   className="formgroup-check-boxs"
                   label="Elija las caracteristicas"
                   component="fieldset"
+                  style={{ maxWidth: "480px", height: "fit-content" }}
                 >
                   <FormLabel component="legend">Características</FormLabel>
                   <div className="container-check-boxs">
-                  {caracteristicasLista.map((caracteristica) => (
+                    {caracteristicasLista.map((caracteristica) => (
                       <li
                         key={caracteristica.idCaracteristica}
                         style={{ listStyle: "none" }}
@@ -551,28 +604,16 @@ const EditarProducto = () => {
                       </li>
                     ))}
                   </div>
-                </FormGroup>
+                </FormGroup> */}
                 {/* /////////--------------------------------////// */}
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    maxWidth: "600px",
                   }}
                 >
-                  <TextField
-                    id="precioProducto"
-                    label="Ingresa el precio del producto"
-                    type="number"
-                    value={nuevoProducto.precioUnitario}
-                    onChange={onChangePreciounitario}
-                    margin="normal"
-                    style={{ width: "150px" }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="standard"
-                  />
                   {/* Falta en precio parsear pero mantener 2 decimales, ahora pasa todo a numero entero sin decimal */}
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
                   <TextField
@@ -603,14 +644,38 @@ const EditarProducto = () => {
                     ))}
                   </TextField>
 
+                  <TextField
+                    id="precioProducto"
+                    label="Ingresa el precio del producto"
+                    type="number"
+                    value={nuevoProducto.precioUnitario}
+                    onChange={onChangePreciounitario}
+                    margin="normal"
+                    style={{ width: "150px" }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="standard"
+                  />
+
                   {/* //////////////////////////////////////////////////////////////////////////////// */}
+                </div>
+                {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    maxWidth: "600px",
+                  }}
+                >
                   <TextField
                     id="disponible"
                     select
                     type="text"
                     label="Esta Disponible?"
                     defaultValue="Argentina"
-                    style={{ width: "200px" }}
+                    style={{ width: "300px" }}
                     SelectProps={{
                       native: true,
                     }}
@@ -628,9 +693,35 @@ const EditarProducto = () => {
                       No disponible
                     </option>
                   </TextField>
-                </div>
-                {/* ////////////////////DISPONIBLE//////////////////////////////////////////// */}
 
+                  <TextField
+                    id="capacidad maxima"
+                    select
+                    type="number"
+                    value={nuevoProducto.capacidadMáxima}
+                    onChange={onChangeCapacidadMáxima}
+                    label="Capacidad máxima"
+                    defaultValue="1"
+                    style={{ width: "120px" }}
+                    margin="normal"
+                    SelectProps={{
+                      native: true,
+                    }}
+                    // helperText="Elija una capacidad máxima"
+                    variant="standard"
+                    required
+                  >
+                    {capacidadArray.map((cant) => (
+                      <option
+                        key={cant.id}
+                        className="item-grid"
+                        value={cant.cantidad}
+                      >
+                        {cant.cantidad}{" "}
+                      </option>
+                    ))}
+                  </TextField>
+                </div>
                 {/* ///////////////////////////////////////////////////////////////////// */}
                 <div
                   className="campo-anotacion"

@@ -8,4 +8,7 @@ public class FavoritoRespuesta {
 
     private int IdUsuario;
     private int IdRecurso;
+    private int id;
+    private int favorito;
+    private int vigente;
 }

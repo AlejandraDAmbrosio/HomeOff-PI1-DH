@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Container,
-  Box,
-  Paper,
-  Modal,
-  Button,
   Stack,
   Typography,
 } from "@mui/material";
-import { MdStarRate, MdOutlineStarRate } from "react-icons/md";
+
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import Puntuacion from "./Puntuacion";
+
 
 const EstrellaValor = ({puntuacion}) => {
 //   const [valorEstrellas, setValorEstrellas] = useState(null);
@@ -23,7 +18,7 @@ const EstrellaValor = ({puntuacion}) => {
       spacing={0.1}
       alignContent="center"
       textAlign="center"
-      flexItem
+      // flexItem
       height="32px"
     >
       {" "}
@@ -33,13 +28,13 @@ const EstrellaValor = ({puntuacion}) => {
           spacing={0.5}
           alignContent="center"
           textAlign="center"
-          flexItem
+          flexitem
           height="32px"
         >
           {" "}
           <AiFillStar style={{ fontSize: "25px", color: "#F2C84B" }} />{" "}
           <Typography  style={{ marginBottom: "2rem", fontSize:"18px" }}>
-            {puntuacion}
+            {puntuacion.toFixed(1)}
           </Typography>
         </Stack>
       ) : (
@@ -48,7 +43,7 @@ const EstrellaValor = ({puntuacion}) => {
         spacing={0.1}
         alignContent="center"
         textAlign="center"
-        flexItem
+        flexitem
         height="32px"
       >
         {" "}

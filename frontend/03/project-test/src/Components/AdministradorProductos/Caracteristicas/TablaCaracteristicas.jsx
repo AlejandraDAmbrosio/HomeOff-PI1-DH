@@ -11,16 +11,21 @@ import {
   TableCell,
   Paper,
   TextField,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  ButtonBase,
 } from "@mui/material";
 import Chip from "@mui/joy/Chip";
+import Button from "@mui/joy/Chip";
+import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import nombreExiste from "../../utils/nombreExiste.js";
+import { Link } from "react-router-dom";
+import Edit from "@mui/icons-material/Edit";
 
 const TablaCaracteristicas = () => {
   const {
@@ -28,6 +33,18 @@ const TablaCaracteristicas = () => {
     setCaracteristicasLista,
     getCaracteristicasLista,
   } = useContext(ContextGlobal);
+
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editedItem, setEditedItem] = useState({
+    logoCaracteristica: null,
+    nombre: "",
+    idCaracteristica: 0,
+  });
+
+  const handleOpenEditDialog = (item) => {
+    setEditedItem(item);
+    setEditDialogOpen(true);
+  };
 
   const [openDialog, setOpenDialog] = useState(false);
   const [idCaracteristicaXBorrar, setIdCaracteristicaXBorrar] = useState(null);
@@ -59,7 +76,7 @@ const TablaCaracteristicas = () => {
 
   const onChangeNombre = (e) => {
     setNuevaCaracteristica({ ...nuevaCaracteristica, nombre: e.target.value });
-    // setNombreYaExiste(false);
+
     setNombreCaracteristicaValida(true);
   };
   const onChangeLogoCaracteristica = (e) => {
@@ -67,7 +84,7 @@ const TablaCaracteristicas = () => {
       ...nuevaCaracteristica,
       logoCaracteristica: e.target.value,
     });
-    // setNombreYaExiste(false);
+
     setNombreCaracteristicaValida(true);
   };
 
@@ -80,6 +97,66 @@ const TablaCaracteristicas = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleGuardarEdicion = async (e) => {
+    e.preventDefault();
+    const nombreCaracteristicaValida = validarNombreCaracteristicas(
+      editedItem.nombre
+    );
+  
+    const caracteristicaExisteEnData = nombreExiste(
+      editedItem.nombre,
+      jsonDataCaracteristicas
+    );
+  
+    if (nombreCaracteristicaValida && !caracteristicaExisteEnData) {
+      setNombreCaracteristicaValida(true);
+  
+      const editedItemData = {
+        nombre: editedItem.nombre,
+        logoCaracteristica: editedItem.logoCaracteristica,
+        idCaracteristica: editedItem.idCaracteristica,
+      };
+  
+      const urlBaseEditar = "http://52.32.210.155:8080/auth/caracteristicas/update";
+  
+      try {
+        const jsonDataEdicion = JSON.stringify(editedItemData);
+        const response = await axios.post(urlBaseEditar, jsonDataEdicion, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (response.ok) {
+          const responseData = await response.data;
+          console.log("Respuesta:", responseData);
+          console.log(" handleClose();:");
+
+          handleClose();
+          getCaracteristicasLista();
+          setEditDialogOpen(false); 
+        
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+     
+    }
+  };
+  
+
+
+
+
+
+
 
   const handleSubmitCrearCaracteristica = async (e) => {
     e.preventDefault();
@@ -104,28 +181,46 @@ const TablaCaracteristicas = () => {
       };
 
       const urlBaseGuardar =
-        "http://54.214.104.150:8080/api/v1/caracteristicas/save";
+        "http://52.32.210.155:8080/auth/caracteristicas/save";
 
-        try {
-          const response = await fetch(urlBaseGuardar, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(nuevaCaracteristicaData),
-          });
-        
-          if (response.ok) {
-            const responseData = await response.json();
-            console.log('Respuesta:', responseData);
-            getCaracteristicasLista();
-            handleClose();
-          } else {
-            console.error('Error en la respuesta:', response.status, response.statusText);
-          }
-        } catch (error) {
-          console.error('Error:', error);
+      // const token = localStorage.getItem("token");
+      // console.log("token previo a agregar caracteristicas", token);
+
+      // try {
+      //   const response = await fetch(urlBaseGuardar, {
+      //     method: "POST",
+      //     url: urlBaseGuardar,
+      //     headers: {
+      //       "Content-Type": "application/json",
+
+      //       Authorization: `Bearer "${token}"`,
+      //     },
+      //     body: JSON.stringify(nuevaCaracteristicaData),
+      //   });
+
+      try {
+        const jsonData = JSON.stringify(nuevaCaracteristicaData);
+        const response = await axios.post(urlBaseGuardar, jsonData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log("Respuesta:", responseData);
+          getCaracteristicasLista();
+          handleClose();
+        } else {
+          console.error(
+            "Error en la respuesta:",
+            response.status,
+            response.statusText
+          );
         }
+      } catch (error) {
+        console.error("Error:", error);
+      }
 
       // try {
       //   // const jsonData = JSON.stringify(nuevaCaracteristicaData);
@@ -160,13 +255,14 @@ const TablaCaracteristicas = () => {
       });
       /////////////// VER ERROR ///////
     }
+    handleClose
   };
   ///////////////////Eliminar Caracteristica
 
   const eliminarCaracteristica = async (idCaracteristica) => {
     try {
-      const response = await axios.delete(
-        `http://54.214.104.150:8080/api/v1/caracteristicas/delete/${idCaracteristica}`,
+      const response = await axios.post(
+        `http://52.32.210.155:8080/auth/caracteristicas/delete/${idCaracteristica}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -191,6 +287,76 @@ const TablaCaracteristicas = () => {
 
   ////////////////////////////
 
+  // const handleGuardarEdicion  = async (e) => {
+  //   e.preventDefault();
+  //   const nombreCaracteristicaValida = validarNombreCaracteristicas(
+  //     editedItem.nombre
+  //   );
+  //   console.log("nombreCaracteristicaValida" ,nombreCaracteristicaValida)
+
+  //   const caracteristicaExisteEnData = nombreExiste(
+  //     editedItem.nombre,
+  //     jsonDataCaracteristicas
+  //   );
+  //   console.log("caracteristicaExisteEnData" ,caracteristicaExisteEnData)
+
+  //   if (nombreCaracteristicaValida && !caracteristicaExisteEnData) {
+   
+  //     setNombreCaracteristicaValida(true);
+  //     // setShowPreview(true);
+
+  //     const editedItem = {
+  //       nombre: editedItem.nombre,
+  //       logoCaracteristica: editedItem.logoCaracteristica,
+  //       idCaracteristica: 0,
+  //     };
+
+  //     console.log("editedItem ---------------- >" ,editedItem)
+
+  //     const urlBaseEditar =
+  //     "http://52.32.210.155:8080/auth/caracteristicas/update";
+  //   // Realiza las acciones para guardar los cambios en editedItem
+  //   // Puedes enviar una solicitud al servidor aquí si es necesario
+
+  
+ 
+  //   try {
+  //     const jsonDataEdicion = JSON.stringify(editedItem);
+  //     console.log("jsonDataEdicion ---------------- >" ,jsonDataEdicion)
+
+  //     const response = await axios.post(urlBaseEditar, jsonDataEdicion, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     if (response.status === 200) {
+  //       const responseData = await response.data;
+  //       console.log("Respuesta:", responseData);
+  //       getCaracteristicasLista();
+        
+  //     } else {
+  //       console.error(
+  //         "Error en la respuesta:",
+  //         response.status,
+  //         response.statusText
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+
+
+
+
+
+
+  // // Cierra el diálogo de edición
+  //   setEditDialogOpen(false);
+  // };
+  // }
+  //////////////////////////////
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div
@@ -205,6 +371,41 @@ const TablaCaracteristicas = () => {
           Crear Característica
         </Button> */}
       </div>
+
+      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
+        <DialogTitle>Editar Característica</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="edit-imagen"
+            label="Imagen"
+            type="text"
+            fullWidth
+            value={editedItem.logoCaracteristica}
+            onChange={(e) =>
+              setEditedItem({ ...editedItem, logoCaracteristica: e.target.value })
+            }
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="edit-nombre"
+            label="Nombre"
+            type="text"
+            fullWidth
+            value={editedItem.nombre}
+            onChange={(e) =>
+              setEditedItem({ ...editedItem, nombre: e.target.value })
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditDialogOpen(false)}>Cancelar</Button>
+          <Button onClick={handleGuardarEdicion}>Guardar</Button>
+        </DialogActions>
+      </Dialog>
+
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Confirmar Eliminación</DialogTitle>
         <DialogContent>
@@ -233,14 +434,13 @@ const TablaCaracteristicas = () => {
         style={{ margin: "0 20px 0 0" }}
       >
         <TableContainer
-          sx={{maxHeight: 500,   width: "100%"}}
+          sx={{ maxHeight: 500, width: "100%" }}
           style={{
             borderRadius: ":var(--bRadiusButton)",
           }}
         >
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-
               <TableRow
                 style={{
                   backgroundColor: "lightgray",
@@ -252,12 +452,11 @@ const TablaCaracteristicas = () => {
                 <TableCell>Imagen</TableCell>
                 <TableCell>Id Caracteristica</TableCell>
                 <TableCell>Nombre</TableCell>
+                <TableCell>Editar</TableCell>
                 <TableCell>Eliminar</TableCell>
               </TableRow>
-
             </TableHead>
             <TableBody>
-
               {caracteristicasLista.map((caracteristica, idCaracteristica) => (
                 <TableRow key={idCaracteristica} style={{ height: "30px" }}>
                   <TableCell style={{ width: "200px" }}>
@@ -277,6 +476,21 @@ const TablaCaracteristicas = () => {
                   </TableCell>
                   <TableCell style={{ width: "800px" }}>
                     {caracteristica.nombre}
+                  </TableCell>
+
+                  <TableCell>
+                    <Button
+                      style={{
+                        backgroundColor: "#9dd6b3",
+                      }}
+                      size="md"
+                      variant="soft"
+                      color="primary"
+                      endDecorator={<EditIcon />}
+                      onClick={() => handleOpenEditDialog(caracteristica)}
+                    >
+                      {" "}
+                    </Button>
                   </TableCell>
 
                   <TableCell>
@@ -364,7 +578,7 @@ const TablaCaracteristicas = () => {
         </DialogActions>
       </Dialog>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Crear Característica
+        + Crear Característica
       </Button>
     </div>
   );

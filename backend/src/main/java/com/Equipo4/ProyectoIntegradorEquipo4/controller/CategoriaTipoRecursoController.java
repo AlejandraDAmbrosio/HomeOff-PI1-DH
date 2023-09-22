@@ -35,7 +35,7 @@ public class CategoriaTipoRecursoController {
         }
     }
 
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody CategoriaTipoRecurso categoriaTipoRecurso){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCategoriaTipoRecursoService.save(categoriaTipoRecurso);
@@ -53,7 +53,7 @@ public class CategoriaTipoRecursoController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCategoriaTipoRecursoService.deleteById(id);

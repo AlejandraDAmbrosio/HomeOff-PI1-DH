@@ -8,6 +8,7 @@ import CardProducto from "./CardProducto";
 import "../ListadoDeProductos/CardProducto.css";
 import "./ListadoProductos.css";
 import obtenerNombreCategoriaPorId from "../utils/obtenerNombreCategoriaPorId";
+import { Container, Stack, Typography } from "@mui/material";
 
 const ListadoProductos = ({ CantidadCards }) => {
   const navigate = useNavigate();
@@ -19,7 +20,34 @@ const ListadoProductos = ({ CantidadCards }) => {
     prodFiltrados,
     puntosPromedioXIDRecurso,
     getPuntosPromedioXIDRecurso,
+    userIdLogIn,
+    getListaFavXUserID,
+    listaFavXUserId
   } = useContext(ContextGlobal);
+
+  const userId = localStorage.getItem("idUsuario");
+  const [listadoFavoritosHome, setListadoFavoritosHome] = useState([]);
+
+  // useEffect(() => {
+  //   getListaFavXUserID(userId);
+  //   if (listaFavXUserId.length < 1 ) {
+  //     setListadoFavoritosHome(listaFavXUserId);
+  //   }
+  // }, [listadoFavoritosHome ]);
+  
+  useEffect(() => {
+    if (userId) {
+      getListaFavXUserID(userId);
+      
+      if (listaFavXUserId.length < 1) {
+        setListadoFavoritosHome(listaFavXUserId);
+      }
+    }
+  }, [userId, listadoFavoritosHome]);
+
+  
+console.log("listaFavXUserId", listaFavXUserId)
+  
 
   const [puntuacionesPromedio, setPuntuacionesPromedio] = useState({});
 
@@ -30,24 +58,24 @@ const ListadoProductos = ({ CantidadCards }) => {
     ? prodFiltrados
     : productosBKLista;
 
-    useEffect(() => {
-      const obtenerPuntuacionesPromedio = async () => {
-        const puntuaciones = {};
-        const idsRecurso = productsToRender.map((producto) => producto.idRecurso);
-        const puntuacionesArray = await Promise.all(
-          idsRecurso.map((idRecurso) => getPuntosPromedioXIDRecurso(idRecurso))
-        );
-    
-        idsRecurso.forEach((idRecurso, index) => {
-          puntuaciones[idRecurso] = puntuacionesArray[index];
-        });
-    
-        setPuntuacionesPromedio(puntuaciones);
-      };
-    
-      obtenerPuntuacionesPromedio();
-    }, [productsToRender]);
-  
+  useEffect(() => {
+    const obtenerPuntuacionesPromedio = async () => {
+      const puntuaciones = {};
+      const idsRecurso = productsToRender.map((producto) => producto.idRecurso);
+      const puntuacionesArray = await Promise.all(
+        idsRecurso.map((idRecurso) => getPuntosPromedioXIDRecurso(idRecurso))
+      );
+
+      idsRecurso.forEach((idRecurso, index) => {
+        puntuaciones[idRecurso] = puntuacionesArray[index];
+      });
+
+      setPuntuacionesPromedio(puntuaciones);
+    };
+
+    obtenerPuntuacionesPromedio();
+  }, [productsToRender]);
+
 
   useEffect(() => {
     const paginatedArray = chunk(productsToRender, CantidadCards);
@@ -85,41 +113,50 @@ const ListadoProductos = ({ CantidadCards }) => {
   return (
     <div className="segmento-listado-productos">
       <div className="grid-container-listado-home">
-      {paginatedProducts.length ? (
-        paginatedProducts[currentPage].map((producto, idRecurso) => {
-          // const puntos = getPuntosPromedioXIDRecurso(idRecurso);
-          // console.log("PUNTOS EN RENDERIZADO")
-          // console.log(puntos)
+        {paginatedProducts.length ? (
+          paginatedProducts[currentPage].map((producto, idRecurso) => {
+            // const puntos = getPuntosPromedioXIDRecurso(idRecurso);
+            // console.log("PUNTOS EN RENDERIZADO")
+            // console.log(puntos)
 
-          // const estrellas = puntos >= 1 && puntos <= 5 ? puntos : 0;
+            // const estrellas = puntos >= 1 && puntos <= 5 ? puntos : 0;
 
-          return (
-            <CardProducto
-              className=".item-grid-listado"
-              key={producto.idRecurso}
-              title={producto.nombre}
-              descripcion={producto.descripción}
-              url={producto.imagenURL}
-              precio={producto.precioUnitario}
-              puntuacion={puntuacionesPromedio[producto.idRecurso] || 0}
-              estrellas={producto.idRecurso}
-              sede={buscadorSedeXIDSede(producto.idSede)}
-              id={producto.idRecurso}
-              categoria={obtenerNombreCategoriaPorId(
-                producto.categoria_id,
-                productosBKLista,
-                categoriasLista
-              )}
-            />
-          );
-        })
-      ) : (
-        <>
-          <h3> No encontramos productos para recomendar </h3>
-          <h3>Los datos del carga son {productosBKLista.ListadoProductos}</h3>
-        </>
-      )}
-    </div>
+            return (
+              <CardProducto
+                className=".item-grid-listado"
+                key={producto.idRecurso}
+                title={producto.nombre}
+                descripcion={producto.descripción}
+                url={producto.imagenURL}
+                precio={producto.precioUnitario}
+                puntuacion={puntuacionesPromedio[producto.idRecurso] || 0}
+                estrellas={producto.idRecurso}
+                sede={buscadorSedeXIDSede(producto.idSede)}
+                id={producto.idRecurso}
+                categoria={obtenerNombreCategoriaPorId(
+                  producto.categoria_id,
+                  productosBKLista,
+                  categoriasLista
+                )}
+                listaFavXUserId={listaFavXUserId}
+              />
+            );
+          })
+        ) : (
+          <>
+            <Container sx={{placeItems:"center"}}>
+              <Stack style={{margin:"auto",display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", width:"60vw"}}>
+                <Typography variant="h4">
+                  {" "}
+                  No encontramos productos por el momento.{" "}
+                </Typography>
+                <Typography  variant="h4">Por favor, intente más tarde</Typography>
+                
+              </Stack>
+            </Container>
+          </>
+        )}
+      </div>
 
       <div className="paginacion">
         {currentPage > 0 ? (

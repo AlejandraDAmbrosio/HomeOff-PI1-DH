@@ -19,7 +19,6 @@ public class RegisterRequest {
     private String password;
     private String celular;
     private String direccion;
-    private String permisoedicion;
 
 
 }

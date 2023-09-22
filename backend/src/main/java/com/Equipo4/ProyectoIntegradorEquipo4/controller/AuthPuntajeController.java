@@ -1,6 +1,7 @@
 package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.Puntaje;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.PuntajeRespuesta;
 import com.Equipo4.ProyectoIntegradorEquipo4.service.IPuntajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,16 @@ public class AuthPuntajeController {
             return ResponseEntity.ok(promedio);
         } catch (Exception e) {
             String mensaje = "0";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
+        }
+    }
+    @PostMapping("puntaje/save")
+    public ResponseEntity<?> guardarPuntaje(@RequestBody Puntaje puntaje) {
+        try {
+            Puntaje resultado = puntajeService.guardarPuntaje(puntaje);
+            return ResponseEntity.ok(resultado);
+        } catch (Exception e) {
+            String mensaje = "Error al guardar el puntaje: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
     }

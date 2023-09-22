@@ -40,7 +40,7 @@ public class FavoritoRepository implements IFavoritoRepository {
     }
 
     @Override
-    public int guardarFavorito(Favorito favorito) {
+    public int save(Favorito favorito) {
         String SQL = "INSERT INTO offi_Favoritos (idUsuario, idRecurso, favorito, vigente, fecha_MarcacionFavorito) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         // Configura la zona horaria a UTC
@@ -59,6 +59,12 @@ public class FavoritoRepository implements IFavoritoRepository {
             return ps;
         }, keyHolder);
         return  Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+
+    @Override
+    public int update(Favorito favorito) {
+        String SQL = "UPDATE offi_Favoritos SET idUsuario=?, idRecurso=?, favorito=?, vigente=?, fecha_MarcacionFavorito=? WHERE id=?";
+        return jdbcTemplate.update(SQL, favorito.getIdUsuario(), favorito.getIdRecurso(), favorito.getFavorito(), favorito.getVigente(), favorito.getFecha_MarcacionFavorito(), favorito.getId());
     }
 
     @Override

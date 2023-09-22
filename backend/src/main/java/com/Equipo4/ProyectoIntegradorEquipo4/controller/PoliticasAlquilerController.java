@@ -35,7 +35,7 @@ public class PoliticasAlquilerController {
         }
     }
 
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody PoliticasAlquiler politicasAlquiler){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iPoliticasAlquilerService.save(politicasAlquiler);
@@ -53,7 +53,7 @@ public class PoliticasAlquilerController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iPoliticasAlquilerService.deleteById(id);

@@ -3,6 +3,8 @@ package com.Equipo4.ProyectoIntegradorEquipo4.controller;
 
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.Favorito;
 import com.Equipo4.ProyectoIntegradorEquipo4.entities.FavoritoRespuesta;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.PoliticasAlquiler;
+import com.Equipo4.ProyectoIntegradorEquipo4.entities.ServiceResponse;
 import com.Equipo4.ProyectoIntegradorEquipo4.service.IFavoritoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +45,16 @@ public class FavoritoController {
             String mensaje = "Error al guardar el favorito: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
         }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<ServiceResponse> update(@RequestBody Favorito favorito){
+        ServiceResponse serviceResponse = new ServiceResponse();
+        int result = iFavoritoService.update(favorito);
+        if(result ==1){
+            serviceResponse.setMessage("Favorito actualizado con exito");
+        }
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 
 }

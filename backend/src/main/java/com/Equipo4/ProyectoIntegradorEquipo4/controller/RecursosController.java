@@ -33,7 +33,7 @@ public class RecursosController {
         }
     }
 
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody Recursos recursos){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRecursosService.save(recursos);
@@ -51,7 +51,7 @@ public class RecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iRecursosService.deleteById(id);

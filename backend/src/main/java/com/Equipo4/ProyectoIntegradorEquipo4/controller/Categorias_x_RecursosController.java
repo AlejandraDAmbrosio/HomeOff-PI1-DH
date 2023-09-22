@@ -39,7 +39,7 @@ public class Categorias_x_RecursosController {
         }
     }
 
-    @PutMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<ServiceResponse> save(@RequestBody Categorias_x_Recurso categoriasXRecurso){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCategorias_x_recursosService.save(categoriasXRecurso);
@@ -57,7 +57,7 @@ public class Categorias_x_RecursosController {
         }
         return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<ServiceResponse> update(@PathVariable int id){
         ServiceResponse serviceResponse = new ServiceResponse();
         int result = iCategorias_x_recursosService.deleteById(id);

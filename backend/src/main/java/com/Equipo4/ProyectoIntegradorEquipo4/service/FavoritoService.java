@@ -14,13 +14,12 @@ import java.util.List;
 public class FavoritoService implements IFavoritoService {
 
     private final IFavoritoRepository iFavoritoRepository;
-    private final IRecursosRepository recursosRepository;
+    private final IRecursosRepository iRecursosRepository;
     private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    public FavoritoService(IFavoritoRepository iFavoritoRepository, IRecursosRepository recursosRepository, UsuarioRepository usuarioRepository) {
+    public FavoritoService(IFavoritoRepository iFavoritoRepository, IRecursosRepository iRecursosRepository, UsuarioRepository usuarioRepository) {
         this.iFavoritoRepository = iFavoritoRepository;
-        this.recursosRepository = recursosRepository;
+        this.iRecursosRepository = iRecursosRepository;
         this.usuarioRepository = usuarioRepository;
     }
 
@@ -28,7 +27,7 @@ public class FavoritoService implements IFavoritoService {
     public Favorito guardarFavorito(Favorito favorito) throws Exception {
         validarFavorito(favorito);
 
-        Recursos recurso = recursosRepository.findById(favorito.getIdRecurso())
+        Recursos recurso = iRecursosRepository.findById(favorito.getIdRecurso())
                 .orElseThrow(() -> new Exception("El recurso no existe"));
 
         Usuario usuario = usuarioRepository.findById(favorito.getIdUsuario())
@@ -38,10 +37,10 @@ public class FavoritoService implements IFavoritoService {
         nuevoFavorito.setIdUsuario(usuario.getIdUsuario());
         nuevoFavorito.setIdRecurso(recurso.getIdRecurso());
         nuevoFavorito.setFavorito(favorito.getFavorito());
-        nuevoFavorito.setFavorito(favorito.getVigente());
+        nuevoFavorito.setVigente(favorito.getVigente());
         nuevoFavorito.setFecha_MarcacionFavorito(favorito.getFecha_MarcacionFavorito());
 
-        int resultKey = iFavoritoRepository.guardarFavorito(nuevoFavorito);
+        int resultKey = iFavoritoRepository.save(nuevoFavorito);
         nuevoFavorito.setId(resultKey);
         System.out.println("INFO:" + nuevoFavorito.toString());
         System.out.println("INFO:" + nuevoFavorito.getId());
@@ -51,8 +50,8 @@ public class FavoritoService implements IFavoritoService {
 
     @Override
     public List<FavoritoRespuesta> devolverFavoritoPorUsuario(Integer IdUsuario) throws Exception {
-        Favorito favorito = iFavoritoRepository.findById(IdUsuario)
-                .orElseThrow(() -> new Exception("El recurso no existe"));
+        /*Favorito favorito = iFavoritoRepository.findById(IdUsuario)
+                .orElseThrow(() -> new Exception("El recurso no existe"));*/
 
         List<FavoritoRespuesta> favoritos = iFavoritoRepository.findAllByUsuario(IdUsuario);
 
@@ -62,6 +61,19 @@ public class FavoritoService implements IFavoritoService {
         }
 
         return favoritos;
+    }
+
+    @Override
+    public int update(Favorito favorito) {
+        int row;
+        try {
+            row = iFavoritoRepository.update(favorito);
+        }catch (Exception ex){
+            throw ex;
+        }
+        return row;
+
+
     }
 
     private void validarFavorito(Favorito favorito) throws Exception {

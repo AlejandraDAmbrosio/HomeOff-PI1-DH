@@ -16,7 +16,7 @@ const FormAltaUser = () => {
   const { usersLista, setUsersLista, getDatosUsers } =
     useContext(ContextGlobal);
   const textoBotonGuardarForm = "Crear Cuenta";
-  const urlBase = "http://54.214.104.150:8080/auth/register";
+  const urlBase = "http://52.32.210.155:8080/auth/register";
 
   //Repo de validaciones
   const [nombreValido, setNombreValido] = useState(true);
@@ -186,26 +186,17 @@ const FormAltaUser = () => {
       // Paquete de datos a enviar
 
       const nuevoUserData = {
-        nombrecompleto: usuario.nombre,
+        nombrecompleto: `${usuario.nombre} ${usuario.apellido}`,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
         username: usuario.email,
         password: usuario.password,
         celular: "0000000",
         direccion: "Falsa",
-        permisoedicion: "EDITAR",
+        // permisoedicion: "EDITAR",
       };
 
-      // const nuevoUserData = {
-      //   nombrecompleto: "PadreNuestroHard",
-      //   nombre: "PadreNuestroHard",
-      //   apellido: "PadreNuestroHard",
-      //   username: "PadreNuestroHrd@gmail.com",
-      //   password: "Papanatas.1",
-      //   celular: "256321548",
-      //   direccion: "siempre viva",
-      //   permisoedicion: "EDITAR"
-      // }
+ 
 
       console.log("Datos Enviados");
       console.log(nuevoUserData);
@@ -214,7 +205,7 @@ const FormAltaUser = () => {
 
       try {
         const response = await axios.post(
-          "http://54.214.104.150:8080/auth/register",
+          "http://52.32.210.155:8080/auth/register",
           nuevoUserData
         );
 
@@ -316,16 +307,16 @@ const FormAltaUser = () => {
   return (
     <Container
       
-      style={{ marginTop: "7rem", minHeight: "1000px", maxWidth: "330px" }}
+      style={{ marginTop: "0rem", minHeight: "760px", maxWidth: "330px" }}
     >
  
       <Stack
-      marginTop={{ xs: "18rem", sm: "18rem"}}
+      marginTop={{ xs: "8rem", sm: "8rem"}}
         style={{
           placeItems: "center",
           gap: "0rem",
           paddingBottom: "2rem",
-          minHeight: "1000px",
+          minHeight: "760px",
         }}
       >
         <Typography variant="h4" style={{ color: "#9dd6b3" }}>
@@ -429,7 +420,7 @@ const FormAltaUser = () => {
               onChange={onChangePassword}
               required
               margin="normal"
-              style={{ borderColor: passwordValido ? "" : "red" }}
+              style={{ borderColor: passwordValido ? "" : "#cc2e2e" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -462,7 +453,7 @@ const FormAltaUser = () => {
               onChange={onChangeConfirmacionPassword}
               required
               margin="normal"
-              style={{ borderColor: passwordValido ? "" : "red" }}
+              style={{ borderColor: passwordValido ? "" : "#cc2e2e" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -495,11 +486,11 @@ const FormAltaUser = () => {
             </h5>
           )}
         </form>
-        <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
+        {/* <Stack style={{ width: "350px", placeItems: "center", gap: "1rem" }}>
  
           <p>¿Se te olvidó tu contraseña?</p>
       
-        </Stack>
+        </Stack> */}
       </Stack>
     </Container>
   );
